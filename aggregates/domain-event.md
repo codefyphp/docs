@@ -4,6 +4,7 @@ state of the application. To take it a bit further beyond that, here is how Mart
 > The essence of a Domain Event is that you use it to capture things that can trigger a change to the state of the 
 > application you are developing. These event objects are then processed to cause changes to the system, and stored 
 > to provide an [Audit Log](https://www.martinfowler.com/eaaDev/AuditLog.html).
+>
 > 
 > Fowler, M. (2005, December 12). _Domain Event_. Martin fowler. https://www.martinfowler.com/eaaDev/DomainEvent.html
 
