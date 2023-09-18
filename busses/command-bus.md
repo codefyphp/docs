@@ -12,6 +12,7 @@ Command Bus?
 > executor object that actually does the running of the command. `$command = new CalculateChargesCommand($contract); 
 > $commandBus->execute($command);`
 >
+> 
 > Fowler, M. (2003, November 23). _CommandOrientedInterface_. Martin fowler. https://www.martinfowler.com/eaaDev/DomainEvent.html
 
 That ‘executor’ Martin mentions is what we call the command bus. The pattern typically consists of 3 classes:
