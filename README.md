@@ -1,6 +1,6 @@
 # CodefyPHP Framework Documentation
 
-The online version of Codefy's documentation can be found @ [https://codefyphp.com/](https://codefyphp.com/).
+The online version of Codefy's documentation can be found @ [https://codefyphp.com/documentation/](https://codefyphp.com/documentation/).
 
 ## Contribution Guidelines
 
