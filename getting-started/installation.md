@@ -12,20 +12,13 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   │   └── Console
     │   │       └── Kernel.php
     │   ├── Domain
-    │   │   └── User
-    │   │       ├── Command
-    │   │       ├── Error
-    │   │       ├── Event
-    │   │       ├── Query
-    │   │       ├── Repository
-    │   │       └── ValueObject
     │   ├── Infrastructure
     │   │   ├── Errors
     │   │   ├── Http
     │   │   │   ├── Controllers
     │   │   │   │   └── HomeController.php
     │   │   │   ├── Middleware
-    │   │   │   └── Routers
+    │   │   │   └── Routes
     │   │   ├── Persistence
     │   │   │   └── Repository
     │   │   └── Providers
@@ -41,6 +34,7 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   ├── database.php
     │   ├── filesystem.php
     │   ├── mailer.php
+    │   ├── routes.php
     │   └── view.php
     ├── database
     │   └── migrations

@@ -48,3 +48,31 @@ Run the Scheduler
 The `schedule:run` command starts the scheduler and will execute any schedules/tasks that are due.
 
     ❯ php codex schedule:run
+
+Scheduler List
+--------------
+
+The `schedule:list` command displays the list of registered jobs/tasks.
+
+    ❯ php codex schedule:list
+
+Run the Dev Server
+------------------
+
+`cd` into the root of your project and run the following command:
+
+    ❯ php codex serve
+
+Generate a Ulid string
+----------------------
+
+The `ddd:ulid` command is useful if you need to generate a Ulid string for testing or other purposes.
+
+    ❯ php codex ddd:ulid
+
+Generate a Uuid string
+----------------------
+
+The `ddd:uuid` command is useful if you need to generate a Uuid string for testing or other purposes.
+
+    ❯ php codex ddd:ulid
