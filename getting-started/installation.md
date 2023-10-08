@@ -1,8 +1,8 @@
-The easiest way to install CodefyPHP is to use composer by creating a new project using the 
-[skeleton app starter](https://github.com/codefyphp/skeleton). Make sure to substitute `project-name` for the name of 
+The easiest way to install CodefyPHP is to use composer by creating a new project using the current stable branch of 
+the [skeleton app starter](https://github.com/codefyphp/skeleton). Make sure to substitute `project-name` for the name of 
 your specific project.
 
-    composer create-project codefyphp/skeleton project-name
+    composer create-project codefyphp/skeleton:1.x project-name
 
 The architecture is pretty simple. The PSR-4 namespace is `App`, and under that namespace you can set the architecture 
 as you see fit. Below is a tree of the starter skeleton app:
