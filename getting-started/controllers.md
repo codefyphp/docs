@@ -15,13 +15,28 @@ Here is a simple example of a basic controller with an index method which respon
     declare(strict_types=1);
     
     namespace App\Infrastructure\Http\Controllers;
-    
+
     use Codefy\Framework\Http\BaseController;
+    use Psr\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ServerRequestInterface;
+    use Qubus\Http\Session\SessionService;
+    use Qubus\Routing\Router;
     use Qubus\View\Native\Exception\InvalidTemplateNameException;
     use Qubus\View\Native\Exception\ViewException;
+    use Qubus\View\Renderer;
     
     final class HomeController extends BaseController
     {
+        public function __construct(
+            SessionService $sessionService,
+            ServerRequestInterface $request,
+            ResponseInterface $response,
+            Router $router,
+            ?Renderer $view = null
+        ) {
+            parent::__construct($sessionService, $request, $response, $router, $view);
+        }
+
         /**
          * @throws ViewException
          * @throws InvalidTemplateNameException
@@ -124,16 +139,28 @@ class: `Codefy\Framework\Http\BaseController`.
     declare(strict_types=1);
     
     namespace App\Infrastructure\Http\Controllers;
-    
-    use Codefy\Framework\Http\BaseController;
-    use Qubus\Routing\Interfaces\ResourceController;
+
     use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+    use Codefy\Framework\Http\BaseController;
+    use Psr\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ServerRequestInterface;
+    use Qubus\Http\Session\SessionService;
+    use Qubus\Routing\Interfaces\ResourceController;
+    use Qubus\Routing\Router;
+    use Qubus\View\Renderer;
     
     class PostController extends BaseController implements ResourceController
     {
-        public function __construct()
-        {
-            $this->middleware(new AddHeaderMiddleware('X-Key1', 'abc');
+        public function __construct(
+            SessionService $sessionService,
+            ServerRequestInterface $request,
+            ResponseInterface $response,
+            Router $router,
+            ?Renderer $view = null
+        ) {
+            $this->middleware(AddHeaderMiddleware::class);
+
+            parent::__construct($sessionService, $request, $response, $router, $view);
         }
     
         public function index(): string
@@ -268,17 +295,38 @@ A middleware can be defined on your routes or in your controllers:
         }
     }
 
-Alternatively, you can use use `middleware` method in your Controller's constructor:
+Alternatively, you can use `middleware` method in your Controller's constructor:
+
+    <?php
+    
+    declare(strict_types=1);
+    
+    namespace App\Infrastructure\Http\Controllers;
+    
+    use App\Infrastructure\Http\Middleware\AuthMiddleware;
+    use Codefy\Framework\Http\BaseController;
+    use Psr\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ServerRequestInterface;
+    use Qubus\Http\Session\SessionService;
+    use Qubus\Routing\Router;
+    use Qubus\View\Renderer;
 
     class PostController extends BaseController implements ResourceController
     {
-        public function __construct()
-        {
-            $this->middleware(new AuthMiddleware());
+        public function __construct(
+            SessionService $sessionService,
+            ServerRequestInterface $request,
+            ResponseInterface $response,
+            Router $router,
+            ?Renderer $view = null
+        ) {
+            $this->middleware(AuthMiddleware::class);
+
+            parent::__construct($sessionService, $request, $response, $router, $view);
         }
     
         ```
     }
 
-This is just a brief introduction to using middlware. Check out the 
+This is just a brief introduction to using middleware. Check out the 
 [Middleware](https://codefyphp.com/knowledgebase/middleware/) page for more details.
