@@ -1,4 +1,6 @@
-A PSR-7/15 Middleware can be added to both routes, groups and controllers.
+A PSR-7/15 Middleware can be added to routes, groups, and controllers. To add a middleware to a route or controller, 
+you must add it as a class string (`AddHeaderMiddleware::class`) or as an alias (`csrf.token`) as defined in 
+`config/app.php`.
 
 ## Adding Middleware to Route
 
