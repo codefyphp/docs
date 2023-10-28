@@ -6,6 +6,8 @@ Escaping for inline javascript.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\esc_js;
     
     esc_js(string $string): string;
@@ -22,6 +24,8 @@ Return Value
 
 Example
 -------
+
+    <?php
 
     $esc_js = json_encode("Joshua's \"code\"");
     $attribute = esc_js("alert($esc_js);");

@@ -8,6 +8,8 @@ Works the same as PHP’s native `is_null()` function. If `$var` is not set, an 
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\is_null__;
     
     is_null__(mixed $var): bool;

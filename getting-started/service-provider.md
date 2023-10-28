@@ -7,6 +7,8 @@ The boot method is called after all service providers have been registered.
 
 Here is an example of a service provider that registers a config service:
 
+    <?php
+
     use Codefy\Framework\Support\CodefyServiceProvider;
     use Qubus\Config\Collection;
     use Qubus\Config\Configuration;

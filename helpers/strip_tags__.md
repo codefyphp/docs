@@ -9,7 +9,10 @@ This differs from PHP’s native `strip_tags()` function because this function r
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\strip_tags__;
+
     strip_tags__(
         string $string,
         bool $removeBreaks = false,
@@ -35,6 +38,8 @@ Return Value
 
 Example
 -------
+
+    <?php
 
     $string = '<b>sample</b> text with <div>tags</div>';
     

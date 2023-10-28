@@ -6,6 +6,8 @@ Escapes for textarea.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\esc_textarea;
     
     esc_textarea(string $string): string;

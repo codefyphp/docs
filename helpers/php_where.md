@@ -6,6 +6,8 @@ SQL Where operator in PHP.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\php_where;
     
     php_where(string $key, string $operator, mixed $pattern): bool;
@@ -26,6 +28,8 @@ Return Value
 
 Example
 -------
+
+    <?php
 
     // Where dog is in ['cat', 'bear', 'chicken', 'dog']
     php_where('dog', 'in', ['cat', 'bear', 'chicken', 'dog']); // true

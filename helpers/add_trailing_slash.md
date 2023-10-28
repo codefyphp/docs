@@ -9,6 +9,8 @@ double slashing a string or path.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\add_trailing_slash;
     
     add_trailing_slash(string $string): string;

@@ -8,6 +8,8 @@ If you were creating a `Post` aggregate, an identifier value object would be `Po
 `AggregateId` interface and implement its methods. However, it is highly recommended that you extend the abstract 
 implementation and implement AggregateId instead:
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Domain\Post\ValueObject;
@@ -35,6 +37,8 @@ implementation and implement AggregateId instead:
 
 The method `aggregateClassName` will be explained when we get to the section on creating an aggregate. But an 
 alternative to having `PostId` extend `Uuid`, you can use `Ulid` instead:
+
+    <?php
 
     declare(strict_types=1);
     
@@ -64,6 +68,8 @@ alternative to having `PostId` extend `Uuid`, you can use `Ulid` instead:
 Sample Usage
 ------------
 
+    <?php
+
     $postId = PostId::generateAsString(); //returns a string representation of Uuid
     //or
     $postId = PostId::fromString('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'); //returns a PostId object
@@ -72,6 +78,8 @@ Sample Usage
 
 Testing
 -------
+
+    <?php
 
     it(description: 'should be an instance of AggregateId.', closure: function () use ($postId) {
         Assert::assertInstanceOf(expected: AggregateId::class, actual: $postId);

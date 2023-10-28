@@ -6,6 +6,8 @@ Escapes a translated string to make it safe for HTML output.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\esc_html__;
     
     esc_html__(string $string, string $domain = 'qubus'): string;

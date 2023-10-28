@@ -90,6 +90,8 @@ controller, you can implement the resource controller interface: `Qubus\Routing\
 but you don't have to. You can extend the interface to override some of the methods and their parameters or 
 create your own interface based on the specifications of your project/application.
 
+    <?php
+
     namespace Qubus\Routing\Interfaces;
     
     use Psr\Http\Message\RequestInterface;
@@ -136,6 +138,8 @@ create your own interface based on the specifications of your project/applicatio
 If you want to use middleware in your resource controller, then your controller should extend the abstract controller 
 class: `Codefy\Framework\Http\BaseController`.
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Infrastructure\Http\Controllers;
@@ -173,6 +177,8 @@ class: `Codefy\Framework\Http\BaseController`.
 
 Register a resourceful route to the controller:
 
+    <?php
+
     final class WebRouteServiceProvider extends CodefyServiceProvider
     {
         /**
@@ -192,6 +198,8 @@ Register a resourceful route to the controller:
     }
 
 You can register multiple resource controllers by passing in an array in the `resource` method:
+
+    <?php
 
     final class WebRouteServiceProvider extends CodefyServiceProvider
     {
@@ -230,6 +238,8 @@ You can register multiple resource controllers by passing in an array in the `re
 
 You can conveniently create controllers that will be consumed by an api by using the `apiResource` method:
 
+    <?php
+
     final class WebRouteServiceProvider extends CodefyServiceProvider
     {
         /**
@@ -249,6 +259,8 @@ You can conveniently create controllers that will be consumed by an api by using
     }
 
 You can register several api resources by passing in an array to the `apiResources` method:
+
+    <?php
 
     final class WebRouteServiceProvider extends CodefyServiceProvider
     {
@@ -274,6 +286,8 @@ You can register several api resources by passing in an array to the `apiResourc
 ## Controller Middleware
 
 A middleware can be defined on your routes or in your controllers:
+
+    <?php
 
     use App\Infrastructure\Http\Middleware\AuthMiddleware:
 

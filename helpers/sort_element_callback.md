@@ -6,6 +6,8 @@ Sorts a structured array by `Name` property.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\sort_element_callback;
     
     sort_element_callback(array $a, array $b): int;

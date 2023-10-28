@@ -30,6 +30,8 @@ Usage
 
 The example below demonstrates how a command bus design could handle registering a new Post in your system using Odin:
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Commands;
@@ -80,6 +82,8 @@ The example below demonstrates how a command bus design could handle registering
 When you pass a `Command` to `Odin::execute()`, Odin will automatically search for the relevant `CommandHandler` and 
 call the `handle()` method:
 
+    <?php
+
     $odin = new Odin;
     $odin->execute(command: new CreatePostCommand);
 
@@ -93,6 +97,8 @@ Want to implement your own method of automatically resolving handlers from comma
 `Codefy\CommandBus\CommandHandlerResolver` interface to modify the automatic resolution behavior.
 
 ### Handlers bound by class name
+
+    <?php
 
     use Codefy\CommandBus\Odin;
     use Codefy\CommandBus\NativeCommandHandlerResolver;
@@ -110,6 +116,8 @@ Want to implement your own method of automatically resolving handlers from comma
 
 Or, just pass your `CommandHandler` instance:
 
+    <?php
+
     $resolver->bindHandler(commandName: 'CreatePostCommand', handler: new CreatePostCommandHandler);
     
     $odin->execute(command: new CreatePostCommand);
@@ -118,6 +126,8 @@ Or, just pass your `CommandHandler` instance:
 
 Sometimes you might want to quickly write a handler for your `Command` without having to write a new class. With Odin 
 you can do this by passing an anonymous function as your handler:
+
+    <?php
 
     $resolver->bindHandler(commandName: 'CreatePostCommand', handler: function (Command $command) {
         /* ... */
@@ -130,9 +140,12 @@ you can do this by passing an anonymous function as your handler:
 Alternatively, you may want to simply allow a `Command` object to execute itself. To do this, just ensure your 
 `Command` class also implements `CommandHandler`:
 
+    <?php
+
     class SelfHandlingCommand implements Command, CommandHandler {
         public function handle(Command $command) { /* ... */ }
     }
+
     $odin->execute(command: new SelfHandlingCommand);
 
 Decorators
@@ -142,6 +155,8 @@ Imagine you want to log every command execution. You could do this by adding a c
 `CommandHandler`, however a much more elegant solution is to use decorators.
 
 Registering a decorator:
+
+    <?php
 
     $odin = new Odin(
         bus: new SynchronousCommandBus(),
@@ -162,6 +177,8 @@ command execution.
 `Codefy\CommandBus\TransactionalCommand` is being executed. (Read more under “Transactional Commands”)
 
 ### Registering multiple decorators:
+
+    <?php
 
     // Attach decorators when you instantiate
     $odin = new Odin(bus: new SynchronousCommandBus, decorators: [
@@ -199,6 +216,8 @@ where the `CommandQueueingDecorator` comes in to play.
 Firstly, to use the `CommandQueueingDecorator`, you must first implement the `CommandQueuer` interface with your 
 desired queue package:
 
+    <?php
+
     interface CommandQueuer {
         /**
          * Queue a Command for executing
@@ -210,15 +229,21 @@ desired queue package:
 
 Next, attach the `CommandQueueingDecorator` decorator:
 
+    <?php
+
     $odin = new Odin();
     $queuer = CreatePostCommandBusQueuer();
     $odin->pushDecorator(decorator: new CommandQueueingDecorator(queuer: $queuer));
 
 Then, implement `QueueableCommand` in any command which can be queued:
 
+    <?php
+
     CreatePostCommand implements Codefy\CommandBus\QueueableCommand {}
 
 Then use Odin as normal:
+
+    <?php
 
     $command = new CreatePostCommand();
     $odin->execute(command: $command);
@@ -245,6 +270,8 @@ Data is cached to a `psr/cache` (PSR-6) compatible cache library.
 > argument to the `CachingDecorator`. However, Odin has been tested with the [qubus/cache](https://github.com/QubusPHP/cache) 
 > library which is both PSR-6 and PSR-16 compliant.
 
+    <?php
+
     use Codefy\CommandBus\CommandBus;
     use Codefy\CommandBus\CacheableCommand;
     use Codefy\CommandBus\Decorators\CachingDecorator;
@@ -256,7 +283,6 @@ Data is cached to a `psr/cache` (PSR-6) compatible cache library.
             expiresAfter: 3600 // Time in seconds that values should be cached for. 3600 = 1 hour.
         )
     );
-    
     
         
     class FetchUserReportCommand implements CacheableCommand { }
@@ -290,6 +316,8 @@ In practice, this means that you if you nest a command execution inside a comman
 be executed until the first command has completed.
 
 Here’s an example:
+
+    <?php
 
     use Codefy\CommandBus\CommandBus;
     use Codefy\CommandBus\Command;
@@ -340,6 +368,8 @@ If you want to use your own Dependency Injection Container to control the actual
 class which implements `Codefy\CommandBus\Container` and pass it to the `CommandHandlerResolver` which is consumed by 
 `SynchronousCommandBus`.
 
+    <?php
+
     use Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver;
     use Codefy\CommandBus\Odin;
     use Codefy\CommandBus\Busses\SynchronousCommandBus;
@@ -358,6 +388,8 @@ class which implements `Codefy\CommandBus\Container` and pass it to the `Command
 However, if your command has a constructor which requires other instantiation of objects, then the above will not work. 
 Odin provides an implementation of `Container` based on [qubus/injector](https://github.com/QubusPHP/injector). The 
 easiest way is to use the container factor, and then pass a config into the container:
+
+    <?php
 
     use Codefy\CommandBus\Busses\SynchronousCommandBus;
     use Codefy\CommandBus\Container;

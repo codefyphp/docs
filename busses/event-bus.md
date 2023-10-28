@@ -9,6 +9,8 @@ time. How you process a queue goes beyond the scope of this documentation.
 
 To start off we must have a command and then a command handler to work with. First let’s start off with our `CreatePostCommand`:
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Domain\Commands;
@@ -45,6 +47,8 @@ depend on an `EventBus` implementation, or it can depend on `AggregateRepository
 `EventBus` and `AggregateRepository`/`EventSourcedAggregateRepository` should not be used in the same command handler. 
 The recommended use for `EventBus` is on a new creation of the aggregate, while 
 `AggregateRepository`/`EventSourcedAggregateRepository` should be used on changes/updates.
+
+    <?php
 
     declare(strict_types=1);
     
@@ -92,6 +96,8 @@ contain your projections and/or something that should be queued or acted upon at
 Something else to notice is `$post->clearRecordedEvents()`. When creating handlers that depend on `EventBus`, you need 
 to make sure to call the `clearRecordedEvents` method on the aggregate.
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Domain\Commands;
@@ -134,6 +140,8 @@ You can use `EventSourcedAggregateRepository` to meet the dependency, extend it,
 
 In the constructor, the `subscribe` method is called and the event bus will listen for the `PostSubscriber`. Below is a 
 simple implementation of `DomainEventSubscriber`.
+
+    <?php
 
     declare(strict_types=1);
     

@@ -9,6 +9,8 @@ TDD
 
 First, let’s write out a test to prove that a `TitleWasNullException` is thrown when we violate the invariant.
 
+    <?php
+
     use App\Domain\Post\Post;
     use App\Domain\Post\TitleWasNullException;
     use App\Domain\Post\ValueObject\PostId;
@@ -30,6 +32,8 @@ In the last section, we introduced the `Post` aggregate. We will now update the 
 to meet our invariant exception. As mentioned in the previous section when we created some value objects, the `Title` 
 value object inherits a few methods from the base class `StringLiteral`. One of those methods is `isEmpty()`. We can 
 use this method to protect our invariant.
+
+    <?php
 
     /**
      * @throws TitleWasNullException

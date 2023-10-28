@@ -4,6 +4,8 @@ Basic Routing
 Below is a basic example of setting up a route. The route’s first parameter is the uri, and the second parameter is a 
 closure or callback.
 
+    <?php
+
     /**
      * Step 1: Require autoloader and import a few needed classes.
      */
@@ -47,6 +49,8 @@ Closure Routing
 In passing a closure as a route handler, you need to pass in two arguments: `Psr\Http\Message\ServerRequestInterface` 
 and `Psr\Http\Message\ResponseInterface`. Qubus Router requires [Laminas/Diactoros](https://github.com/laminas/laminas-diactoros). 
 This library includes two classes that implement the two needed interfaces.
+
+    <?php
 
     /**
      * Step 1: Require autoloader and import a few needed classes.
@@ -92,6 +96,8 @@ Route Request
 
 The example below shows you how you can catch the request object.
 
+    <?php
+
     use Qubus\Http\ServerRequest;
     use Qubus\Http\Factories\JsonResponseFactory;
     
@@ -111,6 +117,8 @@ Route Response
 --------------
 
 The Router supports the following responses.
+
+    <?php
 
     use Qubus\Http\Factories\EmptyResponseFactory;
     use Qubus\Http\Factories\HtmlResponseFactory;
@@ -164,6 +172,8 @@ HTTP Methods
 Sometimes you might need to create a route that accepts multiple HTTP verbs. For this you can use the `map` method. 
 However, If you need to match all HTTP verbs, you can use the `any` method.
 
+    <?php
+
     $router->map(['GET', 'POST'], '/', function() {
       // ...
     });
@@ -175,6 +185,8 @@ However, If you need to match all HTTP verbs, you can use the `any` method.
 ### HTTP Verb Shortcuts
 
 In most typical cases, you will only need to use one HTTP verb. The following can be used in those cases:
+
+    <?php
 
     $router->get('test/route', function () {});
     $router->head('test/route', function () {});

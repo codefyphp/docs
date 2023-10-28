@@ -12,6 +12,8 @@ TDD
 
 Let’s test it out:
 
+    <?php
+
     use App\Domain\Post\Post;
     use App\Domain\Post\ValueObject\PostId;
     use App\Domain\Post\ValueObject\Title;

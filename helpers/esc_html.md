@@ -6,6 +6,8 @@ Escapes html.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\esc_html;
     
     esc_html(string $string): string;

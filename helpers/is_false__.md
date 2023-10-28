@@ -6,6 +6,8 @@ Checks if return is false.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\is_false__;
     
     is_false__(mixed $var): bool;

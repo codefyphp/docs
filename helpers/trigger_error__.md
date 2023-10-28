@@ -8,6 +8,8 @@ This function makes the error a little more understandable for the end user to t
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\trigger_error__;
     
     trigger_error__(string $message, int $level = E_USER_NOTICE): void;

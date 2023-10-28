@@ -5,6 +5,8 @@ TDD
 
 But first, let’s write out our tests:
 
+    <?php
+
     use App\Domain\Post\Post;
     use App\Domain\Post\Repository\PostRepository;
     use App\Domain\Post\ValueObject\PostId;
@@ -36,6 +38,8 @@ But first, let’s write out our tests:
 
 Implementation
 --------------
+
+    <?php
 
     use App\Domain\Post\Post;
     use Codefy\Domain\Aggregate\AggregateId;
