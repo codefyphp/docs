@@ -6,6 +6,8 @@ SQL Like operator in PHP.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\php_like;
     
     php_like(string $pattern, string $subject): bool;
@@ -24,6 +26,8 @@ Return Value
 
 Example
 -------
+
+    <?php
 
     php_like('%uc%','Lucy'); //true
     

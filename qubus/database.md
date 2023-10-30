@@ -2,6 +2,8 @@ CodefyPHP comes with two database instances. One is an [ORM Query Builder](https
 and the other is a [Dbal Query Builder](https://github.com/QubusPHP/dbal). The ORM query builder isn’t a true ORM. 
 What makes this one different is that you can call your database tables as methods:
 
+    <?php
+
     use Qubus\Exception\Exception;
     
     use function Codefy\Framework\Helpers\orm;
@@ -17,6 +19,8 @@ What makes this one different is that you can call your database tables as metho
     $posts = $orm->posts()->find();
 
 Alternatively, you can use the Dbal query builder:
+
+    <?php
 
     use Qubus\Exception\Exception;
     
@@ -43,6 +47,8 @@ multiple arrays to insert multiple records.
 
 ### Single Entry
 
+    <?php
+
     $post = $posts->insert([
         "title" => "CodefyPHP Framework",
         "content" => "The CodefyPHP framework is for domain driven development.",
@@ -51,6 +57,8 @@ multiple arrays to insert multiple records.
     ]);
 
 ### Multiple Entries
+
+    <?php
 
     $massPosts = $posts->insert([
         [
@@ -78,11 +86,15 @@ Update
 
 There are two ways to update a record, by using the active record pattern or by or by using the where clause.
 
+    <?php
+
     $post->update([
         "title" => "PHP 8.3"
     ]);
 
 The above can also be written as:
+
+    <?php
 
     $post->title = "PHP 8.3";
     $post->update();
@@ -91,9 +103,13 @@ You can use the alternative `save()` instead of `update()`.
 
 Or you can use the `set(array $data)` or `set($key, $value)`:
 
+    <?php
+
     $post->set('title','PHP 8.3')->update();
 
 For multiple entries using `set(array $data)` and `where($key, $value)`:
+
+    <?php
 
     $post->set([
         "content" => "PHP 8.3 is the greatest because..."
@@ -108,12 +124,16 @@ Save
 
 ### Insert
 
+    <?php
+
     $post = $orm->posts();
     $post->title = "PHP 8.3";
     $post->content = "PHP 8.3 is the greatest because...";
     $post->save();
 
 ### Update
+
+    <?php
 
     $post = $posts->findOne(3847);
     $post->title = "PHP 8.3 Update";
@@ -124,10 +144,14 @@ Delete
 
 ### Single Entry
 
+    <?php
+
     $post = $posts->reset()->findOne(3847);
     $post->delete();
 
 ### Multiple Entries
+
+    <?php
 
     $posts->where("title", "PHP 8.3")->delete();
 
@@ -136,11 +160,15 @@ Count
 
 Count all the entries based on `where()` filter:
 
+    <?php
+
     $allPosts = $posts->count();
      
     $count = $posts->where($x, $y)->count();
 
 Use count for a specific column name:
+
+    <?php
 
     $count = $posts->where($x, $y)->count('columnName');
 
@@ -149,12 +177,16 @@ Max
 
 Max based on `where()` filter:
 
+    <?php
+
     $max = $posts->where($x, $y)->max('columnName');
 
 Min
 ---
 
 Min based on where() filter:
+
+    <?php
 
     $min = $posts->where($x, $y)->min('columnName');
 
@@ -163,6 +195,8 @@ Sum
 
 Sum based on `where()` filter:
 
+    <?php
+
     $sum = $posts->where($x, $y)->sum('columnName');
 
 Avg
@@ -170,10 +204,14 @@ Avg
 
 Avg based on `where()` filter:
 
+    <?php
+
     $avg = $posts->where($x, $y)->avg('columnName');
 
 Aggregate
 ---------
+
+    <?php
 
     $agg = $posts->where($x, $y)->aggregate('GROUP_CONCAT columnName');
 
@@ -186,14 +224,20 @@ The fluent query feature of the ORM query builder allows you to write simple que
 
 Returns a single record is found otherwise it will return false.
 
+    <?php
+
     $post = $posts->where(condition: 'postID', parameters: 364)
         ->findOne();
 
 You can achieve the same above by using only the primary key and dropping the where filter.
 
+    <?php
+
     $post = $posts->findOne(364);
 
 Retrieving the entry:
+
+    <?php
 
     if ($post) {
         echo " $post->title";
@@ -207,6 +251,8 @@ Retrieving the entry:
 
 Find returns and ArrayIterator of rows found, otherwise it will return false.
 
+    <?php
+
     $allPosts = $posts->where(condition: 'title', parameters: 'PHP 8.3')
         ->find();
     
@@ -219,6 +265,8 @@ Find returns and ArrayIterator of rows found, otherwise it will return false.
     }
 
 Find also accepts a closure ( find(Closure $callback) ) to perform data manipulation.
+
+    <?php
 
     $posts->where(condition: 'title', parameters: 'PHP 8.3');
     
@@ -238,9 +286,13 @@ Fluent Query Builder
 
 ### Select All
 
+    <?php
+
     $posts->select()
 
 ### Select Columns
+
+    <?php
 
     $posts->select(columns: "title, content")
         ->select(columns: "last_viewed");
@@ -254,6 +306,8 @@ using the AND operator. Use `or__()` to mimic the OR operator.
 
 ### Examples:
 
+    <?php
+
     $posts->where(condition: "title", parameters: "PHP 8.3");
     
     $posts->where(condition: "authorID > ?", parameters: 25);
@@ -264,49 +318,73 @@ using the AND operator. Use `or__()` to mimic the OR operator.
 
 ### Primary Key:
 
+    <?php
+
     $posts->wherePK(456);
 
 ### Not Equal To:
+
+    <?php
 
     $posts->whereNot('postID', 24);
 
 ### Like:
 
+    <?php
+
     $posts->whereLike('title', 'PH%');
 
 ### Not Like:
+
+    <?php
 
     $posts->whereNotLike('title', 'PH%');
 
 ### Greater Than:
 
+    <?php
+
     $posts->whereGt('timestamp', 2014-09-14);
 
 ### Greater Than Equal To:
+
+    <?php
 
     $posts->whereGte('timestamp', 2014-09-14);
 
 ### Less Than:
 
+    <?php
+
     $posts->whereLt('timestamp', 2014-09-14);
 
 ### Less Than Equal To:
+
+    <?php
 
     $posts->whereLte('timestamp', 2014-09-14);
 
 ### Where In:
 
+    <?php
+
     $posts->whereIn('authorID', ['2', '24']);
 
 ### Where Not In:
+
+    <?php
 
     $posts->whereNotIn('authorID', ['2', '24']);
 
 ### Where Null:
 
+    <?php
+
     $posts->whereNull('content');
 
 ### Where Not Null:
+
+    <?php
 
     $posts->whereNotNull('timestamp');
 
@@ -314,6 +392,8 @@ Where with OR and AND
 ---------------------
 
 Use `and__()` / `or__()` chained to any where clauses:
+
+    <?php
 
     $posts->where(condition: "authorID", parameters: 24)
         ->and__()->whereGte(columnName: "timestamp", value: '2014-09-14');
@@ -325,6 +405,8 @@ Use `and__()` / `or__()` chained to any where clauses:
 Order, Group, Limit, Offset
 ---------------------------
 
+    <?php
+
     $posts->orderBy(columnName: 'postID', ordering: 'DESC');
     
     $posts->groupBy(columnName: 'category');
@@ -335,6 +417,8 @@ Order, Group, Limit, Offset
 
 Joins
 -----
+
+    <?php
 
     /**
      * Defaults to LEFT JOIN, for others, use INNER, RIGHT, etc. as the

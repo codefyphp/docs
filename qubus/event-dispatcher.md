@@ -15,6 +15,8 @@ use it to send an email after a user registers to a site.
 
 First we need an event class:
 
+    <?php
+
     use Qubus\EventDispatcher\GenericEvent;
     
     final class MessageSent extends GenericEvent
@@ -33,6 +35,8 @@ First we need an event class:
 
 Next, you could create a `listener` or `subscriber`. For this example, I am going to use a subscriber. Subscribers 
 allow you to group together events rather than just one event via a listener.
+
+    <?php
 
     use Qubus\EventDispatcher\Event;
     use Qubus\EventDispatcher\EventSubscriber;
@@ -59,6 +63,8 @@ subscribed to. For the array, the key is the event name (`MessageSent::class`) a
 be called when the event is triggered, also know as the `listener method`.
 
 Now that we have our classes in place, create a file called `subscriber_event.php` and add the following:
+
+    <?php
 
     require('vendor/autoload.php');
     

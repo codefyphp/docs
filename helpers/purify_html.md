@@ -10,6 +10,8 @@ to escape with `esc_url()`.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\purify_html;
     
     purify_html(string $string, bool $isImage = false): string;

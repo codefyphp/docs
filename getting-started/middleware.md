@@ -1,4 +1,6 @@
-A PSR-7/15 Middleware can be added to both routes, groups and controllers.
+A PSR-7/15 Middleware can be added to routes, groups, and controllers. To add a middleware to a route or controller, 
+you must add it as a class string (`AddHeaderMiddleware::class`) or as an alias (`csrf.token`) as defined in 
+`config/app.php`.
 
 ## Adding Middleware to Route
 
@@ -31,7 +33,7 @@ At it's simplest, adding Middleware to a route can be done by passing an object 
             /** @var Router $router */
             $router = $this->codefy->make(name: 'router');
     
-            $router->get('/', 'HomeController@index')->middleware(new AddHeaderMiddleware('X-Key1', 'abc')));
+            $router->get('/', 'HomeController@index')->middleware(AddHeaderMiddleware::class);
         }
     }
 
@@ -66,9 +68,9 @@ Multiple middleware can be added by passing more parameters to the `middleware()
             $router = $this->codefy->make(name: 'router');
     
             $router->get('/', 'HomeController@index')->middleware(
-                new AddHeaderMiddleware('X-Key1', 'abc'),
-                new AuthMiddleware()
-            ));
+                AddHeaderMiddleware::class,
+                AuthMiddleware::class
+            );
         }
     }
 
@@ -103,9 +105,9 @@ Or alternatively, you can also pass an array of middleware:
             $router = $this->codefy->make(name: 'router');
     
             $router->get('/', 'HomeController@index')->middleware([
-                new AddHeaderMiddleware('X-Key1', 'abc'),
-                new AuthMiddleware()
-            ]));
+                AddHeaderMiddleware::class,
+                AuthMiddleware::class
+            ]);
         }
     }
 
@@ -140,7 +142,7 @@ If you would like to add a middleware that is going to affect all routes, then u
             /** @var Router $router */
             $router = $this->codefy->make(name: 'router');
     
-            $router->setBaseMiddleware([new AddHeaderMiddleware('X-Key1', 'abc')]);
+            $router->setBaseMiddleware([AddHeaderMiddleware::class]);
         }
     }
 
@@ -176,7 +178,7 @@ function instead of a string. You can add one middleware or an array of middlewa
             /** @var Router $router */
             $router = $this->codefy->make(name: 'router');
     
-            $router->group(['prefix' => 'my-prefix', 'middleware' => [new AddHeaderMiddleware('X-Key1', 'abc')]]), function ($group) {
+            $router->group(['prefix' => 'my-prefix', 'middleware' => [AddHeaderMiddleware::class]], function ($group) {
                 $group->map(['GET'], 'route1', function () {}); // `/my-prefix/route1`
                 $group->map(['GET'], 'route2', function () {}); // `/my-prefix/route2`
             });
@@ -190,36 +192,76 @@ You can also apply Middleware on a Controller class too. In order to do this you
 
 Middleware is added by calling the `middleware()` method in your Controller's `__construct()` method.
 
+    <?php
+
+    declare(strict_types=1);
+
+    namespace App\Infrastructure\Http\Controllers;
+    
+    use Codefy\Framework\Http\BaseController;
+    use Psr\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ServerRequestInterface;
+    use Qubus\Http\Session\SessionService;
+    use Qubus\Routing\Router;
+    use Qubus\View\Renderer;
+    
     class PostController extends BaseController
     {
-        public function __construct()
-        {
+        public function __construct(
+            SessionService $sessionService,
+            ServerRequestInterface $request,
+            ResponseInterface $response,
+            Router $router,
+            ?Renderer $view = null
+        ) {
             // Add one at a time
-            $this->middleware(new AddHeaderMiddleware('X-Key1', 'abc'));
-            $this->middleware(new AuthMiddleware());
+            $this->middleware(AddHeaderMiddleware::class);
+            $this->middleware(AuthMiddleware::class);
     
             // Add multiple with one method call
             $this->middleware([
-                new AddHeaderMiddleware('X-Key1', 'abc'),
-                new AuthMiddleware(),
+                AddHeaderMiddleware::class,
+                AuthMiddleware::class,
             ]);
+
+            parent::__construct($sessionService, $request, $response, $router, $view);
         }
     }
 
 By default, all Middlewares added via a Controller will affect all methods on that class. To limit what methods a 
 Middleware should be applied to, you can use `only()` and `except()`:
 
+    <?php
+
+    declare(strict_types=1);
+
+    namespace App\Infrastructure\Http\Controllers;
+    
+    use Codefy\Framework\Http\BaseController;
+    use Psr\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ServerRequestInterface;
+    use Qubus\Http\Session\SessionService;
+    use Qubus\Routing\Router;
+    use Qubus\View\Renderer;
+
     class PostController extends BaseController
     {
-        public function __construct()
-        {
+        public function __construct(
+            SessionService $sessionService,
+            ServerRequestInterface $request,
+            ResponseInterface $response,
+            Router $router,
+            ?Renderer $view = null
+        ) {
             // Only apply to `send()` method
-            $this->middleware(new AddHeaderMiddleware('X-Key1', 'abc'))->only('send');
+            $this->middleware(AddHeaderMiddleware::class)->only('send');
     
             // Apply to all methods except `show()` method
-            $this->middleware(new AuthMiddleware())->except('show');
+            $this->middleware(AuthMiddleware::class)->except('show');
     
             // Multiple methods can be provided in an array to both methods
-            $this->middleware(new AuthMiddleware())->except(['send', 'show']);
+            $this->middleware(AuthMiddleware::class)->except(['send', 'show']);
+
+            parent::__construct($sessionService, $request, $response, $router, $view);
         }
     }

@@ -3,7 +3,9 @@ rich models that help with the complexity of business rules and invariants.
 
 Throughout the aggregates section, you will learn how to build a domain rich eventsourced aggregate. Here is an example 
 of an eventsourced `Post` aggregate:
-        
+
+    <?php
+
     use App\Domain\Post\Exceptions\TitleWasNullException;
     use App\Domain\Post\ValueObject\PostId;
     use App\Domain\Post\ValueObject\Title;

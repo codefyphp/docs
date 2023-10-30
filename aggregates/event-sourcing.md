@@ -8,6 +8,8 @@ TDD
 
 Let’s write out a test when events are stored and then retrieved from the store.
 
+    <?php
+
     use App\Domain\Post\Post;
     use App\Domain\Post\ValueObject\PostId;
     use App\Domain\Post\ValueObject\Title;
@@ -46,6 +48,8 @@ Implement Interface
 
 We need to start updating our `Post` aggregate so that it can now be event sourced.
 
+    <?php
+
     declare(strict_types=1);
     
     namespace App\Domain\Post;
@@ -75,6 +79,8 @@ Reconstitute
 
 The `isEventSourced` interface requires us to implement the static method, `reconstituteFromEventStream(EventStream $aggregateHistory)`.
 
+    <?php
+
     public static function reconstituteFromEventStream(EventStream $aggregateHistory): RecordsEvents
     {
         $postId = $aggregateHistory->aggregateId();
@@ -103,6 +109,8 @@ Therefore, our aggregate needs a couple of new methods for this to work. Since o
 `PostWasCreated` and `TitleWasChanged`, the `when` method will automatically look for methods `whenPostWasCreated` and 
 `whenTitleWasChanged`. These methods manipulate state.
 
+    <?php
+
     protected function whenPostWasCreated(PostWasCreated $event): void
     {
         $this->postId = $event->aggregateId();
@@ -122,6 +130,8 @@ Update record Method
 Lastly, we need to make sure that newly recorded events are also applied to state. Therefore, we need to update our 
 `record` method:
 
+    <?php
+
     protected function recordThat(DomainEvent $event): void
     {
         $this->recordedEvents[] = $event;
@@ -130,6 +140,8 @@ Lastly, we need to make sure that newly recorded events are also applied to stat
     }
 
 Below is the new state of our aggregate class:
+
+    <?php
 
     final class Post implements RecordsEvents, IsEventSourced
     {

@@ -6,6 +6,8 @@ Concatenation with separator.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\concat_ws;
     
     concat_ws(string $string1, string $string2, string $separator = ',', ...$strings): string;

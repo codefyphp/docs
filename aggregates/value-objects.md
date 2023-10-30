@@ -5,6 +5,8 @@ value objects to create: `Title` and `Content`. To keep it simple, we will have 
 Title
 -----
 
+    <?php
+
     use Qubus\Exception\Data\TypeException;
     use Qubus\ValueObjects\StringLiteral\StringLiteral;
     
@@ -22,6 +24,8 @@ Title
 Content
 -------
 
+    <?php
+
     use Qubus\Exception\Data\TypeException;
     use Qubus\ValueObjects\StringLiteral\StringLiteral;
     
@@ -37,6 +41,8 @@ Content
     }
 
 `StringLiteral` has other methods to be aware of:
+
+    <?php
 
     /**
      * Returns a String object given a PHP native string as parameter.

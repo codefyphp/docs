@@ -76,6 +76,8 @@ In the above example, the frequency is set to daily, but there are many more flu
 You can also chain methods to create a more finely tuned schedule. This example shows a task running every day on 
 weekdays every 4 hours:
 
+    <?php
+
     $schedule->php(script: 'subscriber_event.php')
         ->weekdays()
         ->daily()
@@ -85,6 +87,8 @@ Literal Options
 ---------------
 
 You can also use literals when using the `alias` method:
+
+    <?php
 
     /**
      * Other literals to use.

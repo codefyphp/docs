@@ -6,6 +6,8 @@ Truncates a string to the given length. It will optionally preserve HTML tags if
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\truncate_string;
     
     truncate_string(string $string, int $limit, string $continuation = '...', bool $isHtml = false): string;

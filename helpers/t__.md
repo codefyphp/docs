@@ -6,6 +6,8 @@ Translates a string.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\t__;
     
     t__(string $msgid, string $domain = ''): string;

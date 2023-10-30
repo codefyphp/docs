@@ -6,6 +6,8 @@ Trims all whitespace.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\trim__;
     
     trim__(array|string $string): array|string|null;

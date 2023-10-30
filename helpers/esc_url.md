@@ -6,6 +6,8 @@ Escapes a url.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Security\Helpers\esc_url;
     
     esc_url(string $url, array $scheme = ['http', 'https'], bool $encode = false): string;

@@ -228,6 +228,8 @@ which returns an `AggregateId` object.
 Testing
 -------
 
+    <?php
+
     $event = PostWasCreated::withData(
         postId: PostId::fromNative('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'),
         title: new Title(value: 'New Post Title'),

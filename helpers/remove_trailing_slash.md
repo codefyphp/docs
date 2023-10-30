@@ -6,6 +6,8 @@ Removes trailing forward slashes and backslashes if they exist.
 Usage
 -----
 
+    <?php
+
     use function Qubus\Support\Helpers\remove_trailing_slash;
     
     remove_trailing_slash(string $string): string;

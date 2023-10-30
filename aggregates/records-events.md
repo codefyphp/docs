@@ -6,6 +6,8 @@ TDD
 
 Let’s do a simple test by using TDD.
 
+    <?php
+
     declare(strict_types=1);
     
     use App\Domain\Post\Events\PostWasCreated;
@@ -57,6 +59,8 @@ Post Implementation
 Now we are at the point where we can create our `Post` aggregate or domain model. We will keep it simple in order to 
 satisfy the tests. Let’s take it one step/method at a time:
 
+    <?php
+
     final class Post implements RecordsEvents
     {
     }
@@ -65,6 +69,8 @@ satisfy the tests. Let’s take it one step/method at a time:
 
 ### Private Constructor
 
+    <?php
+
     private function __construct(private PostId $postId)
     {
     }
@@ -72,6 +78,8 @@ satisfy the tests. Let’s take it one step/method at a time:
 The constructor is private to make it immutable. So we will have to instantiate the class by using a named constructor.
 
 ### createPost Method
+
+    <?php
 
     public static function createPost(PostId $postId, Title $title, Content $content): Post
     {
@@ -90,6 +98,8 @@ Our named constructor also records an event.
 
 ### changeTitle Method
 
+    <?php
+
     public function changeTitle(Title $title): void
     {
         $this->record(
@@ -106,6 +116,8 @@ Our second method also records an event.
 Now let’s implement a `record` method along with some other methods implemented from `RecordsEvents` (the `record` 
 method is not part of the `RecordsEvents` interface). It depends on how you want to implement these methods. They can 
 be implemented in the aggregate or via a trait.
+
+    <?php
 
     private function record(DomainEvent $event)
     {
@@ -143,6 +155,8 @@ We can use `hasRecordedEvents()` to check if there are any uncommitted events si
 `DomainEvents` is an immutable array or `DomainEvent` objects.
 
 So, let’s put all the pieces together to make up our `Post` aggregate/domain model:
+
+    <?php
 
     final class Post implements RecordsEvents
     {
