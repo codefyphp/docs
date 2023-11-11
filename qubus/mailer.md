@@ -141,4 +141,4 @@ The sender name and email is read from the environment (`.env`) file. You can ov
     (new Observer())->filter->addFilter('mail.from.name', fn() => 'My Business Name');
     
     //override sender email
-    (new Observer())->filter->applyFilter('mail.from.email', fn() => 'business@businessname.com');
+    (new Observer())->filter->addFilter('mail.from.email', fn() => 'business@businessname.com');
