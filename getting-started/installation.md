@@ -7,169 +7,169 @@ your specific project.
 The architecture is pretty simple. The PSR-4 namespace is `App`, and under that namespace you can set the architecture 
 as you see fit. Below is a tree of the starter skeleton app:
 
-├── App
-│   ├── Application
-│   │   └── Console
-│   │       └── Kernel.php
-│   ├── Domain
-│   │   └── User
-│   │       ├── Command
-│   │       │   ├── CreateUserCommandHandler.php
-│   │       │   ├── CreateUserCommand.php
-│   │       │   ├── UpdateUserCommandHandler.php
-│   │       │   └── UpdateUserCommand.php
-│   │       ├── Error
-│   │       ├── Event
-│   │       │   ├── EmailAddressWasChanged.php
-│   │       │   ├── NameWasChanged.php
-│   │       │   ├── PasswordWasChanged.php
-│   │       │   └── UserWasCreated.php
-│   │       ├── Query
-│   │       │   ├── FindUserByIdQueryHandler.php
-│   │       │   ├── FindUserByIdQuery.php
-│   │       │   ├── FindUserQueryHandler.php
-│   │       │   └── FindUserQuery.php
-│   │       ├── Repository
-│   │       │   └── UserRepository.php
-│   │       ├── Services
-│   │       │   ├── DatabaseUserProjection.php
-│   │       │   ├── UserAuth.php
-│   │       │   └── UserSession.php
-│   │       ├── User.php
-│   │       ├── UserProjection.php
-│   │       └── ValueObject
-│   │           ├── UserId.php
-│   │           └── UserToken.php
-│   ├── Event
-│   ├── Infrastructure
-│   │   ├── Errors
-│   │   ├── Http
-│   │   │   ├── Controllers
-│   │   │   │   ├── AdminController.php
-│   │   │   │   └── HomeController.php
-│   │   │   ├── Middleware
-│   │   │   │   ├── CorsMiddleware.php
-│   │   │   │   ├── Csrf
-│   │   │   │   │   ├── CsrfProtectionMiddleware.php
-│   │   │   │   │   ├── CsrfSession.php
-│   │   │   │   │   ├── CsrfTokenMiddleware.php
-│   │   │   │   │   ├── helpers.php
-│   │   │   │   │   └── Traits
-│   │   │   │   │       └── CsrfTokenAware.php
-│   │   │   │   ├── HoneyPotMiddleware.php
-│   │   │   │   ├── LoggingMiddleware.php
-│   │   │   │   ├── SecureHeaders
-│   │   │   │   │   ├── ContentSecurityPolicyMiddleware.php
-│   │   │   │   │   └── SecureHeaders.php
-│   │   │   │   └── UserSessionMiddleware.php
-│   │   │   └── Routes
-│   │   ├── Persistence
-│   │   │   ├── OrmTransactionalEventStore.php
-│   │   │   └── Repository
-│   │   └── Providers
-│   │       ├── ApiRouteServiceProvider.php
-│   │       ├── AppServiceProvider.php
-│   │       ├── MiddlewareServiceProvider.php
-│   │       ├── Psr16ServiceProvider.php
-│   │       └── WebRouteServiceProvider.php
-│   └── Shared
-│       ├── Http
-│       │   └── RequestMethod.php
-│       └── ValueObject
-│           ├── TransactionUlid.php
-│           ├── UlidIdentity.php
-│           └── UuidIdentity.php
-├── bootstrap
-│   ├── app.php
-│   └── phpmig.php
-├── codex
-├── composer.json
-├── composer.lock
-├── config
-│   ├── app.php
-│   ├── auth.php
-│   ├── cache.php
-│   ├── commandbus.php
-│   ├── cookies.php
-│   ├── cors.php
-│   ├── csrf.php
-│   ├── database.php
-│   ├── filesystem.php
-│   ├── headers.php
-│   ├── mailer.php
-│   ├── routes.php
-│   ├── session.php
-│   └── view.php
-├── contents.php
-├── database
-│   └── migrations
-│       ├── 20220925064056_CreateUsersTable.php
-│       └── 20230901025725_CreateEventStoreTable.php
-├── default.php
-├── locale
-├── phpcs.xml
-├── phpunit.xml
-├── public
-│   ├── assets
-│   │   ├── css
-│   │   │   ├── admin.css
-│   │   │   ├── authforms.css
-│   │   │   ├── bootstrap.min.css
-│   │   │   ├── bootstrap.min.css.map
-│   │   │   ├── bootstrap.rtl.min.css
-│   │   │   ├── bootstrap.rtl.min.css.map
-│   │   │   └── cover.css
-│   │   ├── images
-│   │   │   └── codefyphp-cover.png
-│   │   └── js
-│   │       ├── admin.js
-│   │       ├── bootstrap.bundle.min.js
-│   │       ├── bootstrap.bundle.min.js.map
-│   │       ├── color-modes.js
-│   │       └── modes.js
-│   ├── favicon.png
-│   ├── frontend
-│   │   └── assets
-│   │       ├── css
-│   │       │   ├── layout.css
-│   │       │   ├── nucleus.css
-│   │       │   ├── pure.min.css
-│   │       │   └── slidebars.min.css
-│   │       ├── images
-│   │       │   └── email_campaign_smtp_issue.png
-│   │       └── js
-│   │           ├── frontpage-nav.min.js
-│   │           ├── scrolling.js
-│   │           └── slidebars.min.js
-│   └── index.php
-├── README.md
-├── resources
-│   └── views
-│       ├── backend
-│       │   ├── admin-layout.phtml
-│       │   ├── auth-layout.phtml
-│       │   ├── index.phtml
-│       │   ├── login.phtml
-│       │   ├── profile.phtml
-│       │   └── register.phtml
-│       ├── cache
-│       ├── frontend
-│       ├── home.phtml
-│       └── layout.phtml
-├── storage
-│   ├── app
-│   │   └── public
-│   ├── email
-│   ├── framework
-│   │   ├── cache
-│   │   ├── cookies
-│   │   ├── media
-│   │   ├── sessions
-│   │   └── views
-│   └── logs
-└── tests
-    ├── ExampleTest.php
-    └── Pest.php
+    ├── App
+    │   ├── Application
+    │   │   └── Console
+    │   │       └── Kernel.php
+    │   ├── Domain
+    │   │   └── User
+    │   │       ├── Command
+    │   │       │   ├── CreateUserCommandHandler.php
+    │   │       │   ├── CreateUserCommand.php
+    │   │       │   ├── UpdateUserCommandHandler.php
+    │   │       │   └── UpdateUserCommand.php
+    │   │       ├── Error
+    │   │       ├── Event
+    │   │       │   ├── EmailAddressWasChanged.php
+    │   │       │   ├── NameWasChanged.php
+    │   │       │   ├── PasswordWasChanged.php
+    │   │       │   └── UserWasCreated.php
+    │   │       ├── Query
+    │   │       │   ├── FindUserByIdQueryHandler.php
+    │   │       │   ├── FindUserByIdQuery.php
+    │   │       │   ├── FindUserQueryHandler.php
+    │   │       │   └── FindUserQuery.php
+    │   │       ├── Repository
+    │   │       │   └── UserRepository.php
+    │   │       ├── Services
+    │   │       │   ├── DatabaseUserProjection.php
+    │   │       │   ├── UserAuth.php
+    │   │       │   └── UserSession.php
+    │   │       ├── User.php
+    │   │       ├── UserProjection.php
+    │   │       └── ValueObject
+    │   │           ├── UserId.php
+    │   │           └── UserToken.php
+    │   ├── Event
+    │   ├── Infrastructure
+    │   │   ├── Errors
+    │   │   ├── Http
+    │   │   │   ├── Controllers
+    │   │   │   │   ├── AdminController.php
+    │   │   │   │   └── HomeController.php
+    │   │   │   ├── Middleware
+    │   │   │   │   ├── CorsMiddleware.php
+    │   │   │   │   ├── Csrf
+    │   │   │   │   │   ├── CsrfProtectionMiddleware.php
+    │   │   │   │   │   ├── CsrfSession.php
+    │   │   │   │   │   ├── CsrfTokenMiddleware.php
+    │   │   │   │   │   ├── helpers.php
+    │   │   │   │   │   └── Traits
+    │   │   │   │   │       └── CsrfTokenAware.php
+    │   │   │   │   ├── HoneyPotMiddleware.php
+    │   │   │   │   ├── LoggingMiddleware.php
+    │   │   │   │   ├── SecureHeaders
+    │   │   │   │   │   ├── ContentSecurityPolicyMiddleware.php
+    │   │   │   │   │   └── SecureHeaders.php
+    │   │   │   │   └── UserSessionMiddleware.php
+    │   │   │   └── Routes
+    │   │   ├── Persistence
+    │   │   │   ├── OrmTransactionalEventStore.php
+    │   │   │   └── Repository
+    │   │   └── Providers
+    │   │       ├── ApiRouteServiceProvider.php
+    │   │       ├── AppServiceProvider.php
+    │   │       ├── MiddlewareServiceProvider.php
+    │   │       ├── Psr16ServiceProvider.php
+    │   │       └── WebRouteServiceProvider.php
+    │   └── Shared
+    │       ├── Http
+    │       │   └── RequestMethod.php
+    │       └── ValueObject
+    │           ├── TransactionUlid.php
+    │           ├── UlidIdentity.php
+    │           └── UuidIdentity.php
+    ├── bootstrap
+    │   ├── app.php
+    │   └── phpmig.php
+    ├── codex
+    ├── composer.json
+    ├── composer.lock
+    ├── config
+    │   ├── app.php
+    │   ├── auth.php
+    │   ├── cache.php
+    │   ├── commandbus.php
+    │   ├── cookies.php
+    │   ├── cors.php
+    │   ├── csrf.php
+    │   ├── database.php
+    │   ├── filesystem.php
+    │   ├── headers.php
+    │   ├── mailer.php
+    │   ├── routes.php
+    │   ├── session.php
+    │   └── view.php
+    ├── contents.php
+    ├── database
+    │   └── migrations
+    │       ├── 20220925064056_CreateUsersTable.php
+    │       └── 20230901025725_CreateEventStoreTable.php
+    ├── default.php
+    ├── locale
+    ├── phpcs.xml
+    ├── phpunit.xml
+    ├── public
+    │   ├── assets
+    │   │   ├── css
+    │   │   │   ├── admin.css
+    │   │   │   ├── authforms.css
+    │   │   │   ├── bootstrap.min.css
+    │   │   │   ├── bootstrap.min.css.map
+    │   │   │   ├── bootstrap.rtl.min.css
+    │   │   │   ├── bootstrap.rtl.min.css.map
+    │   │   │   └── cover.css
+    │   │   ├── images
+    │   │   │   └── codefyphp-cover.png
+    │   │   └── js
+    │   │       ├── admin.js
+    │   │       ├── bootstrap.bundle.min.js
+    │   │       ├── bootstrap.bundle.min.js.map
+    │   │       ├── color-modes.js
+    │   │       └── modes.js
+    │   ├── favicon.png
+    │   ├── frontend
+    │   │   └── assets
+    │   │       ├── css
+    │   │       │   ├── layout.css
+    │   │       │   ├── nucleus.css
+    │   │       │   ├── pure.min.css
+    │   │       │   └── slidebars.min.css
+    │   │       ├── images
+    │   │       │   └── email_campaign_smtp_issue.png
+    │   │       └── js
+    │   │           ├── frontpage-nav.min.js
+    │   │           ├── scrolling.js
+    │   │           └── slidebars.min.js
+    │   └── index.php
+    ├── README.md
+    ├── resources
+    │   └── views
+    │       ├── backend
+    │       │   ├── admin-layout.phtml
+    │       │   ├── auth-layout.phtml
+    │       │   ├── index.phtml
+    │       │   ├── login.phtml
+    │       │   ├── profile.phtml
+    │       │   └── register.phtml
+    │       ├── cache
+    │       ├── frontend
+    │       ├── home.phtml
+    │       └── layout.phtml
+    ├── storage
+    │   ├── app
+    │   │   └── public
+    │   ├── email
+    │   ├── framework
+    │   │   ├── cache
+    │   │   ├── cookies
+    │   │   ├── media
+    │   │   ├── sessions
+    │   │   └── views
+    │   └── logs
+    └── tests
+        ├── ExampleTest.php
+        └── Pest.php
 
 Apache
 ------
