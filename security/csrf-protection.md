@@ -96,3 +96,13 @@ config/csrf.php:
 
 The CSRF token is stored in a session. As soon as the session expires, the application will automatically generate a new 
 session with a new token.
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

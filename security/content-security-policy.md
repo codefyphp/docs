@@ -16,3 +16,13 @@ config:
 When you add the above line to the configuration, it will override any other security policies and output:
 
     Content-Security-Policy: base-uri 'none'; default-src 'none'; child-src 'none'; connect-src 'none'; font-src 'none'
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

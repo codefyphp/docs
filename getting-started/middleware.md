@@ -198,9 +198,9 @@ Middleware is added by calling the `middleware()` method in your Controller's `_
 
     namespace App\Infrastructure\Http\Controllers;
     
+    use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+    use App\Infrastructure\Http\Middleware\AuthMiddleware;
     use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
     use Qubus\Http\Session\SessionService;
     use Qubus\Routing\Router;
     use Qubus\View\Renderer;
@@ -209,8 +209,6 @@ Middleware is added by calling the `middleware()` method in your Controller's `_
     {
         public function __construct(
             SessionService $sessionService,
-            ServerRequestInterface $request,
-            ResponseInterface $response,
             Router $router,
             ?Renderer $view = null
         ) {
@@ -224,7 +222,7 @@ Middleware is added by calling the `middleware()` method in your Controller's `_
                 AuthMiddleware::class,
             ]);
 
-            parent::__construct($sessionService, $request, $response, $router, $view);
+            parent::__construct($sessionService, $router, $view);
         }
     }
 
@@ -237,9 +235,9 @@ Middleware should be applied to, you can use `only()` and `except()`:
 
     namespace App\Infrastructure\Http\Controllers;
     
+    use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+    use App\Infrastructure\Http\Middleware\AuthMiddleware;
     use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
     use Qubus\Http\Session\SessionService;
     use Qubus\Routing\Router;
     use Qubus\View\Renderer;
@@ -248,8 +246,6 @@ Middleware should be applied to, you can use `only()` and `except()`:
     {
         public function __construct(
             SessionService $sessionService,
-            ServerRequestInterface $request,
-            ResponseInterface $response,
             Router $router,
             ?Renderer $view = null
         ) {
@@ -262,6 +258,16 @@ Middleware should be applied to, you can use `only()` and `except()`:
             // Multiple methods can be provided in an array to both methods
             $this->middleware(AuthMiddleware::class)->except(['send', 'show']);
 
-            parent::__construct($sessionService, $request, $response, $router, $view);
+            parent::__construct($sessionService, $router, $view);
         }
     }
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

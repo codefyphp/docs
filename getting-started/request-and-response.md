@@ -130,7 +130,7 @@ The `CookieCollection` primitive is used as the second argument.
     
     use Qubus\Http\Cookies\CookiesRequest;
     
-    $request = CookiesRequeat::set($request, CookieCollection::create('userId', '01HDYV2CNCE0F8RCSY8HADMS0M'));
+    $request = CookiesRequest::set($request, CookieCollection::create('userId', '01HDYV2CNCE0F8RCSY8HADMS0M'));
 
 #### Modify A Cookie Request
 
@@ -284,3 +284,12 @@ header when setting as well as expiring the cookie:
     
     CookiesResponse::set($response, $setCookie->expire());
 
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

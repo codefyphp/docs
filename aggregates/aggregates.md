@@ -113,5 +113,13 @@ of an eventsourced `Post` aggregate:
         
 There is a lot to unpack in the Post aggregate, but as you go through the rest of this section, you will begin to 
 understand its parts as it's broken down and explained.
-        
+
+Forum
+-----
+
 If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

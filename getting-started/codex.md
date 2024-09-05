@@ -75,4 +75,4 @@ Generate a Uuid string
 
 The `ddd:uuid` command is useful if you need to generate a Uuid string for testing or other purposes.
 
-    ❯ php codex ddd:ulid
+    ❯ php codex ddd:uuid

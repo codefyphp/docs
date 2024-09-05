@@ -17,8 +17,6 @@ Here is a simple example of a basic controller with an index method which respon
     namespace App\Infrastructure\Http\Controllers;
 
     use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
     use Qubus\Http\Session\SessionService;
     use Qubus\Routing\Router;
     use Qubus\View\Native\Exception\InvalidTemplateNameException;
@@ -29,12 +27,10 @@ Here is a simple example of a basic controller with an index method which respon
     {
         public function __construct(
             SessionService $sessionService,
-            ServerRequestInterface $request,
-            ResponseInterface $response,
             Router $router,
             ?Renderer $view = null
         ) {
-            parent::__construct($sessionService, $request, $response, $router, $view);
+            parent::__construct($sessionService, $router, $view);
         }
 
         /**
@@ -146,8 +142,6 @@ class: `Codefy\Framework\Http\BaseController`.
 
     use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
     use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
     use Qubus\Http\Session\SessionService;
     use Qubus\Routing\Interfaces\ResourceController;
     use Qubus\Routing\Router;
@@ -157,14 +151,12 @@ class: `Codefy\Framework\Http\BaseController`.
     {
         public function __construct(
             SessionService $sessionService,
-            ServerRequestInterface $request,
-            ResponseInterface $response,
             Router $router,
             ?Renderer $view = null
         ) {
             $this->middleware(AddHeaderMiddleware::class);
 
-            parent::__construct($sessionService, $request, $response, $router, $view);
+            parent::__construct($sessionService, $router, $view);
         }
     
         public function index(): string
@@ -319,8 +311,6 @@ Alternatively, you can use `middleware` method in your Controller's constructor:
     
     use App\Infrastructure\Http\Middleware\AuthMiddleware;
     use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
     use Qubus\Http\Session\SessionService;
     use Qubus\Routing\Router;
     use Qubus\View\Renderer;
@@ -329,14 +319,12 @@ Alternatively, you can use `middleware` method in your Controller's constructor:
     {
         public function __construct(
             SessionService $sessionService,
-            ServerRequestInterface $request,
-            ResponseInterface $response,
             Router $router,
             ?Renderer $view = null
         ) {
             $this->middleware(AuthMiddleware::class);
 
-            parent::__construct($sessionService, $request, $response, $router, $view);
+            parent::__construct($sessionService, $router, $view);
         }
     
         ```
@@ -344,3 +332,13 @@ Alternatively, you can use `middleware` method in your Controller's constructor:
 
 This is just a brief introduction to using middleware. Check out the 
 [Middleware](https://codefyphp.com/knowledgebase/middleware/) page for more details.
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

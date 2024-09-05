@@ -28,6 +28,7 @@ an be defined in the `schedule` method. The example below is an [event dispatche
         {
             $schedule->php(script: 'subscriber_event.php')->daily();
         }
+    }
 
 In addition to using the scheduler to run PHP scripts, you can also schedule [Codex](https://codefyphp.com/knowledgebase/codex/) 
 commands, system commands, custom registered commands, and shell commands.
@@ -119,3 +120,13 @@ You can also use literals when using the `alias` method:
      */
     
     $schedule->php(script: 'subscriber_event.php')->alias('@always');
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

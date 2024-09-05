@@ -1,4 +1,4 @@
-As explained in the Busses section, and event bus signals that something has happened. In CodefyPHP, the event bus can 
+As explained in the Busses section, an event bus signals that something has happened. In CodefyPHP, the event bus can 
 be used as a simple pub/sub. You can capture what has happened and then pass it on to a queue to be processed later.
 
 Let’s say for example that you want to send an email when ever a new post is created. If done synchronously, the user 
@@ -178,3 +178,13 @@ executing (i.e. inserting data into a database read table).
 
 The `save` method in our `PostRespository` is the same method injected into our `CreatePostCommandHandler`. Codefy 
 ships with an implementation of `EventStore` (memory only): `Codefy\EventBus\InMemoryEventStore`.
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

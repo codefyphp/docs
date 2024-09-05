@@ -252,4 +252,12 @@ Testing
         expect(value: $event->content())->toEqual(expected: new Content(value: 'Short content for this new post.'));
     });
 
+Forum
+-----
+
 If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

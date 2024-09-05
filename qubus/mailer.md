@@ -131,14 +131,12 @@ If you want to send a simple or quick email, you can utilize the `mail` function
     return $e->getMessage();
     }
 
-The sender name and email is read from the environment (`.env`) file. You can override it by adding filters:
+Forum
+-----
 
-    <?php
-    
-    use Qubus\EventDispatcher\ActionFilter\Observer;
-    
-    //override sender name
-    (new Observer())->filter->addFilter('mail.from.name', fn() => 'My Business Name');
-    
-    //override sender email
-    (new Observer())->filter->addFilter('mail.from.email', fn() => 'business@businessname.com');
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.

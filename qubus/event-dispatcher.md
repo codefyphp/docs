@@ -93,3 +93,13 @@ message: Congrats! Your account was created successfully.
 
 Working with an event dispatcher might not seem as simple as a hook/plugin system like you find in a CMS like WordPress, 
 but once you get the hang of it, you will see that it is pretty powerful.
+
+Forum
+-----
+
+If you have any questions or issues, please feel free to post to the [Documentation Forum](https://codefyphp.com/community/documentation/).
+
+SLA Support
+-----------
+
+If you are needing more hands on support, needing consultation, or help with setup, support me on [Github](https://github.com/sponsors/nomadicjosh) at $60 or more. Once you've sponsored me, you will receive an email on the best way to contact me to start your support.
