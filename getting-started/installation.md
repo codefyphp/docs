@@ -100,12 +100,10 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   ├── routes.php
     │   ├── session.php
     │   └── view.php
-    ├── contents.php
     ├── database
     │   └── migrations
     │       ├── 20220925064056_CreateUsersTable.php
     │       └── 20230901025725_CreateEventStoreTable.php
-    ├── default.php
     ├── locale
     ├── phpcs.xml
     ├── phpunit.xml
