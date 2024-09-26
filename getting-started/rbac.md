@@ -183,8 +183,8 @@ __Please note that permissions should be added and loaded before roles.__
     $perm2 = $rbac->addPermission('moderate_post', 'Can moderate posts');
     $perm3 = $rbac->addPermission('update_post', 'Can update posts');
     $perm4 = $rbac->addPermission('delete_post', 'Can delete posts');
-    $perm2->addChild($p3); // moderator can also update
-    $perm2->addChild($p4); // and delete posts
+    $perm2->addChild($perm3); // moderator can also update
+    $perm2->addChild($perm4); // and delete posts
 
 ### Create Role Hierarchy
 
@@ -200,7 +200,7 @@ __Please note that permissions should be added and loaded before roles.__
     <?php
 
     ...
-    $moderatorRole->addPermission($p2);
+    $moderatorRole->addPermission($perm2);
     ...
 
 ### Persist State
