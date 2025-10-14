@@ -1,0 +1,9 @@
+nav:
+  - Home: index.md
+  - Getting Started: getting-started
+  - Database: database
+  - Digging Deeper: digging-deeper
+  - Blog:
+    - blog/index.md
+  - API: api
+  - Forum: https://forum.codefyphp.com/

@@ -1,0 +1,113 @@
+# Project information
+site_name: CodefyPHP
+site_description: "Documentation that also shines"
+site_author: "Joshua P."
+site_url: https://codefyphp.com/docs/
+# Copyright
+copyright: 'Copyright &copy; 2025 Joshua Parker. All rights reserved.'
+# Repository
+repo_name: codefyphp/codefy
+repo_url: https://github.com/codefyphp/codefy
+edit_uri: edit/3.x/docs/
+# Configuration
+theme:
+  name: material
+  custom_dir: overrides
+  logo: images/CodefyLogoAvatar.png
+  icon:
+    previous: fontawesome/solid/angle-left
+    next: fontawesome/solid/angle-right
+    edit: material/pencil
+    view: material/eye
+  palette:
+    # Dark Mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: indigo
+      accent: deep purple
+
+    # Light Mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: purple
+      accent: indigo
+  show_title: true # show the title in the top bar
+  show_stargazers: true # show the stargazers in the top bar
+  favicon: images/favicon.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+
+extra:
+  generator: false
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+
+extra_css:
+  #- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/docco.min.css
+  #- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css
+  #- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/felipec.min.css
+  #- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/obsidian.min.css
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js
+  - javascript/init.js
+  - javascript/matomo.js
+
+plugins:
+  - blog:
+  - search:
+  - minify:
+      minify_html: true
+  - awesome-nav:
+      filename: awesome_nav.yml
+  - glightbox:
+  - mkdocs-nav-weight:
+      section_renamed: false
+      index_weight: -10
+      warning: true
+      reverse: false
+      headless_included: false
+      default_page_weight: 1000
+  - document-dates:
+      position: bottom         # Display position: top(after title) bottom(end of document)
+      type: date               # Date type: date datetime timeago, default: date
+      exclude: # List of excluded files
+        - temp.md              # Exclude specific file
+        - drafts/*             # Exclude all files in drafts folder, including subfolders
+        - blog/*
+      date_format: '%Y-%m-%d'  # Date format strings, e.g., %Y-%m-%d, %b %d, %Y
+      time_format: '%H:%M:%S'  # Time format strings (valid only if type=datetime)
+      show_author: true        # Author display mode: true(avatar) text(text) false(hidden)
+      recently-updated: true   # Whether to turn on recently updated data, default: false
+
+markdown_extensions:
+  codehilite:
+  admonition:
+  fenced_code:
+  footnotes:
+  pymdownx.highlight:
+    anchor_linenums: true
+    pygments_lang_class: true
+  pymdownx.inlinehilite:
+  pymdownx.blocks.details:
+  pymdownx.tabbed:
+  pymdownx.blocks.caption:
+  pymdownx.details:
+  pymdownx.superfences:

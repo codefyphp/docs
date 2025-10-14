@@ -1,0 +1,30 @@
+---
+title: is_null__
+sidebar_title: is_null__
+---
+
+Description
+-----------
+
+Checks if a variable is null.
+
+Works the same as PHP’s native `is_null()` function. If `$var` is not set, an `Undefined variable` notice will be thrown.
+
+Usage
+-----
+
+    <?php
+
+    use function Qubus\Support\Helpers\is_null__;
+    
+    is_null__(mixed $var): bool;
+
+Parameters
+----------
+
+**$var** (mixed) (required) Variable to check.
+
+Return Value
+------------
+
+(bool) Returns `true` if null, `false` otherwise.
