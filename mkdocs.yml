@@ -8,7 +8,7 @@ copyright: 'Copyright &copy; 2025 Joshua Parker. All rights reserved.'
 # Repository
 repo_name: codefyphp/codefy
 repo_url: https://github.com/codefyphp/codefy
-edit_uri: edit/3.x/docs/
+edit_uri: ../docs/edit/3.x/docs/
 # Configuration
 theme:
   name: material
