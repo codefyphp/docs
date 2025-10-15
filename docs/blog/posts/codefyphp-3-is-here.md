@@ -1,7 +1,7 @@
 ---
 title: CodefyPHP 3 Is Here
 date:
-  created: 2023-10-15 08:00:00
+  created: 2025-10-15 08:00:00
 authors: [nomadicjosh]
 description: CodefyPHP 3 is the newest release of the PHP web framework for building complex applications.
 ---
