@@ -4,6 +4,12 @@ sidebar_title: Arrays
 order: 28
 ---
 
+## Installation
+
+```shell
+composer require qubus/support
+```
+
 The `Qubus\Support\ArrayHelper` class is a set of helper functions for working with arrays. Instead of instantiating 
 the class, you can use Codefy's global property:
 

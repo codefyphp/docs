@@ -4,6 +4,12 @@ sidebar_title: Cookies
 weight: 13
 ---
 
+## Installation
+
+```shell
+composer require qubus/http
+```
+
 CodefyPHP Cookies tackles two problems, managing __Cookie__ *Request* headers and managing __Set-Cookie__ *Response* headers. 
 It does this by way of introducing a `Cookies` class to manage collections of `Cookie` instances and a `SetCookies` class to 
 manage collections of `SetCookie` instances.

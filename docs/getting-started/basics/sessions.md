@@ -4,6 +4,12 @@ sidebar_title: Sessions
 weight: 12
 ---
 
+## Installation
+
+```shell
+composer require qubus/http
+```
+
 CodefyPHP comes with two ways to work with sessions. You can work with native PHP sessions or a session abstraction 
 for PSR-7 with option of using a PSR-15 middleware backed by PSR-16 cache.
 

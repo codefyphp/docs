@@ -4,6 +4,12 @@ sidebar_title: Error Handling
 weight: 10
 ---
 
+## Installation
+
+```shell
+composer require qubus/error
+```
+
 The `debug` option in your `./config/app.php` configuration file determines how much information is shown based on 
 the set environment. This option is based on the `APP_DEBUG` setting in your environment file.
 

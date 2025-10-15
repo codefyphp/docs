@@ -4,6 +4,12 @@ sidebar_title: Response
 weight: 8
 ---
 
+## Installation
+
+```shell
+composer require qubus/http
+```
+
 `Qubus\Http\Request`, `Qubus\Http\Response`, and `Qubus\Http\ServerRequest` are all wrappers for [laminas-diactoros](https://docs.laminas.dev/laminas-diactoros/v3/api/). 
 Check out diactoros's documentation on its api and usage. Those classes provide an object-oriented way to interact with 
 HTTP requests and responses.

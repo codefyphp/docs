@@ -4,6 +4,12 @@ sidebar_title: RBAC
 weight: 14
 ---
 
+## Installation
+
+```shell
+composer require codefyphp/codefy
+```
+
 The Role-Based Access Control (RBAC) component provides role-based authorization abstraction for the CodefyPHP Framework.
 
 ## Introduction

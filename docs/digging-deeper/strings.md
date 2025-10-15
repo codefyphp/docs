@@ -4,6 +4,12 @@ sidebar_title: Strings
 order: 30
 ---
 
+## Installation
+
+```shell
+composer require qubus/support
+```
+
 Codefy includes a set of string helpers that you can use throughout your application if you deem them helpful.
 
 The class also contains multibyte agnostic versions of PHP's multibyte-aware functions in category 2, as defined on 

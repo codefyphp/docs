@@ -4,6 +4,12 @@ sidebar_title: Collections
 order: 21
 ---
 
+## Installation
+
+```shell
+composer require qubus/support
+```
+
 The `Qubus\Support\Collection\ArrayCollection` class provides a fluent way of working with arrays of data. We'll use 
 the `Qubus\Support\Helpers\collect` helper to create a new collection instance from the array, run the `strtoupper` 
 function on each element, and then remove all empty elements:
