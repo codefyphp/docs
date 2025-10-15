@@ -1,9 +1,9 @@
 ---
 title: Meet CodefyPHP
-summary: Build for growth. Ship with confidence.
+summary: The PHP web framework for complex systems
 sidebar_title: Introduction
 show_datetime: true
-description: Domain-Driven PHP framework for codefying and building complex applications using Domain-Driven Design, CQRS, and Event Sourcing
+description: CodefyPHP is a PHP web framework built for developers who need a simple, yet robust toolkit for building complex systems.
 keywords: codefyphp,framework,php-framework
 ---
 
