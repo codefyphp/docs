@@ -1,9 +1,9 @@
 ---
 title: Meet CodefyPHP
-summary: The PHP web framework for complex systems
+summary: The PHP web framework for complex applications
 sidebar_title: Introduction
 show_datetime: true
-description: CodefyPHP is a PHP web framework built for developers who need a simple, yet robust toolkit for building complex systems.
+description: CodefyPHP is a PHP web framework built for PHP architects who need a simple, yet robust toolkit for building complex applications.
 keywords: codefyphp,framework,php-framework
 ---
 
@@ -21,7 +21,7 @@ keywords: codefyphp,framework,php-framework
 
 First, let's unpack the name Codefy and what it means. The name Codefy is a derivative of the word `codify` which means
 to arrange into a systematic code according to a plan or system. This is the purpose of CodefyPHP as it pertains
-to Domain-Driven Design, ubiquitous language, and complex applications.
+to Domain-Driven Design and complex applications.
 
 CodefyPHP is a modern PHP framework designed to help you “codefy” complex ideas into powerful applications. 
 Built on Domain-Driven Design (DDD), CQRS, and Event Sourcing principles and philosophy, the framework gives you the 
@@ -33,5 +33,5 @@ projects right out of the box: [routing](getting-started/basics/routing.md), [vi
 [scheduling](digging-deeper/scheduler.md), [logging](getting-started/basics/logging.md), [security](getting-started/security/index.md), 
 [database migrations](database/migrations.md), and more.
 
-Whether you’re experimenting with a small prototype or architecting enterprise-grade software, CodefyPHP comes with you 
+Whether you’re experimenting with a small prototype or architecting enterprise-grade applications, CodefyPHP includes 
 the tools, structure, and freedom to bring your projects to life.
