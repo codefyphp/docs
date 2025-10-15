@@ -35,52 +35,53 @@ Usage
 
 The example below demonstrates how a command bus design could handle registering a new Post in your system using Odin:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
-    
-    namespace App\Commands;
-    
-    use Codefy\CommandBus\Command;
-    use Codefy\CommandBus\Odin;
-    use Codefy\Domain\Aggregate\AggregateRepository;
-    use App\Domain\Content;
-    use App\Domain\Post;
-    use App\Domain\PostId;
-    use App\Domain\Title;
-    
-    class CreatePostCommand implements Command
+declare(strict_types=1);
+
+namespace App\Domain\Post\Commands;
+
+use Codefy\CommandBus\Command;
+use Codefy\Domain\Aggregate\AggregateRepository;
+use App\Domain\Post;
+use App\Domain\Post\ValueObject\Content;
+use App\Domain\Post\ValueObject\PostId;
+use App\Domain\Post\ValueObject\Title;
+
+class CreatePostCommand implements Command
+{
+    public PostId $postId;
+    public Title $title;
+    public Content $content;
+}
+
+class CreatePostCommandHandler
+{
+    public function __construct(public readonly AggregateRepository $aggregateRepository)
     {
-        public PostId $postId;
-        public Title $title;
-        public Content $content;
     }
-    
-    class CreatePostCommandHandler
+
+    public function handle(CreatePostCommand $command): void
     {
-        public function __construct(public readonly AggregateRepository $aggregateRepository)
-        {
-        }
-    
-        public function handle(CreatePostCommand $command): void
-        {
-            $post = Post::createPostWithoutTap(
-                postId: $command->postId,
-                title: $command->title,
-                content: $command->content
-            );
-            $this->aggregateRepository->save(aggregate: $post);
-        }
+        $post = Post::createPostWithoutTap(
+            postId: $command->postId,
+            title: $command->title,
+            content: $command->content
+        );
+        $this->aggregateRepository->save(aggregate: $post);
     }
-    
-    $odin= new Odin();
-    
-    $createPostCommand = new CreatePostCommand();
-    $createPostCommand->postId = new PostId();
-    $createPostCommand->title = new Title(value: 'New Post Title');
-    $createPostCommand->content = new Content(value: 'Short form content.');
-    
-    $odin->execute(command: $createPostCommand);
+}
+
+$odin= new Odin();
+
+$createPostCommand = new CreatePostCommand();
+$createPostCommand->postId = new PostId();
+$createPostCommand->title = new Title(value: 'New Post Title');
+$createPostCommand->content = new Content(value: 'Short form content.');
+
+$odin->execute(command: $createPostCommand);
+```
 
 ### Automatic handler resolution
 
