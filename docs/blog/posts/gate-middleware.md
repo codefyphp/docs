@@ -19,6 +19,8 @@ you how to create a gate middleware for checking user permissions via your route
 Currently, in your CodefyPHP controllers, you probably have some code that looks like this:
 
 ```php
+<?php
+
 public function profile(ServerRequest $request): ResponseInterface
 {
     if (false === $this->user->can(permissionName: 'admin:dashboard', request: $request)) {
@@ -98,6 +100,8 @@ the user permission. The `UserAuth` class get resolved by the container.
 Now, lets work on filling in the `withArguments()` method:
 
 ```php
+<?php
+
 public function withArguments(?string $permission = null, ?string $redirect = null): static
 {
     $clone = clone $this;
@@ -119,6 +123,8 @@ First, we should check to see if the `permission` property is `null`. If it is, 
 a proper message:
 
 ```php
+<?php
+
 /**
  * @inheritDoc
  * @throws TypeException
@@ -142,6 +148,8 @@ statement checking for if the current user is logged in, and then checking to se
 permission:
 
 ```php
+<?php
+
 ///
 $permission = $this->user->can(permissionName: $this->permission, request: $request);
 
@@ -156,6 +164,8 @@ the user is authenticated, we also check to see if the user has the proper permi
 user can proceed forward. If both or one is false, then we need to redirect the user appropriately:
 
 ```php
+<?php
+
 if (false === $this->user->current() || false === $permission) {
     if (null !== $this->redirect) {
         return RedirectResponseFactory::create(uri: $this->redirect);
@@ -243,6 +253,8 @@ Now that we have our new middleware, how do we use it? Well, first we need to re
 `./config/app.php` under the `middlewares` key:
 
 ```php
+<?php
+
     /*
     |--------------------------------------------------------------------------
     | Middleware Aliases
@@ -262,6 +274,8 @@ middleware into or out of our injector/container.
 Now, let's add our middleware to a route that we want to protect.
 
 ```php title="file: ./routes/web/web.php"
+<?php
+
 return function (\Qubus\Routing\Psr7Router $router) {
     $router
         ->get(uri: '/admin/dashboard/', callback: 'AdminController@dashboard')
