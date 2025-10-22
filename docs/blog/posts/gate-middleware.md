@@ -2,6 +2,9 @@
 title: How to Create a Gate Middleware - Checking User Permissions
 date:
   created: 2025-10-18 13:15:00
+links: 
+  - getting-started/basics/middleware.md
+  - getting-started/basics/rbac.md
 authors: [nomadicjosh]
 description: Tutorial on how to create a gate middleware for checking user permissions via your routes.
 ---
