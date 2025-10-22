@@ -1,6 +1,6 @@
 # Project information
 site_name: CodefyPHP
-site_description: "The web framework for complex systems"
+site_description: "The web framework for complex applications"
 site_author: "Joshua P."
 site_url: https://codefyphp.com/docs/
 # Copyright
@@ -72,6 +72,11 @@ extra_javascript:
 plugins:
   - blog:
   - search:
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date.created
+        as_update: date.updated
   - minify:
       minify_html: true
   - awesome-nav:
