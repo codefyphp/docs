@@ -1,110 +1,60 @@
-***
-
 # Migration
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Migration\Migration`
 
-
-
 ## Properties
 
-
 ### version
-
-
 
 ```php
 protected int|string|null $version
 ```
 
-
-
-
-
-
 ***
 
 ### objectmap
-
-
 
 ```php
 protected ?\ArrayAccess $objectmap
 ```
 
-
-
-
-
-
 ***
 
 ### input
-
-
 
 ```php
 protected ?\Symfony\Component\Console\Input\InputInterface $input
 ```
 
-
-
-
-
-
 ***
 
 ### output
-
-
 
 ```php
 protected ?\Symfony\Component\Console\Output\OutputInterface $output
 ```
 
-
-
-
-
-
 ***
 
 ### dialogHelper
-
-
 
 ```php
 protected ?\Symfony\Component\Console\Helper\QuestionHelper $dialogHelper
 ```
 
-
-
-
-
-
 ***
 
 ### adapter
-
-
 
 ```php
 protected ?\Qubus\Expressive\Migration\Adapter\MigrationAdapter $adapter
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -114,22 +64,12 @@ Constructor
 final public __construct(int|string $version): mixed
 ```
 
-
-
-
-
 * This method is **final**.
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$version` | **int&#124;string** |  |
-
-
-
-
+| Parameter  | Type            | Description |
+|------------|-----------------|-------------|
+| `$version` | **int\|string** |             |
 
 ***
 
@@ -141,17 +81,6 @@ Init.
 public init(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### up
@@ -161,17 +90,6 @@ Do the migration.
 ```php
 public up(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -183,17 +101,6 @@ Undo the migration.
 public down(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getAdapter
@@ -203,17 +110,6 @@ Get adapter.
 ```php
 public getAdapter(): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -225,17 +121,6 @@ Get Version.
 public getVersion(): int|string|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setVersion
@@ -243,25 +128,14 @@ public getVersion(): int|string|null
 Set version.
 
 ```php
-public setVersion(int|string $version): \Qubus\Expressive\Migration\Migration
+public setVersion(int|string $version): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$version` | **int&#124;string** |  |
-
-
-
-
+| Parameter  | Type            | Description |
+|------------|-----------------|-------------|
+| `$version` | **int\|string** |             |
 
 ***
 
@@ -273,17 +147,6 @@ Get name.
 public getName(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getObjectMap
@@ -294,17 +157,6 @@ Get ObjectMap.
 public getObjectMap(): \ArrayAccess
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setObjectMap
@@ -312,25 +164,14 @@ public getObjectMap(): \ArrayAccess
 Set ObjectMap.
 
 ```php
-public setObjectMap(\ArrayAccess $objectmap): \Qubus\Expressive\Migration\Migration
+public setObjectMap(\ArrayAccess $objectmap): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$objectmap` | **\ArrayAccess** |  |
-
-
-
-
+| Parameter    | Type             | Description |
+|--------------|------------------|-------------|
+| `$objectmap` | **\ArrayAccess** |             |
 
 ***
 
@@ -342,17 +183,6 @@ Get Output.
 public getOutput(): \Symfony\Component\Console\Output\OutputInterface|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setOutput
@@ -360,25 +190,14 @@ public getOutput(): \Symfony\Component\Console\Output\OutputInterface|null
 Set Output.
 
 ```php
-public setOutput(\Symfony\Component\Console\Output\OutputInterface $output): \Qubus\Expressive\Migration\Migration
+public setOutput(\Symfony\Component\Console\Output\OutputInterface $output): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$output` | **\Symfony\Component\Console\Output\OutputInterface** |  |
-
-
-
-
+| Parameter | Type                                                  | Description |
+|-----------|-------------------------------------------------------|-------------|
+| `$output` | **\Symfony\Component\Console\Output\OutputInterface** |             |
 
 ***
 
@@ -390,17 +209,6 @@ Get Input.
 public getInput(): \Symfony\Component\Console\Input\InputInterface|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setInput
@@ -408,25 +216,14 @@ public getInput(): \Symfony\Component\Console\Input\InputInterface|null
 Set Input.
 
 ```php
-public setInput(\Symfony\Component\Console\Input\InputInterface $input): \Qubus\Expressive\Migration\Migration
+public setInput(\Symfony\Component\Console\Input\InputInterface $input): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$input` | **\Symfony\Component\Console\Input\InputInterface** |  |
-
-
-
-
+| Parameter | Type                                                | Description |
+|-----------|-----------------------------------------------------|-------------|
+| `$input`  | **\Symfony\Component\Console\Input\InputInterface** |             |
 
 ***
 
@@ -435,25 +232,14 @@ public setInput(\Symfony\Component\Console\Input\InputInterface $input): \Qubus\
 Ask for input.
 
 ```php
-public ask(\Symfony\Component\Console\Question\Question $question): mixed
+public ask(\Symfony\Component\Console\Question\Question $question): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$question` | **\Symfony\Component\Console\Question\Question** |  |
-
-
-
-
+| Parameter   | Type                                             | Description |
+|-------------|--------------------------------------------------|-------------|
+| `$question` | **\Symfony\Component\Console\Question\Question** |             |
 
 ***
 
@@ -465,22 +251,11 @@ Get something from the objectmap
 public get(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -492,17 +267,6 @@ Get Dialog Helper.
 public getDialogHelper(): \Symfony\Component\Console\Helper\QuestionHelper|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setDialogHelper
@@ -510,49 +274,21 @@ public getDialogHelper(): \Symfony\Component\Console\Helper\QuestionHelper|null
 Set Dialog Helper.
 
 ```php
-public setDialogHelper(\Symfony\Component\Console\Helper\QuestionHelper $dialogHelper): \Qubus\Expressive\Migration\Migration
+public setDialogHelper(\Symfony\Component\Console\Helper\QuestionHelper $dialogHelper): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$dialogHelper` | **\Symfony\Component\Console\Helper\QuestionHelper** |  |
-
-
-
-
+| Parameter       | Type                                                 | Description |
+|-----------------|------------------------------------------------------|-------------|
+| `$dialogHelper` | **\Symfony\Component\Console\Helper\QuestionHelper** |             |
 
 ***
 
 ### schema
 
-
-
 ```php
 public schema(): \Qubus\Expressive\Schema
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

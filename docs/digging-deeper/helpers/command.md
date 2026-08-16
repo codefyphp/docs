@@ -20,6 +20,11 @@ use function Codefy\Framework\Helpers\command;
 function command(Command $command): void;
 ```
 
+Parameters
+----------
+
+**$command** (`Codefy\CommandBus\Command`) (required) Command to pass through the command bus.
+
 ## Example
 
 ```php
@@ -39,8 +44,3 @@ $createPostCommand->content = new Content(value: 'Short form content.');
 
 command(command: $createPostCommand);
 ```
-
-Parameters
-----------
-
-**$command** (`Codefy\CommandBus\Command`) (required) Command to pass through the command bus.

@@ -1,19 +1,14 @@
-***
-
 # RecordsEvents
 
 An object that records the events that happened to it
 since the last time it was cleared, or since it was
 restored from persistence.
 
-
+***
 
 * Full name: `\Codefy\Domain\Aggregate\RecordsEvents`
 
-
-
 ## Methods
-
 
 ### aggregateId
 
@@ -22,17 +17,6 @@ Returns unique aggregate id.
 ```php
 public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -43,17 +27,6 @@ Determine whether the object's state has changed since the last clearRecordedEve
 ```php
 public hasRecordedEvents(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -66,17 +39,6 @@ restored from persistence. This does not include events that were recorded prior
 public getRecordedEvents(): \Codefy\Domain\EventSourcing\DomainEvents
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### clearRecordedEvents
@@ -87,19 +49,4 @@ Clears the record of new Domain Events. This doesn't clear the history of the ob
 public clearRecordedEvents(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

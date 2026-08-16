@@ -1,132 +1,77 @@
-***
-
 # ItemPool
 
-
-
-
+***
 
 * Full name: `\Qubus\Cache\Psr6\ItemPool`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Psr\Cache\CacheItemPoolInterface`](../../../Psr/Cache/CacheItemPoolInterface.md)
+  `CacheItemPoolInterface`
 * This class is a **Final class**
-
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`CACHE_FLAG`|public| |&quot;@psr6_&quot;|
+| Constant     | Visibility | Type | Value    |
+|--------------|------------|------|----------|
+| `CACHE_FLAG` | public     |      | "@psr6_" |
 
 ## Properties
 
-
 ### deferredItems
-
-
 
 ```php
 protected \Psr\Cache\CacheItemInterface[] $deferredItems
 ```
 
-
-
-
-
-
 ***
 
 ### adapter
-
-
 
 ```php
 private \Qubus\Cache\Adapter\CacheAdapter $adapter
 ```
 
-
-
-
-
-
 ***
 
 ### ttl
-
-
 
 ```php
 private int|null|\DateInterval $ttl
 ```
 
-
-
-
-
-
 ***
 
 ### namespace
-
-
 
 ```php
 private ?string $namespace
 ```
 
-
-
-
-
-
 ***
 
 ### autoCommitCount
-
-
 
 ```php
 private ?int $autoCommitCount
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(\Qubus\Cache\Adapter\CacheAdapter $adapter, int|null|\DateInterval $ttl = null, ?string $namespace = &#039;default&#039;, ?int $autoCommitCount = null): mixed
+public __construct(\Qubus\Cache\Adapter\CacheAdapter $adapter, int|null|\DateInterval $ttl = null, ?string $namespace = 'default', ?int $autoCommitCount = null): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$adapter` | **\Qubus\Cache\Adapter\CacheAdapter** |  |
-| `$ttl` | **int&#124;null&#124;\DateInterval** |  |
-| `$namespace` | **?string** |  |
-| `$autoCommitCount` | **?int** |  |
-
-
-
-
+| Parameter          | Type                                  | Description |
+|--------------------|---------------------------------------|-------------|
+| `$adapter`         | **\Qubus\Cache\Adapter\CacheAdapter** |             |
+| `$ttl`             | **int\|null\|\DateInterval**          |             |
+| `$namespace`       | **?string**                           |             |
+| `$autoCommitCount` | **?int**                              |             |
 
 ***
 
@@ -138,17 +83,6 @@ Commit any pending deferred items.
 public __destruct(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getItem
@@ -159,22 +93,11 @@ public __destruct(): mixed
 public getItem(string $key): \Psr\Cache\CacheItemInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -186,22 +109,11 @@ public getItem(string $key): \Psr\Cache\CacheItemInterface
 public getItems(array $keys = []): iterable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 ***
 
@@ -213,22 +125,11 @@ public getItems(array $keys = []): iterable
 public hasItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -240,17 +141,6 @@ public hasItem(string $key): bool
 public clear(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### deleteItem
@@ -261,22 +151,11 @@ public clear(): bool
 public deleteItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -288,22 +167,11 @@ public deleteItem(string $key): bool
 public deleteItems(array $keys): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 ***
 
@@ -315,27 +183,15 @@ public deleteItems(array $keys): bool
 public save(\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$item`   | **\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -347,27 +203,15 @@ public save(\Psr\Cache\CacheItemInterface $item): bool
 public saveDeferred(\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$item`   | **\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
-
-
 
 ***
 
@@ -379,49 +223,23 @@ public saveDeferred(\Psr\Cache\CacheItemInterface $item): bool
 public commit(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getTtl
-
-
 
 ```php
 protected getTtl(int|null|\DateInterval $ttl): ?int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$ttl` | **int&#124;null&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$ttl`    | **int\|null\|\DateInterval** |             |
 
 ***
 
-
 ## Inherited methods
-
 
 ### reservedKeyCharacters
 
@@ -431,17 +249,7 @@ Reserved key characters that should not be used in a cache key.
 final public reservedKeyCharacters(): string
 ```
 
-
-
-
-
 * This method is **final**.
-
-
-
-
-
-
 ***
 
 ### validateKey
@@ -452,27 +260,15 @@ Validates cache key.
 protected validateKey(string $key): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
-
-
 
 ***
 
@@ -484,22 +280,11 @@ Checks if key is hashed.
 protected isHashed(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -511,22 +296,11 @@ Affixes a prefix to the
 protected prefix(string $key): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -538,30 +312,14 @@ Validates an array of keys.
 protected validateKeys(array $keys): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

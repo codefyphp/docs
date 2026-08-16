@@ -1,99 +1,58 @@
-***
-
 # NativeSession
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Session\NativeSession`
 * This class implements:
-[`\Qubus\Http\Session\PhpSession`](./PhpSession.md)
-
+  [`\Qubus\Http\Session\PhpSession`](./PhpSession.md)
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`SESSION_OPTIONS`|protected| |[&#039;use_cookies&#039; =&gt; 1, &#039;cookie_secure&#039; =&gt; 1, &#039;cookie_lifetime&#039; =&gt; 360, &#039;cookie_path&#039; =&gt; &#039;/&#039;, &#039;cookie_domain&#039; =&gt; &#039;&#039;, &#039;use_only_cookies&#039; =&gt; 1, &#039;cookie_httponly&#039; =&gt; 1, &#039;use_strict_mode&#039; =&gt; 1, &#039;cache_limiter&#039; =&gt; &#039;nocache&#039;, &#039;cache_expire&#039; =&gt; 180, &#039;cookie_samesite&#039; =&gt; &#039;Lax&#039;]|
+| Constant          | Visibility | Type | Value                                                                                                                                                                                                                                                                       |
+|-------------------|------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SESSION_OPTIONS` | protected  |      | ['use_cookies' => 1, 'cookie_secure' => 1, 'cookie_lifetime' => 360, 'cookie_path' => '/', 'cookie_domain' => '', 'use_only_cookies' => 1, 'cookie_httponly' => 1, 'use_strict_mode' => 1, 'cache_limiter' => 'nocache', 'cache_expire' => 180, 'cookie_samesite' => 'Lax'] |
 
 ## Properties
 
-
 ### started
-
-
 
 ```php
 protected bool $started
 ```
 
-
-
-
-
-
 ***
 
 ### config
-
-
 
 ```php
 protected \Qubus\Config\ConfigContainer $config
 ```
 
-
-
-
-
-
 ***
 
 ### sessionId
-
-
 
 ```php
 protected ?string $sessionId
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Config\ConfigContainer $config, ?\SessionHandlerInterface $handler = null, ?string $sessionId = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **\Qubus\Config\ConfigContainer** |  |
-| `$handler` | **?\SessionHandlerInterface** |  |
-| `$sessionId` | **?string** |  |
-
-
-
-
+| Parameter    | Type                              | Description |
+|--------------|-----------------------------------|-------------|
+| `$config`    | **\Qubus\Config\ConfigContainer** |             |
+| `$handler`   | **?\SessionHandlerInterface**     |             |
+| `$sessionId` | **?string**                       |             |
 
 ***
 
@@ -105,27 +64,15 @@ Checks if session exists.
 public has(string $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Session name. |
-
-
-
+| Parameter | Type       | Description   |
+|-----------|------------|---------------|
+| `$name`   | **string** | Session name. |
 
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -137,27 +84,15 @@ Retrieve session.
 public get(string $name): string|array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Session name. |
-
-
-
+| Parameter | Type       | Description   |
+|-----------|------------|---------------|
+| `$name`   | **string** | Session name. |
 
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -169,28 +104,16 @@ Sets the session.
 public set(string $name, mixed $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Session name. |
-| `$value` | **mixed** | Value of the session set. |
-
-
-
+| Parameter | Type       | Description               |
+|-----------|------------|---------------------------|
+| `$name`   | **string** | Session name.             |
+| `$value`  | **mixed**  | Value of the session set. |
 
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -202,21 +125,9 @@ Returns an array of session configOptions.
 public configOptions(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`Exception`](../../Exception/Exception.md)
-
-
 
 ***
 
@@ -228,17 +139,6 @@ Returns true if sessions are enabled, and one exists.
 public isSessionActive(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### sessionId
@@ -249,22 +149,11 @@ Returns the current session id if it exists. If not, it will be set.
 public sessionId(string|null $id = null): string|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **string&#124;null** | Id of the session. |
-
-
-
-
+| Parameter | Type             | Description        |
+|-----------|------------------|--------------------|
+| `$id`     | **string\|null** | Id of the session. |
 
 ***
 
@@ -276,21 +165,9 @@ Updates the current session ID with a new one.
 public regenerateId(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -302,21 +179,9 @@ Starts a new session or resumes an existing session.
 public startSession(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -328,17 +193,6 @@ Returns the current session name.
 public currentSessionName(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### destroySession
@@ -348,17 +202,6 @@ Destroys all session data.
 ```php
 public destroySession(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -370,27 +213,15 @@ Destroy specific session data by key.
 public unsetSession(string $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -402,47 +233,21 @@ Returns all session data.
 public getAll(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
 ### clear
 
-
-
 ```php
 public clear(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`SessionException`](./SessionException.md)
-
-
 
 ***
 
@@ -454,19 +259,4 @@ Returns the session cookie parameters.
 public getCookieParameters(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

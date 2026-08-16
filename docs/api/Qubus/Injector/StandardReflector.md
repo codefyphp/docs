@@ -1,20 +1,12 @@
-***
-
 # StandardReflector
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\StandardReflector`
 * This class implements:
-[`\Qubus\Injector\Reflector`](./Reflector.md)
-
-
-
+  [`\Qubus\Injector\Reflector`](./Reflector.md)
 
 ## Methods
-
 
 ### getClass
 
@@ -24,31 +16,19 @@ Retrieves ReflectionClass instances, caching them for future retrieval.
 public getClass(string|object $class): \ReflectionClass
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string&#124;object** | Class name to retrieve the ReflectionClass from. |
-
+| Parameter | Type               | Description                                      |
+|-----------|--------------------|--------------------------------------------------|
+| `$class`  | **string\|object** | Class name to retrieve the ReflectionClass from. |
 
 **Return Value:**
 
 ReflectionClass object for the specified class.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
-
-
 
 ***
 
@@ -60,31 +40,19 @@ Retrieves and caches the constructor (ReflectionMethod) for the specified class.
 public getConstructor(string|object $class): \ReflectionMethod|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string&#124;object** | Class name to retrieve the constructor from. |
-
+| Parameter | Type               | Description                                  |
+|-----------|--------------------|----------------------------------------------|
+| `$class`  | **string\|object** | Class name to retrieve the constructor from. |
 
 **Return Value:**
 
 ReflectionMethod for the constructor of the specified class.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
-
-
 
 ***
 
@@ -96,31 +64,19 @@ Retrieves and caches an array of constructor parameters for the given class
 public getConstructorParams(string|object $class): \ReflectionParameter[]|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string&#124;object** | Class name to retrieve the constructor arguments from. |
-
+| Parameter | Type               | Description                                            |
+|-----------|--------------------|--------------------------------------------------------|
+| `$class`  | **string\|object** | Class name to retrieve the constructor arguments from. |
 
 **Return Value:**
 
 Array of ReflectionParameter objects for the given class' constructor.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
-
-
 
 ***
 
@@ -132,27 +88,16 @@ Retrieves the class type-hint from a given ReflectionParameter.
 public getParamTypeHint(\ReflectionFunctionAbstract $function, \ReflectionParameter $param): string|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$function` | **\ReflectionFunctionAbstract** | Reflection object for the function. |
-| `$param` | **\ReflectionParameter** | Reflection object for the parameter. |
-
+| Parameter   | Type                            | Description                          |
+|-------------|---------------------------------|--------------------------------------|
+| `$function` | **\ReflectionFunctionAbstract** | Reflection object for the function.  |
+| `$param`    | **\ReflectionParameter**        | Reflection object for the parameter. |
 
 **Return Value:**
 
 Type-hint of the class. Null if none available.
-
-
-
 
 ***
 
@@ -164,31 +109,19 @@ Retrieves and caches a reflection for the specified function
 public getFunction(string|\Closure $functionName): \ReflectionFunction
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$functionName` | **string&#124;\Closure** | Name of the function to get a reflection for. |
-
+| Parameter       | Type                 | Description                                   |
+|-----------------|----------------------|-----------------------------------------------|
+| `$functionName` | **string\|\Closure** | Name of the function to get a reflection for. |
 
 **Return Value:**
 
 ReflectionFunction object for the specified function.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
-
-
 
 ***
 
@@ -200,35 +133,19 @@ Retrieves and caches a reflection for the specified class method
 public getMethod(string|object $classNameOrInstance, string $methodName): \ReflectionMethod
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$classNameOrInstance` | **string&#124;object** | Class name or instance the method is referring to. |
-| `$methodName` | **string** | Name of the method to get the reflection for. |
-
+| Parameter              | Type               | Description                                        |
+|------------------------|--------------------|----------------------------------------------------|
+| `$classNameOrInstance` | **string\|object** | Class name or instance the method is referring to. |
+| `$methodName`          | **string**         | Name of the method to get the reflection for.      |
 
 **Return Value:**
 
 ReflectionMethod object for the specified method.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

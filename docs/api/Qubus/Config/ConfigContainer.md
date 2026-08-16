@@ -1,17 +1,12 @@
-***
-
 # ConfigContainer
 
-
-
-
+***
 
 * Full name: `\Qubus\Config\ConfigContainer`
-
-
+* Parent interfaces:
+  `ValueType`
 
 ## Methods
-
 
 ### getConfigKey
 
@@ -21,28 +16,16 @@ Get an item from current configuration.
 public getConfigKey(string $key, mixed|null $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$default` | **mixed&#124;null** |  |
-
-
-
+| Parameter  | Type            | Description |
+|------------|-----------------|-------------|
+| `$key`     | **string**      |             |
+| `$default` | **mixed\|null** |             |
 
 **Throws:**
 
-- [`Exception`](../Exception/Exception.md)
-
-
+- [`TypeException`](../Exception/Data/TypeException.md)
 
 ***
 
@@ -54,23 +37,12 @@ Set an item in current configuration.
 public setConfigKey(string $key, mixed $value): void|self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
+| `$value`  | **mixed**  |             |
 
 ***
 
@@ -82,25 +54,10 @@ Checks if a key exists.
 public hasConfigKey(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

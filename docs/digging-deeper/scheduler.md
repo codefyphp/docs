@@ -10,32 +10,36 @@ triggered by a single cron job, which will be discussed later.
 Define a Schedule
 -----------------
 
-In order to define a schedule, you will need to open `App/Application/Console/Kernel.php`. All of your scheduled tasks 
+In order to define a schedule, you will need to open `Application/Console/Kernel.php`. All of your scheduled tasks 
 can be defined in the `schedule` method. The example below is of a legacy 
 [event dispatcher](event-dispatcher.md#legacy-event-dispatcher) task script that runs daily:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->php(script: 'subscriber_event.php')->daily();
-        }
+        $schedule
+            ->php(script: 'subscriber_event.php')
+            ->daily();
     }
+}
+```
 
 In addition to using the scheduler to run PHP scripts, you can also schedule [Codex](../getting-started/codex.md) 
 commands, system commands, custom registered commands, and shell commands.
@@ -84,191 +88,212 @@ In the above example, the frequency is set to daily, but there are many more flu
 You can also chain methods to create a more finely tuned schedule. This example shows a task running every day on 
 weekdays every 4 hours:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->php(script: 'subscriber_event.php')
-                ->weekdays()
-                ->daily()
-                ->everyHour(4);
-        }
+        $schedule
+            ->php(script: 'subscriber_event.php')
+            ->weekdays()
+            ->daily()
+            ->everyHour(4);
     }
+}
+```
 
 Literal Options
 ---------------
 
 You can also use literals when using the `alias` method:
 
-    <?php
+```php
+<?php
 
-    /**
-     * Other literals to use.
-     * 
-     * @always - every minute
-     * @weekdays
-     * @weekends
-     * @quarterly
-     * @sunday
-     * @monday
-     * @tuesday
-     * @wednesday
-     * @thursday
-     * @friday
-     * @saturday
-     * @january
-     * @february
-     * @march
-     * @april
-     * @may
-     * @june
-     * @july
-     * @august
-     * @september
-     * @october
-     * @november
-     * @december
-     */
-    
-    $schedule->php(script: 'subscriber_event.php')->alias('@always');
+/**
+ * Other literals to use.
+ * 
+ * @always - every minute
+ * @weekdays
+ * @weekends
+ * @quarterly
+ * @sunday
+ * @monday
+ * @tuesday
+ * @wednesday
+ * @thursday
+ * @friday
+ * @saturday
+ * @january
+ * @february
+ * @march
+ * @april
+ * @may
+ * @june
+ * @july
+ * @august
+ * @september
+ * @october
+ * @november
+ * @december
+ */
+
+$schedule
+    ->php(script: 'subscriber_event.php')
+    ->alias('@always');
+```
 
 ## Scheduling Tasks
 
 You can schedule tasks objects by creating a new class and extend `Codefy\Framework\Scheduler\BaseTask`:
 
-    <?php
-    
-    use Codefy\Framework\Scheduler\BaseTask;
-    
-    class DummyTask extends BaseTask
+```php
+<?php
+
+use Codefy\Framework\Scheduler\BaseTask;
+
+class DummyTask extends BaseTask
+{
+    /**
+     * Called before a task is executed.
+     */
+    public function setUp(): void
     {
-        /**
-         * Called before a task is executed.
-         */
-        public function setUp(): void
-        {
-            // do something before execute is called.
-        }
-    
-        /**
-         * Executes a task.
-         */
-        public function execute(Schedule $schedule): void
-        {
-            // do the task
-        }
-    
-        /**
-         * Called after a task is executed.
-         */
-        public function tearDown(): void
-        {
-            // cleanup after execute is called.
-        }
+        // do something before execute is called.
     }
+
+    /**
+     * Executes a task.
+     */
+    public function execute(Schedule $schedule): void
+    {
+        // do the task
+    }
+
+    /**
+     * Called after a task is executed.
+     */
+    public function tearDown(): void
+    {
+        // cleanup after execute is called.
+    }
+}
+```
 
 Once you've created your task, you can add it to the schedule along with options:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    use DummyTask;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+use DummyTask;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->task(
-                task: DummyTask::class,
-                options: [
-                    'recipients'     => null,
-                    'smtpSender'     => 'Joshua P.',
-                    'smtpSenderName' => 'j.p.me@gmail.com',
-                    'enabled'        => true,
-                ]
-            )
-            ->daily()->at('11:00 pm');
-        }
+        $schedule->task(
+            task: DummyTask::class,
+            options: [
+                'recipients'     => null,
+                'smtpSender'     => 'Joshua P.',
+                'smtpSenderName' => 'j.p.me@gmail.com',
+                'enabled'        => true,
+            ]
+        )
+        ->daily()
+        ->at('11:00 pm');
     }
+}
+```
 
 ## Scheduling CLI Commands
 
 If you've' written custom CLI Commands, you can schedule them to run using the `command()` method.
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->command('cache:flush --all')->daily();
-        }
+        $schedule
+            ->command('cache:flush --all')
+            ->daily();
     }
+}
+```
 
 You can also use the `command()` method for shell commands. Pass an array of arguments as the second parameter if your 
 shell command accepts arguments/options.
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->command('cp foo bar', ['--group', 'all'])->daily()->at('11:00 pm');
-        }
+        $schedule
+            ->command('cp foo bar', ['--group', 'all'])
+            ->daily()
+            ->at('11:00 pm');
     }
+}
+```
 
 !!! note
     Many shared servers turn off `exec` access for security reasons. If you will be running on a shared server, 
@@ -279,54 +304,62 @@ shell command accepts arguments/options.
 Some tasks/commands can run longer than their scheduled interval. To prevent multiple instances of the same task 
 running simultaneously, you can use the `onlyOneInstance()` method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->command('cache:flush --all')->onlyOneInstance();
-        }
+        $schedule
+            ->command('cache:flush --all')
+            ->onlyOneInstance();
     }
+}
+```
 
 ### Setting Lock Duration
 
 By default, the lock will remain active for 2 minutes (120 seconds). However, you can specify a longer lock duration 
-by passing an expires after value in seconds to the `onlyOneInstance()` method:
+by passing an `expires after` value in seconds to the `onlyOneInstance()` method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Place all your scheduled tasks here.
+     *
+     * @param Schedule $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule): void
     {
-        /**
-         * Place all your scheduled tasks here.
-         *
-         * @param Schedule $schedule
-         * @return void
-         */
-        protected function schedule(Schedule $schedule): void
-        {
-            $schedule->command('cache:flush --all')->onlyOneInstance(1800); // 1800 seconds = 30 minutes
-        }
+        $schedule
+            ->command('cache:flush --all')
+            ->onlyOneInstance(1800); // 1800 seconds = 30 minutes
     }
+}
+```
 

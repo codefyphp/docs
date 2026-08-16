@@ -1,17 +1,12 @@
-***
-
 # HasCacheOptions
 
-
-
-
+***
 
 * Full name: `\Codefy\CommandBus\HasCacheOptions`
-* Parent interfaces: [`\Codefy\CommandBus\CacheableCommand`](./CacheableCommand.md)
-
+* Parent interfaces:
+  [`\Codefy\CommandBus\CacheableCommand`](./CacheableCommand.md)
 
 ## Methods
-
 
 ### getCacheExpiry
 
@@ -22,15 +17,6 @@ public getCacheExpiry(): int|null
 ```
 
 Return null to use the default value specified in the CachingDecorator.
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -43,19 +29,4 @@ automatically generate a cache key.
 public getCacheKey(): string|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

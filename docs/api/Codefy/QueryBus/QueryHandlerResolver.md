@@ -1,17 +1,10 @@
-***
-
 # QueryHandlerResolver
 
-
-
-
+***
 
 * Full name: `\Codefy\QueryBus\QueryHandlerResolver`
 
-
-
 ## Methods
-
 
 ### resolve
 
@@ -21,22 +14,11 @@ Retrieve a $queryHandler for a given Query.
 public resolve(\Codefy\QueryBus\Query $query): \Codefy\QueryBus\QueryHandler
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$query` | **\Codefy\QueryBus\Query** |  |
-
-
-
-
+| Parameter | Type                       | Description |
+|-----------|----------------------------|-------------|
+| `$query`  | **\Codefy\QueryBus\Query** |             |
 
 ***
 
@@ -49,26 +31,11 @@ resolution behavior for this resolver.
 public bindHandler(string $queryName, \Codefy\QueryBus\QueryHandler|callable|string $handler): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$queryName` | **string** |  |
-| `$handler` | **\Codefy\QueryBus\QueryHandler&#124;callable&#124;string** |  |
-
-
-
-
+| Parameter    | Type                                                | Description |
+|--------------|-----------------------------------------------------|-------------|
+| `$queryName` | **string**                                          |             |
+| `$handler`   | **\Codefy\QueryBus\QueryHandler\|callable\|string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

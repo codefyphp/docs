@@ -11,11 +11,13 @@ SQL Like operator in PHP.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\php_like;
-    
-    php_like(string $pattern, string $subject): bool;
+use function Qubus\Support\Helpers\php_like;
+
+function php_like(string $pattern, string $subject): bool;
+```
 
 Parameters
 ----------
@@ -32,14 +34,16 @@ Return Value
 Example
 -------
 
-    <?php
+```php
+<?php
 
-    php_like('%uc%','Lucy'); //true
-    
-    php_like('%cy', 'Lucy'); //true
-    
-    php_like('lu%', 'Lucy'); //true
-    
-    php_like('%lu', 'Lucy'); //false
-    
-    php_like('cy%', 'Lucy'); //false
+php_like('%uc%','Lucy'); //true
+
+php_like('%cy', 'Lucy'); //true
+
+php_like('lu%', 'Lucy'); //true
+
+php_like('%lu', 'Lucy'); //false
+
+php_like('cy%', 'Lucy'); //false
+```

@@ -1,17 +1,10 @@
-***
-
 # Emitter
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Emitter\Emitter`
 
-
-
 ## Methods
-
 
 ### emit
 
@@ -31,28 +24,14 @@ output buffer.
 Implementations MAY raise exceptions if they are unable to emit the
 response; e.g., if headers have already been sent.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$response` | **\Psr\Http\Message\ResponseInterface** |  |
-
-
-
+| Parameter   | Type                                    | Description |
+|-------------|-----------------------------------------|-------------|
+| `$response` | **\Psr\Http\Message\ResponseInterface** |             |
 
 **Throws:**
 
 - [`EmitterException`](./Exceptions/EmitterException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

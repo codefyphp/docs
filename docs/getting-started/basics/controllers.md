@@ -5,42 +5,39 @@ weight: 9
 ---
 
 An alternative way of defining request logic in a route is by organizing it by utilizing `Controllers`. In this section 
-you will learn about basic controllers, resource controllers and restful controllers. As a defined default in 
-`Codefy\Framework\Application.php`, all controllers go into `App/Infrastructure/Http/Controllers` directory.
+you will learn about basic controllers, resource controllers and restful controllers.
+
+As a defined default in `Codefy\Framework\Application`, all controllers should fall under the 
+`App\Infrastructure\Http\Controllers` namespace.
+
+If you are using the skeleton app (v3.1+), they fall under the 
+`Application\Http\Controller` namespace in the `src/Application/Http/Controller` directory. However, you can put your 
+controllers where it best fits for your application and update the `controller_namespace` key in `./config/app.php`.
 
 ## Basic Controller
 
-You can easily create a new controller by running the `stub:make` command:
-
-    ❯ php codex stub:make Home_controller
-
 Here is a simple example of a basic controller with an index method which responds to an incoming request.
 
-```php title="./app/Infrastructure/Http/Controllers/HomeController.php"
+```php title="./src/Application/Http/Controller/HomeController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Http\Factories\HtmlResponseFactory;
-use Qubus\View\Native\Exception\InvalidTemplateNameException;
-use Qubus\View\Native\Exception\ViewException;
+
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
 
 final class HomeController extends BaseController
 {
-    /**
-     * @throws ViewException
-     * @throws InvalidTemplateNameException
-     * @throws Exception
-     */
     public function index(): ResponseInterface
     {
-        return HtmlResponseFactory::create(
-            $this->view->render(template: 'framework::home', data: ['title' => 'CodefyPHP Framework'])
+        return view(
+            template: 'framework::home',
+            data: ['title' => trans('CodefyPHP Framework')]
         );
     }
 }
@@ -127,14 +124,14 @@ create your own interface based on the specifications of your project/applicatio
 If you want to use middleware in your resource controller, then your controller should extend the base controller 
 class: `Codefy\Framework\Http\BaseController`.
 
-```php title="./app/Infrastructure/Http/Controllers/PostController.php"
+```php title="./src/Application/Http/Controller/PostController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
 use Codefy\Framework\Http\BaseController;
 use Psr\Http\Message\ResponseInterface;
 use Qubus\Http\Factories\HtmlResponseFactory;
@@ -145,15 +142,7 @@ use Qubus\View\Renderer;
 
 class PostController extends BaseController implements ResourceController
 {
-    public function __construct(
-        SessionService $sessionService,
-        Router $router,
-        Renderer $view
-    ) {
-        $this->middleware(AddHeaderMiddleware::class);
-
-        parent::__construct($sessionService, $router, $view);
-    }
+    protected array $middlewares = [AddHeaderMiddleware::class];
 
     public function index(): ResponseInterface
     {
@@ -241,23 +230,23 @@ A middleware can be defined on your routes or in your controllers:
 
 declare(strict_types=1);
 
-use App\Infrastructure\Http\Middleware\AuthMiddleware;
+use Application\Http\Middleware\AuthMiddleware;
 
 return function(\Qubus\Routing\Psr7Router $router) {
     $router->resource('posts', 'PostController')->middleware(new AuthMiddleware());
 };
 ```
 
-Alternatively, you can use the `middleware()` method in your Controller's constructor:
+Alternatively, you can use the `middleware` property in your Controller:
 
-```php title="./app/Infrastructure/Http/Controllers/PostController.php"
+```php title="./src/Application/Http/Controller/PostController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Http\Middleware\AuthMiddleware;
+use Application\Http\Middleware\AuthMiddleware;
 use Codefy\Framework\Http\BaseController;
 use Qubus\Http\Session\SessionService;
 use Qubus\Routing\Router;
@@ -265,16 +254,8 @@ use Qubus\View\Renderer;
 
 class PostController extends BaseController implements ResourceController
 {
-    public function __construct(
-        SessionService $sessionService,
-        Router $router,
-        Renderer $view
-    ) {
-        $this->middleware(AuthMiddleware::class);
-
-        parent::__construct($sessionService, $router, $view);
-    }
-
+    protected array $middlewares = [AuthMiddleware::class];
+    
     ```
 }
 ```

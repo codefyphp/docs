@@ -1,17 +1,10 @@
-***
-
 # RouteResource
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Route\RouteResource`
 
-
-
 ## Properties
-
 
 ### methodActionDefaults
 
@@ -21,25 +14,15 @@ The default actions/methods for a resourceful controller.
 protected array $methodActionDefaults
 ```
 
-
-
-
-
-
 ***
 
 ### methodActionNames
-
-
 
 ```php
 protected static array $methodActionNames
 ```
 
-
-
 * This property is **static**.
-
 
 ***
 
@@ -51,11 +34,6 @@ The parameters set for this resource instance.
 protected string|array $parameters
 ```
 
-
-
-
-
-
 ***
 
 ### parameterMap
@@ -66,55 +44,31 @@ The global parameter mapping.
 protected static array $parameterMap
 ```
 
-
-
 * This property is **static**.
-
 
 ***
 
 ### router
 
-
-
 ```php
 public \Qubus\Routing\Interfaces\Mappable|\Qubus\Routing\Interfaces\Routable $router
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Routing\Interfaces\Mappable|\Qubus\Routing\Interfaces\Routable $router): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$router` | **\Qubus\Routing\Interfaces\Mappable&#124;\Qubus\Routing\Interfaces\Routable** |  |
-
-
-
-
+| Parameter | Type                                                                       | Description |
+|-----------|----------------------------------------------------------------------------|-------------|
+| `$router` | **\Qubus\Routing\Interfaces\Mappable\|\Qubus\Routing\Interfaces\Routable** |             |
 
 ***
 
@@ -126,24 +80,13 @@ Route a resource to a controller.
 public register(string $name, string $controller, array $options = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -155,24 +98,13 @@ Build a set of prefixed resource routes.
 protected prefixedResource(string $name, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -184,22 +116,11 @@ Extract the resource and prefix from a resource name.
 protected getResourcePrefix(string $name): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
@@ -211,23 +132,12 @@ Get the applicable resource methods.
 protected getResourceMethods(array $defaults, array $options): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$defaults` | **array** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$defaults` | **array** |             |
+| `$options`  | **array** |             |
 
 ***
 
@@ -239,22 +149,11 @@ Get the base resource URI for a given resource.
 public getResourceUri(string $resource): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resource` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$resource` | **string** |             |
 
 ***
 
@@ -266,22 +165,11 @@ Get the URI for a nested resource segment array.
 protected getNestedResourceUri(array $segments): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$segments` | **array** |  |
-
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$segments` | **array** |             |
 
 ***
 
@@ -293,22 +181,11 @@ Format a resource parameter for usage.
 public getResourceParameter(string $value): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$value`  | **string** |             |
 
 ***
 
@@ -320,25 +197,14 @@ Get the action array for a resource route.
 protected getResourceAction(string $resource, string $controller, string $method, array $options): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resource` | **string** |  |
-| `$controller` | **string** |  |
-| `$method` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$resource`   | **string** |             |
+| `$controller` | **string** |             |
+| `$method`     | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -350,24 +216,13 @@ Get the name for a given resource.
 protected getResourceRouteName(string $resource, string $method, array $options): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resource` | **string** |  |
-| `$method` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$resource` | **string** |             |
+| `$method`   | **string** |             |
+| `$options`  | **array**  |             |
 
 ***
 
@@ -379,25 +234,14 @@ Add the index method for a resourceful route.
 protected addResourceIndex(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -409,25 +253,14 @@ Add the create method for a resourceful route.
 protected addResourceCreate(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -439,25 +272,14 @@ Add the store method for a resourceful route.
 protected addResourceStore(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -469,25 +291,14 @@ Add the show method for a resourceful route.
 protected addResourceShow(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -499,25 +310,14 @@ Add the edit method for a resourceful route.
 protected addResourceEdit(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -529,25 +329,14 @@ Add the update method for a resourceful route.
 protected addResourceUpdate(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -559,25 +348,14 @@ Add the destroy method for a resourceful route.
 protected addResourceDestroy(string $name, string $base, string $controller, array $options): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$base` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$base`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -589,23 +367,12 @@ Get the name for a given resource with shallowness applied when applicable.
 protected getShallowName(string $name, array $options): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$name`    | **string** |             |
+| `$options` | **array**  |             |
 
 ***
 
@@ -617,17 +384,7 @@ Get the global parameter map.
 public static getParameters(): array
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### setParameters
@@ -638,22 +395,12 @@ Set the global parameter mapping.
 public static setParameters(array $parameters = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$parameters` | **array** |  |
-
-
-
-
+| Parameter     | Type      | Description |
+|---------------|-----------|-------------|
+| `$parameters` | **array** |             |
 
 ***
 
@@ -665,22 +412,12 @@ Define custom method/action name for resource controller.
 public static setMethodActionNames(array $names): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$names` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$names`  | **array** |             |
 
 ***
 
@@ -692,17 +429,6 @@ Get method/action names.
 public getMethodActionNames(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### methodActionNames
@@ -713,25 +439,11 @@ Get or set the action verbs used in the resource URIs.
 public static methodActionNames(array $methodActionNames = []): array
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$methodActionNames` | **array** |  |
-
-
-
-
+| Parameter            | Type      | Description |
+|----------------------|-----------|-------------|
+| `$methodActionNames` | **array** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

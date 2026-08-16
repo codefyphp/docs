@@ -1,43 +1,18 @@
-***
-
 # HtmlMinifierMiddleware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Http\Middleware\HtmlMinifierMiddleware`
 * Parent class: [`Minifier`](../../../../Middlewares/Minifier.md)
 * This class implements:
-[`\Psr\Http\Server\MiddlewareInterface`](../../../../Psr/Http/Server/MiddlewareInterface.md)
-
-
-
+  `MiddlewareInterface`
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

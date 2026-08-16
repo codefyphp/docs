@@ -14,12 +14,12 @@ In a blogging system, you might have different blogs or categories broken down b
 too technical, we construct a simple definition of the needed domain events. To define a domain event, you can create 
 your own implementation by implementing the interface `Codefy\Domain\EventSourcing\DomainEvent`.
 
-```php title="File: ./app/Domain/Post/Events/PostWasCreated.php"
+```php title="File: ./src/Domain/Post/Event/PostWasCreated.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Events;
+namespace Domain\Post\Event;
 
 use Codefy\Domain\EventSourcing\DomainEvent;
 
@@ -34,12 +34,12 @@ Define A Domain Event
 Alternatively, you can define your domain event by extending `Codefy\Domain\EventSourcing\AggregateChanged` which 
 in part, fulfills the contract: `Codefy\Domain\EventSourcing\DomainEvent`.
 
-```php title="File: ./app/Domain/Post/Events/PostWasCreated.php"
+```php title="File: ./src/Domain/Post/Event/PostWasCreated.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Events;
+namespace Domain\Post\Event;
 
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
@@ -57,23 +57,21 @@ definitions by extending `AggregateChanged`.
 
 ### Post Was Created
 
-```php title="File: ./app/Domain/Post/Events/PostWasCreated.php"
+```php title="File: ./src/Domain/Post/Event/PostWasCreated.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Events;
+namespace Domain\Post\Event;
 
-use App\Domain\Post\ValueObject\PostId;
-use App\Domain\Post\ValueObject\Title;
-use App\Domain\Post\ValueObject\Content;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
+use Domain\Post\ValueObject\Content;
 use Qubus\Exception\Data\TypeException;
-
-use function Qubus\Support\Helpers\is_null__;
 
 final class PostWasCreated extends AggregateChanged implements DomainEvent
 {
@@ -112,7 +110,7 @@ final class PostWasCreated extends AggregateChanged implements DomainEvent
      */
     public function postId(): PostId|AggregateId
     {
-        if (is_null__(var: $this->postId)) {
+        if (!isset($this->postId)) {
             $this->postId = PostId::fromString(postId: $this->aggregateId()->__toString());
         }
 
@@ -124,7 +122,7 @@ final class PostWasCreated extends AggregateChanged implements DomainEvent
      */
     public function title(): Title
     {
-        if (is_null__(var: $this->title)) {
+        if (!isset($this->title)) {
             $this->title = Title::fromString(title: $this->payload()['title']->__toString());
         }
 
@@ -136,7 +134,7 @@ final class PostWasCreated extends AggregateChanged implements DomainEvent
      */
     public function content(): Content
     {
-        if (is_null__(var: $this->content)) {
+        if (!isset($this->content)) {
             $this->content = Content::fromString(content: $this->payload()['content']->__toString());
         }
 
@@ -147,22 +145,20 @@ final class PostWasCreated extends AggregateChanged implements DomainEvent
 
 ### Title Was Changed
 
-```php title="File: ./app/Domain/Post/Events/TitleWasChanged.php"
+```php title="File: ./src/Domain/Post/Event/TitleWasChanged.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Events;
+namespace Domain\Post\Event;
 
-use App\Domain\Post\ValueObject\PostId;
-use App\Domain\Post\ValueObject\Title;
 use Codefy\Domain\Aggregate\AggregateId;
 use Codefy\Domain\EventSourcing\AggregateChanged;
 use Codefy\Domain\EventSourcing\DomainEvent;
 use Codefy\Domain\Metadata;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
 use Qubus\Exception\Data\TypeException;
-
-use function Qubus\Support\Helpers\is_null__;
 
 final class TitleWasChanged extends AggregateChanged implements DomainEvent
 {
@@ -194,7 +190,7 @@ final class TitleWasChanged extends AggregateChanged implements DomainEvent
      */
     public function postId(): PostId|AggregateId
     {
-        if (is_null__($this->postId)) {
+        if (!isset($this->postId)) {
             $this->postId = PostId::fromString(postId: $this->aggregateId()->__toString());
         }
         return $this->postId;
@@ -205,7 +201,7 @@ final class TitleWasChanged extends AggregateChanged implements DomainEvent
      */
     public function title(): Title
     {
-        if (is_null__($this->title)) {
+        if (!isset($this->title)) {
             $this->title = Title::fromString(title: $this->payload()['title']->__toString());
         }
 
@@ -235,27 +231,39 @@ which returns an `AggregateId` object.
 Testing
 -------
 
-    <?php
+```php
+<?php
 
-    $event = PostWasCreated::withData(
-        postId: PostId::fromNative('01K5EJ40GKE3G9WEZAH277N1AY'),
-        title: new Title(value: 'New Post Title'),
-        content: new Content(value: 'Short content for this new post.')
-    );
-    
-    it('should be an instance of DomainEvent', function () use ($event) {
-        Assert::assertInstanceOf(expected: DomainEvent::class, actual: $event);
-    });
-    
-    it('should equal another instance with the same value.', function () use ($event) {
-        expect(value: $event->aggregateId())->toEqual(expected: PostId::fromNative('01K5EJ40GKE3G9WEZAH277N1AY'));
-    });
-    
-    it('should expose a title.', function () use ($event) {
-        expect(value: $event->title())->toEqual(expected: new Title(value: 'New Post Title'));
-    });
-    
-    it('should expose content.', function () use ($event) {
-        expect(value: $event->content())->toEqual(expected: new Content(value: 'Short content for this new post.'));
-    });
+use Codefy\Domain\EventSourcing\DomainEvent;
+use Domain\Post\Event\PostWasCreated;
+use Domain\Post\ValueObject\Content;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
+use PHPUnit\Framework\Assert;
+
+use function expect;
+use function it;
+
+$event = PostWasCreated::withData(
+    postId: PostId::fromNative('01K5EJ40GKE3G9WEZAH277N1AY'),
+    title: new Title(value: 'New Post Title'),
+    content: new Content(value: 'Short content for this new post.')
+);
+
+it('should be an instance of DomainEvent', function () use ($event) {
+    Assert::assertInstanceOf(expected: DomainEvent::class, actual: $event);
+});
+
+it('should equal another instance with the same value.', function () use ($event) {
+    expect(value: $event->aggregateId())->toEqual(expected: PostId::fromNative('01K5EJ40GKE3G9WEZAH277N1AY'));
+});
+
+it('should expose a title.', function () use ($event) {
+    expect(value: $event->title())->toEqual(expected: new Title(value: 'New Post Title'));
+});
+
+it('should expose content.', function () use ($event) {
+    expect(value: $event->content())->toEqual(expected: new Content(value: 'Short content for this new post.'));
+});
+```
 

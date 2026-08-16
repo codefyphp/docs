@@ -1,17 +1,10 @@
-***
-
 # Serviceable
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\ServiceProvider\Serviceable`
 
-
-
 ## Methods
-
 
 ### register
 
@@ -22,19 +15,4 @@ the booting stage.
 public register(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,5 +1,8 @@
 .idea
-codefy_venv
+gen_pages.py
 /site/
 docs.zip
+myvenv
 /overrides/
+/docs/digging-deeper/helpers/rescue.md
+javascript/matomo.js

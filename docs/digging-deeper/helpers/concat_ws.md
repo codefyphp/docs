@@ -11,11 +11,18 @@ Concatenation with separator.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\concat_ws;
-    
-    concat_ws(string $string1, string $string2, string $separator = ',', ...$strings): string;
+use function Qubus\Support\Helpers\concat_ws;
+
+function concat_ws(
+    string $string1,
+    string $string2,
+    string $separator = ',',
+    ...$strings
+): string;
+```
 
 Parameters
 ----------
@@ -32,3 +39,18 @@ Return Value
 ------------
 
 (string) Concatenated string.
+
+Example
+-------
+
+```php
+echo concat_ws('CodefyPHP', 'Framework'); // "CodefyPHP,Framework"
+
+echo concat_ws(
+    'I love mangoes',
+    'grapes',
+    ', ',
+    'pears',
+    'and pineapple on pizza.'
+); // "I love mangoes, grapes, pears, and pineapple on pizza."
+```

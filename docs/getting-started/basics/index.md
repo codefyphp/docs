@@ -23,12 +23,12 @@ closure. The incoming request will be automatically injected by the [Injector](.
 
 Controller:
 
-```php title="./app/Infrastructure/Http/Controllers/HomeController.php"
+```php title="./src/Application/Http/Controller/HomeController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Qubus\Http\ServerRequest;
@@ -65,31 +65,37 @@ those prefixed with `with` and `without` — all return a new instance with the 
 
 ### Instantiate
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
-    
-    use Qubus\Http\Request;
-    
-    $request = new Request();
+declare(strict_types=1);
+
+use Qubus\Http\Request;
+
+$request = new Request();
+```
 
 ### $_GET
 
 You can access the `$_GET` array via the `get()` method through the`handler()` method which returns a `Qubus\Http\Input\Input` object:
 
-    <?php
-    
-    $object = $request->handler()->get('id');  // Returns an InputItem object.
-    $id     = $object->getValue(); // Returns the actual id.
+```php
+<?php
+
+$object = $request->handler()->get('id');  // Returns an InputItem object.
+$id     = $object->getValue(); // Returns the actual id.
+```
 
 ### $_POST
 
 You can access the `$_POST` array via the `post()` method through the`handler()` method which returns a `Qubus\Http\Input\Input` object:
 
-    <?php
-    
-    $object = $request->handler()->post('id');
-    $id     = $object->getValue();
+```php
+<?php
+
+$object = $request->handler()->post('id');
+$id     = $object->getValue();
+```
 
 The `Input` class includes these methods:
 
@@ -106,10 +112,12 @@ The `Input` class includes these methods:
 
 You can access `$_FILES` via the `file()` method through the`handler()` method which returns a `Qubus\Http\Input\File` object:
 
+```php
     <?php
     
     $object = $request->handler()->file('image');
     $image  = $object->getFilename();
+```
 
 `File` has the same methods as above along with some other file-specific methods like:
 
@@ -130,52 +138,60 @@ You can access `$_FILES` via the `file()` method through the`handler()` method w
 There is a shortcut available to access the `$_SERVER` array via the `getServer()` method. When using this method, all 
 `$_SERVER` indices are made lower case and all underscores (`_`) have been converted to dashes (`-`):
 
-    <?php
-    
-    $host = $request->getServer('http-host');
-    // or
-    $host = $request->getHost();
+```php
+<?php
+
+$host = $request->getServer('http-host');
+// or
+$host = $request->getHost();
+```
 
 #### Check if parameters exists
 
 You can easily check if multiple items exists by using the exists method. It's similar to `value` as it can be used to 
 filter on request-methods and supports both `string` and `array` as parameter value.
 
-    <?php
-    
-    $input = $request->handler();
-    
-    if($input->exists(['fname', 'lname', 'email'])) {
-        //do something
-    }
+```php
+<?php
 
-    /* Similar to above */
-    if($input->exists('fname') && $input->exists('lname') && $input->exists('email')) {
-        //do something
-    }
+$input = $request->handler();
+
+if($input->exists(['fname', 'lname', 'email'])) {
+    //do something
+}
+
+/* Similar to above */
+if($input->exists('fname') && $input->exists('lname') && $input->exists('email')) {
+    //do something
+}
+```
 
 ### Request Headers
 
 You can access request headers using the `getHeader()` or `getHeaders()` method:
 
-    <?php
-    
-    $auth = $request->getHeader('Authorization');
-    // or
-    $auth = $request->getHttpHeader(name: 'authorization', defaultValue: 'value');
-    
-    // If you need to grab all headers
-    $headers = $request->getHeaders();
-    // or
-    $headers = $request->getHttpHeaders();
+```php
+<?php
+
+$auth = $request->getHeader('Authorization');
+// or
+$auth = $request->getHttpHeader(name: 'authorization', defaultValue: 'value');
+
+// If you need to grab all headers
+$headers = $request->getHeaders();
+// or
+$headers = $request->getHttpHeaders();
+```
 
 ### Request Method
 
 You can access the request method using the `getMethod()` method:
 
-    <?php
-    
-    $method = $request->getMethod();
+```php
+<?php
+
+$method = $request->getMethod();
+```
 
 ### Request URLs
 

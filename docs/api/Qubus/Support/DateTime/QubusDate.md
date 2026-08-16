@@ -1,19 +1,12 @@
-***
-
 # QubusDate
 
-
-
-
+***
 
 * Full name: `\Qubus\Support\DateTime\QubusDate`
 * This class implements:
-[`\Qubus\Support\DateTime\Date`](./Date.md)
-
-
+  [`\Qubus\Support\DateTime\Date`](./Date.md)
 
 ## Properties
-
 
 ### timezone
 
@@ -22,11 +15,6 @@ TimeZone
 ```php
 public string|\DateTimeZone $timezone
 ```
-
-
-
-
-
 
 ***
 
@@ -38,11 +26,6 @@ Locale
 public ?string $locale
 ```
 
-
-
-
-
-
 ***
 
 ### date
@@ -53,30 +36,17 @@ Date object.
 public mixed $date
 ```
 
-
-
-
-
-
 ***
 
 ### time
-
-
 
 ```php
 public string|int $time
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -86,74 +56,38 @@ Returns new Datetime object.
 private __construct(string|int $time, string|\DateTimeZone|null $timezone = null, ?string $locale = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **string&#124;int** |  |
-| `$timezone` | **string&#124;\DateTimeZone&#124;null** |  |
-| `$locale` | **?string** |  |
-
-
-
-
+| Parameter   | Type                            | Description |
+|-------------|---------------------------------|-------------|
+| `$time`     | **string\|int**                 |             |
+| `$timezone` | **string\|\DateTimeZone\|null** |             |
+| `$locale`   | **?string**                     |             |
 
 ***
 
 ### fromString
 
-
-
 ```php
 public static fromString(string|int $time, string|\DateTimeZone|null $timezone = null, ?string $locale = null): self
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **string&#124;int** |  |
-| `$timezone` | **string&#124;\DateTimeZone&#124;null** |  |
-| `$locale` | **?string** |  |
-
-
-
-
+| Parameter   | Type                            | Description |
+|-------------|---------------------------------|-------------|
+| `$time`     | **string\|int**                 |             |
+| `$timezone` | **string\|\DateTimeZone\|null** |             |
+| `$locale`   | **?string**                     |             |
 
 ***
 
 ### getDate
 
-
-
 ```php
 public getDate(): mixed
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -165,22 +99,11 @@ Sets the timezone.
 public setTimezone(string|\DateTimeZone $timezone): \DateTimeInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$timezone` | **string&#124;\DateTimeZone** |  |
-
-
-
-
+| Parameter   | Type                      | Description |
+|-------------|---------------------------|-------------|
+| `$timezone` | **string\|\DateTimeZone** |             |
 
 ***
 
@@ -192,17 +115,7 @@ Returns minute in seconds.
 public static minuteInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### hourInSeconds
@@ -213,17 +126,7 @@ Returns hour in seconds.
 public static hourInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### dayInSeconds
@@ -234,17 +137,7 @@ Returns day in seconds.
 public static dayInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### weekInSeconds
@@ -255,17 +148,7 @@ Returns week in seconds.
 public static weekInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### monthInSeconds
@@ -276,17 +159,7 @@ Returns month in seconds.
 public static monthInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### yearInSeconds
@@ -297,17 +170,7 @@ Returns year in seconds.
 public static yearInSeconds(): int
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### format
@@ -315,7 +178,7 @@ public static yearInSeconds(): int
 Formats date.
 
 ```php
-public format(string $format = &#039;Y-m-d H:i:s&#039;): string
+public format(string $format = 'Y-m-d H:i:s'): string
 ```
 
 This function uses the set timezone from TriTan options.
@@ -325,20 +188,11 @@ Example Usage:
      $datetime = 'May 15, 2018 2:15 PM';
      $this->format('Y-m-d H:i:s', $datetime);
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description                                   |
+|-----------|------------|-----------------------------------------------|
 | `$format` | **string** | Format of the date. Default is `Y-m-d H:i:s`. |
-
-
-
-
 
 ***
 
@@ -347,30 +201,19 @@ Example Usage:
 Format a GMT/UTC date/time
 
 ```php
-public gmtdate(string $date = &#039;now&#039;, string $format = &#039;Y-m-d H:i:s&#039;): string
+public gmtdate(string $date = 'now', string $format = 'Y-m-d H:i:s'): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$date` | **string** | Date to be formatted. Default is `now`. |
+| Parameter | Type       | Description                                   |
+|-----------|------------|-----------------------------------------------|
+| `$date`   | **string** | Date to be formatted. Default is `now`.       |
 | `$format` | **string** | Format of the date. Default is `Y-m-d H:i:s`. |
-
 
 **Return Value:**
 
 Formatted date string.
-
-
-
 
 ***
 
@@ -379,23 +222,12 @@ Formatted date string.
 Returns the date in localized format.
 
 ```php
-public locale(): \Symfony\Contracts\Translation\LocaleAwareInterface
+public locale(): \Carbon\Carbon|null
 ```
-
-
-
-
-
-
-
-
 
 **Return Value:**
 
 Returns current localized datetime.
-
-
-
 
 ***
 
@@ -413,26 +245,17 @@ timestamp, or 'G' for a Unix timestamp assuming that $date is GMT.
 If $translate is true, then the given date and format string will
 be passed to $this->locale() for translation.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$format` | **string** | Format of the date to return. |
-| `$date` | **string** | Date string to convert. |
-| `$translate` | **bool** | Whether the return date should be translated. Default true. |
-
+| Parameter    | Type       | Description                                                 |
+|--------------|------------|-------------------------------------------------------------|
+| `$format`    | **string** | Format of the date to return.                               |
+| `$date`      | **string** | Date string to convert.                                     |
+| `$translate` | **bool**   | Whether the return date should be translated. Default true. |
 
 **Return Value:**
 
 Formatted date string or Unix timestamp. False if $date is empty.
-
-
-
 
 ***
 
@@ -451,25 +274,17 @@ Other strings will be interpreted as PHP date formats (e.g. 'Y-m-d H:i:s').
 If $gmt is set to either '1' or 'true', then both types will use GMT time.
 If $gmt is false, the output is adjusted with the GMT offset based on General Settings.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$type` | **string** | Type of time to return. Accepts &#039;db&#039;, &#039;timestamp&#039;, or PHP date<br />format string (e.g. &#039;Y-m-d&#039;). |
-| `$gmt` | **bool** | Optional. Whether to use GMT timezone. Default false. |
-
+| Parameter | Type       | Description                                                                                  |
+|-----------|------------|----------------------------------------------------------------------------------------------|
+| `$type`   | **string** | Type of time to return. Accepts 'db', 'timestamp', or PHP date
+format string (e.g. 'Y-m-d'). |
+| `$gmt`    | **bool**   | Optional. Whether to use GMT timezone. Default false.                                        |
 
 **Return Value:**
 
 Integer if $type is 'timestamp', string otherwise.
-
-
-
 
 ***
 
@@ -481,27 +296,16 @@ Converts timestamp to localized human-readable date.
 public timestampToDate(string $format, int $timestamp): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$format` | **string** | PHP date format string (e.g. &#039;Y-m-d&#039;). |
-| `$timestamp` | **int** | Timestamp to convert. |
-
+| Parameter    | Type       | Description                            |
+|--------------|------------|----------------------------------------|
+| `$format`    | **string** | PHP date format string (e.g. 'Y-m-d'). |
+| `$timestamp` | **int**    | Timestamp to convert.                  |
 
 **Return Value:**
 
 Localized human readable date.
-
-
-
 
 ***
 
@@ -513,25 +317,10 @@ Prints elapsed time based on datetime.
 public timeAgo(int $original): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$original` | **int** |  |
-
-
-
-
+| Parameter   | Type    | Description |
+|-------------|---------|-------------|
+| `$original` | **int** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

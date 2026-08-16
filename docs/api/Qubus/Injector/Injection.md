@@ -1,35 +1,20 @@
-***
-
 # Injection
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\Injection`
 
-
-
 ## Properties
 
-
 ### alias
-
-
 
 ```php
 protected string $alias
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -39,22 +24,11 @@ Instantiate an Injection object.
 public __construct(string $alias): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$alias` | **string** | Alias that should be instantiated. |
-
-
-
-
+| Parameter | Type       | Description                        |
+|-----------|------------|------------------------------------|
+| `$alias`  | **string** | Alias that should be instantiated. |
 
 ***
 
@@ -66,23 +40,8 @@ Get the alias that should be instantiated.
 public getAlias(): string
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Alias that should be instantiated.
 
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

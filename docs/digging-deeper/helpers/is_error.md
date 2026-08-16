@@ -11,11 +11,13 @@ Check whether variable is an Error instance.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Error\Helpers\is_error;
-    
-    is_error(mixed $object): bool;
+use function Qubus\Error\Helpers\is_error;
+
+function is_error(mixed $object): bool;
+```
 
 Parameters
 ----------
@@ -30,23 +32,25 @@ Return Value
 Example
 -------
 
-    <?php
+```php
+<?php
 
-    use Qubus\Error\Error;
-    
-    use function Qubus\Error\Helpers\is_error;
-    
-    function has_permission(string $permission): Error|string
-    {
-        if ($permission === '') {
-            return new Error('The permission value is invalid');
-        }
-        
-        return $permission;
+use Qubus\Error\Error;
+
+use function Qubus\Error\Helpers\is_error;
+
+function has_permission(string $permission): Error|string
+{
+    if ($permission === '') {
+        return new Error('The permission value is invalid');
     }
     
-    $permission = has_permission('');
-    
-    if (is_error($permission)) {
-        echo $permission->getMessage();
-    }
+    return $permission;
+}
+
+$permission = has_permission('');
+
+if (is_error($permission)) {
+    echo $permission->getMessage();
+}
+```

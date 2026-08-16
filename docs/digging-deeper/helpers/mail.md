@@ -11,11 +11,19 @@ An alternative to using PHP's native mail function with other options for SMTP (
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Codefy\Framework\Helpers\mail;
-    
-    mail(string|array $to, string $subject, string $message, array $headers = [], array $attachments = []): bool;
+use function Codefy\Framework\Helpers\mail;
+
+function mail(
+    string|array $to,
+    string $subject,
+    string $message,
+    array $headers = [],
+    array $attachments = []
+): bool;
+```
 
 Parameters
 ----------
@@ -38,25 +46,27 @@ Return Value
 Example
 -------
 
-    <?php
-    
-    use function Codefy\Framework\Helpers\mail;
-    use function Codefy\Framework\Helpers\storage_path;
-    
-    try {
-        return mail(
-            to: ['test@example.com' => 'Recipient Name'],
-            subject: 'Email Message',
-            message: 'This is a <strong>simple</strong> email message.',
-            headers: [
-                'cc' => [
-                    'recipientone@example.com' => 'Recipient One',
-                    'recipienttwo@example.com' => 'Recipient Two'
-                ],
-                'bcc' => ['another@example.com' => 'Another Recipient'],
+```php
+<?php
+
+use function Codefy\Framework\Helpers\mail;
+use function Codefy\Framework\Helpers\storage_path;
+
+try {
+    return mail(
+        to: ['test@example.com' => 'Recipient Name'],
+        subject: 'Email Message',
+        message: 'This is a <strong>simple</strong> email message.',
+        headers: [
+            'cc' => [
+                'recipientone@example.com' => 'Recipient One',
+                'recipienttwo@example.com' => 'Recipient Two'
             ],
-            attachments: [storage_path('file.pdf')]
-        );
-    } catch (\PHPMailer\PHPMailer\Exception | Exception $e) {
-        return $e->getMessage();
-    }
+            'bcc' => ['another@example.com' => 'Another Recipient'],
+        ],
+        attachments: [storage_path('file.pdf')]
+    );
+} catch (\PHPMailer\PHPMailer\Exception | Exception $e) {
+    return $e->getMessage();
+}
+```

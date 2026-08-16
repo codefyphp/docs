@@ -1,20 +1,13 @@
-***
-
 # FileLogger
 
-
-
-
+***
 
 * Full name: `\Qubus\Log\Loggers\FileLogger`
 * Parent class: [`\Qubus\Log\Loggers\BaseLogger`](./BaseLogger.md)
 * This class implements:
-[`\Psr\Log\LoggerInterface`](../../../Psr/Log/LoggerInterface.md)
-
-
+  `LoggerInterface`
 
 ## Properties
-
 
 ### filenameFormat
 
@@ -23,11 +16,6 @@ Date format of the log filename.
 ```php
 protected string $filenameFormat
 ```
-
-
-
-
-
 
 ***
 
@@ -39,141 +27,79 @@ Extension of the log file.
 protected string $filenameExtension
 ```
 
-
-
-
-
-
 ***
 
 ### logFormat
-
-
 
 ```php
 protected ?\Qubus\Log\Format $logFormat
 ```
 
-
-
-
-
-
 ***
 
 ### logFilename
-
-
 
 ```php
 protected ?\Qubus\Log\Filename $logFilename
 ```
 
-
-
-
-
-
 ***
 
 ### filesystem
-
-
 
 ```php
 public \League\Flysystem\FilesystemOperator $filesystem
 ```
 
-
-
-
-
-
 ***
 
 ### threshold
-
-
 
 ```php
 public string|\Psr\Log\LogLevel $threshold
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\League\Flysystem\FilesystemOperator $filesystem, string|\Psr\Log\LogLevel $threshold, array $params = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter     | Type                                     | Description                      |
+|---------------|------------------------------------------|----------------------------------|
 | `$filesystem` | **\League\Flysystem\FilesystemOperator** | Flysystem filesystem abstraction |
-| `$threshold` | **string&#124;\Psr\Log\LogLevel** | Lowest level of logging to write |
-| `$params` | **array** |  |
-
-
-
+| `$threshold`  | **string\|\Psr\Log\LogLevel**            | Lowest level of logging to write |
+| `$params`     | **array**                                |                                  |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
 
-
-
 ***
 
 ### log
-
-
 
 ```php
 public log(string|\Psr\Log\LogLevel $level, string|\Stringable $message, array $context = []): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$level` | **string&#124;\Psr\Log\LogLevel** |  |
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                          | Description |
+|------------|-------------------------------|-------------|
+| `$level`   | **string\|\Psr\Log\LogLevel** |             |
+| `$message` | **string\|\Stringable**       |             |
+| `$context` | **array**                     |             |
 
 **Throws:**
 
 - [`FilesystemException`](../../../League/Flysystem/FilesystemException.md)
-
-
 
 ***
 
@@ -185,26 +111,15 @@ Set the log filename format using PHP's date parameters.
 public setFilenameFormat(string $filenameFormat): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$filenameFormat` | **string** |  |
-
-
-
-
+| Parameter         | Type       | Description |
+|-------------------|------------|-------------|
+| `$filenameFormat` | **string** |             |
 
 **See Also:**
 
-* https://secure.php.net/manual/en/function.date.php - 
+* https://secure.php.net/manual/en/function.date.php
 
 ***
 
@@ -216,22 +131,11 @@ Set the filename extension. Ex: 'log' will be '.log'.
 public setFilenameExtension(string $filenameExtension): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$filenameExtension` | **string** |  |
-
-
-
-
+| Parameter            | Type       | Description |
+|----------------------|------------|-------------|
+| `$filenameExtension` | **string** |             |
 
 ***
 
@@ -243,22 +147,11 @@ Optionally create your own Format class and set it to be used instead.
 public setLogFormat(\Qubus\Log\Format $logFormat): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$logFormat` | **\Qubus\Log\Format** |  |
-
-
-
-
+| Parameter    | Type                  | Description |
+|--------------|-----------------------|-------------|
+| `$logFormat` | **\Qubus\Log\Format** |             |
 
 ***
 
@@ -270,256 +163,132 @@ Optionally create your own Filename class and use this method to use it.
 public setLogFilename(\Qubus\Log\Filename $logFilename): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$logFilename` | **\Qubus\Log\Filename** |  |
-
-
-
-
+| Parameter      | Type                    | Description |
+|----------------|-------------------------|-------------|
+| `$logFilename` | **\Qubus\Log\Filename** |             |
 
 ***
 
-
 ## Inherited methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(array $params = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$params` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$params` | **array** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
 
-
-
 ***
 
 ### isAvailable
-
-
 
 ```php
 public isAvailable(mixed $level): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$level` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$level`  | **mixed** |             |
 
 ***
 
 ### getDate
 
-
-
 ```php
 protected getDate(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### stringify
 
-
-
 ```php
 protected stringify(array $data = []): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 ***
 
 ### interpolate
 
-
-
 ```php
 protected interpolate(mixed $message, array $context = []): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **mixed** |  |
-| `$context` | **array** |  |
-
-
-
-
+| Parameter  | Type      | Description |
+|------------|-----------|-------------|
+| `$message` | **mixed** |             |
+| `$context` | **array** |             |
 
 ***
 
 ### __get
 
-
-
 ```php
 public __get(mixed $name): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
 
 **Throws:**
 
 - [`Exception`](../../Exception/Exception.md)
-
-
 
 ***
 
 ### __set
 
-
-
 ```php
 public __set(mixed $name, mixed $value): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`Exception`](../../Exception/Exception.md)
 
-
-
 ***
 
 ### __isset
-
-
 
 ```php
 public __isset(mixed $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

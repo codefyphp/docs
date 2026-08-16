@@ -15,11 +15,13 @@ double slashing a string or path.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\add_trailing_slash;
-    
-    add_trailing_slash(string $string): string;
+use function Qubus\Support\Helpers\add_trailing_slash;
+
+function add_trailing_slash(string $string): string;
+```
 
 Parameters
 ----------

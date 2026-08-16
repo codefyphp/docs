@@ -12,11 +12,13 @@ Returns the url of your application.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Codefy\Framework\Helpers\site_url;
-    
-    site_url(string $path = ''): string;
+use function Codefy\Framework\Helpers\site_url;
+
+function site_url(string $path = ''): string;
+```
 
 Parameters
 ----------

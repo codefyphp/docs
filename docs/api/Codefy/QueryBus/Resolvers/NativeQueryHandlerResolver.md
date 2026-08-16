@@ -1,77 +1,42 @@
-***
-
 # NativeQueryHandlerResolver
 
-
-
-
+***
 
 * Full name: `\Codefy\QueryBus\Resolvers\NativeQueryHandlerResolver`
 * This class implements:
-[`\Codefy\QueryBus\QueryHandlerResolver`](../QueryHandlerResolver.md)
-
-
+  [`\Codefy\QueryBus\QueryHandlerResolver`](../QueryHandlerResolver.md)
 
 ## Properties
 
-
 ### handlers
 
-
-
 ```php
-protected array $handlers
+protected \Codefy\QueryBus\QueryHandler[] $handlers
 ```
-
-
-
-
-
 
 ***
 
 ### container
 
-
-
 ```php
-protected ?\Codefy\CommandBus\Container $container
+protected \Codefy\CommandBus\Container $container
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(?\Codefy\CommandBus\Container $container = null): mixed
+public __construct(\Codefy\CommandBus\Container $container = new \Codefy\CommandBus\Containers\NativeContainer()): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$container` | **?\Codefy\CommandBus\Container** |  |
-
-
-
-
+| Parameter    | Type                             | Description |
+|--------------|----------------------------------|-------------|
+| `$container` | **\Codefy\CommandBus\Container** |             |
 
 ***
 
@@ -83,27 +48,16 @@ Retrieve a QueryHandler for a given Command
 public resolve(\Codefy\QueryBus\Query $query): \Codefy\QueryBus\QueryHandler
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$query` | **\Codefy\QueryBus\Query** |  |
-
-
-
+| Parameter | Type                       | Description |
+|-----------|----------------------------|-------------|
+| `$query`  | **\Codefy\QueryBus\Query** |             |
 
 **Throws:**
 
 - [`UnresolvableQueryHandlerException`](../UnresolvableQueryHandlerException.md)
-
-
+- [`ReflectionException`](../../../ReflectionException.md)
 
 ***
 
@@ -116,31 +70,15 @@ resolution behavior for this resolver.
 public bindHandler(string $queryName, callable|string|\Codefy\QueryBus\QueryHandler $handler): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$queryName` | **string** |  |
-| `$handler` | **callable&#124;string&#124;\Codefy\QueryBus\QueryHandler** |  |
-
-
-
+| Parameter    | Type                                                | Description |
+|--------------|-----------------------------------------------------|-------------|
+| `$queryName` | **string**                                          |             |
+| `$handler`   | **callable\|string\|\Codefy\QueryBus\QueryHandler** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

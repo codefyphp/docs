@@ -1,20 +1,12 @@
-***
-
 # RedirectResponseFactory
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Factories\RedirectResponseFactory`
 * This class is marked as **final** and can't be subclassed
 * This class is a **Final class**
 
-
-
-
 ## Methods
-
 
 ### create
 
@@ -30,24 +22,12 @@ Produces a redirect response with a Location header and the given status
 Note: this method overwrites the `location` $headers value.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string&#124;\Psr\Http\Message\UriInterface** | URI for the Location header. |
-| `$status` | **int** | Integer status code for the redirect; 302 by default. |
-| `$headers` | **array** | Array of headers to use at initialization. |
-
-
-
-
+| Parameter  | Type                                       | Description                                           |
+|------------|--------------------------------------------|-------------------------------------------------------|
+| `$uri`     | **string\|\Psr\Http\Message\UriInterface** | URI for the Location header.                          |
+| `$status`  | **int**                                    | Integer status code for the redirect; 302 by default. |
+| `$headers` | **array**                                  | Array of headers to use at initialization.            |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

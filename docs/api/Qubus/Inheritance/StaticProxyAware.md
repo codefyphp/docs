@@ -1,17 +1,10 @@
-***
-
 # StaticProxyAware
 
-
-
-
+***
 
 * Full name: `\Qubus\Inheritance\StaticProxyAware`
 
-
-
 ## Properties
-
 
 ### instance
 
@@ -21,15 +14,11 @@ The stored singleton instance.
 protected static self $instance
 ```
 
-
-
 * This property is **static**.
-
 
 ***
 
 ## Methods
-
 
 ### getInstance
 
@@ -39,24 +28,12 @@ Creates the original or retrieves the stored singleton instance.
 public static getInstance(): self
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
 **Throws:**
 
 - [`ReflectionException`](../../ReflectionException.md)
 
-
-
 ***
-
 ### resetInstance
 
 Reset the Container instance.
@@ -65,19 +42,8 @@ Reset the Container instance.
 public static resetInstance(): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
-
 ### __construct
 
 The constructor is disabled.
@@ -86,25 +52,12 @@ The constructor is disabled.
 public __construct(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
-<p>If called..</p>
 
+If called..
 - [`RuntimeException`](../../RuntimeException.md)
 
-
-
 ***
-
 ### __clone
 
 Cloning is disabled.
@@ -113,25 +66,12 @@ Cloning is disabled.
 public __clone(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
-<p>If called.</p>
 
+If called.
 - [`RuntimeException`](../../RuntimeException.md)
 
-
-
 ***
-
 ### __wakeup
 
 Wakeup is disabled.
@@ -140,25 +80,12 @@ Wakeup is disabled.
 public __wakeup(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
-<p>If called.</p>
 
+If called.
 - [`RuntimeException`](../../RuntimeException.md)
 
-
-
 ***
-
 ### unserialize
 
 Unserialization is disabled.
@@ -167,31 +94,15 @@ Unserialization is disabled.
 public unserialize(array $serializedData): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$serializedData` | **array** |  |
-
-
-
+| Parameter         | Type      | Description |
+|-------------------|-----------|-------------|
+| `$serializedData` | **array** |             |
 
 **Throws:**
-<p>If called.</p>
 
+If called.
 - [`RuntimeException`](../../RuntimeException.md)
 
-
-
 ***
-
-***
-> Automatically generated on 2025-10-13
-

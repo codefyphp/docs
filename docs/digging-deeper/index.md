@@ -17,19 +17,19 @@ cache implementations are available. They currently are utilized only for user a
 
 The default cache adapter used is `Qubus\Cache\Adapter\FileSystemCacheAdapter`. Predis/Redis, APCu, InMemory, and 
 Memcached adapters are also available. If you want to use another adapter, you can switch it out in 
-`App\Infrastructure\Providers\Psr16ServiceProvider`.
+`Application\Provider\Psr16ServiceProvider`.
 
 ## Cache Service Provider
 
 Let's say, you wanted to switch out `FileSystemCacheAdapter` for `RedisCacheAdapter`. You would change the service 
 provider from this:
 
-```php title="./app/Infrastructure/Providers/Psr16ServiceProvider.php"
+```php title="./src/Application/Provider/Psr16ServiceProvider.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Providers;
+namespace Application\Provider;
 
 use Codefy\Framework\Support\CodefyServiceProvider;
 use Qubus\Exception\Exception;
@@ -68,12 +68,12 @@ class Psr16ServiceProvider extends CodefyServiceProvider
 
 to this instead:
 
-```php title="./app/Infrastructure/Providers/Psr16ServiceProvider.php"
+```php title="./src/Application/Provider/Psr16ServiceProvider.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Providers;
+namespace Application\Provider;
 
 use Codefy\Framework\Support\CodefyServiceProvider;
 use Qubus\Cache\Adapter\RedisCacheAdapter;

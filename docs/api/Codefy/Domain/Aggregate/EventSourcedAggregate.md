@@ -1,89 +1,51 @@
-***
-
 # EventSourcedAggregate
 
-
-
-
+***
 
 * Full name: `\Codefy\Domain\Aggregate\EventSourcedAggregate`
 * This class implements:
-[`\Codefy\Domain\Aggregate\AggregateRoot`](./AggregateRoot.md), [`\Codefy\Domain\Aggregate\IsEventSourced`](./IsEventSourced.md)
-
-
+  [`\Codefy\Domain\Aggregate\AggregateRoot`](./AggregateRoot.md),
+  [`\Codefy\Domain\Aggregate\IsEventSourced`](./IsEventSourced.md)
 
 ## Properties
 
-
 ### aggregateId
-
-
 
 ```php
 public \Codefy\Domain\Aggregate\AggregateId $aggregateId
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-private __construct(\Codefy\Domain\Aggregate\AggregateId $aggregateId): mixed
+final private __construct(\Codefy\Domain\Aggregate\AggregateId $aggregateId): mixed
 ```
 
-
-
-
-
-
-
-
+* This method is **final**.
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
 
 ***
 
 ### root
 
-
-
 ```php
 final public static root(\Codefy\Domain\Aggregate\AggregateId $aggregateId): static
 ```
 
-
-
-* This method is **static**.
-
-* This method is **final**.
-
-
+* This method is **static**.* This method is **final**.
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
 
 ***
 
@@ -95,49 +57,25 @@ Records, applies, and publishes a domain event.
 protected recordApplyAndPublishThat(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
 
 ### applyThat
 
-
-
 ```php
 protected applyThat(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
 
@@ -148,17 +86,6 @@ Determine whether the object's state has changed since the last clearRecordedEve
 ```php
 public hasRecordedEvents(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -171,21 +98,9 @@ restored from persistence. This does not include events that were recorded prior
 public getRecordedEvents(): \Codefy\Domain\EventSourcing\DomainEvents
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`TypeException`](../../../Qubus/Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -197,17 +112,6 @@ Clears the record of new Domain Events. This doesn't clear the history of the ob
 public clearRecordedEvents(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### aggregateId
@@ -217,17 +121,6 @@ Returns unique aggregate id.
 ```php
 public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -239,17 +132,6 @@ Aggregate root version.
 public playhead(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### reconstituteFromEventStream
@@ -260,49 +142,27 @@ Reconstitutes an Aggregate instance from its history of domain events.
 public static reconstituteFromEventStream(\Codefy\Domain\EventSourcing\EventStream $aggregateHistory): \Codefy\Domain\Aggregate\RecordsEvents
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateHistory` | **\Codefy\Domain\EventSourcing\EventStream** |  |
-
-
-
-
+| Parameter           | Type                                         | Description |
+|---------------------|----------------------------------------------|-------------|
+| `$aggregateHistory` | **\Codefy\Domain\EventSourcing\EventStream** |             |
 
 ***
 
 ### equals
 
-
-
 ```php
 final public equals(\Codefy\Domain\Aggregate\AggregateRoot $aggregateRoot): bool
 ```
 
-
-
-
-
 * This method is **final**.
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateRoot` | **\Codefy\Domain\Aggregate\AggregateRoot** |  |
-
-
-
-
+| Parameter        | Type                                       | Description |
+|------------------|--------------------------------------------|-------------|
+| `$aggregateRoot` | **\Codefy\Domain\Aggregate\AggregateRoot** |             |
 
 ***
 
@@ -314,69 +174,32 @@ Retrieves the class name.
 final public static className(): string
 ```
 
-
-
-* This method is **static**.
-
-* This method is **final**.
-
-
-
-
-
-
+* This method is **static**.* This method is **final**.
 ***
-
 
 ## Inherited methods
 
-
 ### publishThat
-
-
 
 ```php
 protected publishThat(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
 
 ### aggregateId
 
-
-
 ```php
 public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 ```
 
-
-
-
 * This method is **abstract**.
-
-
-
-
-
-
-
 ***
 
 ### recordThat
@@ -387,73 +210,33 @@ Records domain events.
 protected recordThat(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
 
 ### pullDomainEvents
 
-
-
 ```php
 public pullDomainEvents(): array
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### when
 
-
-
 ```php
 protected when(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
 * This method is **abstract**.
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,101 +1,60 @@
-***
-
 # SimpleCache
 
-
-
-
+***
 
 * Full name: `\Qubus\Cache\Psr16\SimpleCache`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Psr\SimpleCache\CacheInterface`](../../../Psr/SimpleCache/CacheInterface.md)
+  `CacheInterface`
 * This class is a **Final class**
-
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`CACHE_FLAG`|public| |&quot;@psr16_&quot;|
+| Constant     | Visibility | Type | Value     |
+|--------------|------------|------|-----------|
+| `CACHE_FLAG` | public     |      | "@psr16_" |
 
 ## Properties
 
-
 ### adapter
-
-
 
 ```php
 private \Qubus\Cache\Adapter\CacheAdapter $adapter
 ```
 
-
-
-
-
-
 ***
 
 ### ttl
-
-
 
 ```php
 private int|null|\DateInterval $ttl
 ```
 
-
-
-
-
-
 ***
 
 ### namespace
-
-
 
 ```php
 private ?string $namespace
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(\Qubus\Cache\Adapter\CacheAdapter $adapter, int|null|\DateInterval $ttl = null, ?string $namespace = &#039;default&#039;): mixed
+public __construct(\Qubus\Cache\Adapter\CacheAdapter $adapter, int|null|\DateInterval $ttl = null, ?string $namespace = 'default'): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$adapter` | **\Qubus\Cache\Adapter\CacheAdapter** |  |
-| `$ttl` | **int&#124;null&#124;\DateInterval** |  |
-| `$namespace` | **?string** |  |
-
-
-
-
+| Parameter    | Type                                  | Description |
+|--------------|---------------------------------------|-------------|
+| `$adapter`   | **\Qubus\Cache\Adapter\CacheAdapter** |             |
+| `$ttl`       | **int\|null\|\DateInterval**          |             |
+| `$namespace` | **?string**                           |             |
 
 ***
 
@@ -107,23 +66,12 @@ public __construct(\Qubus\Cache\Adapter\CacheAdapter $adapter, int|null|\DateInt
 public get(string $key, mixed $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$key`     | **string** |             |
+| `$default` | **mixed**  |             |
 
 ***
 
@@ -135,24 +83,13 @@ public get(string $key, mixed $default = null): mixed
 public set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$value` | **mixed** |  |
-| `$ttl` | **null&#124;int&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$key`    | **string**                   |             |
+| `$value`  | **mixed**                    |             |
+| `$ttl`    | **null\|int\|\DateInterval** |             |
 
 ***
 
@@ -164,22 +101,11 @@ public set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
 public delete(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -191,17 +117,6 @@ public delete(string $key): bool
 public clear(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getMultiple
@@ -212,23 +127,12 @@ public clear(): bool
 public getMultiple(iterable $keys, mixed $default = null): iterable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **iterable** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type         | Description |
+|------------|--------------|-------------|
+| `$keys`    | **iterable** |             |
+| `$default` | **mixed**    |             |
 
 ***
 
@@ -240,23 +144,12 @@ public getMultiple(iterable $keys, mixed $default = null): iterable
 public setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$values` | **iterable** |  |
-| `$ttl` | **null&#124;int&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$values` | **iterable**                 |             |
+| `$ttl`    | **null\|int\|\DateInterval** |             |
 
 ***
 
@@ -268,22 +161,11 @@ public setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
 public deleteMultiple(iterable $keys): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **iterable** |  |
-
-
-
-
+| Parameter | Type         | Description |
+|-----------|--------------|-------------|
+| `$keys`   | **iterable** |             |
 
 ***
 
@@ -295,55 +177,29 @@ public deleteMultiple(iterable $keys): bool
 public has(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
 ### getTtl
 
-
-
 ```php
 private getTtl(int|null|\DateInterval $ttl): ?int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$ttl` | **int&#124;null&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$ttl`    | **int\|null\|\DateInterval** |             |
 
 ***
 
-
 ## Inherited methods
-
 
 ### reservedKeyCharacters
 
@@ -353,17 +209,7 @@ Reserved key characters that should not be used in a cache key.
 final public reservedKeyCharacters(): string
 ```
 
-
-
-
-
 * This method is **final**.
-
-
-
-
-
-
 ***
 
 ### validateKey
@@ -374,27 +220,15 @@ Validates cache key.
 protected validateKey(string $key): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
-
-
 
 ***
 
@@ -406,22 +240,11 @@ Checks if key is hashed.
 protected isHashed(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -433,22 +256,11 @@ Affixes a prefix to the
 protected prefix(string $key): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -460,30 +272,14 @@ Validates an array of keys.
 protected validateKeys(array $keys): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,332 +1,189 @@
-***
-
 # Router
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Router`
 * This class implements:
-[`\Qubus\Routing\Psr7Router`](./Psr7Router.md), [`\Qubus\Routing\Interfaces\Mappable`](./Interfaces/Mappable.md), [`\Psr\Http\Server\MiddlewareInterface`](../../Psr/Http/Server/MiddlewareInterface.md)
-
-
+  [`\Qubus\Routing\Psr7Router`](./Psr7Router.md),
+  [`\Qubus\Routing\Interfaces\Mappable`](./Interfaces/Mappable.md),
+  `MiddlewareInterface`
 
 ## Properties
 
-
 ### request
-
-
 
 ```php
 public \Qubus\Http\Request $request
 ```
 
-
-
-
-
-
 ***
 
 ### version
-
-
 
 ```php
 public string $version
 ```
 
-
-
-
-
-
 ***
 
 ### routes
-
-
 
 ```php
 public array $routes
 ```
 
-
-
-
-
-
 ***
 
 ### routeCollector
-
-
 
 ```php
 protected \Qubus\Routing\Interfaces\Collector $routeCollector
 ```
 
-
-
-
-
-
 ***
 
 ### routesCreated
-
-
 
 ```php
 protected bool $routesCreated
 ```
 
-
-
-
-
-
 ***
 
 ### routeCollectorMatchTypeId
-
-
 
 ```php
 protected int $routeCollectorMatchTypeId
 ```
 
-
-
-
-
-
 ***
 
 ### basePath
-
-
 
 ```php
 protected string $basePath
 ```
 
-
-
-
-
-
 ***
 
 ### currentRoute
-
-
 
 ```php
 protected ?\Qubus\Routing\Route\Route $currentRoute
 ```
 
-
-
-
-
-
 ***
 
 ### container
-
-
 
 ```php
 protected ?\Psr\Container\ContainerInterface $container
 ```
 
-
-
-
-
-
 ***
 
 ### responseFactory
-
-
 
 ```php
 protected ?\Psr\Http\Message\ResponseFactoryInterface $responseFactory
 ```
 
-
-
-
-
-
 ***
 
 ### middlewareResolver
-
-
 
 ```php
 protected ?\Qubus\Routing\Interfaces\MiddlewareResolver $middlewareResolver
 ```
 
-
-
-
-
-
 ***
 
 ### invoker
-
-
 
 ```php
 protected ?\Qubus\Routing\Invoker $invoker
 ```
 
+***
 
+### routeCache
 
-
-
+```php
+protected ?\Qubus\Routing\Route\RouteFileCache $routeCache
+```
 
 ***
 
 ### baseMiddleware
 
-
-
 ```php
 public array $baseMiddleware
 ```
-
-
-
-
-
 
 ***
 
 ### defaultNamespace
 
-
-
 ```php
 protected ?string $defaultNamespace
 ```
-
-
-
-
-
 
 ***
 
 ### namespace
 
-
-
 ```php
 protected string $namespace
 ```
-
-
-
-
-
 
 ***
 
 ### bootManagers
 
-
-
 ```php
 protected array $bootManagers
 ```
-
-
-
-
-
 
 ***
 
 ### eventHandlers
 
-
-
 ```php
 protected array $eventHandlers
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Routing\Interfaces\Collector $routeCollector, \Psr\Container\ContainerInterface $container, ?\Psr\Http\Message\ResponseFactoryInterface $responseFactory = null, ?\Qubus\Routing\Interfaces\MiddlewareResolver $resolver = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$routeCollector` | **\Qubus\Routing\Interfaces\Collector** |  |
-| `$container` | **\Psr\Container\ContainerInterface** |  |
-| `$responseFactory` | **?\Psr\Http\Message\ResponseFactoryInterface** |  |
-| `$resolver` | **?\Qubus\Routing\Interfaces\MiddlewareResolver** |  |
-
-
-
-
+| Parameter          | Type                                              | Description |
+|--------------------|---------------------------------------------------|-------------|
+| `$routeCollector`  | **\Qubus\Routing\Interfaces\Collector**           |             |
+| `$container`       | **\Psr\Container\ContainerInterface**             |             |
+| `$responseFactory` | **?\Psr\Http\Message\ResponseFactoryInterface**   |             |
+| `$resolver`        | **?\Qubus\Routing\Interfaces\MiddlewareResolver** |             |
 
 ***
 
 ### prependUrl
 
-
-
 ```php
 public prependUrl(string $url): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$url`    | **string** |             |
 
 ***
 
@@ -338,22 +195,11 @@ Set a container.
 protected setContainer(\Psr\Container\ContainerInterface $container): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$container` | **\Psr\Container\ContainerInterface** |  |
-
-
-
-
+| Parameter    | Type                                  | Description |
+|--------------|---------------------------------------|-------------|
+| `$container` | **\Psr\Container\ContainerInterface** |             |
 
 ***
 
@@ -365,22 +211,11 @@ Set the basepath.
 public setBasePath(string $basePath): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$basePath` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$basePath` | **string** |             |
 
 ***
 
@@ -392,22 +227,45 @@ Set the default namespace for controllers.
 public setDefaultNamespace(string $namespace): void
 ```
 
+**Parameters:**
 
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$namespace` | **string** |             |
 
+***
 
+### enableRouteCache
 
+Use this method to enable route caching.
 
-
+```php
+public enableRouteCache(string $file): void
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$namespace` | **string** |  |
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$file`   | **string** |             |
 
+***
 
+### disableRouteCache
 
+Disable route caching for this router instance.
 
+```php
+public disableRouteCache(): void
+```
+
+***
+
+### hasRouteCache
+
+```php
+public hasRouteCache(): bool
+```
 
 ***
 
@@ -419,59 +277,34 @@ Add route.
 protected addRoute(\Qubus\Routing\Route\Route $route): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$route` | **\Qubus\Routing\Route\Route** | The route. |
-
+| Parameter | Type                           | Description |
+|-----------|--------------------------------|-------------|
+| `$route`  | **\Qubus\Routing\Route\Route** | The route.  |
 
 **Return Value:**
 
 Add route to routes array.
 
-
-
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
 ### convertRouteToRouteCollectorRouterUri
 
-
-
 ```php
 protected convertRouteToRouteCollectorRouterUri(\Qubus\Routing\Interfaces\Routable $route, \Qubus\Routing\Route\RouteCollector $routeCollector): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$route` | **\Qubus\Routing\Interfaces\Routable** |  |
-| `$routeCollector` | **\Qubus\Routing\Route\RouteCollector** |  |
-
-
-
-
+| Parameter         | Type                                    | Description |
+|-------------------|-----------------------------------------|-------------|
+| `$route`          | **\Qubus\Routing\Interfaces\Routable**  |             |
+| `$routeCollector` | **\Qubus\Routing\Route\RouteCollector** |             |
 
 ***
 
@@ -483,29 +316,17 @@ Add a route to the map
 public map(array $verbs, string $uri, callable|string $callback): \Qubus\Routing\Route\Route
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$verbs` | **array** | HTTP methods. |
-| `$uri` | **string** | Route path. |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description   |
+|-------------|----------------------|---------------|
+| `$verbs`    | **array**            | HTTP methods. |
+| `$uri`      | **string**           | Route path.   |
+| `$callback` | **callable\|string** |               |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -517,23 +338,12 @@ Register an array of resource controllers.
 public resources(array $resources, array $options = []): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resources` | **array** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter    | Type      | Description |
+|--------------|-----------|-------------|
+| `$resources` | **array** |             |
+| `$options`   | **array** |             |
 
 ***
 
@@ -545,24 +355,13 @@ Route a resource to a controller.
 public resource(string $name, string $controller, array $options = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -574,23 +373,12 @@ Register an array of API resource controllers.
 public apiResources(array $resources, array $options = []): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resources` | **array** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter    | Type      | Description |
+|--------------|-----------|-------------|
+| `$resources` | **array** |             |
+| `$options`   | **array** |             |
 
 ***
 
@@ -602,24 +390,13 @@ Route an API resource to a controller.
 public apiResource(string $name, string $controller, array $options = []): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$controller` | **string** |  |
-| `$options` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$name`       | **string** |             |
+| `$controller` | **string** |             |
+| `$options`    | **array**  |             |
 
 ***
 
@@ -631,27 +408,15 @@ Load routes from a JSON file.
 public loadRoutesFromJson(string $path): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** | Path to the JSON routes file. |
-
-
-
+| Parameter | Type       | Description                   |
+|-----------|------------|-------------------------------|
+| `$path`   | **string** | Path to the JSON routes file. |
 
 **Throws:**
 
 - [`\Qubus\Routing\Exceptions\TooLateToAddNewRouteException|\Qubus\Exception\Data\TypeException`](./Exceptions/TooLateToAddNewRouteException|/Qubus/Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -663,27 +428,15 @@ Converts JSON routes to a route object.
 public handleSimpleJsonRoutes(array $route): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$route` | **array** | Array from JSON file. |
-
-
-
+| Parameter | Type      | Description           |
+|-----------|-----------|-----------------------|
+| `$route`  | **array** | Array from JSON file. |
 
 **Throws:**
 
 - [`\Qubus\Routing\Exceptions\TooLateToAddNewRouteException|\Qubus\Exception\Data\TypeException`](./Exceptions/TooLateToAddNewRouteException|/Qubus/Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -695,48 +448,93 @@ Converts JSON group routes to a route object.
 public handleGroupJsonRoutes(array $route): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$route` | **array** | Array form JSON file. |
-
-
-
+| Parameter | Type      | Description           |
+|-----------|-----------|-----------------------|
+| `$route`  | **array** | Array form JSON file. |
 
 **Throws:**
 
 - [`\Qubus\Routing\Exceptions\TooLateToAddNewRouteException|\Qubus\Exception\Data\TypeException`](./Exceptions/TooLateToAddNewRouteException|/Qubus/Exception/Data/TypeException.md)
 
+***
 
+### buildRoutes
+
+```php
+protected buildRoutes(): void
+```
 
 ***
 
 ### createRoutes
 
-
-
 ```php
 protected createRoutes(): void
 ```
 
+***
 
+### exportCompiledRoutes
 
+```php
+protected exportCompiledRoutes(): array
+```
 
+***
 
+### importCompiledRoutes
 
+```php
+protected importCompiledRoutes(array $compiled): void
+```
 
+**Parameters:**
 
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$compiled` | **array** |             |
 
+***
 
+### normalizeHttpMethod
 
+Method to override/normalize the HTTP method before match/dispatch.
+
+```php
+protected normalizeHttpMethod(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ServerRequestInterface
+```
+
+**Parameters:**
+
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
+
+***
+
+### hydrateRoute
+
+Add route.
+
+```php
+public hydrateRoute(\Qubus\Routing\Route\Route $route): void
+```
+
+**Parameters:**
+
+| Parameter | Type                           | Description |
+|-----------|--------------------------------|-------------|
+| `$route`  | **\Qubus\Routing\Route\Route** | The route.  |
+
+**Return Value:**
+
+Add route to routes array.
+
+**Throws:**
+
+- [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
 
 ***
 
@@ -749,56 +547,31 @@ converted into a Response.
 public match(\Psr\Http\Message\ServerRequestInterface $serverRequest): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter        | Type                                         | Description |
+|------------------|----------------------------------------------|-------------|
+| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
 - [`Exception`](../../Exception.md)
 
-
-
 ***
 
 ### handle
-
-
 
 ```php
 protected handle(object $route, \Psr\Http\Message\ServerRequestInterface $serverRequest, \Qubus\Routing\Route\RouteParams $params): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$route` | **object** |  |
-| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |  |
-| `$params` | **\Qubus\Routing\Route\RouteParams** |  |
-
-
-
-
+| Parameter        | Type                                         | Description |
+|------------------|----------------------------------------------|-------------|
+| `$route`         | **object**                                   |             |
+| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |             |
+| `$params`        | **\Qubus\Routing\Route\RouteParams**         |             |
 
 ***
 
@@ -810,22 +583,11 @@ Add BootManager
 public addBootManager(\Qubus\Routing\Interfaces\BootManager $bootManager): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$bootManager` | **\Qubus\Routing\Interfaces\BootManager** |  |
-
-
-
-
+| Parameter      | Type                                      | Description |
+|----------------|-------------------------------------------|-------------|
+| `$bootManager` | **\Qubus\Routing\Interfaces\BootManager** |             |
 
 ***
 
@@ -837,26 +599,15 @@ Check if a route exists based on its name.
 public has(string $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The name of the route. |
-
+| Parameter | Type       | Description            |
+|-----------|------------|------------------------|
+| `$name`   | **string** | The name of the route. |
 
 **Return Value:**
 
 True if the named routed exists, false otherwise.
-
-
-
 
 ***
 
@@ -868,27 +619,16 @@ Generate url's from named routes.
 public url(string $name, array $params = []): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Name of the route. |
-| `$params` | **array** | Data parameters. |
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$name`   | **string** | Name of the route. |
+| `$params` | **array**  | Data parameters.   |
 
 **Return Value:**
 
 The url.
-
-
-
 
 ***
 
@@ -900,24 +640,13 @@ Redirect one route to another.
 public redirect(string $from, string $to, int $status = 302): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$from` | **string** | Originating route. |
-| `$to` | **string** | Destination route. |
-| `$status` | **int** | HTTP status code. |
-
-
-
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$from`   | **string** | Originating route. |
+| `$to`     | **string** | Destination route. |
+| `$status` | **int**    | HTTP status code.  |
 
 ***
 
@@ -929,28 +658,16 @@ Create a permanent redirect from one URI to another.
 public permanentRedirect(string $uri, string $destination): \Qubus\Routing\Interfaces\Routable|\Qubus\Routing\Interfaces\Mappable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$destination` | **string** |  |
-
-
-
+| Parameter      | Type       | Description |
+|----------------|------------|-------------|
+| `$uri`         | **string** |             |
+| `$destination` | **string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -962,23 +679,12 @@ Add route group
 public group(array|string $params, callable $callback): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$params` | **array&#124;string** |  |
-| `$callback` | **callable** |  |
-
-
-
-
+| Parameter   | Type              | Description |
+|-------------|-------------------|-------------|
+| `$params`   | **array\|string** |             |
+| `$callback` | **callable**      |             |
 
 ***
 
@@ -990,20 +696,9 @@ Get the basepath.
 public getBasePath(): string
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 The basepath.
-
-
-
 
 ***
 
@@ -1015,20 +710,9 @@ Get current route.
 public currentRoute(): \Qubus\Routing\Route\Route|null
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Current route.
-
-
-
 
 ***
 
@@ -1040,20 +724,9 @@ Get current route name.
 public currentRouteName(): null|string
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Current route name.
-
-
-
 
 ***
 
@@ -1065,22 +738,11 @@ Register event handler
 public setEventHandlers(\Qubus\Routing\Events\EventHandler $handler): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$handler` | **\Qubus\Routing\Events\EventHandler** |  |
-
-
-
-
+| Parameter  | Type                                   | Description |
+|------------|----------------------------------------|-------------|
+| `$handler` | **\Qubus\Routing\Events\EventHandler** |             |
 
 ***
 
@@ -1092,17 +754,6 @@ Get registered event-handler.
 public getEventHandlers(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fireEvents
@@ -1113,23 +764,12 @@ Fire event in event-handler.
 protected fireEvents(string $name, array $arguments = []): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$arguments` | **array** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$name`      | **string** |             |
+| `$arguments` | **array**  |             |
 
 ***
 
@@ -1141,67 +781,39 @@ Sets other router methods.
 private setExtrasOfSimpleJsonRoute(array $extras, \Qubus\Routing\Interfaces\Routable $route): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$extras` | **array** | Router attributes. |
-| `$route` | **\Qubus\Routing\Interfaces\Routable** | Route object. |
-
-
-
+| Parameter | Type                                   | Description        |
+|-----------|----------------------------------------|--------------------|
+| `$extras` | **array**                              | Router attributes. |
+| `$route`  | **\Qubus\Routing\Interfaces\Routable** | Route object.      |
 
 **Throws:**
 
 - [`TypeException`](../Exception/Data/TypeException.md)
 
-
-
 ***
 
 ### process
-
-
 
 ```php
 public process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-| `$handler` | **\Psr\Http\Server\RequestHandlerInterface** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
+| `$handler` | **\Psr\Http\Server\RequestHandlerInterface** |             |
 
 **Throws:**
 
 - [`Exception`](../../Exception.md)
 
-
-
 ***
 
-
 ## Inherited methods
-
 
 ### map
 
@@ -1211,24 +823,14 @@ Add a route to the map.
 public map(array $verbs, string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
 * This method is **abstract**.
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$verbs` | **array** |  |
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$verbs`    | **array**            |             |
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -1240,28 +842,16 @@ Add a route that responds to any HTTP method.
 public any(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1273,28 +863,16 @@ Add a route that responds to GET HTTP method.
 public get(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1306,28 +884,16 @@ Add a route that responds to POST HTTP method.
 public post(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1339,28 +905,16 @@ Add a route that responds to PATCH HTTP method.
 public patch(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1372,28 +926,16 @@ Add a route that responds to PUT HTTP method.
 public put(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1405,28 +947,16 @@ Add a route that responds to DELETE HTTP method.
 public delete(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1438,28 +968,16 @@ Add a route that responds to HEAD HTTP method.
 public head(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1471,28 +989,16 @@ Add a route that responds to OPTIONS HTTP method.
 public options(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1504,28 +1010,16 @@ Add a route that responds to CONNECT HTTP method.
 public connect(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
-
-
 
 ***
 
@@ -1537,31 +1031,15 @@ Add a route that responds to TRACE HTTP method.
 public trace(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

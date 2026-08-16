@@ -1,17 +1,10 @@
-***
-
 # ServiceContainer
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\ServiceContainer`
 
-
-
 ## Methods
-
 
 ### define
 
@@ -21,23 +14,12 @@ Define instantiation directives for the specified class
 public define(string $name, array $args): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The class (or alias) whose constructor arguments we wish to define |
-| `$args` | **array** | An array mapping parameter names to values/instructions |
-
-
-
-
+| Parameter | Type       | Description                                                        |
+|-----------|------------|--------------------------------------------------------------------|
+| `$name`   | **string** | The class (or alias) whose constructor arguments we wish to define |
+| `$args`   | **array**  | An array mapping parameter names to values/instructions            |
 
 ***
 
@@ -52,21 +34,12 @@ public defineParam(string $paramName, mixed $value): \Qubus\Injector\ServiceCont
 Global parameter definitions are only used for parameters with no typehint, pre-defined or
 call-time definition.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter    | Type       | Description                                     |
+|--------------|------------|-------------------------------------------------|
 | `$paramName` | **string** | The parameter name for which this value applies |
-| `$value` | **mixed** | The value to inject for this parameter name |
-
-
-
-
+| `$value`     | **mixed**  | The value to inject for this parameter name     |
 
 ***
 
@@ -80,27 +53,17 @@ public alias(string $original, string $alias): \Qubus\Injector\ServiceContainer
 
 Use this method to specify implementation classes for interface and abstract class typehints.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type       | Description             |
+|-------------|------------|-------------------------|
 | `$original` | **string** | The typehint to replace |
-| `$alias` | **string** | The implementation name |
-
-
-
+| `$alias`    | **string** | The implementation name |
 
 **Throws:**
-<p>If any argument is empty or not a string.</p>
 
+If any argument is empty or not a string.
 - [`ConfigException`](./ConfigException.md)
-
-
 
 ***
 
@@ -112,28 +75,16 @@ Share the specified class/instance across the Injector context
 public share(mixed $nameOrInstance): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter         | Type      | Description                  |
+|-------------------|-----------|------------------------------|
 | `$nameOrInstance` | **mixed** | The class or object to share |
 
-
-
-
 **Throws:**
-<p>If $nameOrInstance is not a string or an object.</p>
 
+If $nameOrInstance is not a string or an object.
 - [`ConfigException`](./ConfigException.md)
-
-
 
 ***
 
@@ -148,28 +99,18 @@ public prepare(string $name, callable|string|array|object $callableOrMethodStr):
 Any callable or provisionable invokable may be specified. Preparers are passed two
 arguments: the instantiated object to be mutated and the current Injector instance.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Class name. |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | Any callable or provisionable invokable method |
-
-
-
+| Parameter              | Type                                | Description                                    |
+|------------------------|-------------------------------------|------------------------------------------------|
+| `$name`                | **string**                          | Class name.                                    |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | Any callable or provisionable invokable method |
 
 **Throws:**
-<p>If $callableOrMethodStr is not a callable.
-See https://docs.stalframework.com/injector/#injecting-for-execution.</p>
 
+If $callableOrMethodStr is not a callable.
+See https://docs.stalframework.com/injector/#injecting-for-execution.
 - [`InjectionException`](./InjectionException.md)
-
-
 
 ***
 
@@ -181,29 +122,17 @@ Delegate the creation of $name instances to the specified callable
 public delegate(string $name, callable|string|array|object $callableOrMethodStr): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Class name. |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | Any callable or provisionable invokable method. |
-
-
-
+| Parameter              | Type                                | Description                                     |
+|------------------------|-------------------------------------|-------------------------------------------------|
+| `$name`                | **string**                          | Class name.                                     |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | Any callable or provisionable invokable method. |
 
 **Throws:**
-<p>If $callableOrMethodStr is not a callable.</p>
 
+If $callableOrMethodStr is not a callable.
 - [`ConfigException`](./ConfigException.md)
-
-
 
 ***
 
@@ -215,28 +144,16 @@ Proxy the specified class across the Injector context.
 public proxy(string $name, callable|string|array|object $callableOrMethodStr): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The class to proxy |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** |  |
-
-
-
+| Parameter              | Type                                | Description        |
+|------------------------|-------------------------------------|--------------------|
+| `$name`                | **string**                          | The class to proxy |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** |                    |
 
 **Throws:**
 
 - [`ConfigException`](./ConfigException.md)
-
-
 
 ***
 
@@ -248,29 +165,17 @@ Instantiate/provision a class instance.
 public make(string $name, array $args = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Name of an interface/class/alias to instantiate. |
-| `$args` | **array** | Optional arguments to pass to the object. |
-
-
-
+| Parameter | Type       | Description                                      |
+|-----------|------------|--------------------------------------------------|
+| `$name`   | **string** | Name of an interface/class/alias to instantiate. |
+| `$args`   | **array**  | Optional arguments to pass to the object.        |
 
 **Throws:**
-<p>If a cyclic gets detected when provisioning.</p>
 
+If a cyclic gets detected when provisioning.
 - [`InjectionException`](./InjectionException.md)
-
-
 
 ***
 
@@ -282,35 +187,21 @@ Invoke the specified callable or class::method string, provisioning dependencies
 public execute(callable|string|array|object $callableOrMethodStr, array $args = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | A valid PHP callable<br />or a provisionable ClassName::methodName string. |
-| `$args` | **array** | Optional array specifying params with which to<br />invoke the provisioned callable |
-
+| Parameter              | Type                                | Description                                                                    |
+|------------------------|-------------------------------------|--------------------------------------------------------------------------------|
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | A valid PHP callable
+or a provisionable ClassName::methodName string.          |
+| `$args`                | **array**                           | Optional array specifying params with which to
+invoke the provisioned callable |
 
 **Return Value:**
 
 Returns the invocation result returned from calling the generated executable
 
-
-
 **Throws:**
 
 - [`InjectionException`](./InjectionException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

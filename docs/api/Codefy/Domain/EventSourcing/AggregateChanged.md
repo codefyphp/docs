@@ -1,99 +1,61 @@
-***
-
 # AggregateChanged
 
 Something that happened in the past and that is of importance to the business.
 
-
+***
 
 * Full name: `\Codefy\Domain\EventSourcing\AggregateChanged`
 * This class implements:
-[`\Codefy\Domain\EventSourcing\DomainEvent`](./DomainEvent.md)
-
+  [`\Codefy\Domain\EventSourcing\DomainEvent`](./DomainEvent.md)
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`DATE_FORMAT`|public| |&#039;Y-m-d H:i:s.u&#039;|
+| Constant      | Visibility | Type | Value           |
+|---------------|------------|------|-----------------|
+| `DATE_FORMAT` | public     |      | 'Y-m-d H:i:s.u' |
 
 ## Properties
 
-
 ### payload
 
-
-
 ```php
-public ?array $payload
+public array|null $payload
 ```
-
-
-
-
-
 
 ***
 
 ### metadata
 
-
-
 ```php
-protected ?array $metadata
+protected array|null $metadata
 ```
-
-
-
-
-
 
 ***
 
 ### recordedAt
 
-
-
 ```php
 protected ?\DateTimeInterface $recordedAt
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-private __construct(\Codefy\Domain\Aggregate\AggregateId $aggregateId, ?array $payload, ?array $metadata = []): mixed
+final private __construct(\Codefy\Domain\Aggregate\AggregateId $aggregateId, array|null $payload, array|null $metadata = []): mixed
 ```
 
-
-
-
-
-
-
-
+* This method is **final**.
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-| `$payload` | **?array** |  |
-| `$metadata` | **?array** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
+| `$payload`     | **array\|null**                          |             |
+| `$metadata`    | **array\|null**                          |             |
 
 ***
 
@@ -102,27 +64,17 @@ private __construct(\Codefy\Domain\Aggregate\AggregateId $aggregateId, ?array $p
 Named constructor for generating a domain event.
 
 ```php
-final public static occur(\Codefy\Domain\Aggregate\AggregateId $aggregateId, array $payload, array $metadata = []): self
+final public static occur(\Codefy\Domain\Aggregate\AggregateId $aggregateId, array $payload, array $metadata = []): static
 ```
 
-
-
-* This method is **static**.
-
-* This method is **final**.
-
-
+* This method is **static**.* This method is **final**.
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-| `$payload` | **array** |  |
-| `$metadata` | **array** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
+| `$payload`     | **array**                                |             |
+| `$metadata`    | **array**                                |             |
 
 ***
 
@@ -134,22 +86,12 @@ Named constructor for generating a domain event from an array.
 final public static fromArray(array $data): \Codefy\Domain\EventSourcing\DomainEvent
 ```
 
-
-
-* This method is **static**.
-
-* This method is **final**.
-
-
+* This method is **static**.* This method is **final**.
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 ***
 
@@ -161,17 +103,6 @@ Returns payload array.
 public payload(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### eventType
@@ -181,17 +112,6 @@ Name of the event.
 ```php
 public eventType(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -203,17 +123,6 @@ The ID of the Aggregate this event belongs to.
 public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### eventId
@@ -221,19 +130,8 @@ public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 Uuid of the event.
 
 ```php
-public eventId(): string|\Codefy\Domain\EventSourcing\EventId
+public eventId(): \Codefy\Domain\EventSourcing\EventId
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -245,58 +143,25 @@ Event metadata.
 public metadata(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### playhead
 
-Aggregate version.
+Version of the recorded event.
 
 ```php
 public playhead(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### recordedAt
 
-The date the event occurred on.
+Date the event was recorded on.
 
 ```php
-public recordedAt(): string|\DateTimeInterface
+public recordedAt(): ?\DateTimeInterface
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -305,19 +170,8 @@ public recordedAt(): string|\DateTimeInterface
 Returns array of event data.
 
 ```php
-public toArray(): array
+public toArray(): array<string,mixed>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -329,23 +183,12 @@ Retrieve data from payload by name.
 public param(string $name, mixed $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$name`    | **string** |             |
+| `$default` | **mixed**  |             |
 
 ***
 
@@ -357,23 +200,12 @@ Retrieve meta data from metadata by name.
 public metaParam(string $name, mixed $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$name`    | **string** |             |
+| `$default` | **mixed**  |             |
 
 ***
 
@@ -385,22 +217,12 @@ Append event metadata.
 final public withMetadata(array $metadata): self
 ```
 
-
-
-
-
 * This method is **final**.
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$metadata` | **array** |  |
-
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$metadata` | **array** |             |
 
 ***
 
@@ -412,23 +234,13 @@ Append event metadata.
 final public withAddedMetadata(string $key, mixed $value): self
 ```
 
-
-
-
-
 * This method is **final**.
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
+| `$value`  | **mixed**  |             |
 
 ***
 
@@ -440,181 +252,89 @@ Append event version.
 final public withPlayhead(int $playhead): self
 ```
 
-
-
-
-
 * This method is **final**.
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$playhead` | **int** |  |
-
-
-
-
+| Parameter   | Type    | Description |
+|-------------|---------|-------------|
+| `$playhead` | **int** |             |
 
 ***
 
 ### setEventId
 
-
-
 ```php
 private setEventId(\Codefy\Domain\EventSourcing\EventId $eventId): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$eventId` | **\Codefy\Domain\EventSourcing\EventId** |  |
-
-
-
-
+| Parameter  | Type                                     | Description |
+|------------|------------------------------------------|-------------|
+| `$eventId` | **\Codefy\Domain\EventSourcing\EventId** |             |
 
 ***
 
 ### setEventType
 
-
-
 ```php
 private setEventType(string $eventType): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$eventType` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$eventType` | **string** |             |
 
 ***
 
 ### setAggregateId
 
-
-
 ```php
 private setAggregateId(\Codefy\Domain\Aggregate\AggregateId $aggregateId): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
 
 ***
 
 ### setPlayhead
 
-
-
 ```php
 private setPlayhead(int $playhead): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$playhead` | **int** |  |
-
-
-
-
+| Parameter   | Type    | Description |
+|-------------|---------|-------------|
+| `$playhead` | **int** |             |
 
 ***
 
 ### setPayload
 
-
-
 ```php
-private setPayload(?array $payload): void
+private setPayload(array|null $payload): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$payload` | **?array** |  |
-
-
-
-
+| Parameter  | Type            | Description |
+|------------|-----------------|-------------|
+| `$payload` | **array\|null** |             |
 
 ***
 
 ### init
 
-
-
 ```php
 private init(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

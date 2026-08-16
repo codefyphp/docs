@@ -1,95 +1,37 @@
-***
-
 # FileSystem
 
-
-
-
+***
 
 * Full name: `\Qubus\FileSystem\FileSystem`
 * Parent class: [`Filesystem`](../../League/Flysystem/Filesystem.md)
 * This class is marked as **final** and can't be subclassed
 * This class is a **Final class**
 
-
-
 ## Properties
-
-
-### adapter
-
-
-
-```php
-private \League\Flysystem\FilesystemAdapter $adapter
-```
-
-
-
-
-
-
-***
-
-### config
-
-
-
-```php
-private array $config
-```
-
-
-
-
-
-
-***
 
 ### pathNormalizer
 
-
-
 ```php
-private ?\League\Flysystem\PathNormalizer $pathNormalizer
+private \League\Flysystem\PathNormalizer $pathNormalizer
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(\League\Flysystem\FilesystemAdapter $adapter, array $configArray = [], ?\League\Flysystem\PathNormalizer $pathNormalizer = null): mixed
+public __construct(\League\Flysystem\FilesystemAdapter $adapter, array<string,mixed> $configArray = [], ?\League\Flysystem\PathNormalizer $pathNormalizer = null): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$adapter` | **\League\Flysystem\FilesystemAdapter** |  |
-| `$configArray` | **array** |  |
-| `$pathNormalizer` | **?\League\Flysystem\PathNormalizer** |  |
-
-
-
-
+| Parameter         | Type                                    | Description |
+|-------------------|-----------------------------------------|-------------|
+| `$adapter`        | **\League\Flysystem\FilesystemAdapter** |             |
+| `$configArray`    | **array<string,mixed>**                 |             |
+| `$pathNormalizer` | **?\League\Flysystem\PathNormalizer**   |             |
 
 ***
 
@@ -102,24 +44,31 @@ if curl is not available.
 public getContents(string $filename, bool $useIncludePath = false, bool $context = true): string|bool
 ```
 
+**Parameters:**
 
+| Parameter         | Type       | Description                        |
+|-------------------|------------|------------------------------------|
+| `$filename`       | **string** | Resource to read.                  |
+| `$useIncludePath` | **bool**   | Whether to use include path.       |
+| `$context`        | **bool**   | Whether to use a context resource. |
 
+***
 
+### putContents
 
+Write the contents of a file.
 
-
+```php
+public putContents(string $path, string $contents, bool $lock = false): int|bool
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$filename` | **string** | Resource to read. |
-| `$useIncludePath` | **bool** | Whether to use include path. |
-| `$context` | **bool** | Whether to use a context resource. |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$path`     | **string** |             |
+| `$contents` | **string** |             |
+| `$lock`     | **bool**   |             |
 
 ***
 
@@ -135,35 +84,24 @@ This function will check if the path is an existing directory,
 if not, then it will be created with set permissions and also created
 recursively if needed.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** | Path to be created. |
-| `$permissions` | **int** | Permission to set for directory. |
-| `$recursive` | **bool** | Whether to allow the creation of nested directories. |
-
+| Parameter      | Type       | Description                                          |
+|----------------|------------|------------------------------------------------------|
+| `$path`        | **string** | Path to be created.                                  |
+| `$permissions` | **int**    | Permission to set for directory.                     |
+| `$recursive`   | **bool**   | Whether to allow the creation of nested directories. |
 
 **Return Value:**
 
 True if the directory was created.
 
-
-
 **Throws:**
-<p>If path is not writable, or lacks permission to mkdir.</p>
 
+If path is not writable, or lacks permission to mkdir.
 - [`DirectoryNotWritableException`](../Exception/IO/FileSystem/DirectoryNotWritableException.md)
-<p>If path is invalid.</p>
-
+If path is invalid.
 - [`Exception`](../Exception/Exception.md)
-
-
 
 ***
 
@@ -175,22 +113,16 @@ Removes directory recursively along with any files.
 public rmdir(string $dir): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$dir` | **string** | Directory that should be removed. |
+| Parameter | Type       | Description                       |
+|-----------|------------|-----------------------------------|
+| `$dir`    | **string** | Directory that should be removed. |
 
+**Throws:**
 
-
-
+If the path resolves to a filesystem root.
+- [`InvalidArgumentException`](../../InvalidArgumentException.md)
 
 ***
 
@@ -202,62 +134,44 @@ Checks whether a file or directory exists.
 public exists(string $filename, bool $throw = true): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$filename` | **string** | Path to the file or directory. |
-| `$throw` | **bool** | Determines whether to do a simple check or throw an exception.<br />Default: true. |
-
+| Parameter   | Type       | Description                                                                   |
+|-------------|------------|-------------------------------------------------------------------------------|
+| `$filename` | **string** | Path to the file or directory.                                                |
+| `$throw`    | **bool**   | Determines whether to do a simple check or throw an exception.
+Default: true. |
 
 **Return Value:**
 
 True if the file or directory specified by $filename exists;
 false otherwise if $throw is set to false.
 
-
-
 **Throws:**
-<p>If file does not exist.</p>
 
+If file does not exist.
 - [`NotFoundException`](../Exception/Http/Client/NotFoundException.md)
-
-
 
 ***
 
 ### directoryListing
 
-Get an array that represents directory tree.
+Get an array that represents the directory tree.
 
 ```php
-public directoryListing(string $dir, string $include = &#039;dirs&#039;): array
+public directoryListing(string $dir, string $include = 'dirs'): list<string>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$dir` | **string** | Directory path. |
+| Parameter  | Type       | Description                                            |
+|------------|------------|--------------------------------------------------------|
+| `$dir`     | **string** | Directory path.                                        |
 | `$include` | **string** | Include sub directories. Default: dirs. Option: files. |
 
+**Throws:**
 
-
-
+- [`NotFoundException`](../Exception/Http/Client/NotFoundException.md)
 
 ***
 
@@ -269,26 +183,15 @@ Normalize a filesystem path.
 public normalizePath(string $path): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** | Path to normalize. |
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$path`   | **string** | Path to normalize. |
 
 **Return Value:**
 
 Normalized path.
-
-
-
 
 ***
 
@@ -303,24 +206,15 @@ public removeTrailingSlash(string $string): string
 The primary use of this is for paths and thus should be used for paths. It is
 not restricted to paths and offers no specific path support.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description                               |
+|-----------|------------|-------------------------------------------|
 | `$string` | **string** | What to remove the trailing slashes from. |
-
 
 **Return Value:**
 
 String without the trailing slashes.
-
-
-
 
 ***
 
@@ -338,24 +232,15 @@ a trailing forward slash. This prevents double slashing a string or path.
 The primary use of this is for paths and thus should be used for paths. It is
 not restricted to paths and offers no specific path support.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description                        |
+|-----------|------------|------------------------------------|
 | `$string` | **string** | What to add the trailing slash to. |
-
 
 **Return Value:**
 
 String with trailing slash added.
-
-
-
 
 ***
 
@@ -367,28 +252,12 @@ Prepends data to a file.
 public prepend(string $path, string $data): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** |  |
-| `$data` | **string** |  |
-
-
-
-
-**Throws:**
-
-- [`NotFoundException`](../Exception/Http/Client/NotFoundException.md)
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$path`   | **string** |             |
+| `$data`   | **string** |             |
 
 ***
 
@@ -400,28 +269,12 @@ Appends data to a file.
 public append(string $path, string $data): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** |  |
-| `$data` | **string** |  |
-
-
-
-
-**Throws:**
-
-- [`NotFoundException`](../Exception/Http/Client/NotFoundException.md)
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$path`   | **string** |             |
+| `$data`   | **string** |             |
 
 ***
 
@@ -433,31 +286,28 @@ Updates a file.
 public update(string $path, string $data): bool
 ```
 
+**Parameters:**
 
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$path`   | **string** |             |
+| `$data`   | **string** |             |
 
+***
 
+### writeToExistingFile
 
-
-
+```php
+private writeToExistingFile(string $path, string $data, bool $prepend = false, bool $append = false): bool
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** |  |
-| `$data` | **string** |  |
-
-
-
-
-**Throws:**
-
-- [`NotFoundException`](../Exception/Http/Client/NotFoundException.md)
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$path`    | **string** |             |
+| `$data`    | **string** |             |
+| `$prepend` | **bool**   |             |
+| `$append`  | **bool**   |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

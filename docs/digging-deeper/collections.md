@@ -83,16 +83,18 @@ The `all()` method returns the underlying array represented by the collection:
 
 The `column()` method returns the values from the given property or method:
 
-    <?php
-    
-    use function print_r;
-    use App\Domain\User\ValueObject\UserId;
-    
-    $userId = new UserId();
-    
-    $collect = collect([$userId]);
-    
-    print_r($collect->column('toNative'));
+```php
+<?php
+
+use function print_r;
+use Domain\User\ValueObject\UserId;
+
+$userId = new UserId();
+
+$collect = collect([$userId]);
+
+print_r($collect->column('toNative'));
+```
 
 **Result:** `[0 => "01K5M0J9WZEF9R612J06QV05K8"]`
 

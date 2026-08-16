@@ -9,6 +9,11 @@ copyright: 'Copyright &copy; 2025 Joshua Parker. All rights reserved.'
 repo_name: codefyphp/codefy
 repo_url: https://github.com/codefyphp/codefy
 edit_uri: ../docs/edit/3.x/docs/
+# Warnings
+validation:
+  links:
+    unrecognized_links: ignore
+    not_found: ignore
 # Configuration
 theme:
   name: material
@@ -68,10 +73,14 @@ extra_css:
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js
   - javascript/init.js
+  - javascript/matomo.js
 
 plugins:
   - blog:
   - search:
+  - gen-files:
+      scripts:
+        - gen_pages.py
   - rss:
       match_path: blog/posts/.*
       date_from_meta:
@@ -102,6 +111,7 @@ plugins:
       recently-updated: true   # Whether to turn on recently updated data, default: false
 
 markdown_extensions:
+  md_in_html:
   codehilite:
   admonition:
   fenced_code:
@@ -109,6 +119,7 @@ markdown_extensions:
   pymdownx.highlight:
     anchor_linenums: true
     pygments_lang_class: true
+  pymdownx.blocks.html:
   pymdownx.inlinehilite:
   pymdownx.blocks.details:
   pymdownx.tabbed:

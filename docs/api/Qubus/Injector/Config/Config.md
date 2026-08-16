@@ -1,17 +1,10 @@
-***
-
 # Config
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\Config\Config`
 
-
-
 ## Methods
-
 
 ### get
 
@@ -21,23 +14,12 @@ Returns configuration value. If doesn't exist, return the set default value.
 public get(string $key, mixed $default = null): string|array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$key`     | **string** |             |
+| `$default` | **mixed**  |             |
 
 ***
 
@@ -49,25 +31,10 @@ Checks if key value exists.
 public has(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

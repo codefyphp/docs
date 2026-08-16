@@ -1,17 +1,10 @@
-***
-
 # QueryHandler
 
-
-
-
+***
 
 * Full name: `\Codefy\QueryBus\QueryHandler`
 
-
-
 ## Methods
-
 
 ### handle
 
@@ -21,25 +14,10 @@ Handle a query execution.
 public handle(\Codefy\QueryBus\Query $query): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$query` | **\Codefy\QueryBus\Query** |  |
-
-
-
-
+| Parameter | Type                       | Description |
+|-----------|----------------------------|-------------|
+| `$query`  | **\Codefy\QueryBus\Query** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

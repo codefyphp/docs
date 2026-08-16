@@ -11,11 +11,13 @@ Translates a string.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Security\Helpers\t__;
-    
-    t__(string $msgid, string $domain = ''): string;
+use function Qubus\Security\Helpers\t__;
+
+function t__(string $msgid, string $domain = ''): string;
+```
 
 Parameters
 ----------

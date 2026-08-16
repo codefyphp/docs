@@ -1,137 +1,77 @@
-***
-
 # ObjectStorageMap
 
-
-
-
+***
 
 * Full name: `\Qubus\Support\Container\ObjectStorageMap`
 * This class implements:
-[`\Psr\Container\ContainerInterface`](../../../Psr/Container/ContainerInterface.md), [`\ArrayAccess`](../../../ArrayAccess.md), [`\Countable`](../../../Countable.md), [`\IteratorAggregate`](../../../IteratorAggregate.md)
-
-
+  `ContainerInterface`,
+  `ArrayAccess`,
+  `Countable`,
+  `IteratorAggregate`
 
 ## Properties
 
-
 ### items
-
-
 
 ```php
 private array $items
 ```
 
-
-
-
-
-
 ***
 
 ### factories
-
-
 
 ```php
 private \SplObjectStorage $factories
 ```
 
-
-
-
-
-
 ***
 
 ### protected
-
-
 
 ```php
 private \SplObjectStorage $protected
 ```
 
-
-
-
-
-
 ***
 
 ### frozen
-
-
 
 ```php
 private array $frozen
 ```
 
-
-
-
-
-
 ***
 
 ### raw
-
-
 
 ```php
 private array $raw
 ```
 
-
-
-
-
-
 ***
 
 ### keys
-
-
 
 ```php
 private array $keys
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(array $items = []): mixed
+public __construct(array<string,mixed> $items = []): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | Pre-populate set with this key-value array |
-
-
-
-
+| Parameter | Type                    | Description                                |
+|-----------|-------------------------|--------------------------------------------|
+| `$items`  | **array<string,mixed>** | Pre-populate set with this key-value array |
 
 ***
 
@@ -143,23 +83,12 @@ Set data key to value.
 public set(string $key, mixed $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-| `$value` | **mixed** | The data value |
-
-
-
-
+| Parameter | Type       | Description    |
+|-----------|------------|----------------|
+| `$key`    | **string** | The data key   |
+| `$value`  | **mixed**  | The data value |
 
 ***
 
@@ -171,31 +100,19 @@ Get data value with key.
 public get(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-
+| Parameter | Type       | Description  |
+|-----------|------------|--------------|
+| `$key`    | **string** | The data key |
 
 **Return Value:**
 
 The data value.
 
-
-
 **Throws:**
 
 - [`Exception`](../../Exception/Exception.md)
-
-
 
 ***
 
@@ -204,25 +121,14 @@ The data value.
 Add data to set.
 
 ```php
-public replace(array $items): void
+public replace(array<string,mixed> $items): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | Key-value array of data to append to this set |
-
-
-
-
+| Parameter | Type                    | Description                                   |
+|-----------|-------------------------|-----------------------------------------------|
+| `$items`  | **array<string,mixed>** | Key-value array of data to append to this set |
 
 ***
 
@@ -234,21 +140,6 @@ Fetch set data.
 public all(): array
 ```
 
-
-
-
-
-
-
-
-
-**Return Value:**
-
-This set's key-value data array
-
-
-
-
 ***
 
 ### keys
@@ -256,23 +147,12 @@ This set's key-value data array
 Fetch set data keys.
 
 ```php
-public keys(): array
+public keys(): list<\Qubus\Support\Container\TKey>
 ```
-
-
-
-
-
-
-
-
 
 **Return Value:**
 
 This set's key-value data array keys
-
-
-
 
 ***
 
@@ -284,22 +164,11 @@ Does this set contain a key?
 public has(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-
-
-
-
+| Parameter | Type       | Description  |
+|-----------|------------|--------------|
+| `$key`    | **string** | The data key |
 
 ***
 
@@ -311,136 +180,72 @@ Remove value with key from this set.
 public remove(string $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-
-
-
-
+| Parameter | Type       | Description  |
+|-----------|------------|--------------|
+| `$key`    | **string** | The data key |
 
 ***
 
 ### __get
 
-
-
 ```php
 public __get(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key. |
-
-
-
+| Parameter | Type       | Description   |
+|-----------|------------|---------------|
+| `$key`    | **string** | The data key. |
 
 **Throws:**
 
 - [`Exception`](../../Exception/Exception.md)
 
-
-
 ***
 
 ### __set
-
-
 
 ```php
 public __set(string $key, mixed $value): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-| `$value` | **mixed** | The data value |
-
-
-
-
+| Parameter | Type       | Description    |
+|-----------|------------|----------------|
+| `$key`    | **string** | The data key   |
+| `$value`  | **mixed**  | The data value |
 
 ***
 
 ### __isset
 
-
-
 ```php
 public __isset(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-
-
-
-
+| Parameter | Type       | Description  |
+|-----------|------------|--------------|
+| `$key`    | **string** | The data key |
 
 ***
 
 ### __unset
 
-
-
 ```php
 public __unset(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The data key |
-
-
-
-
+| Parameter | Type       | Description  |
+|-----------|------------|--------------|
+| `$key`    | **string** | The data key |
 
 ***
 
@@ -452,130 +257,68 @@ Clear all items.
 public clear(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### offsetExists
 
-Array Access
+Array Access.
 
 ```php
-public offsetExists(mixed $offset): bool
+public offsetExists(\Qubus\Support\Container\TKey $offset): bool
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$offset` | **mixed** |  |
-
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$offset` | **\Qubus\Support\Container\TKey** |             |
 
 ***
 
 ### offsetGet
 
-
-
 ```php
-public offsetGet(mixed $key): mixed
+public offsetGet(\Qubus\Support\Container\TKey $key): \Qubus\Support\Container\TValue
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$key`    | **\Qubus\Support\Container\TKey** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
 
-
-
 ***
 
 ### offsetSet
 
-
-
 ```php
-public offsetSet(mixed $key, mixed $value): void
+public offsetSet(\Qubus\Support\Container\TKey $key, \Qubus\Support\Container\TValue $value): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type                                | Description |
+|-----------|-------------------------------------|-------------|
+| `$key`    | **\Qubus\Support\Container\TKey**   |             |
+| `$value`  | **\Qubus\Support\Container\TValue** |             |
 
 ***
 
 ### offsetUnset
 
-
-
 ```php
 public offsetUnset(mixed $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
 
 ***
 
@@ -587,17 +330,6 @@ Countable
 public count(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getIterator
@@ -605,19 +337,8 @@ public count(): int
 IteratorAggregate
 
 ```php
-public getIterator(): \ArrayIterator
+public getIterator(): \ArrayIterator<\Qubus\Support\Container\TKey,\Qubus\Support\Container\TValue>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -629,23 +350,12 @@ Ensure a value or object will remain globally unique.
 public singleton(string $key, callable $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | The value or object name |
-| `$value` | **callable** | The closure that defines the object |
-
-
-
-
+| Parameter | Type         | Description                         |
+|-----------|--------------|-------------------------------------|
+| `$key`    | **string**   | The value or object name            |
+| `$value`  | **callable** | The closure that defines the object |
 
 ***
 
@@ -657,27 +367,15 @@ Marks a callable as being a factory service.
 public factory(callable $callable): callable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable** |  |
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callable` | **callable** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -689,27 +387,15 @@ Protects a callable from being interpreted as a service.
 public protect(callable $callable): callable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type         | Description                                         |
+|-------------|--------------|-----------------------------------------------------|
 | `$callable` | **callable** | A closure to keep from being invoked and evaluated. |
-
-
-
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -721,27 +407,15 @@ Gets a parameter or the closure defining an object.
 public raw(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -756,26 +430,16 @@ public extend(string $key, callable $callable): callable
 Useful when you want to extend an existing object definition,
 without necessarily loading that object.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$callable` | **callable** |  |
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$key`      | **string**   |             |
+| `$callable` | **callable** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -787,26 +451,11 @@ Registers a service provider.
 public register(\Qubus\Support\Container\ServiceProvider $provider, array $values = []): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$provider` | **\Qubus\Support\Container\ServiceProvider** | A ServiceProvider instance. |
-| `$values` | **array** | An array of values that customizes the provider |
-
-
-
-
+| Parameter   | Type                                         | Description                                     |
+|-------------|----------------------------------------------|-------------------------------------------------|
+| `$provider` | **\Qubus\Support\Container\ServiceProvider** | A ServiceProvider instance.                     |
+| `$values`   | **array**                                    | An array of values that customizes the provider |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

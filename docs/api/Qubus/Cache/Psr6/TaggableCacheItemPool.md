@@ -1,17 +1,14 @@
-***
-
 # TaggableCacheItemPool
 
 Interface for invalidating cached items using tags. This interface is a soon-to-be-PSR.
 
-
+***
 
 * Full name: `\Qubus\Cache\Psr6\TaggableCacheItemPool`
-* Parent interfaces: [`CacheItemPoolInterface`](../../../Psr/Cache/CacheItemPoolInterface.md)
-
+* Parent interfaces:
+  `CacheItemPoolInterface`
 
 ## Methods
-
 
 ### invalidateTag
 
@@ -21,32 +18,20 @@ Invalidates cached items using a tag.
 public invalidateTag(string $tag): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tag` | **string** | The tag to invalidate |
-
+| Parameter | Type       | Description           |
+|-----------|------------|-----------------------|
+| `$tag`    | **string** | The tag to invalidate |
 
 **Return Value:**
 
 True on success
 
-
-
 **Throws:**
-<p>When $tags is not valid.</p>
 
+When $tags is not valid.
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -58,35 +43,19 @@ Invalidates cached items using tags.
 public invalidateTags(string[] $tags): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tags` | **string[]** | An array of tags to invalidate |
-
+| Parameter | Type         | Description                    |
+|-----------|--------------|--------------------------------|
+| `$tags`   | **string[]** | An array of tags to invalidate |
 
 **Return Value:**
 
 True on success
 
-
-
 **Throws:**
-<p>When $tags is not valid.</p>
 
+When $tags is not valid.
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

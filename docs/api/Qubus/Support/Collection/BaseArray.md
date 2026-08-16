@@ -1,20 +1,15 @@
-***
-
 # BaseArray
 
 Borrowed from ramsey/collection
 
-
+***
 
 * Full name: `\Qubus\Support\Collection\BaseArray`
 * This class implements:
-[`\Qubus\Support\Collection\Arrayable`](./Arrayable.md)
+  [`\Qubus\Support\Collection\Arrayable`](./Arrayable.md)
 * This class is an **Abstract class**
 
-
-
 ## Properties
-
 
 ### items
 
@@ -24,15 +19,9 @@ The items of this array.
 protected array $items
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -42,22 +31,11 @@ Constructs a new array object.
 public __construct(array $items = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | The initial items to add to array. |
-
-
-
-
+| Parameter | Type      | Description                        |
+|-----------|-----------|------------------------------------|
+| `$items`  | **array** | The initial items to add to array. |
 
 ***
 
@@ -66,19 +44,8 @@ public __construct(array $items = []): mixed
 Returns array as iterator.
 
 ```php
-public getIterator(): \Traversable
+public getIterator(): \ArrayIterator<array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -90,22 +57,11 @@ Returns `true` if the given offset exists in the array.
 public offsetExists(mixed $offset): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description          |
+|-----------|-----------|----------------------|
 | `$offset` | **mixed** | The offset to check. |
-
-
-
-
 
 ***
 
@@ -117,27 +73,16 @@ Returns the value at the specified offset.
 public offsetGet(mixed $offset): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description                                      |
+|-----------|-----------|--------------------------------------------------|
 | `$offset` | **mixed** | The offset for which a value should be returned. |
-
 
 **Return Value:**
 
 The value stored at the offset, or null if the offset
 does not exist.
-
-
-
 
 ***
 
@@ -149,23 +94,12 @@ Sets the given value to the given offset in the array.
 public offsetSet(mixed $offset, mixed $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$offset` | **mixed** | The offset to set. |
-| `$value` | **mixed** | The value to set at the given offset. |
-
-
-
-
+| Parameter | Type      | Description                           |
+|-----------|-----------|---------------------------------------|
+| `$offset` | **mixed** | The offset to set.                    |
+| `$value`  | **mixed** | The value to set at the given offset. |
 
 ***
 
@@ -177,22 +111,11 @@ Removes the given offset and its value from the array.
 public offsetUnset(mixed $offset): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description                          |
+|-----------|-----------|--------------------------------------|
 | `$offset` | **mixed** | The offset to remove from the array. |
-
-
-
-
 
 ***
 
@@ -204,17 +127,6 @@ Returns a JSON string.
 public serialize(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### unserialize
@@ -225,22 +137,11 @@ Converts a serialized string representation into an instance object.
 public unserialize(array $items): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | A PHP array to unserialize. |
-
-
-
-
+| Parameter | Type      | Description                 |
+|-----------|-----------|-----------------------------|
+| `$items`  | **array** | A PHP array to unserialize. |
 
 ***
 
@@ -252,17 +153,6 @@ Returns the number of items in the array.
 public count(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### clear
@@ -272,17 +162,6 @@ Removes all items from array instance.
 ```php
 public clear(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -294,17 +173,6 @@ Returns an instance as an array.
 public toArray(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### isEmpty
@@ -315,19 +183,14 @@ Returns `true` if array is empty.
 public isEmpty(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
+### items
+
+Returns an array of collections.
+
+```php
+public items(): array
+```
 
 ***
-> Automatically generated on 2025-10-13

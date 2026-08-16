@@ -1,34 +1,28 @@
-***
-
 # RoutingEventHandler
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Events\RoutingEventHandler`
 * This class implements:
-[`\Qubus\Routing\Events\EventHandler`](./EventHandler.md)
-
+  [`\Qubus\Routing\Events\EventHandler`](./EventHandler.md)
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`EVENT_ALL`|public| |&#039;*&#039;|
-|`EVENT_INIT`|public| |&#039;onInit&#039;|
-|`EVENT_LOAD`|public| |&#039;onLoad&#039;|
-|`EVENT_ADD_ROUTE`|public| |&#039;onAddRoute&#039;|
-|`EVENT_BOOT`|public| |&#039;onBoot&#039;|
-|`EVENT_RENDER_BOOTMANAGER`|public| |&#039;onRenderBootManager&#039;|
-|`EVENT_LOAD_ROUTES`|public| |&#039;onLoadRoutes&#039;|
-|`EVENT_FIND_ROUTE`|public| |&#039;onFindRoute&#039;|
-|`EVENT_GET_URL`|public| |&#039;onGetUrl&#039;|
-|`EVENT_MATCH_ROUTE`|public| |&#039;onMatchRoute&#039;|
-|`EVENT_RENDER_MIDDLEWARES`|public| |&#039;onRenderMiddlewares&#039;|
+| Constant                   | Visibility | Type | Value                 |
+|----------------------------|------------|------|-----------------------|
+| `EVENT_ALL`                | public     |      | '*'                   |
+| `EVENT_INIT`               | public     |      | 'onInit'              |
+| `EVENT_LOAD`               | public     |      | 'onLoad'              |
+| `EVENT_ADD_ROUTE`          | public     |      | 'onAddRoute'          |
+| `EVENT_BOOT`               | public     |      | 'onBoot'              |
+| `EVENT_RENDER_BOOTMANAGER` | public     |      | 'onRenderBootManager' |
+| `EVENT_LOAD_ROUTES`        | public     |      | 'onLoadRoutes'        |
+| `EVENT_FIND_ROUTE`         | public     |      | 'onFindRoute'         |
+| `EVENT_GET_URL`            | public     |      | 'onGetUrl'            |
+| `EVENT_MATCH_ROUTE`        | public     |      | 'onMatchRoute'        |
+| `EVENT_RENDER_MIDDLEWARES` | public     |      | 'onRenderMiddlewares' |
 
 ## Properties
-
 
 ### events
 
@@ -38,10 +32,7 @@ All available events
 public static array $events
 ```
 
-
-
 * This property is **static**.
-
 
 ***
 
@@ -53,15 +44,9 @@ List of all registered events.
 private array $registeredEvents
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### register
 
@@ -71,23 +56,12 @@ Register new event.
 public register(string $name, \Closure $callback): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$callback` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$name`     | **string**   |             |
+| `$callback` | **\Closure** |             |
 
 ***
 
@@ -99,23 +73,12 @@ Get events.
 public getEvents(string|null $name = null, array $names): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string&#124;null** | Filter events by name. |
-| `$names` | **array** | Add multiple names... |
-
-
-
-
+| Parameter | Type             | Description            |
+|-----------|------------------|------------------------|
+| `$name`   | **string\|null** | Filter events by name. |
+| `$names`  | **array**        | Add multiple names...  |
 
 ***
 
@@ -127,27 +90,12 @@ Fires any events registered with given event-name
 public fireEvents(\Qubus\Routing\Router $router, string $name, array $eventArgs = []): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$router` | **\Qubus\Routing\Router** | Router instance |
-| `$name` | **string** | Event name |
-| `$eventArgs` | **array** | Event arguments |
-
-
-
-
+| Parameter    | Type                      | Description     |
+|--------------|---------------------------|-----------------|
+| `$router`    | **\Qubus\Routing\Router** | Router instance |
+| `$name`      | **string**                | Event name      |
+| `$eventArgs` | **array**                 | Event arguments |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

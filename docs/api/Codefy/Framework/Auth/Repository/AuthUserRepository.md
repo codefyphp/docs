@@ -1,17 +1,10 @@
-***
-
 # AuthUserRepository
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Auth\Repository\AuthUserRepository`
 
-
-
 ## Methods
-
 
 ### authenticate
 
@@ -23,26 +16,27 @@ along with a password.
 public authenticate(string $credential, string|null $password = null): \Qubus\Http\Session\SessionEntity|null
 ```
 
+**Parameters:**
 
+| Parameter     | Type             | Description |
+|---------------|------------------|-------------|
+| `$credential` | **string**       |             |
+| `$password`   | **string\|null** |             |
 
+***
 
+### find
 
+Find a user by their token.
 
-
+```php
+public find(string $token): bool|object|null
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$credential` | **string** |  |
-| `$password` | **string&#124;null** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$token`  | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

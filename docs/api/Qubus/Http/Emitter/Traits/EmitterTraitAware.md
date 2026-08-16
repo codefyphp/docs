@@ -1,18 +1,10 @@
-***
-
 # EmitterTraitAware
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Emitter\Traits\EmitterTraitAware`
 
-
-
-
 ## Methods
-
 
 ### assertNoPreviousOutput
 
@@ -23,19 +15,7 @@ or the output buffer contains no content.
 protected assertNoPreviousOutput(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
 ### emitStatusLine
 
 Emit the status line.
@@ -47,23 +27,13 @@ protected emitStatusLine(\Psr\Http\Message\ResponseInterface $response): void
 Emits the status line using the protocol version and status code from
 the response; if a reason phrase is available, it, too, is emitted.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$response` | **\Psr\Http\Message\ResponseInterface** |  |
-
-
-
-
+| Parameter   | Type                                    | Description |
+|-------------|-----------------------------------------|-------------|
+| `$response` | **\Psr\Http\Message\ResponseInterface** |             |
 
 ***
-
 ### emitHeaders
 
 Emit response headers.
@@ -77,23 +47,13 @@ is an array with multiple values, ensures that each is sent
 in such a way as to create aggregate headers (instead of replace
 the previous).
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$response` | **\Psr\Http\Message\ResponseInterface** |  |
-
-
-
-
+| Parameter   | Type                                    | Description |
+|-------------|-----------------------------------------|-------------|
+| `$response` | **\Psr\Http\Message\ResponseInterface** |             |
 
 ***
-
 ### normalizeHeaderName
 
 Normalize a header name
@@ -104,73 +64,32 @@ private normalizeHeaderName(string $headerName): string
 
 Normalized header will be in the following format: Example-Header-Name
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$headerName` | **string** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$headerName` | **string** |             |
 
 ***
-
 ### header
-
-
 
 ```php
 private header(string $headerName, bool $replace, int $statusCode): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$headerName` | **string** |  |
-| `$replace` | **bool** |  |
-| `$statusCode` | **int** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$headerName` | **string** |             |
+| `$replace`    | **bool**   |             |
+| `$statusCode` | **int**    |             |
 
 ***
-
 ### closeConnection
-
-
 
 ```php
 protected closeConnection(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-***
-> Automatically generated on 2025-10-13
-

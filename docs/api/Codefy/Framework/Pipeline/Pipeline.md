@@ -1,21 +1,14 @@
-***
-
 # Pipeline
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Pipeline\Pipeline`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Codefy\Framework\Pipeline\Chainable`](./Chainable.md)
+  [`\Codefy\Framework\Pipeline\Chainable`](./Chainable.md)
 * This class is a **Final class**
 
-
-
 ## Properties
-
 
 ### passable
 
@@ -24,11 +17,6 @@ The object being passed through the pipeline.
 ```php
 protected mixed $passable
 ```
-
-
-
-
-
 
 ***
 
@@ -40,11 +28,6 @@ The callback to be executed on failure pipeline.
 protected \Closure|null $onFailure
 ```
 
-
-
-
-
-
 ***
 
 ### pipes
@@ -54,11 +37,6 @@ The array of class pipes.
 ```php
 protected array $pipes
 ```
-
-
-
-
-
 
 ***
 
@@ -70,11 +48,6 @@ The method to call on each pipe.
 protected string $method
 ```
 
-
-
-
-
-
 ***
 
 ### finally
@@ -85,55 +58,29 @@ The final callback to be executed after the pipeline ends regardless of the outc
 protected \Closure|null $finally
 ```
 
-
-
-
-
-
 ***
 
 ### container
-
-
 
 ```php
 protected \Qubus\Injector\ServiceContainer $container
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Injector\ServiceContainer $container): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$container` | **\Qubus\Injector\ServiceContainer** |  |
-
-
-
-
+| Parameter    | Type                                 | Description |
+|--------------|--------------------------------------|-------------|
+| `$container` | **\Qubus\Injector\ServiceContainer** |             |
 
 ***
 
@@ -145,22 +92,11 @@ Set the object being sent through the pipeline.
 public send(mixed $passable): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$passable` | **mixed** |  |
-
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$passable` | **mixed** |             |
 
 ***
 
@@ -172,22 +108,11 @@ Set the array of pipes.
 public through(mixed $pipes): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipes` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$pipes`  | **mixed** |             |
 
 ***
 
@@ -199,22 +124,11 @@ Push additional pipes onto the pipeline.
 public pipe(callable $pipe): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipe` | **callable** |  |
-
-
-
-
+| Parameter | Type         | Description |
+|-----------|--------------|-------------|
+| `$pipe`   | **callable** |             |
 
 ***
 
@@ -226,22 +140,11 @@ Set the method to call on the pipes.
 public via(string $method): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$method` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$method` | **string** |             |
 
 ***
 
@@ -253,29 +156,16 @@ Run the pipeline with a final destination callback.
 public then(\Closure $destination): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$destination` | **\Closure** |  |
-
-
-
+| Parameter      | Type         | Description |
+|----------------|--------------|-------------|
+| `$destination` | **\Closure** |             |
 
 **Throws:**
 
 - [`Exception`](../../../Exception.md)
-
 - [`Throwable`](../../../Throwable.md)
-
-
 
 ***
 
@@ -287,21 +177,9 @@ Run the pipeline and return the result.
 public thenReturn(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`Throwable`](../../../Throwable.md)
-
-
 
 ***
 
@@ -313,22 +191,11 @@ Set a final callback to be executed after the pipeline ends regardless of the ou
 public finally(\Closure $callback): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
 
@@ -340,22 +207,11 @@ Get the final piece of the Closure onion.
 protected prepareDestination(\Closure $destination): \Closure
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$destination` | **\Closure** |  |
-
-
-
-
+| Parameter      | Type         | Description |
+|----------------|--------------|-------------|
+| `$destination` | **\Closure** |             |
 
 ***
 
@@ -367,17 +223,6 @@ Get a Closure that represents a slice of the application onion.
 protected carry(): \Closure
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getContainer
@@ -385,19 +230,8 @@ protected carry(): \Closure
 Get the container instance.
 
 ```php
-protected getContainer(): \Qubus\Injector\ServiceContainer|null
+protected getContainer(): \Qubus\Injector\ServiceContainer
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -409,22 +243,11 @@ Set callback to be executed on failure pipeline.
 public onFailure(\Closure $callback): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
 
@@ -436,23 +259,12 @@ Run a single pipe.
 public run(string $pipe, mixed $data = true): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipe` | **string** |  |
-| `$data` | **mixed** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$pipe`   | **string** |             |
+| `$data`   | **mixed**  |             |
 
 ***
 
@@ -464,22 +276,11 @@ Parse full pipe string to get name and parameters.
 protected parsePipeString(string $pipe): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipe` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$pipe`   | **string** |             |
 
 ***
 
@@ -491,17 +292,6 @@ Get the array of configured pipes.
 protected pipes(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### handleCarry
@@ -512,22 +302,11 @@ Handle the value returned from each pipe before passing it to the next.
 protected handleCarry(mixed $carry): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$carry` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$carry`  | **mixed** |             |
 
 ***
 
@@ -539,34 +318,20 @@ Handle the given exception.
 protected handleException(mixed $passable, \Throwable $e): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$passable` | **mixed** |  |
-| `$e` | **\Throwable** |  |
-
-
-
+| Parameter   | Type           | Description |
+|-------------|----------------|-------------|
+| `$passable` | **mixed**      |             |
+| `$e`        | **\Throwable** |             |
 
 **Throws:**
 
 - [`Throwable`](../../../Throwable.md)
 
-
-
 ***
 
-
 ## Inherited methods
-
 
 ### withTransaction
 
@@ -575,17 +340,6 @@ Enable transaction in pipeline.
 ```php
 public withTransaction(): static
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -597,22 +351,6 @@ Begin the transaction if enabled.
 protected beginTransaction(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
-
 ***
 
 ### commitTransaction
@@ -622,22 +360,6 @@ Commit the transaction if enabled.
 ```php
 protected commitTransaction(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -649,24 +371,4 @@ Rollback the transaction if enabled.
 protected rollbackTransaction(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

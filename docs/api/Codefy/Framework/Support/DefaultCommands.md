@@ -1,49 +1,28 @@
-***
-
 # DefaultCommands
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Support\DefaultCommands`
-
-
-
+* This class is marked as **final** and can't be subclassed
+* This class is a **Final class**
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(array $collection = []): mixed
+public __construct((class-string<\Symfony\Component\Console\Command\SignalableCommandInterface>|callable)[] $collection = []): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$collection` | **array** |  |
-
-
-
-
+| Parameter     | Type                                                                                          | Description |
+|---------------|-----------------------------------------------------------------------------------------------|-------------|
+| `$collection` | **(class-string<\Symfony\Component\Console\Command\SignalableCommandInterface>\|callable)[]** |             |
 
 ***
 
-
 ## Inherited methods
-
 
 ### merge
 
@@ -53,22 +32,11 @@ Merge the given collection into another collection.
 public merge(array $collection): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$collection` | **array** |  |
-
-
-
-
+| Parameter     | Type      | Description |
+|---------------|-----------|-------------|
+| `$collection` | **array** |             |
 
 ***
 
@@ -80,22 +48,11 @@ Replace the given collection with other collections.
 public replace(array $replacements): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$replacements` | **array** |  |
-
-
-
-
+| Parameter       | Type      | Description |
+|-----------------|-----------|-------------|
+| `$replacements` | **array** |             |
 
 ***
 
@@ -107,22 +64,11 @@ Disable the given collection.
 public except(array $collection): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$collection` | **array** |  |
-
-
-
-
+| Parameter     | Type      | Description |
+|---------------|-----------|-------------|
+| `$collection` | **array** |             |
 
 ***
 
@@ -134,19 +80,4 @@ Convert the collection to an array.
 public toArray(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

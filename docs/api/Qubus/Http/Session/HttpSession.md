@@ -1,22 +1,17 @@
-***
-
 # HttpSession
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Session\HttpSession`
 
-
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`COOKIE_NAME`|public| |&quot;HTTPSESSID&quot;|
+
+| Constant      | Visibility | Type | Value        |
+|---------------|------------|------|--------------|
+| `COOKIE_NAME` | public     |      | "HTTPSESSID" |
 
 ## Methods
-
 
 ### get
 
@@ -26,28 +21,16 @@ Retrieve session entity.
 public get(string $type): \Qubus\Http\Session\SessionEntity
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$type` | **string** | Fully qualified class name. |
-
-
-
+| Parameter | Type       | Description                 |
+|-----------|------------|-----------------------------|
+| `$type`   | **string** | Fully qualified class name. |
 
 **Throws:**
-<p>Class name given does not exist.</p>
 
+Class name given does not exist.
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -58,17 +41,6 @@ Returns an array of object data.
 ```php
 public getData(): array
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -89,15 +61,6 @@ to session state at the end of the request.
 `clear()` is a logout controller/action, during which likely no other session models
 would be used or manipulated.)
 
-
-
-
-
-
-
-
-
-
 ***
 
 ### renew
@@ -116,15 +79,6 @@ Note that periodic renewal of the Session ID is *not* recommended - issuing a ne
 Session ID should be done only after authentication, e.g. after successful validation
 of user-supplied login credentials over a secure connection.
 
-
-
-
-
-
-
-
-
-
 ***
 
 ### sessionId
@@ -135,17 +89,6 @@ from the client session's id.
 ```php
 public sessionId(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -158,19 +101,4 @@ cookie and never on the server.
 public clientSessionId(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,18 +1,10 @@
-***
-
 # RouteMapperAware
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Traits\RouteMapperAware`
 
-
-
-
 ## Methods
-
 
 ### map
 
@@ -22,27 +14,16 @@ Add a route to the map.
 public map(array $verbs, string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
 * This method is **abstract**.
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$verbs` | **array** |  |
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$verbs`    | **array**            |             |
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
-
 ### any
 
 Add a route that responds to any HTTP method.
@@ -51,31 +32,18 @@ Add a route that responds to any HTTP method.
 public any(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### get
 
 Add a route that responds to GET HTTP method.
@@ -84,31 +52,18 @@ Add a route that responds to GET HTTP method.
 public get(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### post
 
 Add a route that responds to POST HTTP method.
@@ -117,31 +72,18 @@ Add a route that responds to POST HTTP method.
 public post(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### patch
 
 Add a route that responds to PATCH HTTP method.
@@ -150,31 +92,18 @@ Add a route that responds to PATCH HTTP method.
 public patch(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### put
 
 Add a route that responds to PUT HTTP method.
@@ -183,31 +112,18 @@ Add a route that responds to PUT HTTP method.
 public put(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### delete
 
 Add a route that responds to DELETE HTTP method.
@@ -216,31 +132,18 @@ Add a route that responds to DELETE HTTP method.
 public delete(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### head
 
 Add a route that responds to HEAD HTTP method.
@@ -249,31 +152,18 @@ Add a route that responds to HEAD HTTP method.
 public head(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### options
 
 Add a route that responds to OPTIONS HTTP method.
@@ -282,31 +172,18 @@ Add a route that responds to OPTIONS HTTP method.
 public options(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### connect
 
 Add a route that responds to CONNECT HTTP method.
@@ -315,31 +192,18 @@ Add a route that responds to CONNECT HTTP method.
 public connect(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
 ### trace
 
 Add a route that responds to TRACE HTTP method.
@@ -348,31 +212,15 @@ Add a route that responds to TRACE HTTP method.
 public trace(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](../Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
-***
-> Automatically generated on 2025-10-13
-

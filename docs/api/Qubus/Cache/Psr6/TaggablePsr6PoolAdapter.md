@@ -1,5 +1,3 @@
-***
-
 # TaggablePsr6PoolAdapter
 
 This adapter lets you make any PSR-6 cache pool taggable. If a pool is
@@ -20,103 +18,63 @@ pool for your tag items. Do however note that if you are doing so, the
 entire pool is reserved for tags, as this pool is cleared whenever the
 main pool is cleared.
 
+***
+
 * Full name: `\Qubus\Cache\Psr6\TaggablePsr6PoolAdapter`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Qubus\Cache\Psr6\TaggableCacheItemPool`](./TaggableCacheItemPool.md)
+  [`\Qubus\Cache\Psr6\TaggableCacheItemPool`](./TaggableCacheItemPool.md)
 * This class is a **Final class**
-
-
 
 ## Properties
 
-
 ### cachePool
-
-
 
 ```php
 private \Psr\Cache\CacheItemPoolInterface $cachePool
 ```
 
-
-
-
-
-
 ***
 
 ### tagStorePool
-
-
 
 ```php
 private ?\Psr\Cache\CacheItemPoolInterface $tagStorePool
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 private __construct(\Psr\Cache\CacheItemPoolInterface $cachePool, ?\Psr\Cache\CacheItemPoolInterface $tagStorePool = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$cachePool` | **\Psr\Cache\CacheItemPoolInterface** |  |
-| `$tagStorePool` | **?\Psr\Cache\CacheItemPoolInterface** |  |
-
-
-
-
+| Parameter       | Type                                   | Description |
+|-----------------|----------------------------------------|-------------|
+| `$cachePool`    | **\Psr\Cache\CacheItemPoolInterface**  |             |
+| `$tagStorePool` | **?\Psr\Cache\CacheItemPoolInterface** |             |
 
 ***
 
 ### makeTaggable
 
-
-
 ```php
 public static makeTaggable(\Psr\Cache\CacheItemPoolInterface $cachePool, \Psr\Cache\CacheItemPoolInterface|null $tagStorePool = null): \Qubus\Cache\Psr6\TaggableCacheItemPool
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$cachePool` | **\Psr\Cache\CacheItemPoolInterface** | The pool to which to add tagging capabilities |
-| `$tagStorePool` | **\Psr\Cache\CacheItemPoolInterface&#124;null** | The pool to store tags in. If null is passed,<br />the main pool is used. |
-
-
-
-
+| Parameter       | Type                                        | Description                                                          |
+|-----------------|---------------------------------------------|----------------------------------------------------------------------|
+| `$cachePool`    | **\Psr\Cache\CacheItemPoolInterface**       | The pool to which to add tagging capabilities                        |
+| `$tagStorePool` | **\Psr\Cache\CacheItemPoolInterface\|null** | The pool to store tags in. If null is passed,
+the main pool is used. |
 
 ***
 
@@ -128,22 +86,11 @@ public static makeTaggable(\Psr\Cache\CacheItemPoolInterface $cachePool, \Psr\Ca
 public getItem(mixed $key): \Qubus\Cache\Psr6\TaggableCacheItem
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
 
 ***
 
@@ -155,22 +102,11 @@ public getItem(mixed $key): \Qubus\Cache\Psr6\TaggableCacheItem
 public getItems(array $keys = []): iterable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 ***
 
@@ -182,22 +118,11 @@ public getItems(array $keys = []): iterable
 public hasItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -209,17 +134,6 @@ public hasItem(string $key): bool
 public clear(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### deleteItem
@@ -230,22 +144,11 @@ public clear(): bool
 public deleteItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -257,22 +160,11 @@ public deleteItem(string $key): bool
 public deleteItems(array $keys): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 ***
 
@@ -284,27 +176,15 @@ public deleteItems(array $keys): bool
 public save(\Qubus\Cache\Psr6\TaggableCacheItem|\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Qubus\Cache\Psr6\TaggableCacheItem&#124;\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                                                                   | Description |
+|-----------|------------------------------------------------------------------------|-------------|
+| `$item`   | **\Qubus\Cache\Psr6\TaggableCacheItem\|\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -316,27 +196,15 @@ public save(\Qubus\Cache\Psr6\TaggableCacheItem|\Psr\Cache\CacheItemInterface $i
 public saveDeferred(\Qubus\Cache\Psr6\TaggableCacheItem|\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Qubus\Cache\Psr6\TaggableCacheItem&#124;\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                                                                   | Description |
+|-----------|------------------------------------------------------------------------|-------------|
+| `$item`   | **\Qubus\Cache\Psr6\TaggableCacheItem\|\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -348,205 +216,111 @@ public saveDeferred(\Qubus\Cache\Psr6\TaggableCacheItem|\Psr\Cache\CacheItemInte
 public commit(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### appendListItem
-
-
 
 ```php
 protected appendListItem(mixed $name, mixed $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
 ### removeList
 
-
-
 ```php
 protected removeList(mixed $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
 ### removeListItem
 
-
-
 ```php
 protected removeListItem(mixed $name, mixed $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-| `$key` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
+| `$key`    | **mixed** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
 ### getList
 
-
-
 ```php
 protected getList(mixed $name): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$name`   | **mixed** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
 ### getTagKey
 
-
-
 ```php
 protected getTagKey(string $tag): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tag` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$tag`    | **string** |             |
 
 ***
 
 ### saveTags
 
-
-
 ```php
 private saveTags(\Qubus\Cache\Psr6\TaggablePsr6ItemAdapter $item): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Qubus\Cache\Psr6\TaggablePsr6ItemAdapter** |  |
-
-
-
+| Parameter | Type                                          | Description |
+|-----------|-----------------------------------------------|-------------|
+| `$item`   | **\Qubus\Cache\Psr6\TaggablePsr6ItemAdapter** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -558,26 +332,15 @@ Invalidates cached items using tags.
 public invalidateTags(array $tags): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tags` | **array** | An array of tags to invalidate |
-
+| Parameter | Type      | Description                    |
+|-----------|-----------|--------------------------------|
+| `$tags`   | **array** | An array of tags to invalidate |
 
 **Return Value:**
 
 True on success
-
-
-
 
 ***
 
@@ -589,26 +352,15 @@ Invalidates cached items using a tag.
 public invalidateTag(mixed $tag): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tag` | **mixed** | The tag to invalidate |
-
+| Parameter | Type      | Description           |
+|-----------|-----------|-----------------------|
+| `$tag`    | **mixed** | The tag to invalidate |
 
 **Return Value:**
 
 True on success
-
-
-
 
 ***
 
@@ -620,62 +372,32 @@ Removes the key form all tag lists.
 private preRemoveItem(string $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
 ### removeTagEntries
 
-
-
 ```php
 private removeTagEntries(\Qubus\Cache\Psr6\TaggableCacheItem $item): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Qubus\Cache\Psr6\TaggableCacheItem** |  |
-
-
-
+| Parameter | Type                                    | Description |
+|-----------|-----------------------------------------|-------------|
+| `$item`   | **\Qubus\Cache\Psr6\TaggableCacheItem** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

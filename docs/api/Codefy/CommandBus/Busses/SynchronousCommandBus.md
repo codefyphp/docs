@@ -1,62 +1,34 @@
-***
-
 # SynchronousCommandBus
 
-
-
-
+***
 
 * Full name: `\Codefy\CommandBus\Busses\SynchronousCommandBus`
 * This class implements:
-[`\Codefy\CommandBus\CommandBus`](../CommandBus.md)
-
-
+  [`\Codefy\CommandBus\CommandBus`](../CommandBus.md)
 
 ## Properties
 
-
 ### resolver
 
-
-
 ```php
-protected ?\Codefy\CommandBus\CommandHandlerResolver $resolver
+protected \Codefy\CommandBus\CommandHandlerResolver $resolver
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(?\Codefy\CommandBus\CommandHandlerResolver $resolver = null): mixed
+public __construct(\Codefy\CommandBus\CommandHandlerResolver $resolver = new \Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver()): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$resolver` | **?\Codefy\CommandBus\CommandHandlerResolver** |  |
-
-
-
-
+| Parameter   | Type                                          | Description |
+|-------------|-----------------------------------------------|-------------|
+| `$resolver` | **\Codefy\CommandBus\CommandHandlerResolver** |             |
 
 ***
 
@@ -68,30 +40,15 @@ Execute a command.
 public execute(\Codefy\CommandBus\Command $command): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\Command** |  |
-
-
-
+| Parameter  | Type                           | Description |
+|------------|--------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\Command** |             |
 
 **Throws:**
 
-- [`\Codefy\CommandBus\Exceptions\UnresolvableCommandHandlerException|\ReflectionException|\Codefy\CommandBus\Exceptions\CommandCouldNotBeHandledException`](../Exceptions/UnresolvableCommandHandlerException|/ReflectionException|/Codefy/CommandBus/Exceptions/CommandCouldNotBeHandledException.md)
-
-
-
-***
-
+- [`UnresolvableCommandHandlerException`](../Exceptions/UnresolvableCommandHandlerException.md)
+- [`ReflectionException`](../../../ReflectionException.md)
 
 ***
-> Automatically generated on 2025-10-13

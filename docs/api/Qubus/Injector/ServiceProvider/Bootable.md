@@ -1,17 +1,10 @@
-***
-
 # Bootable
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\ServiceProvider\Bootable`
 
-
-
 ## Methods
-
 
 ### boot
 
@@ -22,19 +15,93 @@ to be loaded after the called provider is booted.
 public boot(): void
 ```
 
+***
 
+### booting
 
+Register a booting callback to be run before the "boot" method is called.
 
+```php
+public booting(\Closure $callback): void
+```
 
+**Parameters:**
 
-
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
 
+### booted
+
+Register a booted callback to be run after the "boot" method is called.
+
+```php
+public booted(\Closure $callback): void
+```
+
+**Parameters:**
+
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
-> Automatically generated on 2025-10-13
+
+### publishes
+
+Register publishable paths for this provider.
+
+```php
+public publishes(array<string,string> $paths, string|null $group = null): void
+```
+
+**Parameters:**
+
+| Parameter | Type                     | Description                                            |
+|-----------|--------------------------|--------------------------------------------------------|
+| `$paths`  | **array<string,string>** | [from => tag]                                          |
+| `$group`  | **string\|null**         | Optional tag/group name ("config", "migrations", etc.) |
+
+***
+
+### pathsToPublish
+
+Get all publishable paths for this provider.
+
+```php
+public pathsToPublish(string|null $tag = null): array<string,string>
+```
+
+**Parameters:**
+
+| Parameter | Type             | Description                                     |
+|-----------|------------------|-------------------------------------------------|
+| `$tag`    | **string\|null** | Restrict to a tag (e.g. "config", "migrations") |
+
+**Return Value:**
+
+[from => tag]
+
+***
+
+### callBootingCallbacks
+
+Call the registered booting callbacks.
+
+```php
+public callBootingCallbacks(): void
+```
+
+***
+
+### callBootedCallbacks
+
+Call the registered booted callbacks.
+
+```php
+public callBootedCallbacks(): void
+```
+
+***

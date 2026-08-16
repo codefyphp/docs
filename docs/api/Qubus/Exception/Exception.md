@@ -1,82 +1,68 @@
-***
-
 # Exception
 
-Qubus Exception Class
-
-This extends the default `BaseException` class to allow converting
-exceptions to and from `Error` objects.
-
-Unfortunately, because an `Error` object may contain multiple messages and error
-codes, only the first message for the first error code in the instance will be
-accessible through the exception's methods.
+***
 
 * Full name: `\Qubus\Exception\Exception`
-* Parent class: [`\Qubus\Exception\BaseException`](./BaseException.md)
+* Parent class: [`Exception`](../../Exception.md)
 
+## Properties
 
+### message
 
+Exception message.
 
+```php
+protected string $message
+```
 
+***
 
-## Inherited methods
+### file
 
+Source filename of exception.
+
+```php
+protected string $file
+```
+
+***
+
+### line
+
+Source line of exception.
+
+```php
+protected int $line
+```
+
+***
+
+## Methods
 
 ### __construct
 
-
-
 ```php
-public __construct(?string $message = &#039;&#039;, int $code, ?\Throwable $previous = null): mixed
+public __construct(?string $message = '', int $code = 0, ?\Throwable $previous = null): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **?string** |  |
-| `$code` | **int** |  |
-| `$previous` | **?\Throwable** |  |
-
-
-
+| Parameter   | Type            | Description |
+|-------------|-----------------|-------------|
+| `$message`  | **?string**     |             |
+| `$code`     | **int**         |             |
+| `$previous` | **?\Throwable** |             |
 
 **Throws:**
 
-- [`BaseException`](./BaseException.md)
-
-
+- [`Exception`]()
 
 ***
 
 ### __toString
 
-
-
 ```php
 public __toString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

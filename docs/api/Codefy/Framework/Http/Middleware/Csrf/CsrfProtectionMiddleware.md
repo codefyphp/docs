@@ -1,106 +1,63 @@
-***
-
 # CsrfProtectionMiddleware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Http\Middleware\Csrf\CsrfProtectionMiddleware`
 * This class implements:
-[`\Psr\Http\Server\MiddlewareInterface`](../../../../../Psr/Http/Server/MiddlewareInterface.md)
-
-
+  `MiddlewareInterface`
 
 ## Properties
 
-
 ### configContainer
-
-
 
 ```php
 protected \Qubus\Config\ConfigContainer $configContainer
 ```
 
-
-
-
-
-
 ***
 
-### sessionService
-
-
+### cookie
 
 ```php
-protected \Qubus\Http\Session\SessionService $sessionService
+protected \Qubus\Http\Cookies\Factory\HttpCookieFactory $cookie
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(\Qubus\Config\ConfigContainer $configContainer, \Qubus\Http\Session\SessionService $sessionService): mixed
+public __construct(\Qubus\Config\ConfigContainer $configContainer, \Qubus\Http\Cookies\Factory\HttpCookieFactory $cookie): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$configContainer` | **\Qubus\Config\ConfigContainer** |  |
-| `$sessionService` | **\Qubus\Http\Session\SessionService** |  |
-
-
-
-
+| Parameter          | Type                                              | Description |
+|--------------------|---------------------------------------------------|-------------|
+| `$configContainer` | **\Qubus\Config\ConfigContainer**                 |             |
+| `$cookie`          | **\Qubus\Http\Cookies\Factory\HttpCookieFactory** |             |
 
 ***
 
 ### process
 
-
-
 ```php
 public process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-| `$handler` | **\Psr\Http\Server\RequestHandlerInterface** |  |
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
+| `$handler` | **\Psr\Http\Server\RequestHandlerInterface** |             |
 
+**Throws:**
 
-
-
+- [`TokenMismatchException`](./TokenMismatchException.md)
+- [`Exception`](../../../../../Exception.md)
 
 ***
 
@@ -112,218 +69,210 @@ Check for methods not defined as safe.
 private needsProtection(\Psr\Http\Message\ServerRequestInterface $request): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 ***
 
 ### tokensMatch
 
-
-
 ```php
 private tokensMatch(\Psr\Http\Message\ServerRequestInterface $request): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
-
+- [`Exception`](../../../../../Exception.md)
 
 ***
 
 ### fetchToken
 
-
-
 ```php
 private fetchToken(\Psr\Http\Message\ServerRequestInterface $request): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
 - [`Exception`](../../../../../Exception.md)
-
-
 
 ***
 
 ### getTokenFromRequest
 
-
-
 ```php
 private getTokenFromRequest(\Psr\Http\Message\ServerRequestInterface $request): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
-
+- [`Exception`](../../../../../Exception.md)
 
 ***
 
-
 ## Inherited methods
 
+### sign
+
+Sign the value.
+
+```php
+protected sign(string $value): string
+```
+
+**Parameters:**
+
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$value`  | **string** |             |
+
+**Throws:**
+
+- [`EnvironmentIsBrokenException`](../../../../../Defuse/Crypto/Exception/EnvironmentIsBrokenException.md)
+- [`BadFormatException`](../../../../../Defuse/Crypto/Exception/BadFormatException.md)
+
+***
+
+### unsign
+
+Unsign the value.
+
+```php
+protected unsign(string $value): string
+```
+
+**Parameters:**
+
+| Parameter | Type       | Description      |
+|-----------|------------|------------------|
+| `$value`  | **string** | Encrypted value. |
+
+**Return Value:**
+
+Return the value if signature is valid.
+
+**Throws:**
+
+- [`BadFormatException`](../../../../../Defuse/Crypto/Exception/BadFormatException.md)
+- [`EnvironmentIsBrokenException`](../../../../../Defuse/Crypto/Exception/EnvironmentIsBrokenException.md)
+- [`WrongKeyOrModifiedCiphertextException`](../../../../../Defuse/Crypto/Exception/WrongKeyOrModifiedCiphertextException.md)
+
+***
+
+### compareTokens
+
+```php
+protected compareTokens(string $knownString, string $userString): bool
+```
+
+**Parameters:**
+
+| Parameter      | Type       | Description |
+|----------------|------------|-------------|
+| `$knownString` | **string** |             |
+| `$userString`  | **string** |             |
+
+***
 
 ### generateToken
-
-
 
 ```php
 protected generateToken(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
-
-
 ***
 
 ### prepareToken
 
-
-
 ```php
-protected prepareToken(\Qubus\Http\Session\HttpSession $session): string
+protected prepareToken(\Psr\Http\Message\ServerRequestInterface $request): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$session` | **\Qubus\Http\Session\HttpSession** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
-
+- [`BadFormatException`](../../../../../Defuse/Crypto/Exception/BadFormatException.md)
+- [`EnvironmentIsBrokenException`](../../../../../Defuse/Crypto/Exception/EnvironmentIsBrokenException.md)
+- [`Exception`](../../../../../Exception.md)
+- [`WrongKeyOrModifiedCiphertextException`](../../../../../Defuse/Crypto/Exception/WrongKeyOrModifiedCiphertextException.md)
 
 ***
 
-### hashEquals
+### getTokenFromCookie
 
-
+Get the token from the request cookie if it's present.
 
 ```php
-protected hashEquals(string $knownString, string $userString): bool
+private getTokenFromCookie(array $cookies): string|null
 ```
 
+Decrypt the cookie token value using the app crypto key.
 
-
-
-
-
-
+Return null if the cookie is missing or if the decryption fails.
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$knownString` | **string** |  |
-| `$userString` | **string** |  |
-
-
-
+| Parameter  | Type      | Description |
+|------------|-----------|-------------|
+| `$cookies` | **array** |             |
 
 **Throws:**
 
-- [`Exception`](../../../../../Qubus/Exception/Exception.md)
-
-
-
-***
-
+- [`BadFormatException`](../../../../../Defuse/Crypto/Exception/BadFormatException.md)
+- [`EnvironmentIsBrokenException`](../../../../../Defuse/Crypto/Exception/EnvironmentIsBrokenException.md)
+- [`Exception`](../../../../../Exception.md)
+- [`WrongKeyOrModifiedCiphertextException`](../../../../../Defuse/Crypto/Exception/WrongKeyOrModifiedCiphertextException.md)
 
 ***
-> Automatically generated on 2025-10-13
+
+### createCookie
+
+Create CSRF cookie to store the encrypted token value.
+
+```php
+private createCookie(\Psr\Http\Message\ResponseInterface $response, string $token): \Psr\Http\Message\ResponseInterface
+```
+
+Encrypt the value for better security (in case of XSS attack).
+
+**Parameters:**
+
+| Parameter   | Type                                    | Description |
+|-------------|-----------------------------------------|-------------|
+| `$response` | **\Psr\Http\Message\ResponseInterface** |             |
+| `$token`    | **string**                              |             |
+
+**Throws:**
+
+- [`BadFormatException`](../../../../../Defuse/Crypto/Exception/BadFormatException.md)
+- [`EnvironmentIsBrokenException`](../../../../../Defuse/Crypto/Exception/EnvironmentIsBrokenException.md)
+- [`Exception`](../../../../../Exception.md)
+- [`TypeException`](../../../../../Qubus/Exception/Data/TypeException.md)
+
+***

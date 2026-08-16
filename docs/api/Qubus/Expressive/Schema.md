@@ -1,80 +1,44 @@
-***
-
 # Schema
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Schema`
 
-
-
 ## Properties
 
-
 ### connection
-
-
 
 ```php
 protected ?\Qubus\Expressive\Connection $connection
 ```
 
-
-
-
-
-
 ***
 
 ### tableList
-
-
 
 ```php
 protected array|null $tableList
 ```
 
-
-
-
-
-
 ***
 
 ### currentDatabase
-
-
 
 ```php
 protected ?string $currentDatabase
 ```
 
-
-
-
-
-
 ***
 
 ### columns
-
-
 
 ```php
 protected array $columns
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -84,22 +48,11 @@ Constructor.
 public __construct(\Qubus\Expressive\Connection $connection): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter     | Type                             | Description |
+|---------------|----------------------------------|-------------|
 | `$connection` | **\Qubus\Expressive\Connection** | Connection. |
-
-
-
-
 
 ***
 
@@ -111,22 +64,6 @@ Get the name of the currently used database.
 public getCurrentDatabase(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
-
 ***
 
 ### hasTable
@@ -137,28 +74,12 @@ Check if the specified table exists.
 public hasTable(string $table, bool $clear = false): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | Table name. |
-| `$clear` | **bool** | (optional) Refresh table list. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type       | Description                    |
+|-----------|------------|--------------------------------|
+| `$table`  | **string** | Table name.                    |
+| `$clear`  | **bool**   | (optional) Refresh table list. |
 
 ***
 
@@ -170,27 +91,11 @@ Get a list with all tables that belong to the currently used database.
 public getTables(bool $clear = false): string[]
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$clear` | **bool** | (optional) Refresh table list. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type     | Description                    |
+|-----------|----------|--------------------------------|
+| `$clear`  | **bool** | (optional) Refresh table list. |
 
 ***
 
@@ -199,32 +104,16 @@ public getTables(bool $clear = false): string[]
 Get a list with all columns that belong to the specified table.
 
 ```php
-public getColumns(string $table, bool $clear = false, bool $names = true): false|string[]
+public getColumns(string $table, bool $clear = false, bool $names = true): false|list<string>|array<string,array{name: string, type: string}>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** |  |
-| `$clear` | **bool** | (optional) Refresh column list. |
-| `$names` | **bool** | (optional) Return only the column names. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type       | Description                              |
+|-----------|------------|------------------------------------------|
+| `$table`  | **string** |                                          |
+| `$clear`  | **bool**   | (optional) Refresh column list.          |
+| `$names`  | **bool**   | (optional) Return only the column names. |
 
 ***
 
@@ -236,28 +125,16 @@ Creates a new table.
 public create(string $table, callable $callback): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | Table name. |
-| `$callback` | **callable** | A callback that will define table&#039;s fields and indexes. |
-
-
-
+| Parameter   | Type         | Description                                             |
+|-------------|--------------|---------------------------------------------------------|
+| `$table`    | **string**   | Table name.                                             |
+| `$callback` | **callable** | A callback that will define table's fields and indexes. |
 
 **Throws:**
 
 - [`Exception`](../Exception/Exception.md)
-
-
 
 ***
 
@@ -269,28 +146,16 @@ Alters a table's definition.
 public alter(string $table, callable $callback): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | Table name |
+| Parameter   | Type         | Description                                           |
+|-------------|--------------|-------------------------------------------------------|
+| `$table`    | **string**   | Table name                                            |
 | `$callback` | **callable** | A callback that will add or remove fields or indexes. |
-
-
-
 
 **Throws:**
 
 - [`Exception`](../Exception/Exception.md)
-
-
 
 ***
 
@@ -302,28 +167,12 @@ Change a table's name.
 public renameTable(string $table, string $name): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | The table. |
-| `$name` | **string** | The new name of the table. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type       | Description                |
+|-----------|------------|----------------------------|
+| `$table`  | **string** | The table.                 |
+| `$name`   | **string** | The new name of the table. |
 
 ***
 
@@ -335,27 +184,11 @@ Deletes a table.
 public drop(string $table): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | Table name. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$table`  | **string** | Table name. |
 
 ***
 
@@ -367,30 +200,10 @@ Deletes all records from a table.
 public truncate(string $table): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$table` | **string** | Table name. |
-
-
-
-
-**Throws:**
-
-- [`Exception`](../Exception/Exception.md)
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$table`  | **string** | Table name. |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

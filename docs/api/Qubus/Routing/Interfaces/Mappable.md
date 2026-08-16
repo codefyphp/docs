@@ -1,30 +1,25 @@
-***
-
 # Mappable
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Interfaces\Mappable`
 
-
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`HTTP_METHOD_GET`|public| |&#039;GET&#039;|
-|`HTTP_METHOD_POST`|public| |&#039;POST&#039;|
-|`HTTP_METHOD_PUT`|public| |&#039;PUT&#039;|
-|`HTTP_METHOD_PATCH`|public| |&#039;PATCH&#039;|
-|`HTTP_METHOD_OPTIONS`|public| |&#039;OPTIONS&#039;|
-|`HTTP_METHOD_DELETE`|public| |&#039;DELETE&#039;|
-|`HTTP_METHOD_HEAD`|public| |&#039;HEAD&#039;|
-|`HTTP_METHOD_TRACE`|public| |&#039;TRACE&#039;|
-|`HTTP_METHOD_CONNECT`|public| |&#039;CONNECT&#039;|
+
+| Constant              | Visibility | Type | Value     |
+|-----------------------|------------|------|-----------|
+| `HTTP_METHOD_GET`     | public     |      | 'GET'     |
+| `HTTP_METHOD_POST`    | public     |      | 'POST'    |
+| `HTTP_METHOD_PUT`     | public     |      | 'PUT'     |
+| `HTTP_METHOD_PATCH`   | public     |      | 'PATCH'   |
+| `HTTP_METHOD_OPTIONS` | public     |      | 'OPTIONS' |
+| `HTTP_METHOD_DELETE`  | public     |      | 'DELETE'  |
+| `HTTP_METHOD_HEAD`    | public     |      | 'HEAD'    |
+| `HTTP_METHOD_TRACE`   | public     |      | 'TRACE'   |
+| `HTTP_METHOD_CONNECT` | public     |      | 'CONNECT' |
 
 ## Methods
-
 
 ### map
 
@@ -34,24 +29,13 @@ Add a route to the map
 public map(array $verbs, string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$verbs` | **array** |  |
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$verbs`    | **array**            |             |
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -63,23 +47,12 @@ Add a route that responds to any HTTP method.
 public any(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -91,23 +64,12 @@ Add a route that responds to GET HTTP method
 public get(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -119,23 +81,12 @@ Add a route that responds to POST HTTP method
 public post(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -147,23 +98,12 @@ Add a route that responds to PATCH HTTP method
 public patch(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -175,23 +115,12 @@ Add a route that responds to PUT HTTP method
 public put(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -203,23 +132,12 @@ Add a route that responds to DELETE HTTP method
 public delete(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -231,23 +149,12 @@ Add a route that responds to HEAD HTTP method
 public head(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -259,23 +166,12 @@ Add a route that responds to OPTIONS HTTP method
 public options(string $uri, callable|string $callback): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-| `$callback` | **callable&#124;string** |  |
-
-
-
-
+| Parameter   | Type                 | Description |
+|-------------|----------------------|-------------|
+| `$uri`      | **string**           |             |
+| `$callback` | **callable\|string** |             |
 
 ***
 
@@ -287,26 +183,11 @@ Add route group
 public group(array|string $params, callable $callback): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$params` | **array&#124;string** |  |
-| `$callback` | **callable** |  |
-
-
-
-
+| Parameter   | Type              | Description |
+|-------------|-------------------|-------------|
+| `$params`   | **array\|string** |             |
+| `$callback` | **callable**      |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

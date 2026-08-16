@@ -1,17 +1,10 @@
-***
-
 # Assets
 
-
-
-
+***
 
 * Full name: `\Qubus\Support\Assets`
 
-
-
 ## Properties
-
 
 ### assetRegex
 
@@ -20,11 +13,6 @@ Regex to match against a filename/url to determine if it is an asset.
 ```php
 protected string $assetRegex
 ```
-
-
-
-
-
 
 ***
 
@@ -36,11 +24,6 @@ Regex to match against a filename/url to determine if it is a CSS asset.
 protected string $cssRegex
 ```
 
-
-
-
-
-
 ***
 
 ### jsRegex
@@ -51,11 +34,6 @@ Regex to match against a filename/url to determine if it is a JavaScript asset.
 protected string $jsRegex
 ```
 
-
-
-
-
-
 ***
 
 ### noMinificationRegex
@@ -65,11 +43,6 @@ Regex to match against a filename/url to determine if it should not be minified 
 ```php
 protected string $noMinificationRegex
 ```
-
-
-
-
-
 
 ***
 
@@ -84,9 +57,6 @@ protected ?string $publicDir
 Required if you enable the pipeline.
 No trailing slash!.
 
-
-
-
 ***
 
 ### cssDir
@@ -99,9 +69,6 @@ protected string $cssDir
 
 Relative to your public directory ('public_dir').
 No trailing slash!.
-
-
-
 
 ***
 
@@ -116,9 +83,6 @@ protected string $jsDir
 Relative to your public directory ('public_dir').
 No trailing slash!.
 
-
-
-
 ***
 
 ### packagesDir
@@ -131,9 +95,6 @@ protected string $packagesDir
 
 Relative to your public directory ('public_dir').
 No trailing slash!.
-
-
-
 
 ***
 
@@ -148,9 +109,6 @@ protected bool|string $pipeline
 Use a string that evaluates to `true` to provide the salt of the pipeline hash.
 Use 'auto' to automatically calculated the salt from your assets last modification time.
 
-
-
-
 ***
 
 ### pipelineDir
@@ -163,9 +121,6 @@ protected string $pipelineDir
 
 Relative to your assets directories ('css_dir' and 'js_dir').
 No trailing slash!.
-
-
-
 
 ***
 
@@ -180,9 +135,6 @@ protected bool|int $pipelineGzip
 Useful only if your webserver supports Gzip HTTP_ACCEPT_ENCODING.
 Set to true to use the default compression level.
 Set an integer between 0 (no compression) and 9 (maximum compression) to choose compression level.
-
-
-
 
 ***
 
@@ -200,9 +152,6 @@ your assets before they get pipelined.
 
 The closure will receive as the only parameter a string with the path/URL of the asset, and
 it should return the content of the asset file as a string.
-
-
-
 
 ***
 
@@ -224,9 +173,6 @@ The closure will receive five parameters:
 - Array containing the assets included in the file.
 - Boolean indicating whether a gzipped version of the file was also created.
 
-
-
-
 ***
 
 ### cssMinifier
@@ -236,11 +182,6 @@ Closure used by the pipeline to minify CSS assets.
 ```php
 protected ?\Closure $cssMinifier
 ```
-
-
-
-
-
 
 ***
 
@@ -252,11 +193,6 @@ Closure used by the pipeline to minify JavaScript assets.
 protected ?\Closure $jsMinifier
 ```
 
-
-
-
-
-
 ***
 
 ### collections
@@ -264,14 +200,11 @@ protected ?\Closure $jsMinifier
 Available collections.
 
 ```php
-protected array $collections
+protected array<string,string|array<string,string|string[]>> $collections
 ```
 
 Each collection is an array of assets.
 Collections may also contain other collections.
-
-
-
 
 ***
 
@@ -280,13 +213,10 @@ Collections may also contain other collections.
 CSS files already added.
 
 ```php
-protected array $css
+protected string[] $css
 ```
 
 Not accepted as an option of config() method.
-
-
-
 
 ***
 
@@ -295,43 +225,27 @@ Not accepted as an option of config() method.
 JavaScript files already added.
 
 ```php
-protected array $js
+protected string[] $js
 ```
 
 Not accepted as an option of config() method.
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(array $options = []): void
+public __construct((string|bool|int|\Closure|null|array<string,string|array<string,string|string[]>>)[] $options = []): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$options` | **array** | See config() method for details. |
-
-
-
-
+| Parameter  | Type                                                                                            | Description                       |
+|------------|-------------------------------------------------------------------------------------------------|-----------------------------------|
+| `$options` | **(string\|bool\|int\|\Closure\|null\|array<string,string\|array<string,string\|string[]>>)[]** | 
+See config() method for details. |
 
 ***
 
@@ -340,27 +254,19 @@ public __construct(array $options = []): void
 Set up configuration options.
 
 ```php
-public config(array $config): \Qubus\Support\Assets
+public config((string|bool|int|\Closure|null|array<string,string|array<string,string|string[]>>)[] $config): \Qubus\Support\Assets
 ```
 
 All the class properties except 'js' and 'css' are accepted here.
 Also, an extra option 'autoload' may be passed containing an array of
 assets and/or collections that will be automatically added on startup.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **array** | Configurable options. |
-
-
-
-
+| Parameter | Type                                                                                            | Description            |
+|-----------|-------------------------------------------------------------------------------------------------|------------------------|
+| `$config` | **(string\|bool\|int\|\Closure\|null\|array<string,string\|array<string,string\|string[]>>)[]** | 
+Configurable options. |
 
 ***
 
@@ -375,20 +281,11 @@ public add(mixed $asset): \Qubus\Support\Assets
 It automatically detects the asset type (JavaScript, CSS or collection).
 You may add more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -403,20 +300,11 @@ public prepend(mixed $asset): \Qubus\Support\Assets
 It automatically detects the asset type (JavaScript, CSS or collection).
 You may prepend more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -431,20 +319,11 @@ public addCss(mixed $asset): \Qubus\Support\Assets
 It checks for duplicates.
 You may add more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -459,20 +338,11 @@ public prependCss(mixed $asset): \Qubus\Support\Assets
 It checks for duplicates.
 You may prepend more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -487,20 +357,11 @@ public addJs(mixed $asset): \Qubus\Support\Assets
 It checks for duplicates.
 You may add more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -515,20 +376,11 @@ public prependJs(mixed $asset): \Qubus\Support\Assets
 It checks for duplicates.
 You may prepend more than one asset passing an array as argument.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$asset`  | **mixed** |             |
 
 ***
 
@@ -537,27 +389,18 @@ You may prepend more than one asset passing an array as argument.
 Build the CSS `<link>` tags.
 
 ```php
-public css(array|\Closure|null $attributes = null): string
+public css(string[]|\Closure|null $attributes = null): string
 ```
 
 Accepts an array of $attributes for the HTML tag.
 You can take control of the tag rendering by
 providing a closure that will receive an array of assets.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$attributes` | **array&#124;\Closure&#124;null** |  |
-
-
-
-
+| Parameter     | Type                         | Description |
+|---------------|------------------------------|-------------|
+| `$attributes` | **string[]\|\Closure\|null** |             |
 
 ***
 
@@ -566,27 +409,18 @@ providing a closure that will receive an array of assets.
 Build the JavaScript `<script>` tags.
 
 ```php
-public js(array|\Closure|null $attributes = null): string
+public js(string[]|\Closure|null $attributes = null): string
 ```
 
 Accepts an array of $attributes for the HTML tag.
 You can take control of the tag rendering by
 providing a closure that will receive an array of assets.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$attributes` | **array&#124;\Closure&#124;null** |  |
-
-
-
-
+| Parameter     | Type                         | Description |
+|---------------|------------------------------|-------------|
+| `$attributes` | **string[]\|\Closure\|null** |             |
 
 ***
 
@@ -598,23 +432,12 @@ Add/replace collection.
 public registerCollection(string $collectionName, array $assets): \Qubus\Support\Assets
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$collectionName` | **string** |  |
-| `$assets` | **array** |  |
-
-
-
-
+| Parameter         | Type       | Description |
+|-------------------|------------|-------------|
+| `$collectionName` | **string** |             |
+| `$assets`         | **array**  |             |
 
 ***
 
@@ -626,17 +449,6 @@ Reset all assets.
 public reset(): \Qubus\Support\Assets
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### resetCss
@@ -644,19 +456,8 @@ public reset(): \Qubus\Support\Assets
 Reset CSS assets.
 
 ```php
-public resetCss(): \Qubus\Support\Assets
+public resetCss(): self
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -665,19 +466,8 @@ public resetCss(): \Qubus\Support\Assets
 Reset JavaScript assets.
 
 ```php
-public resetJs(): \Qubus\Support\Assets
+public resetJs(): self
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -689,17 +479,6 @@ Minify and concatenate CSS files.
 protected cssPipeline(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### jsPipeline
@@ -709,17 +488,6 @@ Minify and concatenate JavaScript files.
 ```php
 protected jsPipeline(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -731,25 +499,14 @@ Minify and concatenate files.
 protected pipeline(array $assets, string $extension, string $subdirectory, \Closure $minifier): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$assets` | **array** |  |
-| `$extension` | **string** |  |
-| `$subdirectory` | **string** |  |
-| `$minifier` | **\Closure** |  |
-
-
-
-
+| Parameter       | Type         | Description |
+|-----------------|--------------|-------------|
+| `$assets`       | **array**    |             |
+| `$extension`    | **string**   |             |
+| `$subdirectory` | **string**   |             |
+| `$minifier`     | **\Closure** |             |
 
 ***
 
@@ -761,22 +518,11 @@ Calculate the pipeline hash.
 protected calculatePipelineHash(array $assets): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$assets` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$assets` | **array** |             |
 
 ***
 
@@ -785,26 +531,15 @@ protected calculatePipelineHash(array $assets): string
 Download, concatenate and minify the content of several links.
 
 ```php
-protected packLinks(array $links, \Closure $minifier): string
+protected packLinks(string[] $links, \Closure $minifier): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$links` | **array** |  |
-| `$minifier` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$links`    | **string[]** |             |
+| `$minifier` | **\Closure** |             |
 
 ***
 
@@ -818,25 +553,16 @@ protected buildLocalLink(string $asset, string $dir): string
 
 Detect packages links.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **string** |  |
-| `$dir` | **string** |  |
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$asset`  | **string** |             |
+| `$dir`    | **string** |             |
 
 **Return Value:**
 
 the link
-
-
-
 
 ***
 
@@ -848,22 +574,11 @@ Build an HTML attribute string from an array.
 public buildTagAttributes(array $attributes): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$attributes` | **array** |  |
-
-
-
-
+| Parameter     | Type      | Description |
+|---------------|-----------|-------------|
+| `$attributes` | **array** |             |
 
 ***
 
@@ -875,22 +590,11 @@ Determine whether an asset is normal or from a package.
 protected assetIsFromPackage(string $asset): bool|array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$asset` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$asset`  | **string** |             |
 
 ***
 
@@ -904,20 +608,11 @@ protected isRemoteLink(string $link): bool
 
 Understands both "http://" and "https://" as well as protocol agnostic links "//"
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$link` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$link`   | **string** |             |
 
 ***
 
@@ -926,19 +621,8 @@ Understands both "http://" and "https://" as well as protocol agnostic links "//
 Get all CSS assets already added.
 
 ```php
-public getCss(): array
+public getCss(): string[]
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -947,19 +631,8 @@ public getCss(): array
 Get all JavaScript assets already added.
 
 ```php
-public getJs(): array
+public getJs(): string[]
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -971,23 +644,12 @@ Add all assets matching $pattern within $directory.
 public addDir(string $directory, string|null $pattern = null): \Qubus\Support\Assets
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$directory` | **string** | Relative to $this-&gt;publicDir |
-| `$pattern` | **string&#124;null** | (regex) |
-
-
-
-
+| Parameter    | Type             | Description                  |
+|--------------|------------------|------------------------------|
+| `$directory` | **string**       | Relative to $this->publicDir |
+| `$pattern`   | **string\|null** | (regex)                      |
 
 ***
 
@@ -999,22 +661,11 @@ Add all CSS assets within $directory (relative to public dir).
 public addDirCss(string $directory): \Qubus\Support\Assets
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$directory` | **string** | Relative to $this-&gt;publicDir |
-
-
-
-
+| Parameter    | Type       | Description                  |
+|--------------|------------|------------------------------|
+| `$directory` | **string** | Relative to $this->publicDir |
 
 ***
 
@@ -1026,22 +677,11 @@ Add all JavaScript assets within $directory (relative to public dir).
 public addDirJs(string $directory): \Qubus\Support\Assets
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$directory` | **string** | Relative to $this-&gt;publicDir |
-
-
-
-
+| Parameter    | Type       | Description                  |
+|--------------|------------|------------------------------|
+| `$directory` | **string** | Relative to $this->publicDir |
 
 ***
 
@@ -1050,30 +690,15 @@ public addDirJs(string $directory): \Qubus\Support\Assets
 Recursively get files matching $pattern within $directory.
 
 ```php
-protected rglob(string $directory, string $pattern, string|null $ltrim = null): array
+protected rglob(string $directory, string $pattern, string|null $ltrim = null): string[]
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$directory` | **string** |  |
-| `$pattern` | **string** | (regex) |
-| `$ltrim` | **string&#124;null** | Will be trimmed from the left of the file path |
-
-
-
-
+| Parameter    | Type             | Description                                    |
+|--------------|------------------|------------------------------------------------|
+| `$directory` | **string**       |                                                |
+| `$pattern`   | **string**       | (regex)                                        |
+| `$ltrim`     | **string\|null** | Will be trimmed from the left of the file path |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,63 +1,36 @@
-***
-
 # BaseServiceProvider
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\ServiceProvider\BaseServiceProvider`
 * This class implements:
-[`\Qubus\Injector\ServiceProvider\Serviceable`](./Serviceable.md), [`\Qubus\Injector\ServiceProvider\Bootable`](./Bootable.md)
+  [`\Qubus\Injector\ServiceProvider\Serviceable`](./Serviceable.md),
+  [`\Qubus\Injector\ServiceProvider\Bootable`](./Bootable.md)
 * This class is an **Abstract class**
-
-
 
 ## Properties
 
-
 ### container
-
-
 
 ```php
 protected \Qubus\Injector\ServiceContainer $container
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Injector\ServiceContainer $container): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$container` | **\Qubus\Injector\ServiceContainer** |  |
-
-
-
-
+| Parameter    | Type                                 | Description |
+|--------------|--------------------------------------|-------------|
+| `$container` | **\Qubus\Injector\ServiceContainer** |             |
 
 ***
 
@@ -70,17 +43,6 @@ the booting stage.
 public register(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### boot
@@ -92,19 +54,4 @@ to be loaded after the called provider is booted.
 public boot(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

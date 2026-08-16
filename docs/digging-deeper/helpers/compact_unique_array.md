@@ -11,11 +11,13 @@ Strips out all duplicate values and compact the array.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\compact_unique_array;
-    
-    compact_unique_array(array $a): array;
+use function Qubus\Support\Helpers\compact_unique_array;
+
+function compact_unique_array(array $a): array;
+```
 
 Parameters
 ----------

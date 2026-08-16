@@ -1,20 +1,12 @@
-***
-
 # Password
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Support\Password`
 * This class is marked as **final** and can't be subclassed
 * This class is a **Final class**
 
-
-
-
 ## Methods
-
 
 ### algorithm
 
@@ -24,25 +16,14 @@ Algorithm to use when hashing the password (i.e. PASSWORD_DEFAULT, PASSWORD_ARGO
 private static algorithm(): string
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
 **Return Value:**
 
 Password algorithm.
 
-
-
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -51,28 +32,17 @@ Password algorithm.
 An associative array containing options.
 
 ```php
-private static options(): array
+private static options(): array<string,mixed>
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
 **Return Value:**
 
 Array of options.
 
-
-
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -84,31 +54,20 @@ Hashes a plain text password.
 public static hash(string $password): string
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type       | Description         |
+|-------------|------------|---------------------|
 | `$password` | **string** | Plain text password |
-
 
 **Return Value:**
 
 Hashed password.
 
-
-
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -120,23 +79,13 @@ Checks if the given hash matches the given options.
 public static verify(string $password, string $hash): bool
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$password` | **string** |  |
-| `$hash` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$password` | **string** |             |
+| `$hash`     | **string** |             |
 
 ***
 
@@ -151,24 +100,15 @@ public static needsRehash(string $hash): bool
 If not, it is assumed that the hash needs to be rehashed.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$hash` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$hash`   | **string** |             |
 
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -177,20 +117,10 @@ If not, it is assumed that the hash needs to be rehashed.
 Get available password hashing algorithm IDs.
 
 ```php
-public static algos(): array
+public static algos(): string[]
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### getInfo
@@ -198,28 +128,14 @@ public static algos(): array
 Returns information about the given hash.
 
 ```php
-public static getInfo(string $password): array
+public static getInfo(string $password): array<string,int|string|array>
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$password` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$password` | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

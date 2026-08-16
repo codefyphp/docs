@@ -1,17 +1,10 @@
-***
-
 # Chainable
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Pipeline\Chainable`
 
-
-
 ## Methods
-
 
 ### send
 
@@ -21,22 +14,11 @@ Set the object being sent through the pipeline.
 public send(mixed $passable): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$passable` | **mixed** |  |
-
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$passable` | **mixed** |             |
 
 ***
 
@@ -45,25 +27,14 @@ public send(mixed $passable): self
 Set the array of pipes.
 
 ```php
-public through(array|mixed $pipes): self
+public through(mixed $pipes): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipes` | **array&#124;mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$pipes`  | **mixed** |             |
 
 ***
 
@@ -75,22 +46,11 @@ Set the method to call on the pipes.
 public via(string $method): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$method` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$method` | **string** |             |
 
 ***
 
@@ -102,22 +62,11 @@ Run the pipeline with a final destination callback.
 public then(\Closure $destination): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$destination` | **\Closure** |  |
-
-
-
-
+| Parameter      | Type         | Description |
+|----------------|--------------|-------------|
+| `$destination` | **\Closure** |             |
 
 ***
 
@@ -129,17 +78,6 @@ Run the pipeline and return the result.
 public thenReturn(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### run
@@ -147,29 +85,14 @@ public thenReturn(): mixed
 Run a single pipe.
 
 ```php
-public run(string $pipe, mixed $data = true): mixed
+public run(class-string $pipe, mixed $data = true): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pipe` | **string** |  |
-| `$data` | **mixed** |  |
-
-
-
-
+| Parameter | Type             | Description |
+|-----------|------------------|-------------|
+| `$pipe`   | **class-string** |             |
+| `$data`   | **mixed**        |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

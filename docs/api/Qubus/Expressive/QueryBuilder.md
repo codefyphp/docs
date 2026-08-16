@@ -1,606 +1,335 @@
-***
-
 # QueryBuilder
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\QueryBuilder`
 * This class implements:
-[`\IteratorAggregate`](../../IteratorAggregate.md), [`\Stringable`](../../Stringable.md), [`\Qubus\Expressive\Database`](./Database.md)
-
+  `IteratorAggregate`,
+  `Stringable`,
+  [`\Qubus\Expressive\Database`](./Database.md)
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`OPERATOR_AND`|public| |&#039; AND &#039;|
-|`OPERATOR_OR`|public| |&#039; OR &#039;|
-|`ORDERBY_ASC`|public| |&#039;ASC&#039;|
-|`ORDERBY_DESC`|public| |&#039;DESC&#039;|
-|`JOIN_INNER`|public| |&#039;INNER&#039;|
-|`JOIN_OUTER`|public| |&#039;OUTER&#039;|
-|`JOIN_LEFT`|public| |&#039;LEFT&#039;|
-|`JOIN_RIGHT`|public| |&#039;RIGHT&#039;|
-|`JOIN_RIGHT_OUTER`|public| |&#039;RIGHT OUTER&#039;|
-|`JOIN_LEFT_OUTER`|public| |&#039;LEFT OUTER&#039;|
-|`EOL`|public| |&quot;\n&quot;|
-|`TAB`|public| |&quot;\t&quot;|
-|`EOL_TAB`|public| |&quot;\n\t&quot;|
+| Constant       | Visibility | Type | Value  |
+|----------------|------------|------|--------|
+| `ORDERBY_ASC`  | public     |      | 'ASC'  |
+| `ORDERBY_DESC` | public     |      | 'DESC' |
+| `EOL`          | public     |      | "\n"   |
+| `TAB`          | public     |      | "\t"   |
+| `EOL_TAB`      | public     |      | "\n\t" |
 
 ## Properties
 
-
-### instance
-
-
-
-```php
-protected static ?\Qubus\Expressive\QueryBuilder $instance
-```
-
-
-
-* This property is **static**.
-
-
-***
-
 ### connection
 
-
-
 ```php
-protected \Qubus\Expressive\Connection|null $connection
+protected \Qubus\Expressive\Connection $connection
 ```
-
-
-
-
-
 
 ***
 
 ### tableName
 
-
-
 ```php
 protected ?string $tableName
 ```
-
-
-
-
-
 
 ***
 
 ### tableToken
 
-
-
 ```php
 protected string $tableToken
 ```
-
-
-
-
-
 
 ***
 
 ### tableAlias
 
-
-
 ```php
 protected string $tableAlias
 ```
-
-
-
-
-
 
 ***
 
 ### isSingle
 
-
-
 ```php
 protected bool $isSingle
 ```
-
-
-
-
-
 
 ***
 
 ### pdoStmt
 
-
-
 ```php
 protected ?\PDOStatement $pdoStmt
 ```
-
-
-
-
-
 
 ***
 
 ### selectFields
 
-
-
 ```php
 protected array $selectFields
 ```
-
-
-
-
-
 
 ***
 
 ### joinSources
 
-
-
 ```php
 protected array $joinSources
 ```
-
-
-
-
-
 
 ***
 
 ### limit
 
-
-
 ```php
 protected ?int $limit
 ```
-
-
-
-
-
 
 ***
 
 ### offset
 
-
-
 ```php
 protected ?int $offset
 ```
-
-
-
-
-
 
 ***
 
 ### orderBy
 
-
-
 ```php
-protected array $orderBy
+protected string[] $orderBy
 ```
-
-
-
-
-
 
 ***
 
 ### groupBy
 
-
-
 ```php
-protected array $groupBy
+protected string[] $groupBy
 ```
-
-
-
-
-
 
 ***
 
 ### whereParameters
 
-
-
 ```php
 protected array $whereParameters
 ```
-
-
-
-
-
 
 ***
 
 ### whereConditions
 
-
-
 ```php
 protected array $whereConditions
 ```
-
-
-
-
-
 
 ***
 
 ### andOrOperator
 
-
-
 ```php
 protected string $andOrOperator
 ```
-
-
-
-
-
 
 ***
 
 ### having
 
-
-
 ```php
 protected array $having
 ```
-
-
-
-
-
 
 ***
 
 ### returning
 
-
-
 ```php
 protected ?string $returning
 ```
-
-
-
-
-
 
 ***
 
 ### upsert
 
-
-
 ```php
-protected ?array $upsert
+protected array|null $upsert
 ```
-
-
-
-
-
 
 ***
 
 ### wrapOpen
 
-
-
 ```php
 protected bool $wrapOpen
 ```
-
-
-
-
-
 
 ***
 
 ### lastWrapPosition
 
-
-
 ```php
 protected int $lastWrapPosition
 ```
-
-
-
-
-
 
 ***
 
 ### isFluentQuery
 
-
-
 ```php
 protected bool $isFluentQuery
 ```
-
-
-
-
-
 
 ***
 
 ### pdoExecuted
 
-
-
 ```php
 protected bool $pdoExecuted
 ```
-
-
-
-
-
 
 ***
 
 ### data
 
-
-
 ```php
 protected array $data
 ```
-
-
-
-
-
 
 ***
 
 ### debugSqlQuery
 
-
-
 ```php
 protected bool $debugSqlQuery
 ```
-
-
-
-
-
 
 ***
 
 ### sqlQuery
 
-
-
 ```php
 protected string $sqlQuery
 ```
-
-
-
-
-
 
 ***
 
 ### sqlParameters
 
-
-
 ```php
 protected array $sqlParameters
 ```
-
-
-
-
-
 
 ***
 
 ### dirtyFields
 
-
-
 ```php
-protected array $dirtyFields
+protected string[] $dirtyFields
 ```
-
-
-
-
-
 
 ***
 
 ### referenceKeys
 
-
-
 ```php
-protected array $referenceKeys
+protected array<int|string,array> $referenceKeys
 ```
-
-
-
-
-
 
 ***
 
 ### joinOn
 
-
-
 ```php
 protected bool $joinOn
 ```
-
-
-
-
-
 
 ***
 
 ### references
 
-
-
 ```php
 protected static array $references
 ```
 
-
-
 * This property is **static**.
-
 
 ***
 
 ### tablePrefix
 
-
-
 ```php
 protected ?string $tablePrefix
 ```
-
-
-
-
-
 
 ***
 
 ### schema
 
-
-
 ```php
 protected ?\Qubus\Expressive\Schema $schema
 ```
-
-
-
-
-
 
 ***
 
 ### tableStructure
 
-
-
 ```php
-public array $tableStructure
+public string[] $tableStructure
 ```
 
+***
 
+### lastResult
 
-
-
+```php
+private list<array<string,mixed>> $lastResult
+```
 
 ***
 
 ## Methods
-
 
 ### __construct
 
 Constructor & set the table structure
 
 ```php
-public __construct(\Qubus\Expressive\Connection $connection, string|null $tablePrefix = null, string $primaryKeyName = &#039;id&#039;, string $foreignKeyName = &#039;%s_id&#039;): mixed
+public __construct(\Qubus\Expressive\Connection $connection, string|null $tablePrefix = null, string $primaryKeyName = 'id', string $foreignKeyName = '%s_id'): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$connection` | **\Qubus\Expressive\Connection** | Database connection. |
-| `$tablePrefix` | **string&#124;null** | Prefix of database tables. |
-| `$primaryKeyName` | **string** | Structure: table primary key. If it&#039;s an array, it must be the structure |
-| `$foreignKeyName` | **string** | Structure: table foreignKeyName.<br />It can be like %s_id where %s is the table name |
-
-
-
-
+| Parameter         | Type                             | Description                                                                      |
+|-------------------|----------------------------------|----------------------------------------------------------------------------------|
+| `$connection`     | **\Qubus\Expressive\Connection** | Database connection.                                                             |
+| `$tablePrefix`    | **string\|null**                 | Prefix of database tables.                                                       |
+| `$primaryKeyName` | **string**                       | Structure: table primary key. If it's an array, it must be the structure         |
+| `$foreignKeyName` | **string**                       | Structure: table foreignKeyName.
+It can be like %s_id where %s is the table name |
 
 ***
 
 ### fromInstance
 
-
-
 ```php
-public static fromInstance(\Qubus\Expressive\Connection $connection, string $primaryKeyName = &#039;id&#039;, ?string $tablePrefix = null): static
+public static fromInstance(\Qubus\Expressive\Connection $connection, string $primaryKeyName = 'id', ?string $tablePrefix = null): \Qubus\Expressive\Database
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$connection` | **\Qubus\Expressive\Connection** |  |
-| `$primaryKeyName` | **string** |  |
-| `$tablePrefix` | **?string** |  |
-
-
-
-
+| Parameter         | Type                             | Description |
+|-------------------|----------------------------------|-------------|
+| `$connection`     | **\Qubus\Expressive\Connection** |             |
+| `$primaryKeyName` | **string**                       |             |
+| `$tablePrefix`    | **?string**                      |             |
 
 ***
 
@@ -609,26 +338,23 @@ public static fromInstance(\Qubus\Expressive\Connection $connection, string $pri
 Define the working table and create a new instance
 
 ```php
-public table(string $tableName, ?string $alias = null): static
+public table(string $tableName, ?string $alias = null): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tableName` | **string** | Table name. |
-| `$alias` | **?string** | The table alias name. |
+| Parameter    | Type        | Description           |
+|--------------|-------------|-----------------------|
+| `$tableName` | **string**  | Table name.           |
+| `$alias`     | **?string** | The table alias name. |
 
+***
 
+### getConnection
 
-
+```php
+public getConnection(): \Qubus\Expressive\Connection
+```
 
 ***
 
@@ -637,19 +363,8 @@ public table(string $tableName, ?string $alias = null): static
 Return the name of the table.
 
 ```php
-public getTableName(): string
+public getTableName(): ?string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -658,25 +373,14 @@ public getTableName(): string
 Set the table alias.
 
 ```php
-public setTableAlias(string $alias): \Qubus\Expressive\QueryBuilder
+public setTableAlias(string $alias): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$alias` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$alias`  | **string** |             |
 
 ***
 
@@ -688,71 +392,35 @@ Get table Alias
 public getTableAlias(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setStructure
 
-
-
 ```php
-public setStructure(string $primaryKeyName = &#039;id&#039;, string $foreignKeyName = &#039;%s_id&#039;): \Qubus\Expressive\Database
+public setStructure(string $primaryKeyName = 'id', string $foreignKeyName = '%s_id'): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$primaryKeyName` | **string** | The primary key, ie: id |
-| `$foreignKeyName` | **string** | The foreign key as a pattern: %s_id,<br />where %s will be substituted with the table name |
-
-
-
-
+| Parameter         | Type       | Description                                                                           |
+|-------------------|------------|---------------------------------------------------------------------------------------|
+| `$primaryKeyName` | **string** | The primary key, ie: id                                                               |
+| `$foreignKeyName` | **string** | The foreign key as a pattern: %s_id,
+where %s will be substituted with the table name |
 
 ***
 
 ### setTablePrefix
 
-
-
 ```php
-public setTablePrefix(?string $tablePrefix = &#039;&#039;): static
+public setTablePrefix(?string $tablePrefix = ''): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tablePrefix` | **?string** |  |
-
-
-
-
+| Parameter      | Type        | Description |
+|----------------|-------------|-------------|
+| `$tablePrefix` | **?string** |             |
 
 ***
 
@@ -764,17 +432,6 @@ Return the table prefix.
 public getTablePrefix(): ?string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getStructure
@@ -782,19 +439,8 @@ public getTablePrefix(): ?string
 Return the table structure.
 
 ```php
-public getStructure(): array
+public getStructure(): array{primaryKeyname: string, foreignKeyname: string}
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -806,17 +452,6 @@ Get the primary key name.
 public getPrimaryKeyname(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getForeignKeyname
@@ -826,17 +461,6 @@ Get foreign key name.
 ```php
 public getForeignKeyname(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -848,16 +472,20 @@ Return if the entry is of a single row
 public isSingleRow(): bool
 ```
 
+***
 
+### raw
 
+```php
+public raw(string $sql, array $params = []): list<array<string,mixed>>
+```
 
+**Parameters:**
 
-
-
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$sql`    | **string** |             |
+| `$params` | **array**  |             |
 
 ***
 
@@ -869,24 +497,89 @@ To execute a raw query
 public query(string $query, array $parameters = [], bool $returnAsPdoStmt = false): \Qubus\Expressive\Database|\PDOStatement
 ```
 
+**Parameters:**
 
+| Parameter          | Type       | Description                                                                                                                                |
+|--------------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| `$query`           | **string** |                                                                                                                                            |
+| `$parameters`      | **array**  |                                                                                                                                            |
+| `$returnAsPdoStmt` | **bool**   | True, it will return the PDOStatement
+false, it will return $this, which can be used for chaining
+or access the properties of the results. |
 
+***
 
+### getResults
 
+Retrieve an entire SQL result set from the database (i.e. many rows).
 
-
+```php
+public getResults(?string $query = null, string $output = \Qubus\Expressive\Database::OBJECT): false|string|array
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$query` | **string** |  |
-| `$parameters` | **array** |  |
-| `$returnAsPdoStmt` | **bool** | True, it will return the PDOStatement<br />false, it will return $this, which can be used for chaining<br />or access the properties of the results. |
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$query`  | **?string** |             |
+| `$output` | **string**  |             |
 
+**Throws:**
 
+- [`JsonException`](../../JsonException.md)
 
+***
 
+### getVar
+
+Retrieve one variable from the database.
+
+```php
+public getVar(?string $query = null, int $x = 0, int $y = 0): string|int|null
+```
+
+**Parameters:**
+
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$query`  | **?string** |             |
+| `$x`      | **int**     |             |
+| `$y`      | **int**     |             |
+
+***
+
+### getCol
+
+Retrieve one column from the database.
+
+```php
+public getCol(?string $query = null, int $x = 0): array|null
+```
+
+**Parameters:**
+
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$query`  | **?string** |             |
+| `$x`      | **int**     |             |
+
+***
+
+### getRow
+
+Retrieve one row from the database.
+
+```php
+public getRow(?string $query = null, string $output = \Qubus\Expressive\Database::OBJECT, int $y = 0): object|array|null
+```
+
+**Parameters:**
+
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$query`  | **?string** |             |
+| `$output` | **string**  |             |
+| `$y`      | **int**     |             |
 
 ***
 
@@ -898,17 +591,6 @@ Return the number of affected row by the last statement
 public rowCount(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### find
@@ -918,25 +600,18 @@ Use the query builder to build the where clause or $this->query with select
 If a callback function is provided, the 1st arg must accept the rows results
 
 ```php
-public find(?callable $callback = null): bool|\SplFixedArray|string|\ArrayIterator|\InternalIterator|array
+public find(?callable $callback = null): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type          | Description                         |
+|-------------|---------------|-------------------------------------|
 | `$callback` | **?callable** | Run a function on the returned rows |
 
+**Return Value:**
 
-
-
+The callback result, an iterator of rows, or false when no statement was executed.
 
 ***
 
@@ -948,22 +623,11 @@ Return one row
 public findOne(int|string|null $id = null): \Qubus\Expressive\Database|false
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **int&#124;string&#124;null** | Use to fetch by primary key. |
-
-
-
-
+| Parameter | Type                  | Description                  |
+|-----------|-----------------------|------------------------------|
+| `$id`     | **int\|string\|null** | Use to fetch by primary key. |
 
 ***
 
@@ -975,17 +639,6 @@ This method allow the iteration inside foreach().
 public getIterator(): \ArrayIterator
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fromArray
@@ -994,25 +647,14 @@ Create an instance from the given row (an associative
 array of data fetched from the database).
 
 ```php
-public fromArray(array $data): \Qubus\Expressive\QueryBuilder
+public fromArray(array $data): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 ***
 
@@ -1021,26 +663,15 @@ public fromArray(array $data): \Qubus\Expressive\QueryBuilder
 Create the select clause.
 
 ```php
-public select(mixed $columns = &#039;*&#039;, ?string $alias = null): \Qubus\Expressive\Database
+public select(mixed $columns = '*', ?string $alias = null): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columns` | **mixed** | The column(s) to select. Can be string or array of fields. |
-| `$alias` | **?string** | An alias to the column. |
-
-
-
-
+| Parameter  | Type        | Description                                                |
+|------------|-------------|------------------------------------------------------------|
+| `$columns` | **mixed**   | The column(s) to select. Can be string or array of fields. |
+| `$alias`   | **?string** | An alias to the column.                                    |
 
 ***
 
@@ -1052,23 +683,12 @@ Add where condition, more calls appends with AND.
 public where(mixed $condition, mixed $parameters = null): \Qubus\Expressive\Database
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$condition` | **mixed** | condition possibly containing ? or :name |
+| Parameter     | Type      | Description                                                |
+|---------------|-----------|------------------------------------------------------------|
+| `$condition`  | **mixed** | condition possibly containing ? or :name                   |
 | `$parameters` | **mixed** | array accepted by PDOStatement::execute or a scalar value. |
-
-
-
-
 
 ***
 
@@ -1077,19 +697,8 @@ public where(mixed $condition, mixed $parameters = null): \Qubus\Expressive\Data
 Create an AND operator in the where clause
 
 ```php
-public and(): \Qubus\Expressive\QueryBuilder
+public and(): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1098,19 +707,8 @@ public and(): \Qubus\Expressive\QueryBuilder
 Create an OR operator in the where clause
 
 ```php
-public or(): \Qubus\Expressive\QueryBuilder
+public or(): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1119,19 +717,8 @@ public or(): \Qubus\Expressive\QueryBuilder
 To group multiple where clauses together.
 
 ```php
-public wrap(): \Qubus\Expressive\QueryBuilder
+public wrap(): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1140,25 +727,14 @@ public wrap(): \Qubus\Expressive\QueryBuilder
 Where Primary key
 
 ```php
-public wherePK(int|string $id): \Qubus\Expressive\QueryBuilder
+public wherePK(int|string $id): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **int&#124;string** |  |
-
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$id`     | **int\|string** |             |
 
 ***
 
@@ -1167,26 +743,15 @@ public wherePK(int|string $id): \Qubus\Expressive\QueryBuilder
 WHERE $columName != $value
 
 ```php
-public whereNot(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereNot(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1195,26 +760,15 @@ public whereNot(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilde
 WHERE $columName LIKE $value
 
 ```php
-public whereLike(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereLike(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1223,26 +777,15 @@ public whereLike(string $columnName, mixed $value): \Qubus\Expressive\QueryBuild
 WHERE $columName NOT LIKE $value
 
 ```php
-public whereNotLike(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereNotLike(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1251,26 +794,15 @@ public whereNotLike(string $columnName, mixed $value): \Qubus\Expressive\QueryBu
 WHERE $columName > $value
 
 ```php
-public whereGt(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereGt(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1279,26 +811,15 @@ public whereGt(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
 WHERE $columName >= $value
 
 ```php
-public whereGte(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereGte(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1307,26 +828,15 @@ public whereGte(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilde
 WHERE $columName < $value
 
 ```php
-public whereLt(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereLt(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1335,26 +845,15 @@ public whereLt(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
 WHERE $columName <= $value
 
 ```php
-public whereLte(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilder
+public whereLte(string $columnName, mixed $value): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
+| `$value`      | **mixed**  |             |
 
 ***
 
@@ -1363,26 +862,15 @@ public whereLte(string $columnName, mixed $value): \Qubus\Expressive\QueryBuilde
 WHERE $columName IN (?,?,?,...)
 
 ```php
-public whereIn(string $columnName, array $values): \Qubus\Expressive\QueryBuilder
+public whereIn(string $columnName, array $values): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$values` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description                                       |
+|---------------|------------|---------------------------------------------------|
+| `$columnName` | **string** |                                                   |
+| `$values`     | **array**  | An empty list produces an always-false predicate. |
 
 ***
 
@@ -1391,26 +879,15 @@ public whereIn(string $columnName, array $values): \Qubus\Expressive\QueryBuilde
 WHERE $columName NOT IN (?,?,?,...)
 
 ```php
-public whereNotIn(string $columnName, array $values): \Qubus\Expressive\QueryBuilder
+public whereNotIn(string $columnName, array $values): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-| `$values` | **array** |  |
-
-
-
-
+| Parameter     | Type       | Description                      |
+|---------------|------------|----------------------------------|
+| `$columnName` | **string** |                                  |
+| `$values`     | **array**  | An empty list adds no predicate. |
 
 ***
 
@@ -1419,25 +896,14 @@ public whereNotIn(string $columnName, array $values): \Qubus\Expressive\QueryBui
 WHERE $columName IS NULL
 
 ```php
-public whereNull(string $columnName): \Qubus\Expressive\QueryBuilder
+public whereNull(string $columnName): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
 
 ***
 
@@ -1446,81 +912,46 @@ public whereNull(string $columnName): \Qubus\Expressive\QueryBuilder
 WHERE $columName IS NOT NULL
 
 ```php
-public whereNotNull(string $columnName): \Qubus\Expressive\QueryBuilder
+public whereNotNull(string $columnName): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
 
 ***
 
 ### having
 
-
-
 ```php
-public having(mixed $statement, mixed $operator = self::OPERATOR_AND): static
+public having(mixed $statement, string $operator = \self::OPERATOR_AND): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$statement` | **mixed** |  |
-| `$operator` | **mixed** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$statement` | **mixed**  |             |
+| `$operator`  | **string** |             |
 
 ***
 
 ### orderBy
 
-ORDER BY $columnName (ASC | DESC)
+ORDER BY $columnName (ASC \| DESC)
 
 ```php
-public orderBy(string $columnName, string $ordering = &#039;&#039;): \Qubus\Expressive\QueryBuilder
+public orderBy(string $columnName, string $ordering = 'ASC'): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter     | Type       | Description                              |
+|---------------|------------|------------------------------------------|
 | `$columnName` | **string** | - The name of the colum or an expression |
-| `$ordering` | **string** | (DESC &amp;#124; ASC) |
-
-
-
-
+| `$ordering`   | **string** | `ASC` or `DESC`, case-insensitive.       |
 
 ***
 
@@ -1529,25 +960,14 @@ public orderBy(string $columnName, string $ordering = &#039;&#039;): \Qubus\Expr
 GROUP BY $columnName
 
 ```php
-public groupBy(string $columnName): \Qubus\Expressive\QueryBuilder
+public groupBy(string $columnName): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columnName` | **string** |  |
-
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$columnName` | **string** |             |
 
 ***
 
@@ -1556,25 +976,14 @@ public groupBy(string $columnName): \Qubus\Expressive\QueryBuilder
 LIMIT $limit
 
 ```php
-public limit(int|null $limit = null): \Qubus\Expressive\QueryBuilder|int|null
+public limit(?int $limit = null): \Qubus\Expressive\Database|int|null
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$limit` | **int&#124;null** |  |
-
-
-
-
+| Parameter | Type     | Description                                                         |
+|-----------|----------|---------------------------------------------------------------------|
+| `$limit`  | **?int** | A non-negative limit, including zero; null reads the current limit. |
 
 ***
 
@@ -1583,53 +992,29 @@ public limit(int|null $limit = null): \Qubus\Expressive\QueryBuilder|int|null
 OFFSET $offset
 
 ```php
-public offset(int|null $offset = null): \Qubus\Expressive\QueryBuilder|int|null
+public offset(?int $offset = null): \Qubus\Expressive\Database|int|null
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$offset` | **int&#124;null** |  |
-
-
-
-
+| Parameter | Type     | Description                                           |
+|-----------|----------|-------------------------------------------------------|
+| `$offset` | **?int** | A non-negative offset; null reads the current offset. |
 
 ***
 
 ### pagination
 
-
-
 ```php
-public pagination(int $perPage, int $page): $this
+public pagination(int $perPage, int $page): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$perPage` | **int** |  |
-| `$page` | **int** |  |
-
-
-
-
+| Parameter  | Type    | Description |
+|------------|---------|-------------|
+| `$perPage` | **int** |             |
+| `$page`    | **int** |             |
 
 ***
 
@@ -1638,56 +1023,34 @@ public pagination(int $perPage, int $page): $this
 Build a join
 
 ```php
-public join(string $tableName, string $constraint, string $tableAlias = &#039;&#039;, string $joinOperator = self::JOIN_LEFT): \Qubus\Expressive\QueryBuilder
+public join(string|\Qubus\Expressive\Database $tableName, string $constraint, string $tableAlias = '', string $joinOperator = \self::JOIN_LEFT): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tableName` | **string** |  |
-| `$constraint` | **string** | -&gt; id = profile.user_id |
-| `$tableAlias` | **string** | - The alias of the table name |
-| `$joinOperator` | **string** | - LEFT &amp;#124; INNER &amp;#124; etc... |
-
-
-
-
+| Parameter       | Type                                   | Description                   |
+|-----------------|----------------------------------------|-------------------------------|
+| `$tableName`    | **string\|\Qubus\Expressive\Database** |                               |
+| `$constraint`   | **string**                             | -> id = profile.user_id       |
+| `$tableAlias`   | **string**                             | - The alias of the table name |
+| `$joinOperator` | **string**                             | - LEFT \| INNER \| etc...     |
 
 ***
 
 ### on
 
-An alias to join by using a QueryBuilder instance.
+An alias to join by using a Database instance.
 
 ```php
-public on(\Qubus\Expressive\QueryBuilder $query, string $joinOperator = self::JOIN_LEFT): \Qubus\Expressive\QueryBuilder
+public on(\Qubus\Expressive\Database $query, string $joinOperator = \self::JOIN_LEFT): \Qubus\Expressive\Database
 ```
-
-The QueryBuilder instance may have select and where statement for the ON clause
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$query` | **\Qubus\Expressive\QueryBuilder** |  |
-| `$joinOperator` | **string** |  |
-
-
-
-
+| Parameter       | Type                           | Description |
+|-----------------|--------------------------------|-------------|
+| `$query`        | **\Qubus\Expressive\Database** |             |
+| `$joinOperator` | **string**                     |             |
 
 ***
 
@@ -1699,17 +1062,6 @@ Return the built select query
 public getSelectQuery(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### schema
@@ -1719,17 +1071,6 @@ The associated schema instance.
 ```php
 public schema(): \Qubus\Expressive\Schema
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1741,17 +1082,6 @@ Get the select fields as string for SQL.
 public getSelectString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getSelectFields
@@ -1759,19 +1089,8 @@ public getSelectString(): string
 Return the select fields as array.
 
 ```php
-public getSelectFields(): array
+public getSelectFields(): list<string>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1783,17 +1102,6 @@ Get a JOIN string.
 public getJoinString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getGroupbyString
@@ -1803,17 +1111,6 @@ Get the group by string.
 ```php
 public getGroupbyString(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1825,17 +1122,6 @@ Get the order by string.
 public getOrderbyString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getWhereString
@@ -1845,17 +1131,6 @@ Build the WHERE clause(s).
 ```php
 public getWhereString(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1867,17 +1142,6 @@ Create the JOIN ... ON string when there is a join. It will be called by on().
 public getJoinOnString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getHavingString
@@ -1887,17 +1151,6 @@ Return the HAVING clause.
 ```php
 protected getHavingString(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1909,17 +1162,6 @@ Return the values to be bound for where.
 protected getWhereParameters(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setSingleWhere
@@ -1927,19 +1169,8 @@ protected getWhereParameters(): array
 Detect if it's a single row instance and reset it to PK.
 
 ```php
-protected setSingleWhere(): \Qubus\Expressive\QueryBuilder
+protected setSingleWhere(): $this
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1948,74 +1179,41 @@ protected setSingleWhere(): \Qubus\Expressive\QueryBuilder
 Reset the where.
 
 ```php
-protected resetWhere(): \Qubus\Expressive\QueryBuilder
+protected resetWhere(): $this
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### returning
 
-
+Returning (Postgres etc.)
 
 ```php
-public returning(string $cols = &#039;*&#039;): static
+public returning(string $cols = '*'): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$cols` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$cols`   | **string** |             |
 
 ***
 
 ### upsert
 
-
+Upsert (basic support)
 
 ```php
-public upsert(array $conflictCols, array $updateData): static
+public upsert(array $conflictCols, array $updateData): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$conflictCols` | **array** |  |
-| `$updateData` | **array** |  |
-
-
-
-
+| Parameter       | Type      | Description |
+|-----------------|-----------|-------------|
+| `$conflictCols` | **array** |             |
+| `$updateData`   | **array** |             |
 
 ***
 
@@ -2027,79 +1225,43 @@ Retrieves the ID of the last record inserted.
 public lastInsertId(string|null $pk = null): string|false
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pk` | **string&#124;null** |  |
-
-
-
-
+| Parameter | Type             | Description |
+|-----------|------------------|-------------|
+| `$pk`     | **string\|null** |             |
 
 ***
 
 ### insert
 
-Insert new rows
-$data can be 2-dimensional to add a bulk insert
-If a single row is inserted, it will return its row instance
+Insert one or more rows. Bulk rows must contain identical columns in identical order.
 
 ```php
 public insert(array $data): \Qubus\Expressive\Database|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** | - data to populate |
-
-
-
-
+| Parameter | Type      | Description     |
+|-----------|-----------|-----------------|
+| `$data`   | **array** | Data to insert. |
 
 ***
 
 ### update
 
-Update entries
-Use the query builder to create the where clause.
+Update entries.
 
 ```php
 public update(?array $data = null): \Qubus\Expressive\Database|int|false
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **?array** | the data to update |
-
-
-
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$data`   | **?array** | the data to update |
 
 ***
 
@@ -2111,22 +1273,11 @@ Delete rows.
 public delete(bool $deleteAll = false): \Qubus\Expressive\Database|int|false
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter    | Type     | Description                                                        |
+|--------------|----------|--------------------------------------------------------------------|
 | `$deleteAll` | **bool** | When there is no where condition, setting to true will delete all. |
-
-
-
-
 
 ***
 
@@ -2138,17 +1289,6 @@ Initiates a transaction.
 public beginTransaction(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### inTransaction
@@ -2158,17 +1298,6 @@ Checks if inside transaction.
 ```php
 public inTransaction(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -2180,17 +1309,6 @@ Commits a transaction
 public commit(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### rollBack
@@ -2200,17 +1318,6 @@ Rolls back a transaction.
 ```php
 public rollBack(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -2222,24 +1329,13 @@ Run transactional queries.
 public transactional(\Closure $callback, mixed $that = null, mixed $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type         | Description          |
+|-------------|--------------|----------------------|
 | `$callback` | **\Closure** | transaction callback |
-| `$that` | **mixed** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| `$that`     | **mixed**    |                      |
+| `$default`  | **mixed**    |                      |
 
 ***
 
@@ -2249,26 +1345,15 @@ To set data for update or insert
 $key can be an array for mass set
 
 ```php
-public set(mixed $key, mixed|null $value = null): \Qubus\Expressive\QueryBuilder
+public set(mixed $key, mixed $value = null): \Qubus\Expressive\Database
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-| `$value` | **mixed&#124;null** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
+| `$value`  | **mixed** |             |
 
 ***
 
@@ -2277,19 +1362,8 @@ public set(mixed $key, mixed|null $value = null): \Qubus\Expressive\QueryBuilder
 Save, a shortcut to update() or insert().
 
 ```php
-public save(): \Qubus\Expressive\QueryBuilder|int|bool|static
+public save(): \Qubus\Expressive\Database|int|bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -2298,25 +1372,14 @@ public save(): \Qubus\Expressive\QueryBuilder|int|bool|static
 Return the aggregate count of column
 
 ```php
-public count(string|null $column = null): float|int
+public count(?string $column = null): float|int
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$column` | **string&#124;null** | - the column name |
-
-
-
-
+| Parameter | Type        | Description       |
+|-----------|-------------|-------------------|
+| `$column` | **?string** | - the column name |
 
 ***
 
@@ -2328,22 +1391,11 @@ Return the aggregate max count of column
 public max(string $column): float|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description       |
+|-----------|------------|-------------------|
 | `$column` | **string** | - the column name |
-
-
-
-
 
 ***
 
@@ -2355,22 +1407,11 @@ Return the aggregate min count of column
 public min(string $column): float|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description       |
+|-----------|------------|-------------------|
 | `$column` | **string** | - the column name |
-
-
-
-
 
 ***
 
@@ -2382,22 +1423,11 @@ Return the aggregate sum count of column
 public sum(string $column): float|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description       |
+|-----------|------------|-------------------|
 | `$column` | **string** | - the column name |
-
-
-
-
 
 ***
 
@@ -2409,49 +1439,25 @@ Return the aggregate average count of column
 public avg(string $column): float|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description       |
+|-----------|------------|-------------------|
 | `$column` | **string** | - the column name |
-
-
-
-
 
 ***
 
 ### aggregate
 
-
-
 ```php
 public aggregate(string $fn): float|int
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$fn` | **string** | - The function to use for the aggregation |
-
-
-
-
+| Parameter | Type       | Description                               |
+|-----------|------------|-------------------------------------------|
+| `$fn`     | **string** | - The function to use for the aggregation |
 
 ***
 
@@ -2463,17 +1469,6 @@ Return the primary key.
 public getPK(): int|string|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### get
@@ -2484,22 +1479,11 @@ Get the key
 public get(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
 
@@ -2511,98 +1495,48 @@ Return the raw data of this single instance.
 public toArray(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### __get
-
-
 
 ```php
 public __get(mixed $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
 
 ***
 
 ### __set
 
-
-
 ```php
 public __set(mixed $key, mixed $value): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
+| `$value`  | **mixed** |             |
 
 ***
 
 ### __isset
 
-
-
 ```php
 public __isset(mixed $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
 
 ***
 
@@ -2634,21 +1568,19 @@ the keys are selected based on the foreignKeyname pattern.
 i.e: having the keys: id, user_id, friend_id, name, last_name
 id, user_id, friend_id will be cached so they can be queried upon request
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tablename` | **string** |  |
-| `$args` | **array** | <br />foreignKey<br />localKey<br />where<br />sort<br />callback<br />model<br />backref |
-
-
-
-
+| Parameter    | Type       | Description                                            |
+|--------------|------------|--------------------------------------------------------|
+| `$tablename` | **string** |                                                        |
+| `$args`      | **array**  | 
+foreignKey
+localKey
+where
+sort
+callback
+model
+backref |
 
 ***
 
@@ -2657,19 +1589,8 @@ id, user_id, friend_id will be cached so they can be queried upon request
 Reset fields
 
 ```php
-public reset(): \Qubus\Expressive\QueryBuilder
+public reset(): $this
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -2678,34 +1599,25 @@ public reset(): \Qubus\Expressive\QueryBuilder
 Return an Immutable YYYY-MM-DD HH:II:SS date format
 
 ```php
-public static now(string $datetime = &#039;now&#039;): string
+public static now(string $datetime = 'now'): string
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$datetime` | **string** | - An english textual datetime description<br />now, yesterday, 3 days ago, +1 week<br />http://php.net/manual/en/function.strtotime.php |
-
+| Parameter   | Type       | Description                                                                                                                   |
+|-------------|------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `$datetime` | **string** | - An english textual datetime description
+now, yesterday, 3 days ago, +1 week
+http://php.net/manual/en/function.strtotime.php |
 
 **Return Value:**
 
 YYYY-MM-DD HH:II:SS
 
-
-
 **Throws:**
 
 - [`Exception`](../../Exception.md)
-
-
 
 ***
 
@@ -2715,25 +1627,14 @@ To debug the query. It will not execute it but instead using debugSqlQuery()
 and getSqlParameters to get the data
 
 ```php
-public debugSqlQuery(bool $bool = true): \Qubus\Expressive\QueryBuilder
+public debugSqlQuery(bool $bool = true): $this
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$bool` | **bool** |  |
-
-
-
-
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `$bool`   | **bool** |             |
 
 ***
 
@@ -2745,17 +1646,6 @@ Get the SQL Query with
 public getSqlQuery(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getSqlParameters
@@ -2766,58 +1656,13 @@ Return the parameters of the SQL
 public getSqlParameters(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-***
-
-### __clone
-
-
-
-```php
-public __clone(): mixed
-```
-
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### __toString
 
-
-
 ```php
 public __toString(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -2830,50 +1675,28 @@ separated by commas. Eg "?, ?, ?"
 protected makePlaceholders(int $numberOfPlaceholders = 1): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter               | Type    | Description                       |
+|-------------------------|---------|-----------------------------------|
 | `$numberOfPlaceholders` | **int** | - total of placeholder to insert. |
-
-
-
-
 
 ***
 
 ### formatKeyname
 
-Format the table{Primary|Foreign}KeyName
+Format the table{Primary\|Foreign}KeyName
 
 ```php
-protected formatKeyname(string $pattern, string $tablename): string
+protected formatKeyname(string $pattern, string|null $tablename = null): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$pattern` | **string** |  |
-| `$tablename` | **string** |  |
-
-
-
-
+| Parameter    | Type             | Description |
+|--------------|------------------|-------------|
+| `$pattern`   | **string**       |             |
+| `$tablename` | **string\|null** |             |
 
 ***
 
@@ -2882,26 +1705,15 @@ protected formatKeyname(string $pattern, string $tablename): string
 To create a string that will be used as key for the relationship.
 
 ```php
-protected tokenize(string $key, string $suffix = &#039;&#039;): string
+protected tokenize(string $key, string $suffix = ''): string
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$suffix` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
+| `$suffix` | **string** |             |
 
 ***
 
@@ -2913,22 +1725,11 @@ Check if array is multi dim.
 protected isArrayMultiDim(array $data): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 ***
 
@@ -2940,49 +1741,25 @@ Prepare columns to include the table alias name.
 protected prepareColumns(array $columns): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$columns` | **array** |  |
-
-
-
-
+| Parameter  | Type      | Description |
+|------------|-----------|-------------|
+| `$columns` | **array** |             |
 
 ***
 
 ### prepareColumn
 
-
-
 ```php
 protected prepareColumn(string $column): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$column` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$column` | **string** |             |
 
 ***
 
@@ -2994,25 +1771,76 @@ Format a column name to add to the table alias.
 public formatColumnName(string $column): string
 ```
 
+**Parameters:**
 
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$column` | **string** |             |
 
+***
 
+### prepare
 
+Prepares positional or named placeholders in a query string.
 
-
+```php
+public prepare(string $query, mixed $params): string
+```
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$column` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$query`  | **string** |             |
+| `$params` | **mixed**  |             |
 
 ***
 
+### quotePreparedValue
+
+```php
+private quotePreparedValue(mixed $value): string
+```
+
+**Parameters:**
+
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 ***
-> Automatically generated on 2025-10-13
+
+### quote
+
+Wrapper for PDO::quote.
+
+```php
+public quote(string|array $value): false|string
+```
+
+**Parameters:**
+
+| Parameter | Type              | Description |
+|-----------|-------------------|-------------|
+| `$value`  | **string\|array** |             |
+
+**Return Value:**
+
+Quoted string.
+
+***
+
+### execute
+
+```php
+private execute(string $sql, array<int|string,scalar|null> $params = []): \PDOStatement
+```
+
+**Parameters:**
+
+| Parameter | Type                                | Description |
+|-----------|-------------------------------------|-------------|
+| `$sql`    | **string**                          |             |
+| `$params` | **array<int\|string,scalar\|null>** |             |
+
+***

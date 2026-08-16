@@ -1,113 +1,66 @@
-***
-
 # ContentRange
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Emitter\ContentRange`
 
-
-
 ## Properties
 
-
 ### start
-
-
 
 ```php
 private int $start
 ```
 
-
-
-
-
-
 ***
 
 ### end
-
-
 
 ```php
 private int $end
 ```
 
-
-
-
-
-
 ***
 
 ### size
-
-
 
 ```php
 private ?int $size
 ```
 
-
-
-
-
-
 ***
 
 ### unit
-
-
 
 ```php
 private string $unit
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(int $start, int $end, null|int $size = null, string $unit = &#039;bytes&#039;): void
+public __construct(int $start, int $end, null|int $size = null, string $unit = 'bytes'): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$start` | **int** | An integer in the given unit indicating the beginning<br />of the request range. |
-| `$end` | **int** | An integer in the given unit indicating the end of the<br />requested range. |
-| `$size` | **null&#124;int** | The total size of the document. |
-| `$unit` | **string** | The unit in which ranges are specified. This is<br />usually `bytes`. |
-
-
-
+| Parameter | Type          | Description                                                                 |
+|-----------|---------------|-----------------------------------------------------------------------------|
+| `$start`  | **int**       | An integer in the given unit indicating the beginning
+of the request range. |
+| `$end`    | **int**       | An integer in the given unit indicating the end of the
+requested range.     |
+| `$size`   | **null\|int** | The total size of the document.                                             |
+| `$unit`   | **string**    | The unit in which ranges are specified. This is
+usually `bytes`.            |
 
 **Throws:**
 
 - [`EmitterException`](./Exceptions/EmitterException.md)
-
-
 
 ***
 
@@ -119,17 +72,6 @@ Get the unit in which ranges are specified. This is usually bytes.
 public getUnit(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setUnit
@@ -140,22 +82,12 @@ Set the unit in which ranges are specified. This is usually bytes.
 public setUnit(string $unit): \Qubus\Http\Emitter\ContentRange
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$unit` | **string** | The unit in which ranges are specified. This is<br />usually bytes. |
-
-
-
-
+| Parameter | Type       | Description                                                    |
+|-----------|------------|----------------------------------------------------------------|
+| `$unit`   | **string** | The unit in which ranges are specified. This is
+usually bytes. |
 
 ***
 
@@ -167,17 +99,6 @@ Get the beginning of the request range.
 public getStart(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setStart
@@ -188,27 +109,15 @@ Set the beginning of the request range.
 public setStart(int $start): \Qubus\Http\Emitter\ContentRange
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$start` | **int** | the beginning of the request range. |
-
-
-
+| Parameter | Type    | Description                         |
+|-----------|---------|-------------------------------------|
+| `$start`  | **int** | the beginning of the request range. |
 
 **Throws:**
 
 - [`EmitterException`](./Exceptions/EmitterException.md)
-
-
 
 ***
 
@@ -221,17 +130,6 @@ the end of the requested range.
 public getEnd(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setEnd
@@ -243,22 +141,12 @@ the end of the requested range.
 public setEnd(int $end): \Qubus\Http\Emitter\ContentRange
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$end` | **int** | An integer in the given unit indicating the<br />end of the requested range. |
-
-
-
-
+| Parameter | Type    | Description                                                             |
+|-----------|---------|-------------------------------------------------------------------------|
+| `$end`    | **int** | An integer in the given unit indicating the
+end of the requested range. |
 
 ***
 
@@ -270,17 +158,6 @@ Get the total size of the document.
 public getSize(): int|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setSize
@@ -291,25 +168,10 @@ Set the total size of the document.
 public setSize(int|null $size): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$size` | **int&#124;null** | The total size of the document. |
-
-
-
-
+| Parameter | Type          | Description                     |
+|-----------|---------------|---------------------------------|
+| `$size`   | **int\|null** | The total size of the document. |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

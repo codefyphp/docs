@@ -1,29 +1,23 @@
-***
-
 # Serializer
 
-
-
-
+***
 
 * Full name: `\Qubus\Support\Serializer\Serializer`
 * This class implements:
-[`\Qubus\Support\Serializer\Serializable`](./Serializable.md)
-
+  [`\Qubus\Support\Serializer\Serializable`](./Serializable.md)
 
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`CLASS_IDENTIFIER_KEY`|public| |&#039;@type&#039;|
-|`CLASS_PARENT_KEY`|public| |&#039;@parent&#039;|
-|`SCALAR_TYPE`|public| |&#039;@scalar&#039;|
-|`SCALAR_VALUE`|public| |&#039;@value&#039;|
-|`NULL_VAR`|public| |null|
-|`MAP_TYPE`|public| |&#039;@map&#039;|
+| Constant               | Visibility | Type | Value     |
+|------------------------|------------|------|-----------|
+| `CLASS_IDENTIFIER_KEY` | public     |      | '@type'   |
+| `CLASS_PARENT_KEY`     | public     |      | '@parent' |
+| `SCALAR_TYPE`          | public     |      | '@scalar' |
+| `SCALAR_VALUE`         | public     |      | '@value'  |
+| `NULL_VAR`             | public     |      | null      |
+| `MAP_TYPE`             | public     |      | '@map'    |
 
 ## Properties
-
 
 ### storage
 
@@ -35,9 +29,6 @@ protected \SplObjectStorage $storage
 
 Used for recursion
 
-
-
-
 ***
 
 ### mapping
@@ -47,11 +38,6 @@ Object mapping for recursion.
 ```php
 protected array $mapping
 ```
-
-
-
-
-
 
 ***
 
@@ -63,85 +49,45 @@ Object mapping index.
 protected int $mappingIndex
 ```
 
-
-
-
-
-
 ***
 
 ### strategy
-
-
 
 ```php
 protected \Qubus\Support\Serializer\Strategy\Strategy $strategy
 ```
 
-
-
-
-
-
 ***
 
 ### dateTimeClassType
 
-
-
 ```php
-private array $dateTimeClassType
+private string[] $dateTimeClassType
 ```
-
-
-
-
-
 
 ***
 
 ### serializationMap
 
-
-
 ```php
-protected array $serializationMap
+protected string[] $serializationMap
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Support\Serializer\Strategy\Strategy $strategy): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$strategy` | **\Qubus\Support\Serializer\Strategy\Strategy** |  |
-
-
-
-
+| Parameter   | Type                                            | Description |
+|-------------|-------------------------------------------------|-------------|
+| `$strategy` | **\Qubus\Support\Serializer\Strategy\Strategy** |             |
 
 ***
 
@@ -154,17 +100,6 @@ serialization process takes place using the transformer public methods, if any.
 public getTransformer(): \Qubus\Support\Serializer\Strategy\Strategy
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### serialize
@@ -175,31 +110,19 @@ Serialize the data.
 public serialize(mixed $data): bool|string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Return Value:**
 
 Serialized data.
 
-
-
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -211,17 +134,6 @@ Reset variables.
 protected reset(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### serializeData
@@ -232,29 +144,16 @@ Parse the data to be serialized.
 protected serializeData(mixed $data): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Throws:**
 
 - [`SerializerException`](./SerializerException.md)
-
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -266,55 +165,30 @@ Check if a class is instance or extends from the expected instance.
 private isInstanceOf(mixed $value, string $classFqn): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$classFqn` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$value`    | **mixed**  |             |
+| `$classFqn` | **string** |             |
 
 ***
 
 ### guardForUnsupportedValues
 
-
-
 ```php
 protected guardForUnsupportedValues(mixed $data): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Throws:**
 
 - [`SerializerException`](./SerializerException.md)
-
-
 
 ***
 
@@ -326,27 +200,15 @@ Unserialize the value from string.
 public unserialize(mixed $data): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -358,54 +220,29 @@ Parse the json decode to convert to objects again.
 protected unserializeData(mixed $data): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
 
-
-
 ***
 
 ### getScalarValue
-
-
 
 ```php
 protected getScalarValue(mixed $value): float|bool|int|string|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 ***
 
@@ -417,246 +254,138 @@ Convert the serialized array into an object.
 protected unserializeObject(array $data): object|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
 ### unserializeDateTimeFamilyObject
 
-
-
 ```php
 protected unserializeDateTimeFamilyObject(array $data, string $className): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-| `$className` | **string** |  |
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$data`      | **array**  |             |
+| `$className` | **string** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
 ### isDateTimeFamilyObject
 
-
-
 ```php
 protected isDateTimeFamilyObject(string $className): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$className` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$className` | **string** |             |
 
 ***
 
 ### restoreUsingUnserialize
 
-
-
 ```php
 protected restoreUsingUnserialize(string $className, array $attributes): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$className` | **string** |  |
-| `$attributes` | **array** |  |
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$className`  | **string** |             |
+| `$attributes` | **array**  |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
 ### unserializeUserDefinedObject
 
-
-
 ```php
 protected unserializeUserDefinedObject(array $data, string $className): object
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-| `$className` | **string** |  |
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$data`      | **array**  |             |
+| `$className` | **string** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
 ### setUnserializedObjectProperties
 
-
-
 ```php
 protected setUnserializedObjectProperties(array $data, \ReflectionClass $ref, mixed $obj): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-| `$ref` | **\ReflectionClass** |  |
-| `$obj` | **mixed** |  |
-
-
-
+| Parameter | Type                 | Description |
+|-----------|----------------------|-------------|
+| `$data`   | **array**            |             |
+| `$ref`    | **\ReflectionClass** |             |
+| `$obj`    | **mixed**            |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
 ### serializeScalar
 
-
-
 ```php
 protected serializeScalar(mixed $data): array|string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 ***
 
 ### serializeArray
 
-
-
 ```php
 protected serializeArray(array $data): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **array** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -668,56 +397,31 @@ Extract the data from an object.
 protected serializeObject(mixed $data): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$data`   | **mixed** |             |
 
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
 
-
-
 ***
 
 ### serializeInternalClass
-
-
 
 ```php
 protected serializeInternalClass(mixed $value, string $className, \ReflectionClass $ref): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$className` | **string** |  |
-| `$ref` | **\ReflectionClass** |  |
-
-
-
-
+| Parameter    | Type                 | Description |
+|--------------|----------------------|-------------|
+| `$value`     | **mixed**            |             |
+| `$className` | **string**           |             |
+| `$ref`       | **\ReflectionClass** |             |
 
 ***
 
@@ -729,23 +433,12 @@ Return the list of properties to be serialized.
 protected getObjectProperties(\ReflectionClass $ref, object $data): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$ref` | **\ReflectionClass** |  |
-| `$data` | **object** |  |
-
-
-
-
+| Parameter | Type                 | Description |
+|-----------|----------------------|-------------|
+| `$ref`    | **\ReflectionClass** |             |
+| `$data`   | **object**           |             |
 
 ***
 
@@ -757,83 +450,46 @@ Extract the object data.
 protected extractObjectData(mixed $value, \ReflectionClass $rc, array $properties): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$rc` | **\ReflectionClass** |  |
-| `$properties` | **array** |  |
-
-
-
-
+| Parameter     | Type                 | Description |
+|---------------|----------------------|-------------|
+| `$value`      | **mixed**            |             |
+| `$rc`         | **\ReflectionClass** |             |
+| `$properties` | **array**            |             |
 
 ***
 
 ### extractCurrentObjectProperties
 
-
-
 ```php
 protected extractCurrentObjectProperties(mixed $value, \ReflectionClass $rc, array $properties, array& $data): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$rc` | **\ReflectionClass** |  |
-| `$properties` | **array** |  |
-| `$data` | **array** |  |
-
-
-
-
+| Parameter     | Type                 | Description |
+|---------------|----------------------|-------------|
+| `$value`      | **mixed**            |             |
+| `$rc`         | **\ReflectionClass** |             |
+| `$properties` | **array**            |             |
+| `$data`       | **array**            |             |
 
 ***
 
 ### extractAllInhertitedProperties
 
-
-
 ```php
 protected extractAllInhertitedProperties(mixed $value, \ReflectionClass $rc, array& $data): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$rc` | **\ReflectionClass** |  |
-| `$data` | **array** |  |
-
-
-
-
+| Parameter | Type                 | Description |
+|-----------|----------------------|-------------|
+| `$value`  | **mixed**            |             |
+| `$rc`     | **\ReflectionClass** |             |
+| `$data`   | **array**            |             |
 
 ***
 
@@ -845,26 +501,11 @@ Checks if data is serialized.
 private isSerialized(object|array|string $data, bool $strict = true): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$data` | **object&#124;array&#124;string** |  |
-| `$strict` | **bool** |  |
-
-
-
-
+| Parameter | Type                      | Description |
+|-----------|---------------------------|-------------|
+| `$data`   | **object\|array\|string** |             |
+| `$strict` | **bool**                  |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

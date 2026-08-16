@@ -1,21 +1,16 @@
-***
-
 # Collection
 
 Borrowed from ramsey/collection
 
-
+***
 
 * Full name: `\Qubus\Support\Collection\Collection`
 * Parent class: [`\Qubus\Support\Collection\BaseCollection`](./BaseCollection.md)
 * This class implements:
-[`\Countable`](../../../Countable.md)
+  `Countable`
 * This class is an **Abstract class**
 
-
-
 ## Properties
-
 
 ### items
 
@@ -25,15 +20,9 @@ The items of this array.
 protected array $items
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -43,22 +32,11 @@ Constructs a new array object.
 public __construct(array $items): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | The initial items to add to array. |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$items`  | **array** |             |
 
 ***
 
@@ -70,17 +48,7 @@ Collection type.
 protected type(): string
 ```
 
-
-
-
 * This method is **abstract**.
-
-
-
-
-
-
-
 ***
 
 ### count
@@ -91,43 +59,9 @@ Total number of collections.
 public count(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-### items
-
-Returns an array of collections.
-
-```php
-public items(): array
-```
-
-
-
-
-
-
-
-
-
-
-
-
-***
-
 
 ## Inherited methods
-
 
 ### __construct
 
@@ -137,23 +71,12 @@ Constructs a new array object.
 public __construct(string $collectionType, array $items): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$collectionType` | **string** |  |
-| `$items` | **array** | The initial items to add to array. |
-
-
-
-
+| Parameter         | Type       | Description |
+|-------------------|------------|-------------|
+| `$collectionType` | **string** |             |
+| `$items`          | **array**  |             |
 
 ***
 
@@ -162,19 +85,8 @@ public __construct(string $collectionType, array $items): mixed
 Returns array as iterator.
 
 ```php
-public getIterator(): \Traversable
+public getIterator(): \ArrayIterator<array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -186,22 +98,11 @@ Returns `true` if the given offset exists in the array.
 public offsetExists(mixed $offset): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description          |
+|-----------|-----------|----------------------|
 | `$offset` | **mixed** | The offset to check. |
-
-
-
-
 
 ***
 
@@ -213,27 +114,16 @@ Returns the value at the specified offset.
 public offsetGet(mixed $offset): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description                                      |
+|-----------|-----------|--------------------------------------------------|
 | `$offset` | **mixed** | The offset for which a value should be returned. |
-
 
 **Return Value:**
 
 The value stored at the offset, or null if the offset
 does not exist.
-
-
-
 
 ***
 
@@ -245,28 +135,16 @@ Sets the given value to the given offset in the array.
 public offsetSet(mixed $offset, mixed $value): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$offset` | **mixed** | The offset to set. |
-| `$value` | **mixed** | The value to set at the given offset. |
-
-
-
+| Parameter | Type      | Description                           |
+|-----------|-----------|---------------------------------------|
+| `$offset` | **mixed** | The offset to set.                    |
+| `$value`  | **mixed** | The value to set at the given offset. |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -278,22 +156,11 @@ Removes the given offset and its value from the array.
 public offsetUnset(mixed $offset): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type      | Description                          |
+|-----------|-----------|--------------------------------------|
 | `$offset` | **mixed** | The offset to remove from the array. |
-
-
-
-
 
 ***
 
@@ -305,17 +172,6 @@ Returns a JSON string.
 public serialize(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### unserialize
@@ -326,22 +182,11 @@ Converts a serialized string representation into an instance object.
 public unserialize(array $items): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** | A PHP array to unserialize. |
-
-
-
-
+| Parameter | Type      | Description                 |
+|-----------|-----------|-----------------------------|
+| `$items`  | **array** | A PHP array to unserialize. |
 
 ***
 
@@ -353,17 +198,6 @@ Count number of items in collection.
 public count(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### clear
@@ -373,17 +207,6 @@ Removes all items from array instance.
 ```php
 public clear(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -395,17 +218,6 @@ Returns an instance as an array.
 public toArray(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### isEmpty
@@ -416,16 +228,15 @@ Returns `true` if array is empty.
 public isEmpty(): bool
 ```
 
+***
 
+### items
 
+Returns an array of collections.
 
-
-
-
-
-
-
-
+```php
+public items(): array
+```
 
 ***
 
@@ -437,33 +248,22 @@ Extracts the value of the given property or method from the object.
 protected extractValue(mixed $object, string|null $propertyOrMethod = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$object` | **mixed** | The object to extract the value from. |
-| `$propertyOrMethod` | **string&#124;null** | The property or method for which the<br />value should be extracted. |
-
+| Parameter           | Type             | Description                                                     |
+|---------------------|------------------|-----------------------------------------------------------------|
+| `$object`           | **mixed**        | The object to extract the value from.                           |
+| `$propertyOrMethod` | **string\|null** | The property or method for which the
+value should be extracted. |
 
 **Return Value:**
 
 the value extracted from the specified property or method.
 
-
-
 **Throws:**
-<p>if the method or property is not defined.</p>
 
+if the method or property is not defined.
 - [`ValueExtractionException`](./ValueExtractionException.md)
-
-
 
 ***
 
@@ -472,7 +272,7 @@ the value extracted from the specified property or method.
 Returns a string representation of the value.
 
 ```php
-protected toolValueToString(mixed $value): string
+protected toolValueToString(mixed $value = null): string
 ```
 
 - null value: `'NULL'`
@@ -485,20 +285,11 @@ protected toolValueToString(mixed $value): string
 - object: `'(className Object)'`
 - anonymous function: same as object
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** | the value to return as a string. |
-
-
-
-
+| Parameter | Type      | Description                      |
+|-----------|-----------|----------------------------------|
+| `$value`  | **mixed** | the value to return as a string. |
 
 ***
 
@@ -510,23 +301,12 @@ Returns true if value is of specified type.
 protected checkType(string $type, mixed $value): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$type` | **string** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$type`   | **string** |             |
+| `$value`  | **mixed**  |             |
 
 ***
 
@@ -535,25 +315,14 @@ protected checkType(string $type, mixed $value): bool
 Add an item to the collection.
 
 ```php
-public add(mixed $item): $this
+public add(mixed $item): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$item`   | **mixed** |             |
 
 ***
 
@@ -565,17 +334,6 @@ Returns the type of the collection.
 public getType(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### contains
@@ -586,23 +344,12 @@ Returns `true` if this collection contains the specified element.
 public contains(mixed $element, bool $strict = true): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter  | Type      | Description                                           |
+|------------|-----------|-------------------------------------------------------|
 | `$element` | **mixed** | The element to check whether the collection contains. |
-| `$strict` | **bool** | Whether to perform a strict type check on the value. |
-
-
-
-
+| `$strict`  | **bool**  | Whether to perform a strict type check on the value.  |
 
 ***
 
@@ -612,25 +359,32 @@ Returns a new instance of the collection with the callback function
 $callable applied to each item
 
 ```php
-public map(callable $callable): $this
+public map(callable $callable): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable** |  |
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callable` | **callable** |             |
 
+***
 
+### mapWithKeys
 
+Run an associative map over each of the items.
 
+```php
+public mapWithKeys(callable $callback): self<string, array>
+```
+
+The callback should return an associative array with a single key/value pair.
+
+**Parameters:**
+
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **callable** |             |
 
 ***
 
@@ -639,25 +393,14 @@ public map(callable $callable): $this
 Applies the callback function $callable to each item in the collection.
 
 ```php
-public each(callable $callable): $this
+public each(callable $callable): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callable` | **callable** |             |
 
 ***
 
@@ -666,19 +409,8 @@ public each(callable $callable): $this
 Flip the items in the collection.
 
 ```php
-public flip(): static
+public flip(): self<string, array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -687,25 +419,14 @@ public flip(): static
 Filter the collection items through the callable.
 
 ```php
-public filter(callable $callable): \Qubus\Support\Collection\BaseCollection
+public filter(callable|null $callable = null): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable** |  |
-
-
-
-
+| Parameter   | Type               | Description |
+|-------------|--------------------|-------------|
+| `$callable` | **callable\|null** | $callable   |
 
 ***
 
@@ -717,27 +438,15 @@ Get the specified item from the collection.
 public get(mixed $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -746,26 +455,15 @@ public get(mixed $key): mixed
 Slice the underlying collection array.
 
 ```php
-public slice(int $offset, int|null $length = null): static
+public slice(int $offset, int|null $length = null): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$offset` | **int** |  |
-| `$length` | **int&#124;null** |  |
-
-
-
-
+| Parameter | Type          | Description |
+|-----------|---------------|-------------|
+| `$offset` | **int**       |             |
+| `$length` | **int\|null** |             |
 
 ***
 
@@ -774,26 +472,15 @@ public slice(int $offset, int|null $length = null): static
 Create a new collection consisting of every n-th element.
 
 ```php
-public nth(int $step, int $offset): static
+public nth(int $step, int $offset = 0): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$step` | **int** |  |
-| `$offset` | **int** |  |
-
-
-
-
+| Parameter | Type    | Description |
+|-----------|---------|-------------|
+| `$step`   | **int** |             |
+| `$offset` | **int** |             |
 
 ***
 
@@ -802,25 +489,14 @@ public nth(int $step, int $offset): static
 Reject the collection items through the callable.
 
 ```php
-public reject(callable $callable): \Qubus\Support\Collection\Collection|\Qubus\Support\Collection\BaseCollection
+public reject(callable $callable): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callable` | **callable** |             |
 
 ***
 
@@ -829,25 +505,14 @@ public reject(callable $callable): \Qubus\Support\Collection\Collection|\Qubus\S
 Push an item to the collection.
 
 ```php
-public push(mixed $value): \Qubus\Support\Collection\BaseCollection
+public push(mixed $value): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 ***
 
@@ -856,26 +521,15 @@ public push(mixed $value): \Qubus\Support\Collection\BaseCollection
 Put the specified item in the collection with the given key.
 
 ```php
-public put(mixed $key, mixed $value): \Qubus\Support\Collection\BaseCollection
+public put(mixed $key, mixed $value): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **mixed** |  |
-| `$value` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$key`    | **mixed** |             |
+| `$value`  | **mixed** |             |
 
 ***
 
@@ -885,19 +539,8 @@ Returns a new Collection instance containing an
 indexed array of values.
 
 ```php
-public values(): self
+public values(): self<string, array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -907,19 +550,8 @@ Returns a new Collection instance containing a
 flattened array of items.
 
 ```php
-public flatten(): self
+public flatten(): self<string, array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -929,25 +561,14 @@ Sort the collection of item values through a user-defined
 comparison function.
 
 ```php
-public sort(callable|null $callback = null): static
+public sort(callable|null $callback = null): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **callable&#124;null** |  |
-
-
-
-
+| Parameter   | Type               | Description |
+|-------------|--------------------|-------------|
+| `$callback` | **callable\|null** |             |
 
 ***
 
@@ -957,25 +578,14 @@ Sort the collection of item keys through a user-defined
 comparison function.
 
 ```php
-public sortByKey(callable|null $callback = null): static
+public sortByKey(callable|null $callback = null): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **callable&#124;null** |  |
-
-
-
-
+| Parameter   | Type               | Description |
+|-------------|--------------------|-------------|
+| `$callback` | **callable\|null** |             |
 
 ***
 
@@ -984,19 +594,8 @@ public sortByKey(callable|null $callback = null): static
 Reverse the collection items.
 
 ```php
-public reverse(): static
+public reverse(): self<string, array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1008,23 +607,12 @@ Search the collection for a given value and return the corresponding key if succ
 public search(mixed $value, bool $strict = false): string|int|bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-| `$strict` | **bool** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
+| `$strict` | **bool**  |             |
 
 ***
 
@@ -1033,25 +621,14 @@ public search(mixed $value, bool $strict = false): string|int|bool
 Group an associative array by a field or using a callback.
 
 ```php
-public groupBy(callable $callback): static
+public groupBy(callable $callback): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **callable** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **callable** |             |
 
 ***
 
@@ -1061,19 +638,8 @@ Returns a new Collection instance containing an
 indexed array of keys.
 
 ```php
-public keys(): self
+public keys(): self<string, array>
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1085,17 +651,6 @@ Returns all items in collection.
 public all(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### pop
@@ -1105,17 +660,6 @@ Get and remove the last item from the collection.
 ```php
 public pop(): mixed|null
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1127,17 +671,6 @@ Get the last item from the collection.
 public last(): mixed|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### shift
@@ -1147,17 +680,6 @@ Get and remove the first item from the collection.
 ```php
 public shift(): mixed|null
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -1169,17 +691,6 @@ Get the first item from the collection.
 public first(): mixed|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### sum
@@ -1190,22 +701,11 @@ Get the sum of the collection items.
 public sum(mixed|null $callback = null): int|float
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **mixed&#124;null** |  |
-
-
-
-
+| Parameter   | Type            | Description |
+|-------------|-----------------|-------------|
+| `$callback` | **mixed\|null** |             |
 
 ***
 
@@ -1214,30 +714,18 @@ public sum(mixed|null $callback = null): int|float
 Merge items with current collection.
 
 ```php
-public merge(array $items): static
+public merge(array $items): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$items`  | **array** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -1249,27 +737,15 @@ Returns the values from the given property or method.
 public column(string $propertyOrMethod): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter           | Type       | Description                               |
+|---------------------|------------|-------------------------------------------|
 | `$propertyOrMethod` | **string** | The property or method name to filter by. |
-
-
-
 
 **Throws:**
 
 - [`ValueExtractionException`](./ValueExtractionException.md)
-
-
 
 ***
 
@@ -1278,25 +754,14 @@ public column(string $propertyOrMethod): array
 Replace the collection items with the given items.
 
 ```php
-public replace(array $items): static
+public replace(array $items): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$items`  | **array** |             |
 
 ***
 
@@ -1305,28 +770,45 @@ public replace(array $items): static
 Recursively replace the collection items with the given items.
 
 ```php
-public replaceRecursive(array $items): static
+public replaceRecursive(array $items): self<string, array>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$items` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$items`  | **array** |             |
 
 ***
 
+### only
+
+Return a new array containing only the specified keys.
+
+```php
+public only(array $keys): self<string, array>
+```
+
+**Parameters:**
+
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 ***
-> Automatically generated on 2025-10-13
+
+### except
+
+Return a new array excluding the specified keys.
+
+```php
+public except(array $keys): self<string, array>
+```
+
+**Parameters:**
+
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
+
+***

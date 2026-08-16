@@ -11,23 +11,25 @@ do better on-page SEO.
 
 ### Generate schema.org
 
-    <?php
+```php
+<?php
 
-    use App\Shared\Services\Server;
-    use Codefy\Framework\Support\SeoFactory;
-    
-    $schema = SeoFactory::schema(
-        SeoFactory::thing('Website', [
-            'url'          => Server::siteUrl(),
-            'logo'         => Server::siteUrl('static/assets/img/auth/auth-logo.png'),
-            'contactPoint' => SeoFactory::thing('ContactPoint', [
-                'telephone' => '+1-000-555-1212',
-                'contactType' => 'customer service'
-            ])
+use Codefy\Framework\Support\SeoFactory;
+use Codefy\Framework\Support\Server;
+
+$schema = SeoFactory::schema(
+    SeoFactory::thing('Website', [
+        'url'          => Server::siteUrl(),
+        'logo'         => Server::siteUrl('static/assets/img/auth/auth-logo.png'),
+        'contactPoint' => SeoFactory::thing('ContactPoint', [
+            'telephone' => '+1-000-555-1212',
+            'contactType' => 'customer service'
         ])
-    );
-    
-    echo '<script type="application/ld+json">' . "\n" . json_encode($schema, JSON_PRETTY_PRINT) . "\n" . '</script>';
+    ])
+);
+
+echo '<script type="application/ld+json">' . "\n" . json_encode($schema, JSON_PRETTY_PRINT) . "\n" . '</script>';
+```
 
 Results: (formatted)
 
@@ -55,19 +57,21 @@ Results: (formatted)
 
 ## Meta Tags
 
-    <?php
-    
-    use App\Shared\Services\Server;
-    use Codefy\Framework\Support\SeoFactory;
-    
-    $metaTags = SeoFactory::metaTags()
-        ->title('Developer Blog')
-        ->description('Blog featuring PHP tips and tricks.')
-        ->meta('author', 'Joshua Parker')
-        ->image('https://www.gravatar.com/avatar/cc144b35b739d6b30cea73a24469377c?s=160')
-        ->canonical(Server::siteUrl());
-    
-    echo $metaTags;
+```php
+<?php
+
+use Codefy\Framework\Support\SeoFactory;
+use Codefy\Framework\Support\Server;
+
+$metaTags = SeoFactory::metaTags()
+    ->title('Developer Blog')
+    ->description('Blog featuring PHP tips and tricks.')
+    ->meta('author', 'Joshua Parker')
+    ->image('https://www.gravatar.com/avatar/cc144b35b739d6b30cea73a24469377c?s=160')
+    ->canonical(Server::siteUrl());
+
+echo $metaTags;
+```
 
 Results:
 
@@ -87,9 +91,11 @@ Results:
 
 ## Sitemaps
 
-    <?php
+```php
+<?php
 
-    $sitemap = SeoFactory::sitemap(string $url, array $options = []): SitemapIndexInterface;
+$sitemap = SeoFactory::sitemap(string $url, array $options = []): SitemapIndexInterface;
+```
 
 
 | Option Name  | Description                                      | Required? | Default     |
@@ -99,21 +105,23 @@ Results:
 | index_name   | Custom sitemap index name.                       | No        | sitemap.xml |
 
 
-    <?php
+```php
+<?php
 
-    use Codefy\Framework\Support\SeoFactory;
+use Codefy\Framework\Support\SeoFactory;
 
-    use function Codefy\Framework\Helpers\public_path;
-    
-    $sitemap = SeoFactory::sitemap('https://codefy.ddev.site/', ['save_path' => public_path()]);
-    $sitemap->links('blog.xml', function ($map) {
-        $map->loc('/')->freq('weekly')->priority('1.0')
-            ->loc('/codefy-a-framework-for-the-future')->freq('weekly')->lastMod('2024-12-01')
-            ->loc('/codefy-and-microservices')->freq('weekly');
-        $map->loc('/problems-codefy-solve-for-developers')->freq('weekly');
-    });
+use function Codefy\Framework\Helpers\public_path;
 
-    return $sitemap->save();
+$sitemap = SeoFactory::sitemap('https://codefy.ddev.site/', ['save_path' => public_path()]);
+$sitemap->links('blog.xml', function ($map) {
+    $map->loc('/')->freq('weekly')->priority('1.0')
+        ->loc('/codefy-a-framework-for-the-future')->freq('weekly')->lastMod('2024-12-01')
+        ->loc('/codefy-and-microservices')->freq('weekly');
+    $map->loc('/problems-codefy-solve-for-developers')->freq('weekly');
+});
+
+return $sitemap->save();
+```
 
 Results:
 
@@ -168,35 +176,39 @@ Based on the sitemaps protocol, search engines normally would have a url structu
 
 `<searchengine_URL>/ping?sitemap=sitemap_url`
 
-    <?php
+```php
+<?php
 
-    use App\Shared\Services\Server;
-    use Codefy\Framework\Support\SeoFactory;
-    
-    $ping = SeoFactory::ping();
+use Codefy\Framework\Support\SeoFactory;
+use Codefy\Framework\Support\Server;
 
-    $ping->send(Server::siteUrl('sitemap.xml'));
+$ping = SeoFactory::ping();
+
+$ping->send(Server::siteUrl('sitemap.xml'));
+```
 
 ## Indexing
 Supports Indexing API (indexnow.org).
 
-    <?php
+```php
+<?php
 
-    use App\Shared\Services\Server;
-    use Codefy\Framework\Support\SeoFactory;
-    
-    $indexer = SeoFactory::indexing(Server::siteUrl(), [
-        'bing.com' => 'your_api_key_here',
-        'yandex.com' => 'your_api_key_here',
-    ]);
+use Codefy\Framework\Support\SeoFactory;
+use Codefy\Framework\Support\Server;
 
-    // index single url
-    $indexer->indexUrl(Server::siteUrl('codefy-a-framework-for-the-future'));
+$indexer = SeoFactory::indexing(Server::siteUrl(), [
+    'bing.com' => 'your_api_key_here',
+    'yandex.com' => 'your_api_key_here',
+]);
 
-    // index multiple urls
-    $indexer->indexUrls([
-        Server::siteUrl('codefy-a-framework-for-the-future'),
-        Server::siteUrl('problems-codefy-solve-for-developers'),
-    ]);
+// index single url
+$indexer->indexUrl(Server::siteUrl('codefy-a-framework-for-the-future'));
+
+// index multiple urls
+$indexer->indexUrls([
+    Server::siteUrl('codefy-a-framework-for-the-future'),
+    Server::siteUrl('problems-codefy-solve-for-developers'),
+]);
+```
 
 

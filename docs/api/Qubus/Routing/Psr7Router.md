@@ -1,17 +1,10 @@
-***
-
 # Psr7Router
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Psr7Router`
 
-
-
 ## Methods
-
 
 ### match
 
@@ -22,22 +15,11 @@ converted into a Response.
 public match(\Psr\Http\Message\ServerRequestInterface $serverRequest): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
-
+| Parameter        | Type                                         | Description |
+|------------------|----------------------------------------------|-------------|
+| `$serverRequest` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 ***
 
@@ -49,26 +31,15 @@ Check if a route exists based on its name.
 public has(string $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The name of the route. |
-
+| Parameter | Type       | Description            |
+|-----------|------------|------------------------|
+| `$name`   | **string** | The name of the route. |
 
 **Return Value:**
 
 True if the named routed exists, false otherwise.
-
-
-
 
 ***
 
@@ -80,34 +51,21 @@ Generate url's from named routes.
 public url(string $name, array $params = []): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Name of the route. |
-| `$params` | **array** | Data parameters. |
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$name`   | **string** | Name of the route. |
+| `$params` | **array**  | Data parameters.   |
 
 **Return Value:**
 
 The url.
 
-
-
 **Throws:**
 
 - [`RouteParamFailedConstraintException`](./Exceptions/RouteParamFailedConstraintException.md)
-
 - [`NamedRouteNotFoundException`](./Exceptions/NamedRouteNotFoundException.md)
-
-
 
 ***
 
@@ -119,32 +77,16 @@ Redirect one route to another.
 public redirect(string $from, string $to, int $status = 302): \Qubus\Routing\Interfaces\Routable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$from` | **string** | Originating route. |
-| `$to` | **string** | Destination route. |
-| `$status` | **int** | HTTP status code. |
-
-
-
+| Parameter | Type       | Description        |
+|-----------|------------|--------------------|
+| `$from`   | **string** | Originating route. |
+| `$to`     | **string** | Destination route. |
+| `$status` | **int**    | HTTP status code.  |
 
 **Throws:**
 
 - [`TooLateToAddNewRouteException`](./Exceptions/TooLateToAddNewRouteException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

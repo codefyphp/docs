@@ -18,7 +18,9 @@ sensitive information you don't want others to see.
 
 Once your values are set, you can use the `env()` function to read from the environment.
 
-    $appName = env(key: 'APP_NAME', default: 'CodefyPHP Framework');
+```php
+$appName = env(key: 'APP_NAME', default: 'CodefyPHP Framework');
+```
 
 The second value is a default value. This value will be used if the environment value is not set or is null.
 
@@ -51,10 +53,9 @@ Below are the different environment variables that can be set along with their d
 - `APP_ENV` - The current application environment: development or production.
 - `APP_KEY` - You can set this as your api key to use in your application.
 - `APP_SALT` - A long private string used for hashing or encryption.
-- `APP_ENCRYPTION_KEY` - Can be used to encrypt and decrypt sensitive data
 - `APP_DEBUG` - If set to false, error and warnings will print. If set to true, they will not print to screen.
-- `APP_BASE_PATH` - Set the base path of your application.
-- `APP_BASE_URL` - Set the base url of your application.
+- `APP_BASE_PATH` - Set the base path of your application without trailing slash (/).
+- `APP_BASE_URL` - Set the base url of your application with trailing slash (/).
 
 ### Mailer Configuration
 
@@ -144,13 +145,13 @@ Please make sure that `.env` and `.enc.key` are not under version control.
 In order for the system to decrypt the environment data during runtime, you need to set the bool parameter in the
 `withEncryptedEnv()` method to `true` (line 20):
 
-```php linenums="1" hl_lines="20"
+```php linenums="1" hl_lines="23"
 <?php
 
 declare(strict_types=1);
 
-use App\Infrastructure\Providers\DatabaseServiceProvider;
-use App\Infrastructure\Providers\ViewServiceProvider;
+use Application\Provider\DatabaseServiceProvider;
+use Application\Provider\ViewServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
 use Codefy\Framework\Providers\AssetsServiceProvider;
 use Codefy\Framework\Providers\LocalizationServiceProvider;
@@ -161,7 +162,10 @@ use function Codefy\Framework\Helpers\env;
 try {
     $app = CodefyApp::create(
         config: [
-            'basePath' => env(key: 'APP_BASE_PATH', default: dirname(path: __DIR__))
+            'basePath' => env(
+                key: 'APP_BASE_PATH',
+                default: dirname(path: __DIR__)
+            )
         ]
     )
     ->withEncryptedEnv(bool: true)
@@ -190,8 +194,8 @@ try {
 ## Accessing Configuration Values
 
 Majority of the configuration options/files are stored in the config directory: `File: ./config`. You may easily access 
-your configuration values by type-hinting `Qubus\Config\ConfigContainer` or by using the global
-`config()` function from anywhere in your application. The configuration values may be accessed using "dot" syntax,
+your configuration values by using `Codefy\Framework\Proxy\Codefy::$PHP->configContainer` or by using the 
+`config()` helper anywhere in your application. The configuration values may be accessed using "dot" syntax,
 which includes the `name` of the file and `key` you wish to access. A default value may also be specified and will be
 returned if the configuration option does not exist:
 
@@ -200,40 +204,30 @@ returned if the configuration option does not exist:
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
+use Codefy\Framework\Proxy\Codefy;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Config\ConfigContainer;
-use Qubus\Http\Factories\HtmlResponseFactory;
-use Qubus\Http\Session\SessionService;
-use Qubus\Routing\Router;
-use Qubus\View\Renderer;
 
 class PostController extends BaseController
 {
-    public function __construct(
-        SessionService $sessionService,
-        Router $router,
-        Renderer $view,
-        ConfigContainer $configContainer,
-    ) {
-        parent::__construct($sessionService, $router, $view);
-    }
-
     public function index(): ResponseInterface
     {
-        $this->configContainer->getConfigKey(key: 'app.timezone');
+        $timezone = Codefy::$PHP->configContainer
+            ->getConfigKey(key: 'app.timezone');
     }
 
     ```
 }
 ```
 
-    $timezone = Codefy\Framework\Helpers\config(key: 'app.timezone');
+```php
+$timezone = Codefy\Framework\Helpers\config(key: 'app.timezone');
 
-    // Use the default value if the configuration value does not exist.
-    $timezone = config(key: 'app.timezone', default: 'America/New_York');
+// Use the default value if the configuration value does not exist.
+$timezone = config(key: 'app.timezone', default: 'America/New_York');
+```
 
 In the above example, `app` is the filename (`./config/app.php`) and `timezone` is the array key.
 

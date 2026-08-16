@@ -31,23 +31,25 @@ use it to send an email after a user registers to a site.
 
 First we need an event class:
 
-    <?php
+```php
+<?php
 
-    use Qubus\EventDispatcher\Legacy\GenericEvent;
-    
-    final class MessageSent extends GenericEvent
+use Qubus\EventDispatcher\Legacy\GenericEvent;
+
+final class MessageSent extends GenericEvent
+{
+    public const EVENT_NAME = self::class;
+
+    public function getName(): string
     {
-        public const EVENT_NAME = self::class;
-    
-        public function getName(): string
-        {
-            return self::EVENT_NAME;
-        }
-        public function message(): string
-        {
-            return 'Congrats! Your account was created successfully.';
-        }
+        return self::EVENT_NAME;
     }
+    public function message(): string
+    {
+        return 'Congrats! Your account was created successfully.';
+    }
+}
+```
 
 ### Listener or Subscriber
 
@@ -130,7 +132,7 @@ At its most basic, usage looks like this:
     use Qubus\EventDispatcher\Providers\SimpleProvider;
     
     $provider = new SimpleProvider();
-    $provider->listen(SomeEvent::class, function (SomeEvent $event) : void {
+    $provider->listen(SomeEvent::class, function (SomeEvent $event): void {
         // do something with the event
     });
     

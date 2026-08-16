@@ -1,3 +1,9 @@
+---
+title: Migrations
+sidebar_title: Migrations
+weight: 5
+---
+
 In the skeleton starter app, a config file for database migrations can be found at `bootstrap/phpmig.php`. Codefy 
 Migrations is a fork of [phpmig](https://github.com/davedevelopment/phpmig).
 

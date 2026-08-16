@@ -1,65 +1,36 @@
-***
-
 # Migrator
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Migration\Migrator`
 
-
-
 ## Properties
 
-
 ### objectmap
-
-
 
 ```php
 protected ?\ArrayAccess $objectmap
 ```
 
-
-
-
-
-
 ***
 
 ### adapter
-
-
 
 ```php
 protected ?\Qubus\Expressive\Migration\Adapter\MigrationAdapter $adapter
 ```
 
-
-
-
-
-
 ***
 
 ### output
-
-
 
 ```php
 protected ?\Symfony\Component\Console\Output\OutputInterface $output
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -69,24 +40,13 @@ Constructor
 public __construct(\Qubus\Expressive\Migration\Adapter\MigrationAdapter $adapter, \ArrayAccess $objectmap, \Symfony\Component\Console\Output\OutputInterface $output): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$adapter` | **\Qubus\Expressive\Migration\Adapter\MigrationAdapter** |  |
-| `$objectmap` | **\ArrayAccess** |  |
-| `$output` | **\Symfony\Component\Console\Output\OutputInterface** |  |
-
-
-
-
+| Parameter    | Type                                                     | Description |
+|--------------|----------------------------------------------------------|-------------|
+| `$adapter`   | **\Qubus\Expressive\Migration\Adapter\MigrationAdapter** |             |
+| `$objectmap` | **\ArrayAccess**                                         |             |
+| `$output`    | **\Symfony\Component\Console\Output\OutputInterface**    |             |
 
 ***
 
@@ -98,22 +58,11 @@ Run the up method on a migration
 public up(\Qubus\Expressive\Migration\Migration $migration): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 ***
 
@@ -125,22 +74,11 @@ Run the down method on a migration
 public down(\Qubus\Expressive\Migration\Migration $migration): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 ***
 
@@ -149,26 +87,15 @@ public down(\Qubus\Expressive\Migration\Migration $migration): void
 Run a migration in a particular direction
 
 ```php
-protected run(\Qubus\Expressive\Migration\Migration $migration, string $direction = &#039;up&#039;): void
+protected run(\Qubus\Expressive\Migration\Migration $migration, string $direction = 'up'): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-| `$direction` | **string** |  |
-
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
+| `$direction` | **string**                                |             |
 
 ***
 
@@ -180,17 +107,6 @@ Get ObjectMap.
 public getObjectMap(): \ArrayAccess
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setObjectMap
@@ -198,25 +114,14 @@ public getObjectMap(): \ArrayAccess
 Set ObjectMap.
 
 ```php
-public setObjectMap(\ArrayAccess $objectmap): \Qubus\Expressive\Migration\Migrator
+public setObjectMap(\ArrayAccess $objectmap): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$objectmap` | **\ArrayAccess** |  |
-
-
-
-
+| Parameter    | Type             | Description |
+|--------------|------------------|-------------|
+| `$objectmap` | **\ArrayAccess** |             |
 
 ***
 
@@ -228,17 +133,6 @@ Get Adapter
 public getAdapter(): \Qubus\Expressive\Migration\Adapter\MigrationAdapter|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setAdapter
@@ -246,25 +140,14 @@ public getAdapter(): \Qubus\Expressive\Migration\Adapter\MigrationAdapter|null
 Set Adapter
 
 ```php
-public setAdapter(\Qubus\Expressive\Migration\Adapter\MigrationAdapter $adapter): \Qubus\Expressive\Migration\Migrator
+public setAdapter(\Qubus\Expressive\Migration\Adapter\MigrationAdapter $adapter): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$adapter` | **\Qubus\Expressive\Migration\Adapter\MigrationAdapter** |  |
-
-
-
-
+| Parameter  | Type                                                     | Description |
+|------------|----------------------------------------------------------|-------------|
+| `$adapter` | **\Qubus\Expressive\Migration\Adapter\MigrationAdapter** |             |
 
 ***
 
@@ -276,17 +159,6 @@ Get Output
 public getOutput(): \Symfony\Component\Console\Output\OutputInterface|null
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setOutput
@@ -294,28 +166,13 @@ public getOutput(): \Symfony\Component\Console\Output\OutputInterface|null
 Set Output
 
 ```php
-public setOutput(\Symfony\Component\Console\Output\OutputInterface $output): \Qubus\Expressive\Migration\Migrator
+public setOutput(\Symfony\Component\Console\Output\OutputInterface $output): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$output` | **\Symfony\Component\Console\Output\OutputInterface** |  |
-
-
-
-
+| Parameter | Type                                                  | Description |
+|-----------|-------------------------------------------------------|-------------|
+| `$output` | **\Symfony\Component\Console\Output\OutputInterface** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -1,110 +1,60 @@
-***
-
 # RouteAction
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Route\RouteAction`
 
-
-
 ## Properties
 
-
 ### callable
-
-
 
 ```php
 protected mixed $callable
 ```
 
-
-
-
-
-
 ***
 
 ### controller
-
-
 
 ```php
 protected mixed $controller
 ```
 
-
-
-
-
-
 ***
 
 ### invoker
-
-
 
 ```php
 protected ?\Qubus\Routing\Invoker $invoker
 ```
 
-
-
-
-
-
 ***
 
 ### controllerName
-
-
 
 ```php
 protected ?string $controllerName
 ```
 
-
-
-
-
-
 ***
 
 ### controllerMethod
-
-
 
 ```php
 protected ?string $controllerMethod
 ```
 
-
-
-
-
-
 ***
 
 ### namespace
-
-
 
 ```php
 protected ?string $namespace
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -117,22 +67,13 @@ public __construct(mixed $action, ?string $namespace = null, ?\Qubus\Routing\Inv
 Actions created with a Controller string (e.g. `MyController@myMethod`) are lazy loaded
 and the Controller class will only be instantiated when required.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$action` | **mixed** |  |
-| `$namespace` | **?string** |  |
-| `$invoker` | **?\Qubus\Routing\Invoker** |  |
-
-
-
-
+| Parameter    | Type                        | Description |
+|--------------|-----------------------------|-------------|
+| `$action`    | **mixed**                   |             |
+| `$namespace` | **?string**                 |             |
+| `$invoker`   | **?\Qubus\Routing\Invoker** |             |
 
 ***
 
@@ -144,23 +85,12 @@ Invoke the action.
 public invoke(\Psr\Http\Message\ServerRequestInterface $request, \Qubus\Routing\Route\RouteParams $params): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-| `$params` | **\Qubus\Routing\Route\RouteParams** |  |
-
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
+| `$params`  | **\Qubus\Routing\Route\RouteParams**         |             |
 
 ***
 
@@ -173,22 +103,11 @@ returned to allow for lazy loading.
 private createCallableFromAction(mixed $action): callable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$action` | **mixed** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$action` | **mixed** |             |
 
 ***
 
@@ -200,17 +119,6 @@ Is this a known Controller based action?
 private isControllerAction(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getController
@@ -221,20 +129,9 @@ Get the Controller for this action. The Controller will only be created once.
 private getController(): string|object|null
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Returns null if this is not a Controller based action.
-
-
-
 
 ***
 
@@ -246,22 +143,11 @@ Instantiate a Controller object from the provided class name.
 private createControllerFromClassName(string $className): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$className` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$className` | **string** |             |
 
 ***
 
@@ -273,17 +159,6 @@ Can this action provide Middleware.
 private providesMiddleware(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getMiddlewares
@@ -293,17 +168,6 @@ Get an array of Middleware.
 ```php
 public getMiddlewares(): array
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -315,31 +179,17 @@ Create a factory Closure for the given Controller string.
 private convertClassStringToFactory(string $string): \Closure
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type       | Description                  |
+|-----------|------------|------------------------------|
 | `$string` | **string** | e.g. `MyController@myMethod` |
-
-
-
 
 **Throws:**
 
 - [`RouteParseException`](../Exceptions/RouteParseException.md)
-
 - [`RouteControllerNotFoundException`](../Exceptions/RouteControllerNotFoundException.md)
-
 - [`RouteMethodNotFoundException`](../Exceptions/RouteMethodNotFoundException.md)
-
-
 
 ***
 
@@ -351,46 +201,18 @@ Get the human-readable name of this action.
 public getActionName(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### resolveController
-
-
 
 ```php
 private resolveController(callable|object|string|string[] $controller): callable|object|string|string[]
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$controller` | **callable&#124;object&#124;string&#124;string[]** |  |
-
-
-
-
+| Parameter     | Type                                   | Description |
+|---------------|----------------------------------------|-------------|
+| `$controller` | **callable\|object\|string\|string[]** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

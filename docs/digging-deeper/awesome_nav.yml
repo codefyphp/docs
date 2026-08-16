@@ -1,5 +1,4 @@
 nav:
   - "*"
   - Domain-Driven Design: domain-driven-design
-  - Expressive ORM: expressive-orm
   - Helpers: helpers

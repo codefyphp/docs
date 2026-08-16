@@ -11,11 +11,13 @@ Escapes a translated string to make it safe for HTML output.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Security\Helpers\esc_html__;
-    
-    esc_html__(string $string, string $domain = 'qubus'): string;
+use function Qubus\Security\Helpers\esc_html__;
+
+function esc_html__(string $string, string $domain = 'qubus'): string;
+```
 
 Parameters
 ----------
@@ -28,3 +30,12 @@ Return Value
 ------------
 
 (string) Translated string.
+
+Example
+--------
+
+```php
+use function Qubus\Security\Helpers\esc_html__;
+
+echo '<h2>' . esc_html__(string: 'Account settings', domain: 'application') . '</h2>';
+```

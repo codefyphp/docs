@@ -1,17 +1,14 @@
-***
-
 # IdentityMap
 
 Holds unique Aggregate instances in memory, mapped by id.
 
 Useful to make sure an Aggregate is not loaded twice.
 
+***
+
 * Full name: `\Codefy\Domain\IdentityMap`
 
-
-
 ## Methods
-
 
 ### attachToIdentityMap
 
@@ -21,22 +18,11 @@ Attach an aggregate to the map.
 public attachToIdentityMap(\Codefy\Domain\Aggregate\RecordsEvents $aggregate): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregate` | **\Codefy\Domain\Aggregate\RecordsEvents** |  |
-
-
-
-
+| Parameter    | Type                                       | Description |
+|--------------|--------------------------------------------|-------------|
+| `$aggregate` | **\Codefy\Domain\Aggregate\RecordsEvents** |             |
 
 ***
 
@@ -48,25 +34,10 @@ Retrieve an aggregate from the map by its aggregate id.
 public retrieveFromIdentityMap(\Codefy\Domain\Aggregate\AggregateId $aggregateId): \Codefy\Domain\Aggregate\RecordsEvents|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |  |
-
-
-
-
+| Parameter      | Type                                     | Description |
+|----------------|------------------------------------------|-------------|
+| `$aggregateId` | **\Codefy\Domain\Aggregate\AggregateId** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

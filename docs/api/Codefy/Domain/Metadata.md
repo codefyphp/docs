@@ -1,26 +1,17 @@
-***
-
 # Metadata
 
-
-
-
+***
 
 * Full name: `\Codefy\Domain\Metadata`
 
-
 ## Constants
 
-| Constant | Visibility | Type | Value |
-|:---------|:-----------|:-----|:------|
-|`EVENT_ID`|public|string|&#039;__event_id&#039;|
-|`EVENT_TYPE`|public| |&#039;__event_type&#039;|
-|`RECORDED_AT`|public| |&#039;__recorded_at&#039;|
-|`AGGREGATE_ID`|public| |&#039;__aggregate_id&#039;|
-|`AGGREGATE_TYPE`|public| |&#039;__aggregate_type&#039;|
-|`AGGREGATE_PLAYHEAD`|public| |&#039;__aggregate_playhead&#039;|
 
-
-
-***
-> Automatically generated on 2025-10-13
+| Constant             | Visibility | Type   | Value                  |
+|----------------------|------------|--------|------------------------|
+| `EVENT_ID`           | public     | string | '__event_id'           |
+| `EVENT_TYPE`         | public     |        | '__event_type'         |
+| `RECORDED_AT`        | public     |        | '__recorded_at'        |
+| `AGGREGATE_ID`       | public     |        | '__aggregate_id'       |
+| `AGGREGATE_TYPE`     | public     |        | '__aggregate_type'     |
+| `AGGREGATE_PLAYHEAD` | public     |        | '__aggregate_playhead' |

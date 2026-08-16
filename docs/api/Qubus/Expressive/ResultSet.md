@@ -1,35 +1,20 @@
-***
-
 # ResultSet
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\ResultSet`
 
-
-
 ## Properties
 
-
 ### statement
-
-
 
 ```php
 protected \PDOStatement $statement
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -39,22 +24,11 @@ Constructor
 public __construct(\PDOStatement $statement): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter    | Type              | Description                                       |
+|--------------|-------------------|---------------------------------------------------|
 | `$statement` | **\PDOStatement** | The PDOStatement associated with this result set. |
-
-
-
-
 
 ***
 
@@ -66,17 +40,6 @@ Destructor
 public __destruct(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### count
@@ -87,17 +50,6 @@ Count affected rows
 public count(): int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### all
@@ -105,54 +57,30 @@ public count(): int
 Fetch all results.
 
 ```php
-public all(callable|null $callable = null, int $fetchStyle): array|false
+public all(callable|null $callable = null, int $fetchStyle = 0): array|false
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable&#124;null** | (optional) Callback function |
-| `$fetchStyle` | **int** | (optional) PDO fetch style |
-
-
-
-
+| Parameter     | Type               | Description                  |
+|---------------|--------------------|------------------------------|
+| `$callable`   | **callable\|null** | (optional) Callback function |
+| `$fetchStyle` | **int**            | (optional) PDO fetch style   |
 
 ***
 
 ### allGroup
 
-
-
 ```php
 public allGroup(bool $uniq = false, callable|null $callable = null): array|false
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uniq` | **bool** | (optional) |
-| `$callable` | **callable&#124;null** | (optional) |
-
-
-
-
+| Parameter   | Type               | Description |
+|-------------|--------------------|-------------|
+| `$uniq`     | **bool**           | (optional)  |
+| `$callable` | **callable\|null** | (optional)  |
 
 ***
 
@@ -164,22 +92,11 @@ Fetch first result
 public first(callable|null $callable = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **callable&#124;null** | (optional) Callback function |
-
-
-
-
+| Parameter   | Type               | Description                  |
+|-------------|--------------------|------------------------------|
+| `$callable` | **callable\|null** | (optional) Callback function |
 
 ***
 
@@ -191,17 +108,6 @@ Fetch next result
 public next(): mixed
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### flush
@@ -212,17 +118,6 @@ Close current cursor
 public flush(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### column
@@ -230,25 +125,14 @@ public flush(): bool
 Return a column
 
 ```php
-public column(int $col): mixed
+public column(int $col = 0): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$col` | **int** | 0-indexed number of the column you wish to retrieve |
-
-
-
-
+| Parameter | Type    | Description                                         |
+|-----------|---------|-----------------------------------------------------|
+| `$col`    | **int** | 0-indexed number of the column you wish to retrieve |
 
 ***
 
@@ -260,17 +144,6 @@ Fetch each result as an associative array
 public fetchAssoc(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchObject
@@ -281,158 +154,65 @@ Fetch each result as an stdClass object
 public fetchObject(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchNamed
-
-
 
 ```php
 public fetchNamed(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchNum
-
-
 
 ```php
 public fetchNum(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchBoth
-
-
 
 ```php
 public fetchBoth(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchKeyPair
-
-
 
 ```php
 public fetchKeyPair(): $this
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### fetchClass
-
-
 
 ```php
 public fetchClass(string $class, array $ctorargs = []): $this
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string** |  |
-| `$ctorargs` | **array** | (optional) |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$class`    | **string** |             |
+| `$ctorargs` | **array**  | (optional)  |
 
 ***
 
 ### fetchCustom
 
-
-
 ```php
 public fetchCustom(\Closure $func): $this
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$func` | **\Closure** |  |
-
-
-
-
+| Parameter | Type         | Description |
+|-----------|--------------|-------------|
+| `$func`   | **\Closure** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

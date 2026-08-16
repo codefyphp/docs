@@ -1,113 +1,51 @@
-***
-
 # FlysystemServiceProvider
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Providers\FlysystemServiceProvider`
 * Parent class: [`\Codefy\Framework\Support\CodefyServiceProvider`](../Support/CodefyServiceProvider.md)
 * This class is marked as **final** and can't be subclassed
 * This class is a **Final class**
 
-
-
-
 ## Methods
 
-
 ### register
-
-
 
 ```php
 public register(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### registerFilesystem
-
-
 
 ```php
 private registerFilesystem(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### registerAdapter
-
-
 
 ```php
 private registerAdapter(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
 
 ## Inherited methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Codefy\Framework\Application $codefy): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$codefy` | **\Codefy\Framework\Application** |  |
-
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$codefy` | **\Codefy\Framework\Application** |             |
 
 ***
 
@@ -119,22 +57,11 @@ Register a booting callback to be run before the "boot" method is called.
 public booting(\Closure $callback): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
 
@@ -146,22 +73,11 @@ Register a booted callback to be run after the "boot" method is called.
 public booted(\Closure $callback): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callback` | **\Closure** |  |
-
-
-
-
+| Parameter   | Type         | Description |
+|-------------|--------------|-------------|
+| `$callback` | **\Closure** |             |
 
 ***
 
@@ -173,17 +89,6 @@ Call the registered booting callbacks.
 public callBootingCallbacks(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### callBootedCallbacks
@@ -193,17 +98,6 @@ Call the registered booted callbacks.
 ```php
 public callBootedCallbacks(): void
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -215,17 +109,7 @@ Get the default providers for a CodefyPHP application.
 public static defaultProviders(): \Codefy\Framework\Support\DefaultProviders
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
-
 ***
 
 ### publishes
@@ -233,26 +117,15 @@ public static defaultProviders(): \Codefy\Framework\Support\DefaultProviders
 Register publishable paths for this provider.
 
 ```php
-public publishes(array&lt;string,string&gt; $paths, string|null $group = null): void
+public publishes(array<string,string> $paths, string|null $group = null): void
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$paths` | **array<string,string>** | [from =&gt; tag] |
-| `$group` | **string&#124;null** | Optional tag/group name (&quot;config&quot;, &quot;migrations&quot;, etc.) |
-
-
-
-
+| Parameter | Type                     | Description                                            |
+|-----------|--------------------------|--------------------------------------------------------|
+| `$paths`  | **array<string,string>** | [from => tag]                                          |
+| `$group`  | **string\|null**         | Optional tag/group name ("config", "migrations", etc.) |
 
 ***
 
@@ -261,29 +134,18 @@ public publishes(array&lt;string,string&gt; $paths, string|null $group = null): 
 Get all publishable paths for this provider.
 
 ```php
-public pathsToPublish(string|null $tag = null): array&lt;string,string&gt;
+public pathsToPublish(string|null $tag = null): array<string,string>
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$tag` | **string&#124;null** | Restrict to a tag (e.g. &quot;config&quot;, &quot;migrations&quot;) |
-
+| Parameter | Type             | Description                                     |
+|-----------|------------------|-------------------------------------------------|
+| `$tag`    | **string\|null** | Restrict to a tag (e.g. "config", "migrations") |
 
 **Return Value:**
 
 [from => tag]
-
-
-
 
 ***
 
@@ -295,19 +157,4 @@ List all tags defined by this provider.
 public publishTags(): string[]
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

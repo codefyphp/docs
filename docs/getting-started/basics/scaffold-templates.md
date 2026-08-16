@@ -1,6 +1,7 @@
 ---
 title: Scaffold
 sidebar_title: Views
+description: Scaffold contains two templating engines to make it easier to use what you need for any project
 weight: 16
 ---
 
@@ -17,88 +18,401 @@ Scaffold contains two templating engines to make it easier to use what you need 
 
 ## Scaffold:Native Engine
 
-`Scaffold:Native` is not a compiler template engine. It uses native PHP syntax similar to Plates and FoilPHP. Like majority
-of template engines, `Scaffold:Native` supports inheritance through blocks. Furthermore, child templates declare blocks
-that can be overridden, extended and displayed by parent templates.
+The Native engine uses ordinary PHP files as templates. It adds namespaced template lookup, layouts, blocks, partials, 
+components, content stacks, shared globals, registered functions, and contextual escaping without compiling templates. 
 
-All `Scaffold:Native` templates must follow the `namepace::/path/to/template` format.
+### Creating the engine
 
+Register one or more template directories. Template names use the `namespace::path` convention and omit the file 
+extension. With the default `phtml` extension, `app::users/profile` resolves to
+`/path/to/templates/users/profile.phtml`.
 
-    <?php
+```php
+<?php
 
-    $this->parent('main::layout');
-    $this->block('content', function ($params) {
+use Qubus\View\Native\NativeLoader;
 
-    ?>
+$view = new NativeLoader(
+    namespaces: [
+        'app' => __DIR__ . '/templates',
+        'admin' => __DIR__ . '/templates/admin',
+    ],
+    functions: [
+        'money' => static fn (float $amount): string => '$' . number_format($amount, 2),
+    ],
+    extension: 'phtml',
+    globals: [
+        'siteName' => 'Acme',
+    ]
+);
+```
+
+Namespaces must point to existing directories. Template paths are canonicalized and cannot escape their registered
+directory, including through `..` segments or symbolic links. A custom extension may be passed without or with its
+leading dot.
+
+Namespaces, functions, and globals can also be added after construction:
+
+```php
+$view
+    ->addNamespace('mail', __DIR__ . '/templates/mail')
+    ->addFunction('initials', static fn (string $name): string => 'JP')
+    ->addGlobal('locale', 'en_US');
+```
+
+### Rendering templates
+
+`render()` and `fetch()` both return the rendered string. Render data overrides globals with the same name.
+
+```php
+echo $view->render('app::home', [
+    'title' => 'Dashboard',
+    'user' => $currentUser,
+]);
+
+$html = $view->fetch('mail::welcome', ['user' => $currentUser]);
+```
+
+Template data becomes local variables in the template:
+
+```php
+<!-- templates/home.phtml -->
+<h1><?=$this->esc($title)?></h1>
+<p><?=$this->esc($user->name)?></p>
+```
+
+Only valid PHP variable names are imported. Internal variables and `$this` cannot be replaced by template data.
+
+Use `exists()` before rendering optional templates, or inspect a resolved path with `getTemplatePath()`:
+
+```php
+if ($view->exists('app::optional/banner')) {
+    echo $view->render('app::optional/banner');
+}
+
+$path = $view->getTemplatePath('app::home');
+```
+
+### Registered functions and filters
+
+Registered functions are available as methods on `$this` inside templates:
+
+```php
+<span><?=$this->money($order->total)?></span>
+```
+
+The built-in registered functions are:
+
+- `strip`, `trim`, and `now`
+- `upper`, `lower`, `ucfirst`, `lcfirst`, and `ucwords`
+- `sprintf` and `wordwrap`
+
+Application functions with the same name override the built-in function. Functions can also be invoked from PHP with
+`callFunction()`:
+
+```php
+$formatted = $view->callFunction('money', [19.95]);
+```
+
+`batch()` passes a value through a pipe-separated sequence of registered functions:
+
+```php
+$title = $view->batch('  hello world  ', 'trim|ucwords|upper');
+```
+
+The same pipeline can be applied before HTML escaping:
+
+```php
+<?=$this->esc($title, 'trim|ucwords')?>
+```
+
+### Layouts and blocks
+
+A child template selects one parent with `parent()` and defines content with `block()`:
+
+```php
+<!-- templates/pages/article.phtml -->
+<?php $this->parent('app::layouts/main', ['pageClass' => 'article']); ?>
+
+<?php $this->block('content', function (array $params): void { ?>
     <article>
-        <header>
-            <h1><?=$this->esc($this->ucfirst($params['title']));?></h1>
-        </header>
-        <main>
-            <?php foreach($params['paragraphs'] as $paragraph): ?>
-                <p>
-                    <?=$this->esc($paragraph);?>
-                </p>
-            <?php endforeach; ?>
-        </main>
+        <h1><?=$this->esc($params['title'])?></h1>
     </article>
-    <?php }); ?>
+<?php }); ?>
+```
 
+The parent renders the block by name:
 
+```php
+<!-- templates/layouts/main.phtml -->
+<!doctype html>
+<html>
+<body class="<?=$this->esc($pageClass)?>">
+    <?php $this->block('content'); ?>
+</body>
+</html>
+```
 
-    <html>
-        <head>
-            <title><?=$this->esc($title);?></title>
-        </head>
-        <body>
-            <?=$this->block('content');?>
-        </body>
-    </html>
+Block callbacks receive the complete template parameter array. A block may be checked or given fallback content:
+
+```php
+<?php if ($this->hasBlock('sidebar')): ?>
+    <aside><?php $this->block('sidebar'); ?></aside>
+<?php endif; ?>
+
+<?php $this->block('subtitle', default: 'No subtitle'); ?>
+```
+
+Rendering an undefined block without a default throws a `ViewException`. Defining two parents in one template and
+circular parent/include chains are also rejected.
+
+### Partials and nested templates
+
+`insert()` renders another template directly. Parameters from the current template are inherited, and explicitly
+provided parameters take precedence:
+
+```php
+<?php $this->insert('app::partials/user-card', [
+    'user' => $author,
+    'compact' => true,
+]); ?>
+```
+
+Use the context-level `fetch()` when the nested result needs to be captured instead of printed:
+
+```php
+<?php $card = $this->fetch('app::partials/user-card', ['user' => $author]); ?>
+<div class="result"><?=$card?></div>
+```
+
+Blocks and stacks created by nested templates propagate back to the calling template.
+
+### Components and slots
+
+`component()` is a convenient partial with an optional captured `slot`:
+
+```php
+<?php $this->component(
+    'app::components/alert',
+    ['type' => 'warning'],
+    function (): void { ?>
+        Your session will expire soon.
+    <?php }
+); ?>
+```
+
+The component receives `$slot` along with its other parameters:
+
+```php
+<!-- templates/components/alert.phtml -->
+<div class="alert alert-<?=$this->esc($type)?>">
+    <?=$slot?>
+</div>
+```
+
+Slots contain rendered template output. Escape untrusted values while producing a slot; do not escape the completed
+slot again unless literal markup is desired.
+
+### Named content stacks
+
+Stacks collect fragments from child templates, components, and partials for later output by a layout. This is useful
+for scripts, styles, and metadata:
+
+```php
+<?php $this->push('scripts', function (): void { ?>
+    <script src="/assets/profile.js" defer></script>
+<?php }); ?>
+
+<?php $this->prepend('scripts', '<script src="/assets/runtime.js" defer></script>'); ?>
+```
+
+Output or inspect a stack in the layout:
+
+```php
+<?php if ($this->hasStack('scripts')): ?>
+    <?php $this->stack('scripts'); ?>
+<?php else: ?>
+    <?php $this->stack('scripts', '<!-- no page scripts -->'); ?>
+<?php endif; ?>
+```
+
+`push()` appends content and `prepend()` inserts it at the beginning. Both accept a string or an output-producing
+callable.
+
+### Escaping and output safety
+
+Escape values for the context in which they are used:
+
+```php
+<!-- HTML text or attributes -->
+<h1><?=$this->esc($title)?></h1>
+
+<!-- URL -->
+<a href="<?=$this->escUrl($url, ['https'])?>">Profile</a>
+
+<!-- Inline JavaScript -->
+<button onclick="<?=$this->escJs($handler)?>">Run</button>
+
+<!-- Sanitize an allowed subset of HTML -->
+<article><?=$this->purify($userSuppliedHtml)?></article>
+```
+
+`purify()` also accepts an array or `null`; its second argument enables image-oriented purification. `escUrl()` accepts
+an optional list of allowed schemes and a third boolean controlling parameter encoding.
+
+`raw()` only converts a value to a string and performs no escaping:
+
+```php
+<?=$this->raw($trustedHtml)?>
+```
+
+Only use `raw()` for content that is already trusted or safely sanitized. PHP output such as `<?=$value?>` is not
+automatically escaped.
+
+### String helpers
+
+The context provides helpers for common display operations:
+
+```php
+<?=$this->truncate($description, 120, '…')?>
+<?=$this->truncate($html, 120, '…', isHtml: true)?>
+<?=$this->concat('Joshua', 'Parker', ', ')?>
+```
+
+`truncate()` can preserve HTML structure when `isHtml` is `true`. `concat()` joins its first two values and any
+additional string arguments using the supplied separator.
+
+### Accessing the complete result
+
+For advanced integrations, `makeContext()` returns an invokable `TemplateContext`. Invoking it returns a
+`TemplateResult`, which exposes the rendered content and collected state:
+
+```php
+$result = $view->makeContext('app::pages/article', ['title' => 'Native Templates'])();
+
+echo $result->getContent();
+$blocks = $result->getBlocks();
+$stacks = $result->getStacks();
+
+// TemplateResult can also be converted directly to a string.
+echo (string) $result;
+```
+
+Most applications should use `render()` or `fetch()` and only use `makeContext()` when block or stack metadata is
+needed.
+
+### Exceptions
+
+Native rendering can throw the following engine exceptions:
+
+- `InvalidTemplateNameException` for malformed names or paths that escape a namespace.
+- `TemplateNotFoundException` for unknown namespaces, missing namespace directories, or missing templates.
+- `FunctionDoesNotExistException` when a template calls an unregistered function.
+- `ViewException` for invalid rendering state such as duplicate parents, missing blocks, or circular references.
+
+```php
+use Qubus\View\Native\Exception\FunctionDoesNotExistException;
+use Qubus\View\Native\Exception\InvalidTemplateNameException;
+use Qubus\View\Native\Exception\TemplateNotFoundException;
+use Qubus\View\Native\Exception\ViewException;
+
+try {
+    echo $view->render('app::pages/article', ['title' => 'Example']);
+} catch (
+    FunctionDoesNotExistException
+    | InvalidTemplateNameException
+    | TemplateNotFoundException
+    | ViewException $exception
+) {
+    // Log the exception and return an application-specific error response.
+}
+```
+
+### CodefyPHP View Structure
+
+With the convenience of a `view` helper, this is how you can structure your views and layouts:
+
+```php title="Example Template Structure"
+<?php
+
+$this->parent('main::layout');
+$this->block('content', function ($params) {
+
+?>
+<article>
+    <header>
+        <h1><?=$this->esc($this->ucfirst($params['title']));?></h1>
+    </header>
+    <main>
+        <?php foreach($params['paragraphs'] as $paragraph): ?>
+            <p>
+                <?=$this->esc($paragraph);?>
+            </p>
+        <?php endforeach; ?>
+    </main>
+</article>
+<?php }); ?>
+```
+
+```php title="Example Template Layout"
+<html>
+    <head>
+        <title><?=$this->esc($title);?></title>
+    </head>
+    <body>
+        <?=$this->block('content');?>
+    </body>
+</html>
+```
+
+!!!note
+    Some of the public methods mentioned above can be used in your views by using the `$this`: 
+    `$this->fetch; $this->push, $this->stack, $this->component, etc`.
 
 Namespace and function callbacks are registered with the templating engine when it is constructed. Function callbacks
-area available as methods within the template context and must be `callable`.
+are available as methods within the template context and must be `callable`.
 
 The default template extension is `phtml`, and all template files live in the `resources/views` folder.
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Http\Controllers;
-    
-    use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Qubus\Http\Factories\HtmlResponseFactory;
-    use Qubus\View\Native\Exception\InvalidTemplateNameException;
-    use Qubus\View\Native\Exception\ViewException;
+```php
+<?php
 
-    use function Qubus\Security\Helpers\die__;
-    
-    final class HomeController extends BaseController
+declare(strict_types=1);
+
+namespace Application\Http\Controller;
+
+use Codefy\Framework\Http\BaseController;
+use Psr\Http\Message\ResponseInterface;
+use Qubus\View\Native\Exception\InvalidTemplateNameException;
+use Qubus\View\Native\Exception\ViewException;
+
+use function Codefy\Framework\Helpers\view;
+use function Qubus\Security\Helpers\die__;
+
+final class HomeController extends BaseController
+{
+    /**
+     * @throws ViewException
+     * @throws InvalidTemplateNameException
+     */
+    public function index(): ResponseInterface
     {
-        /**
-         * @throws ViewException
-         * @throws InvalidTemplateNameException
-         */
-        public function index(): ResponseInterface
-        {
-            $params = [
-                'title' => 'CodefyPHP Framework',
-                'paragraphs' => [
-                    'My first paragraph.',
-                    'My second paragraph.',
-                ],
-            ];
-            
-            try {
-                return HtmlResponseFactory::create(
-                    $this->view->render('framework::home', $params)
-                );
-            } catch (InvalidTemplateNameException | ViewException $e) {
-                die__($e->getMessage());
-            }
+        $params = [
+            'title' => 'CodefyPHP Framework',
+            'paragraphs' => [
+                'My first paragraph.',
+                'My second paragraph.',
+            ],
+        ];
+        
+        try {
+            return view('framework::home', $params);
+        } catch (InvalidTemplateNameException | ViewException $e) {
+            die__($e->getMessage());
         }
     }
+}
+```
 
 ### Registered Function Callbacks
 - `strip` - Properly strip all HTML tags including script and style (default). This differs from PHP's native strip_tags()
@@ -115,7 +429,7 @@ The default template extension is `phtml`, and all template files live in the `r
 - `lcfirst` - Lowercase the first character in a string.
 - `ucwords` - Uppercase the first character of each word in a string.
 - `esc` - Escaping for HTML output.
-- `escJs` - Escaping for inline javascript.
+- `escJs` - Escaping for inline JavaScript.
 - `escUrl` - Escaping for url.
 - `purify` - Makes content safe to print on screen. To be used instead of `esc` for escaping rich text.
 - `truncate` - Truncates a string to the given length. It will optionally preserve HTML tags if `$isHtml` is set to true.
@@ -135,48 +449,47 @@ The default template extension is `phtml`, and all template files live in the `r
 
 ### Usage
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Http\Controllers;
-    
-    use Codefy\Framework\Http\BaseController;
-    use Psr\Http\Message\ResponseInterface;
-    use Qubus\Http\Factories\HtmlResponseFactory;
-    use Qubus\View\Native\Exception\InvalidTemplateNameException;
-    use Qubus\View\Native\Exception\ViewException;
+```php
+<?php
 
-    use function Codefy\Framework\Helpers\resource_path;
-    use function Qubus\Security\Helpers\die__;
-    
-    final class HomeController extends BaseController
+declare(strict_types=1);
+
+namespace Application\Http\Controller;
+
+use Codefy\Framework\Http\BaseController;
+use Psr\Http\Message\ResponseInterface;
+use Qubus\View\Native\Exception\InvalidTemplateNameException;
+use Qubus\View\Native\Exception\ViewException;
+
+use function Codefy\Framework\Helpers\view;
+use function Qubus\Security\Helpers\die__;
+
+final class HomeController extends BaseController
+{
+    /**
+     * @throws ViewException
+     * @throws InvalidTemplateNameException
+     */
+    public function index(): ResponseInterface
     {
-        /**
-         * @throws ViewException
-         * @throws InvalidTemplateNameException
-         */
-        public function index(): ?ResponseInterface
-        {
-            $params = [
-                'user' => [
-                    'data_1' => '<p>This is a paragraph that will probably be escaped if I don\'t intervene.</p>',
-                    'data_2' => 'My second data',
-                    'first_name' => 'Joshua',
-                    'last_name' => 'Parker',
-                    'fullname' => fn ($self) => $self['first_name'] . ' ' . $self['last_name']
-                ],
-            ];
-            
-            try {
-                return HtmlResponseFactory::create(
-                    $this->view->render('home', compact($params)
-                );
-            } catch (InvalidTemplateNameException | ViewException $e) {
-                die__($e->getMessage());
-            }
+        $params = [
+            'user' => [
+                'data_1' => '<p>This is a paragraph that will probably be escaped if I don\'t intervene.</p>',
+                'data_2' => 'My second data',
+                'first_name' => 'Joshua',
+                'last_name' => 'Parker',
+                'fullname' => fn ($self) => $self['first_name'] . ' ' . $self['last_name']
+            ],
+        ];
+        
+        try {
+            return view('home', $params);
+        } catch (InvalidTemplateNameException | ViewException $e) {
+            die__($e->getMessage());
         }
     }
+}
+```
 
 The `Loader` class takes an array of parameters:
 
@@ -403,16 +716,21 @@ and function names.
 One special attribute access rule for arrays is the ability to invoke closure
 functions stored in arrays:
 
-    <?php
-    $this->view->render('home', [
-        'user' => [
-            'firstname' => 'Rasmus',
-            'lastname'  => 'Lerdorf',
-            'fullname'  => function($self) {
-                return $self['firstname'] . ' ' .  $self['lastname'];
-            },
-        ],
-    ]);
+```php
+<?php
+
+use function Codefy\Framework\Helpers\view;
+
+view('home', [
+    'user' => [
+        'firstname' => 'Rasmus',
+        'lastname'  => 'Lerdorf',
+        'fullname'  => function($self) {
+            return $self['firstname'] . ' ' .  $self['lastname'];
+        },
+    ],
+]);
+```
 
 And call the `fullname` "method" in the template as follows:
 
@@ -532,65 +850,69 @@ Or use the helper as a function:
 
 Registering custom helpers is straightforward:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Http\Controllers;
-    
-    use Codefy\Framework\Http\BaseController;
-    use Qubus\View\Loader;
-    use Qubus\View\Native\Exception\InvalidTemplateNameException;
-    use Qubus\View\Native\Exception\ViewException;
+```php
+<?php
 
-    use function Codefy\Framework\Helpers\resource_path;
-    use function Qubus\Security\Helpers\die__;
-    
-    final class HomeController extends BaseController
+declare(strict_types=1);
+
+namespace Application\Http\Controllers;
+
+use Codefy\Framework\Http\BaseController;
+use Psr\Http\Message\ResponseInterface;
+use Qubus\View\Loader;
+use Qubus\View\Native\Exception\InvalidTemplateNameException;
+use Qubus\View\Native\Exception\ViewException;
+
+use function Codefy\Framework\Helpers\resource_path;
+use function Codefy\Framework\Helpers\view;
+use function Qubus\Security\Helpers\die__;
+
+final class HomeController extends BaseController
+{
+    public function __construct(
+        SessionService $sessionService,
+        Router $router,
+        Renderer $view
+    ) {
+        $helpers = [
+            'random' => fn() => 4,
+            'exclamation' => fn($s = null) => $s . '!',
+        ];
+
+        $view = new Loader([
+            'source' => [resource_path('views')],
+            'target' => resource_path('views/cache'),
+            'extension' => '.frm',
+            'helpers' => $helpers,
+        ]);
+
+        parent::__construct($sessionService, $router, $view);
+    }
+
+    /**
+     * @throws ViewException
+     * @throws InvalidTemplateNameException
+     */
+    public function index(): ResponseInterface
     {
-        public function __construct(
-            SessionService $sessionService,
-            Router $router,
-            Renderer $view
-        ) {
-            $helpers = [
-                'random' => fn() => 4,
-                'exclamation' => fn($s = null) => $s . '!',
-            ];
-
-            $view = new Loader([
-                'source' => [resource_path('views')],
-                'target' => resource_path('views/cache'),
-                'extension' => '.frm',
-                'helpers' => $helpers,
-            ]);
-
-            parent::__construct($sessionService, $router, $view);
-        }
-
-        /**
-         * @throws ViewException
-         * @throws InvalidTemplateNameException
-         */
-        public function index(): ?string
-        {
-            $params = [
-                'user' => [
-                    'data_1' => '<p>This is a paragraph that will probably be escaped if I don\'t intervene.</p>',
-                    'data_2' => 'My second data',
-                    'first_name' => 'Joshua',
-                    'last_name' => 'Parker',
-                    'fullname' => fn ($self) => $self['first_name'] . ' ' . $self['last_name']
-                ],
-            ];
-            
-            try {
-                return $this->view->render('home', compact($params);
-            } catch (InvalidTemplateNameException | ViewException $e) {
-                die__($e->getMessage());
-            }
+        $params = [
+            'user' => [
+                'data_1' => '<p>This is a paragraph that will probably be escaped if I don\'t intervene.</p>',
+                'data_2' => 'My second data',
+                'first_name' => 'Joshua',
+                'last_name' => 'Parker',
+                'fullname' => fn ($self) => $self['first_name'] . ' ' . $self['last_name']
+            ],
+        ];
+        
+        try {
+            return view('home', $params);
+        } catch (InvalidTemplateNameException | ViewException $e) {
+            die__($e->getMessage());
         }
     }
+}
+```
 
 You can use your custom helpers just like any other built-in helpers:
 

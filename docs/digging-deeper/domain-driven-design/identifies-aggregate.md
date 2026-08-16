@@ -8,96 +8,115 @@ If you were creating a `Post` aggregate, an identifier value object would be `Po
 `AggregateId` interface and implement its methods. However, it is highly recommended that you extend the abstract 
 implementation and implement AggregateId instead:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
-    
-    namespace App\Domain\Post\ValueObject;
-    
-    use App\Domain\Post\Post;
-    use Codefy\Domain\Aggregate\AggregateId;
-    use Qubus\Exception\Data\TypeException;
-    use Qubus\ValueObjects\Identity\Uuid;
-    
-    final class PostId extends Uuid implements AggregateId
+declare(strict_types=1);
+
+namespace Domain\Post\ValueObject;
+
+use Codefy\Domain\Aggregate\AggregateId;
+use Domain\Post\Post;
+use Qubus\Exception\Data\TypeException;
+use Qubus\ValueObjects\Identity\Uuid;
+
+final class PostId extends Uuid implements AggregateId
+{
+    /**
+     * @throws TypeException
+     */
+    public static function fromString(string $postId): self
     {
-        /**
-         * @throws TypeException
-         */
-        public static function fromString(string $postId): self
-        {
-            return new self(value: $postId);
-        }
-    
-        public function aggregateClassName(): string
-        {
-            return Post::className();
-        }
+        return new self(value: $postId);
     }
+
+    public function aggregateClassName(): string
+    {
+        return Post::className();
+    }
+}
+```
 
 The method `aggregateClassName` will be explained when we get to the section on creating an aggregate. But an 
 alternative to having `PostId` extend `Uuid`, you can use `Ulid` instead:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
-    
-    namespace App\Domain\Post\ValueObject;
-    
-    use App\Domain\Post\Post;
-    use Codefy\Domain\Aggregate\AggregateId;
-    use Qubus\Exception\Data\TypeException;
-    use Qubus\ValueObjects\Identity\Ulid;
-    
-    final class PostId extends Ulid implements AggregateId
+declare(strict_types=1);
+
+namespace Domain\Post\ValueObject;
+
+use Codefy\Domain\Aggregate\AggregateId;
+use Domain\Post\Post;
+use Qubus\Exception\Data\TypeException;
+use Qubus\ValueObjects\Identity\Ulid;
+
+final class PostId extends Ulid implements AggregateId
+{
+    /**
+     * @throws TypeException
+     */
+    public static function fromString(string $postId): self
     {
-        /**
-         * @throws TypeException
-         */
-        public static function fromString(string $postId): self
-        {
-            return new self(value: $postId);
-        }
-    
-        public function aggregateClassName(): string
-        {
-            return Post::className();
-        }
+        return new self(value: $postId);
     }
+
+    public function aggregateClassName(): string
+    {
+        return Post::className();
+    }
+}
+```
 
 Sample Usage
 ------------
 
-    <?php
+```php
+<?php
 
-    $postId = PostId::generateAsString(); //returns a string representation of Uuid
-    //or
-    $postId = PostId::fromString('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'); //returns a PostId object
-    //or
-    $postId = PostId::fromNative('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'); //returns a ValueObject
+use Domain\Post\ValueObject\PostId;
+
+$postId = PostId::generateAsString(); //returns a string representation of Uuid
+//or
+$postId = PostId::fromString('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'); //returns a PostId object
+//or
+$postId = PostId::fromNative('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51'); //returns a ValueObject
+```
 
 Testing
 -------
 
-    <?php
+```php
+<?php
 
-    it(description: 'should be an instance of AggregateId.', closure: function () use ($postId) {
-        Assert::assertInstanceOf(expected: AggregateId::class, actual: $postId);
-    });
-    
-    it(description: 'should be cast to a string.', closure: function () use ($postId) {
-        Assert::assertEquals(expected: '760b7c16-b28e-4d31-9f93-7a2f0d3a1c51', actual: (string)$postId);
-    });
-    
-    it('should equal instances of the same type and value.', function () use ($postId) {
-        $id = PostId::fromNative($postId->toNative());
-    
-        expect(value: $postId)->toEqual(expected: $id);
-    });
-    
-    it('should not equal instances of the same type and value.', function () use ($postId) {
-        $id = PostId::fromNative('d5f77025-63d5-43a1-966e-cfe4d576ebd5');
-    
-        expect(value: $postId)->not()->toEqual(expected: $id);
-    });
+use Codefy\Domain\Aggregate\AggregateId;
+use Domain\Post\ValueObject\PostId;
+use PHPUnit\Framework\Assert;
+
+use function expect;
+use function it;
+
+$postId = PostId::fromNative('760b7c16-b28e-4d31-9f93-7a2f0d3a1c51');
+
+it(description: 'should be an instance of AggregateId.', closure: function () use ($postId) {
+    Assert::assertInstanceOf(expected: AggregateId::class, actual: $postId);
+});
+
+it(description: 'should be cast to a string.', closure: function () use ($postId) {
+    Assert::assertEquals(expected: '760b7c16-b28e-4d31-9f93-7a2f0d3a1c51', actual: (string)$postId);
+});
+
+it('should equal instances of the same type and value.', function () use ($postId) {
+    $id = PostId::fromNative($postId->toNative());
+
+    expect(value: $postId)->toEqual(expected: $id);
+});
+
+it('should not equal instances of the same type and value.', function () use ($postId) {
+    $id = PostId::fromNative('d5f77025-63d5-43a1-966e-cfe4d576ebd5');
+
+    expect(value: $postId)->not()->toEqual(expected: $id);
+});
+```
 

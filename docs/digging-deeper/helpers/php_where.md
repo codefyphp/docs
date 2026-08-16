@@ -11,11 +11,13 @@ SQL Where operator in PHP.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\php_where;
-    
-    php_where(string $key, string $operator, mixed $pattern): bool;
+use function Qubus\Support\Helpers\php_where;
+
+function php_where(string $key, string $operator, mixed $pattern): bool;
+```
 
 Parameters
 ----------
@@ -34,7 +36,9 @@ Return Value
 Example
 -------
 
-    <?php
+```php
+<?php
 
-    // Where dog is in ['cat', 'bear', 'chicken', 'dog']
-    php_where('dog', 'in', ['cat', 'bear', 'chicken', 'dog']); // true
+// Where dog is in ['cat', 'bear', 'chicken', 'dog']
+php_where('dog', 'in', ['cat', 'bear', 'chicken', 'dog']); // true
+```

@@ -1,19 +1,15 @@
-***
-
 # AggregateRoot
 
 Entities that are an aggregate root.
 
-
+***
 
 * Full name: `\Codefy\Domain\Aggregate\AggregateRoot`
-* Parent interfaces: [`\Codefy\Domain\Aggregate\RecordsEvents`](./RecordsEvents.md), [`\Codefy\Domain\Model\Entity`](../Model/Entity.md)
-
-
-
+* Parent interfaces:
+  [`\Codefy\Domain\Aggregate\RecordsEvents`](./RecordsEvents.md),
+  [`\Codefy\Domain\Model\Entity`](../Model/Entity.md)
 
 ## Inherited methods
-
 
 ### aggregateId
 
@@ -22,17 +18,6 @@ Returns unique aggregate id.
 ```php
 public aggregateId(): \Codefy\Domain\Aggregate\AggregateId
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -43,17 +28,6 @@ Determine whether the object's state has changed since the last clearRecordedEve
 ```php
 public hasRecordedEvents(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -66,17 +40,6 @@ restored from persistence. This does not include events that were recorded prior
 public getRecordedEvents(): \Codefy\Domain\EventSourcing\DomainEvents
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### clearRecordedEvents
@@ -87,19 +50,4 @@ Clears the record of new Domain Events. This doesn't clear the history of the ob
 public clearRecordedEvents(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

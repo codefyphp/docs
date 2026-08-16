@@ -1,94 +1,52 @@
-***
-
 # CachingDecorator
 
-
-
-
+***
 
 * Full name: `\Codefy\CommandBus\Decorators\CachingDecorator`
 * This class implements:
-[`\Codefy\CommandBus\Decorator`](../Decorator.md)
-
-
+  [`\Codefy\CommandBus\Decorator`](../Decorator.md)
 
 ## Properties
 
-
 ### cache
-
-
 
 ```php
 protected \Psr\Cache\CacheItemPoolInterface $cache
 ```
 
-
-
-
-
-
 ***
 
 ### expiresAfter
-
-
 
 ```php
 protected int $expiresAfter
 ```
 
-
-
-
-
-
 ***
 
 ### innerBus
-
-
 
 ```php
 protected \Codefy\CommandBus\CommandBus $innerBus
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Psr\Cache\CacheItemPoolInterface $cache, int $expiresAfter, \Codefy\CommandBus\CommandBus $innerBus): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$cache` | **\Psr\Cache\CacheItemPoolInterface** |  |
-| `$expiresAfter` | **int** |  |
-| `$innerBus` | **\Codefy\CommandBus\CommandBus** |  |
-
-
-
-
+| Parameter       | Type                                  | Description |
+|-----------------|---------------------------------------|-------------|
+| `$cache`        | **\Psr\Cache\CacheItemPoolInterface** |             |
+| `$expiresAfter` | **int**                               |             |
+| `$innerBus`     | **\Codefy\CommandBus\CommandBus**     |             |
 
 ***
 
@@ -100,22 +58,11 @@ Set the CommandBus which we're decorating.
 public setInnerBus(\Codefy\CommandBus\CommandBus $bus): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$bus` | **\Codefy\CommandBus\CommandBus** |  |
-
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$bus`    | **\Codefy\CommandBus\CommandBus** |             |
 
 ***
 
@@ -127,27 +74,15 @@ Execute a command
 public execute(\Codefy\CommandBus\Command $command): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\Command** |  |
-
-
-
+| Parameter  | Type                           | Description |
+|------------|--------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\Command** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -159,28 +94,16 @@ Create a new cache item to be persisted.
 private createCacheItem(\Codefy\CommandBus\CacheableCommand $command, mixed $value): \Psr\Cache\CacheItemInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\CacheableCommand** |  |
-| `$value` | **mixed** |  |
-
-
-
+| Parameter  | Type                                    | Description |
+|------------|-----------------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\CacheableCommand** |             |
+| `$value`   | **mixed**                               |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../Psr/Cache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -189,27 +112,18 @@ private createCacheItem(\Codefy\CommandBus\CacheableCommand $command, mixed $val
 Create the key to be used when saving this item to the cache pool.
 
 ```php
-private getCacheKey(\Codefy\CommandBus\CacheableCommand $command): string|null
+private getCacheKey(\Codefy\CommandBus\CacheableCommand $command): string
 ```
 
 The cache item key is taken as a (string) serialized command, to ensure the return value is unique
 depending on the command properties; that serialized string is then md5'd to ensure it doesn't
 overflow any string length limits the implementing CacheItemPoolInterface library has.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\CacheableCommand** |  |
-
-
-
-
+| Parameter  | Type                                    | Description |
+|------------|-----------------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\CacheableCommand** |             |
 
 ***
 
@@ -218,28 +132,13 @@ overflow any string length limits the implementing CacheItemPoolInterface librar
 Determine when this CachableCommand should expire, in terms of seconds from now.
 
 ```php
-private getCacheExpiry(\Codefy\CommandBus\CacheableCommand $command): int|null
+private getCacheExpiry(\Codefy\CommandBus\CacheableCommand $command): int
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\CacheableCommand** |  |
-
-
-
-
+| Parameter  | Type                                    | Description |
+|------------|-----------------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\CacheableCommand** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

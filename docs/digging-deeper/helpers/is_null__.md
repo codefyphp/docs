@@ -13,11 +13,13 @@ Works the same as PHP’s native `is_null()` function. If `$var` is not set, an 
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\is_null__;
-    
-    is_null__(mixed $var): bool;
+use function Qubus\Support\Helpers\is_null__;
+
+function is_null__(mixed $var): bool;
+```
 
 Parameters
 ----------

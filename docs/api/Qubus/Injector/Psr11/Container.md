@@ -1,38 +1,24 @@
-***
-
 # Container
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\Psr11\Container`
 * Parent class: [`\Qubus\Injector\Injector`](../Injector.md)
 * This class implements:
-[`\Psr\Container\ContainerInterface`](../../../Psr/Container/ContainerInterface.md), [`\Qubus\Injector\ServiceContainer`](../ServiceContainer.md)
-
-
+  `ContainerInterface`,
+  [`\Qubus\Injector\ServiceContainer`](../ServiceContainer.md)
 
 ## Properties
 
-
 ### has
-
-
 
 ```php
 protected array $has
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### get
 
@@ -42,27 +28,15 @@ protected array $has
 public get(string $id): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$id`     | **string** |             |
 
 **Throws:**
 
 - [`NotFoundException`](../../Exception/Http/Client/NotFoundException.md)
-
-
 
 ***
 
@@ -74,28 +48,15 @@ public get(string $id): mixed
 public has(string $id): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$id`     | **string** |             |
 
 ***
 
-
 ## Inherited methods
-
 
 ### __construct
 
@@ -105,29 +66,17 @@ Instantiate a Injector object.
 public __construct(\Qubus\Injector\Config\Config $config, \Qubus\Injector\Reflector|null $reflector = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$config` | **\Qubus\Injector\Config\Config** | Configuration array passed to the Injector. |
-| `$reflector` | **\Qubus\Injector\Reflector&#124;null** | Optional. Reflector class to use for traversal. Falls back to CachingReflector. |
-
-
-
+| Parameter    | Type                                | Description                                                                     |
+|--------------|-------------------------------------|---------------------------------------------------------------------------------|
+| `$config`    | **\Qubus\Injector\Config\Config**   | Configuration array passed to the Injector.                                     |
+| `$reflector` | **\Qubus\Injector\Reflector\|null** | Optional. Reflector class to use for traversal. Falls back to CachingReflector. |
 
 **Throws:**
-<p>If the definitions could not be registered.</p>
 
+If the definitions could not be registered.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-
-
 
 ***
 
@@ -138,17 +87,6 @@ Don't share the instantiation chain across clones.
 ```php
 public __clone(): mixed
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -168,29 +106,18 @@ Takes a Config and reads the following keys to add definitions:
 - 'delegations'
 - 'preparations'
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type                              | Description            |
+|-----------|-----------------------------------|------------------------|
 | `$config` | **\Qubus\Injector\Config\Config** | Config array to parse. |
 
-
-
-
 **Throws:**
-<p>If a needed key could not be read from the config file.</p>
 
+If a needed key could not be read from the config file.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-<p>If the dependency injector could not be set up.</p>
-
+If the dependency injector could not be set up.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-
-
 
 ***
 
@@ -202,29 +129,17 @@ Map Interfaces to concrete classes for our Injector.
 protected mapAliases(string|object $class, string $interface): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string&#124;object** | Concrete implementation to instantiate. |
-| `$interface` | **string** | Alias to register the implementation for. |
-
-
-
+| Parameter    | Type               | Description                               |
+|--------------|--------------------|-------------------------------------------|
+| `$class`     | **string\|object** | Concrete implementation to instantiate.   |
+| `$interface` | **string**         | Alias to register the implementation for. |
 
 **Throws:**
-<p>If the alias could not be created.</p>
 
+If the alias could not be created.
 - [`ConfigException`](../ConfigException.md)
-
-
 
 ***
 
@@ -236,29 +151,17 @@ Tell our Injector which interfaces to share across all requests.
 protected shareAliases(string|object $class, string $interface): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$class` | **string&#124;object** | Concrete implementation to instantiate. |
-| `$interface` | **string** | Alias to register the implementation for. |
-
-
-
+| Parameter    | Type               | Description                               |
+|--------------|--------------------|-------------------------------------------|
+| `$class`     | **string\|object** | Concrete implementation to instantiate.   |
+| `$interface` | **string**         | Alias to register the implementation for. |
 
 **Throws:**
-<p>If the interface could not be shared.</p>
 
+If the interface could not be shared.
 - [`ConfigException`](../ConfigException.md)
-
-
 
 ***
 
@@ -270,29 +173,17 @@ Tell our Injector how arguments are defined.
 protected defineArguments(array $argumentSetup, string $alias): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argumentSetup` | **array** | Argument providers setup from configuration file. |
-| `$alias` | **string** | The alias for which to define the argument. |
-
-
-
+| Parameter        | Type       | Description                                       |
+|------------------|------------|---------------------------------------------------|
+| `$argumentSetup` | **array**  | Argument providers setup from configuration file. |
+| `$alias`         | **string** | The alias for which to define the argument.       |
 
 **Throws:**
-<p>If a required config key could not be found.</p>
 
+If a required config key could not be found.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-
-
 
 ***
 
@@ -304,29 +195,17 @@ Tell our Injector what instantiations are delegated to factories.
 protected defineDelegations(callable $factory, string $alias): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter  | Type         | Description                                       |
+|------------|--------------|---------------------------------------------------|
 | `$factory` | **callable** | Factory that will take care of the instantiation. |
-| `$alias` | **string** | The alias for which to define the delegation. |
-
-
-
+| `$alias`   | **string**   | The alias for which to define the delegation.     |
 
 **Throws:**
-<p>If the delegation could not be configured.</p>
 
+If the delegation could not be configured.
 - [`ConfigException`](../ConfigException.md)
-
-
 
 ***
 
@@ -338,32 +217,19 @@ Tell our Injector what preparations need to be done.
 protected definePreparations(callable $preparation, string $alias): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$preparation` | **callable** | Preparation to execute on instantiation. |
-| `$alias` | **string** | The alias for which to define the preparation. |
-
-
-
+| Parameter      | Type         | Description                                    |
+|----------------|--------------|------------------------------------------------|
+| `$preparation` | **callable** | Preparation to execute on instantiation.       |
+| `$alias`       | **string**   | The alias for which to define the preparation. |
 
 **Throws:**
-<p>If a required config key could not be found.</p>
 
+If a required config key could not be found.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-<p>If the prepare statement was not valid.</p>
-
+If the prepare statement was not valid.
 - [`InjectionException`](../InjectionException.md)
-
-
 
 ***
 
@@ -375,29 +241,17 @@ Tell our Injector how to produce required arguments.
 protected defineArgumentProviders(array $argumentSetup, string $argument): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$argumentSetup` | **array** | Argument providers setup from configuration file. |
-| `$argument` | **string** | The argument to provide. |
-
-
-
+| Parameter        | Type       | Description                                       |
+|------------------|------------|---------------------------------------------------|
+| `$argumentSetup` | **array**  | Argument providers setup from configuration file. |
+| `$argument`      | **string** | The argument to provide.                          |
 
 **Throws:**
-<p>If a required config key could not be found.</p>
 
+If a required config key could not be found.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-
-
 
 ***
 
@@ -409,30 +263,18 @@ Add a single argument definition.
 protected addArgumentDefinition(mixed $callable, string $alias, array $args): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callable` | **mixed** | Callable to execute when the argument is needed. |
-| `$alias` | **string** | Alias to add the argument definition to. |
-| `$args` | **array** | Additional arguments used for definition. Array containing $argument &amp; $interface. |
-
-
-
+| Parameter   | Type       | Description                                                                        |
+|-------------|------------|------------------------------------------------------------------------------------|
+| `$callable` | **mixed**  | Callable to execute when the argument is needed.                                   |
+| `$alias`    | **string** | Alias to add the argument definition to.                                           |
+| `$args`     | **array**  | Additional arguments used for definition. Array containing $argument & $interface. |
 
 **Throws:**
-<p>If $callable is not a callable.</p>
 
+If $callable is not a callable.
 - [`InvalidMappingsException`](../InvalidMappingsException.md)
-
-
 
 ***
 
@@ -444,28 +286,17 @@ Get an argument proxy for a given alias to provide to the injector.
 protected getArgumentProxy(string $alias, string $interface, callable $callable): object
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$alias` | **string** | Alias that needs the argument. |
-| `$interface` | **string** | Interface that the proxy implements. |
-| `$callable` | **callable** | Callable used to initialize the proxy. |
-
+| Parameter    | Type         | Description                            |
+|--------------|--------------|----------------------------------------|
+| `$alias`     | **string**   | Alias that needs the argument.         |
+| `$interface` | **string**   | Interface that the proxy implements.   |
+| `$callable`  | **callable** | Callable used to initialize the proxy. |
 
 **Return Value:**
 
 Argument proxy to provide to the inspector.
-
-
-
 
 ***
 
@@ -477,23 +308,12 @@ Define instantiation directives for the specified class
 public define(string $name, array $args): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The class (or alias) whose constructor arguments we wish to define |
-| `$args` | **array** | An array mapping parameter names to values/instructions |
-
-
-
-
+| Parameter | Type       | Description                                                        |
+|-----------|------------|--------------------------------------------------------------------|
+| `$name`   | **string** | The class (or alias) whose constructor arguments we wish to define |
+| `$args`   | **array**  | An array mapping parameter names to values/instructions            |
 
 ***
 
@@ -505,23 +325,12 @@ Assign a global default value for all parameters named $paramName
 public defineParam(string $paramName, mixed $value): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter    | Type       | Description                                     |
+|--------------|------------|-------------------------------------------------|
 | `$paramName` | **string** | The parameter name for which this value applies |
-| `$value` | **mixed** | The value to inject for this parameter name |
-
-
-
-
+| `$value`     | **mixed**  | The value to inject for this parameter name     |
 
 ***
 
@@ -533,23 +342,12 @@ Define an alias for all occurrences of a given typehint
 public alias(string $original, string $alias): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter   | Type       | Description             |
+|-------------|------------|-------------------------|
 | `$original` | **string** | The typehint to replace |
-| `$alias` | **string** | The implementation name |
-
-
-
-
+| `$alias`    | **string** | The implementation name |
 
 ***
 
@@ -561,22 +359,11 @@ Share the specified class/instance across the Injector context
 public share(string|object $nameOrInstance): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$nameOrInstance` | **string&#124;object** | The class or object to share |
-
-
-
-
+| Parameter         | Type               | Description                  |
+|-------------------|--------------------|------------------------------|
+| `$nameOrInstance` | **string\|object** | The class or object to share |
 
 ***
 
@@ -588,23 +375,12 @@ Register a prepare callable to modify/prepare objects of type $name after instan
 public prepare(string $name, callable|string|array|object $callableOrMethodStr): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Class name. |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | Any callable or provisionable invokable method |
-
-
-
-
+| Parameter              | Type                                | Description                                    |
+|------------------------|-------------------------------------|------------------------------------------------|
+| `$name`                | **string**                          | Class name.                                    |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | Any callable or provisionable invokable method |
 
 ***
 
@@ -616,23 +392,12 @@ Delegate the creation of $name instances to the specified callable
 public delegate(string $name, callable|string|array|object $callableOrMethodStr): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Class name. |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | Any callable or provisionable invokable method. |
-
-
-
-
+| Parameter              | Type                                | Description                                     |
+|------------------------|-------------------------------------|-------------------------------------------------|
+| `$name`                | **string**                          | Class name.                                     |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | Any callable or provisionable invokable method. |
 
 ***
 
@@ -646,21 +411,12 @@ public inspect(string|null $nameFilter = null, int|null $typeFilter = null): arr
 
 Exposes introspection of existing binds/delegates/shares/etc for decoration and composition.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$nameFilter` | **string&#124;null** | An optional class name filter |
-| `$typeFilter` | **int&#124;null** | A bitmask of Injector::* type constant flags. |
-
-
-
-
+| Parameter     | Type             | Description                                   |
+|---------------|------------------|-----------------------------------------------|
+| `$nameFilter` | **string\|null** | An optional class name filter                 |
+| `$typeFilter` | **int\|null**    | A bitmask of Injector::* type constant flags. |
 
 ***
 
@@ -672,23 +428,12 @@ Proxy the specified class across the Injector context.
 public proxy(string $name, callable|string|array|object $callableOrMethodStr): \Qubus\Injector\ServiceContainer
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | The class to proxy |
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** |  |
-
-
-
-
+| Parameter              | Type                                | Description        |
+|------------------------|-------------------------------------|--------------------|
+| `$name`                | **string**                          | The class to proxy |
+| `$callableOrMethodStr` | **callable\|string\|array\|object** |                    |
 
 ***
 
@@ -700,23 +445,12 @@ Instantiate/provision a class instance.
 public make(string $name, array $args = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Name of an interface/class/alias to instantiate. |
-| `$args` | **array** | Optional arguments to pass to the object. |
-
-
-
-
+| Parameter | Type       | Description                                      |
+|-----------|------------|--------------------------------------------------|
+| `$name`   | **string** | Name of an interface/class/alias to instantiate. |
+| `$args`   | **array**  | Optional arguments to pass to the object.        |
 
 ***
 
@@ -728,32 +462,22 @@ Invoke the specified callable or class::method string, provisioning dependencies
 public execute(callable|string|array|object $callableOrMethodStr, array $args = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | A valid PHP callable<br />or a provisionable ClassName::methodName string. |
-| `$args` | **array** | Optional array specifying params with which to<br />invoke the provisioned callable |
-
+| Parameter              | Type                                | Description                                                                    |
+|------------------------|-------------------------------------|--------------------------------------------------------------------------------|
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | A valid PHP callable
+or a provisionable ClassName::methodName string.          |
+| `$args`                | **array**                           | Optional array specifying params with which to
+invoke the provisioned callable |
 
 **Return Value:**
 
 Returns the invocation result returned from calling the generated executable
 
-
-
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -765,28 +489,17 @@ Provision an Executable instance from any valid callable or class::method string
 public buildExecutable(callable|string|array|object $callableOrMethodStr): \Qubus\Injector\Executable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$callableOrMethodStr` | **callable&#124;string&#124;array&#124;object** | A valid PHP callable<br />or a provisionable ClassName::methodName string. |
-
-
-
+| Parameter              | Type                                | Description                                                           |
+|------------------------|-------------------------------------|-----------------------------------------------------------------------|
+| `$callableOrMethodStr` | **callable\|string\|array\|object** | A valid PHP callable
+or a provisionable ClassName::methodName string. |
 
 **Throws:**
-<p>If the Executable structure could not be built.</p>
 
+If the Executable structure could not be built.
 - [`\Qubus\Injector\InjectionException|\Qubus\Exception\Data\TypeException`](../InjectionException|/Qubus/Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -798,23 +511,8 @@ Get the chain of instantiations.
 public getInjectionChain(): \Qubus\Injector\InjectionChain
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Chain of instantiations.
 
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

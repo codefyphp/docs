@@ -9,15 +9,16 @@ development environment. You need to require the autoloader file in a front cont
 
 ### Basic Example
 
-    require 'vendor/autoload.php';
+```php
+require 'vendor/autoload.php';
+```
 
 ## Namespaces
 
-The default namespace for Codefy is `App` and uses the app directory as its starting point which is set in the included 
-`composer.json` file.
+The default namespaces are `Application`, `Domain`, `Database\Seeders`, and `Infrastructure`
 
-For example, if you have a controller named `DashboardController.php` located in `app/Http/Controller` directory, then 
-the namespace would be `App\Http\Controller\Dashboard`.
+For example, if you have a controller named `DashboardController.php` located in the `src/Application/Http/Controller` 
+directory, then the namespace would be `Application\Http\Controller\DashboardController`.
 
 ## Class Names
 
@@ -43,7 +44,9 @@ and return values are strongly recommended which can help eliminate ambiguity re
 parameter or method expects to receive and/or return. You can enable strict mode in any PHP file, you will need to add 
 the declare statement after the opening php tag:
 
-    <?php
-    
-    declare(strict_types=1);
+```php
+<?php
+
+declare(strict_types=1);
+```
 

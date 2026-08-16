@@ -36,210 +36,224 @@ or by runtime using `./config/rbac.php`.
 
 Here is a sample code of `FileResource` which extends the `BaseStorageResource` abstraction:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    namespace App\Infrastructure\Services;
+namespace Application\Service;
 
-	use Codefy\Framework\Auth\Rbac\Resource\BaseStorageResource;
+use Codefy\Framework\Auth\Rbac\Resource\BaseStorageResource;
 
-    final class FileResource extends BaseStorageResource
+final class FileResource extends BaseStorageResource
+{
+    /**
+     * @var string
+     */
+    protected string $file;
+
+    /**
+     * @param string $file
+     */
+    public function __construct(string $file)
     {
-        /**
-         * @var string
-         */
-        protected string $file;
+        $this->file = $file;
+    }
 
-        /**
-         * @param string $file
-         */
-        public function __construct(string $file)
-        {
-            $this->file = $file;
+    /**
+     * @throws SentinelException
+     * @throws FilesystemException
+     */
+    public function load(): void
+    {
+        $this->clear();
+
+        if (!file_exists($this->file) || (!$data = LocalStorage::disk()->read(json_decode($this->file, true)))) {
+            $data = [];
         }
 
-        /**
-         * @throws SentinelException
-         * @throws FilesystemException
-         */
-        public function load(): void
-        {
-            $this->clear();
+        $this->restorePermissions($data['permissions'] ?? []);
+        $this->restoreRoles($data['roles'] ?? []);
+    }
 
-            if (!file_exists($this->file) || (!$data = LocalStorage::disk()->read(json_decode($this->file, true)))) {
-                $data = [];
-            }
-
-            $this->restorePermissions($data['permissions'] ?? []);
-            $this->restoreRoles($data['roles'] ?? []);
+    /**
+     * @throws FilesystemException
+     */
+    public function save(): void
+    {
+        $data = [
+            'roles' => [],
+            'permissions' => [],
+        ];
+        foreach ($this->roles as $role) {
+            $data['roles'][$role->getName()] = $this->roleToRow($role);
+        }
+        foreach ($this->permissions as $permission) {
+            $data['permissions'][$permission->getName()] = $this->permissionToRow($permission);
         }
 
-        /**
-         * @throws FilesystemException
-         */
-        public function save(): void
-        {
-            $data = [
-                'roles' => [],
-                'permissions' => [],
-            ];
-            foreach ($this->roles as $role) {
-                $data['roles'][$role->getName()] = $this->roleToRow($role);
-            }
-            foreach ($this->permissions as $permission) {
-                $data['permissions'][$permission->getName()] = $this->permissionToRow($permission);
-            }
+        LocalStorage::disk()->write($this->file, json_encode(value: $data, flags: JSON_PRETTY_PRINT));
+    }
 
-            LocalStorage::disk()->write($this->file, json_encode(value: $data, flags: JSON_PRETTY_PRINT));
+    protected function roleToRow(Role $role): array
+    {
+        $result = [];
+        $result['name'] = $role->getName();
+        $result['description'] = $role->getDescription();
+        $childrenNames = [];
+        foreach ($role->getChildren() as $child) {
+            $childrenNames[] = $child->getName();
+        }
+        $result['children'] = $childrenNames;
+        $permissionNames = [];
+        foreach ($role->getPermissions() as $permission) {
+            $permissionNames[] = $permission->getName();
+        }
+        $result['permissions'] = $permissionNames;
+        return $result;
+    }
+
+    protected function permissionToRow(Permission $permission): array
+    {
+        $result = [];
+        $result['name'] = $permission->getName();
+        $result['description'] = $permission->getDescription();
+        $childrenNames = [];
+        foreach ($permission->getChildren() as $child) {
+            $childrenNames[] = $child->getName();
+        }
+        $result['children'] = $childrenNames;
+        $result['ruleClass'] = $permission->getRuleClass();
+        return $result;
+    }
+
+    /**
+     * @throws SentinelException
+     */
+    protected function restorePermissions(array $permissionsData): void
+    {
+        /** @var string[][] $permChildrenNames */
+        $permChildrenNames = [];
+
+        foreach ($permissionsData as $pData) {
+            $permission = $this->addPermission($pData['name'] ?? '', $pData['description'] ?? '');
+            $permission->setRuleClass($pData['ruleClass'] ?? '');
+            $permChildrenNames[$permission->getName()] = $pData['children'] ?? [];
         }
 
-        protected function roleToRow(Role $role): array
-        {
-            $result = [];
-            $result['name'] = $role->getName();
-            $result['description'] = $role->getDescription();
-            $childrenNames = [];
-            foreach ($role->getChildren() as $child) {
-                $childrenNames[] = $child->getName();
-            }
-            $result['children'] = $childrenNames;
-            $permissionNames = [];
-            foreach ($role->getPermissions() as $permission) {
-                $permissionNames[] = $permission->getName();
-            }
-            $result['permissions'] = $permissionNames;
-            return $result;
-        }
-
-        protected function permissionToRow(Permission $permission): array
-        {
-            $result = [];
-            $result['name'] = $permission->getName();
-            $result['description'] = $permission->getDescription();
-            $childrenNames = [];
-            foreach ($permission->getChildren() as $child) {
-                $childrenNames[] = $child->getName();
-            }
-            $result['children'] = $childrenNames;
-            $result['ruleClass'] = $permission->getRuleClass();
-            return $result;
-        }
-
-        /**
-         * @throws SentinelException
-         */
-        protected function restorePermissions(array $permissionsData): void
-        {
-            /** @var string[][] $permChildrenNames */
-            $permChildrenNames = [];
-
-            foreach ($permissionsData as $pData) {
-                $permission = $this->addPermission($pData['name'] ?? '', $pData['description'] ?? '');
-                $permission->setRuleClass($pData['ruleClass'] ?? '');
-                $permChildrenNames[$permission->getName()] = $pData['children'] ?? [];
-            }
-
-            foreach ($permChildrenNames as $permissionName => $childrenNames) {
-                foreach ($childrenNames as $childName) {
-                    $permission = $this->getPermission($permissionName);
-                    $child = $this->getPermission($childName);
-                    if ($permission && $child) {
-                        $permission->addChild($child);
-                    }
-                }
-            }
-        }
-
-        /**
-         * @throws SentinelException
-         */
-        protected function restoreRoles($rolesData): void
-        {
-            /** @var string[][] $rolesChildrenNames */
-            $rolesChildrenNames = [];
-
-            foreach ($rolesData as $rData) {
-                $role = $this->addRole($rData['name'] ?? '', $rData['description'] ?? '');
-                $rolesChildrenNames[$role->getName()] = $rData['children'] ?? [];
-                $permissionNames = $rData['permissions'] ?? [];
-                foreach ($permissionNames as $permissionName) {
-                    if ($permission = $this->getPermission($permissionName)) {
-                        $role->addPermission($permission);
-                    }
-                }
-            }
-
-            foreach ($rolesChildrenNames as $roleName => $childrenNames) {
-                foreach ($childrenNames as $childName) {
-                    $role = $this->getRole($roleName);
-                    $child = $this->getRole($childName);
-                    if ($role && $child) {
-                        $role->addChild($child);
-                    }
+        foreach ($permChildrenNames as $permissionName => $childrenNames) {
+            foreach ($childrenNames as $childName) {
+                $permission = $this->getPermission($permissionName);
+                $child = $this->getPermission($childName);
+                if ($permission && $child) {
+                    $permission->addChild($child);
                 }
             }
         }
     }
 
+    /**
+     * @throws SentinelException
+     */
+    protected function restoreRoles($rolesData): void
+    {
+        /** @var string[][] $rolesChildrenNames */
+        $rolesChildrenNames = [];
+
+        foreach ($rolesData as $rData) {
+            $role = $this->addRole($rData['name'] ?? '', $rData['description'] ?? '');
+            $rolesChildrenNames[$role->getName()] = $rData['children'] ?? [];
+            $permissionNames = $rData['permissions'] ?? [];
+            foreach ($permissionNames as $permissionName) {
+                if ($permission = $this->getPermission($permissionName)) {
+                    $role->addPermission($permission);
+                }
+            }
+        }
+
+        foreach ($rolesChildrenNames as $roleName => $childrenNames) {
+            foreach ($childrenNames as $childName) {
+                $role = $this->getRole($roleName);
+                $child = $this->getRole($childName);
+                if ($role && $child) {
+                    $role->addChild($child);
+                }
+            }
+        }
+    }
+}
+```
+
 ## Usage
 We can now initiate with our FileResource. The resource can be a file, database, cache or runtime. You can extend the 
 `BaseStorageResource` or create an implementation of `Codefy\Framework\Auth\Rbac\Resource\StorageResource`.
 
-    <?php
+```php
+<?php
 
-    use App\Infrastructure\Services\FileResource;
-    use Codefy\Framework\Auth\Rbac\Rbac;
+use Application\Service\FileResource;
+use Codefy\Framework\Auth\Rbac\Rbac;
 
-    $resource = new FileResource('rbac.json');
-    $rbac = new Rbac($resource);
+$resource = new FileResource('rbac.json');
+$rbac = new Rbac($resource);
+```
 
 ### Create Permissions Hierarchy
 
-    <?php
+```php
+<?php
 
-    $perm1 = $rbac->addPermission('create_post', 'Can create posts');
-    $perm2 = $rbac->addPermission('moderate_post', 'Can moderate posts');
-    $perm3 = $rbac->addPermission('update_post', 'Can update posts');
-    $perm4 = $rbac->addPermission('delete_post', 'Can delete posts');
-    $perm2->addChild($perm3); // moderator can also update
-    $perm2->addChild($perm4); // and delete posts
+$perm1 = $rbac->addPermission('create_post', 'Can create posts');
+$perm2 = $rbac->addPermission('moderate_post', 'Can moderate posts');
+$perm3 = $rbac->addPermission('update_post', 'Can update posts');
+$perm4 = $rbac->addPermission('delete_post', 'Can delete posts');
+$perm2->addChild($perm3); // moderator can also update
+$perm2->addChild($perm4); // and delete posts
+```
 
 ### Create Role Hierarchy
 
-    <?php
+```php
+<?php
 
-    $adminRole = $rbac->addRole('admin');
-    $moderatorRole = $rbac->addRole('moderator');
-    $authorRole = $rbac->addRole('author');
-    $adminRole->addChild($moderatorRole); // admin has all moderator's rights
+$adminRole = $rbac->addRole('admin');
+$moderatorRole = $rbac->addRole('moderator');
+$authorRole = $rbac->addRole('author');
+$adminRole->addChild($moderatorRole); // admin has all moderator's rights
+```
 
 !!! warning "Important!"
     Please note that when defining roles and permissions, permissions should be added and loaded before roles.
 
 ### Bind Roles and Permissions
 
-    <?php
+```php
+<?php
 
-    ...
-    $moderatorRole->addPermission($perm2);
-    ...
+...
+$moderatorRole->addPermission($perm2);
+...
+```
 
 ### Persist State
 
-    <?php
+```php
+<?php
 
-    $rbac->save();
+$rbac->save();
+```
 
 ### Checking Access Rights
 
-    <?php
+```php
+<?php
 
-    if($rbac->getRole($user->role)->checkAccess('moderate_post') {
-        ... // User can moderate posts
-    }
-    // or add to your user's class something like:
-    $user->can('moderate_post');
+if($rbac->getRole($user->role)->checkAccess('moderate_post') {
+    ... // User can moderate posts
+}
+// or add to your user's class something like:
+$user->can('moderate_post');
+```
 
 ## Rules
 
@@ -247,12 +261,12 @@ Sometimes you need to perform an extra check. For example, what if you only want
 their own content, but not someone else's content? You can do that by setting a rule. You can do so by implementing 
 the `AssertionRule` interface with the `execute()` method.
 
-```php title="./app/Domain/Post/Services/AuthorRule.php"
+```php title="./src/Domain/Post/Service/AuthorRule.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Services;
+namespace Domain\Post\Service;
 
 use Codefy\Framework\Auth\Rbac\Entity\AssertionRule;
 
@@ -277,22 +291,28 @@ final class AuthorRule implements AssertionRule
 
 ### Configure RBAC
 
-    <?php
+```php
+<?php
 
-    $perm5 = $rbac->addPermission('post:author_update', 'Author can update his posts.');
-    $perm6 = $rbac->addPermission('post:author_delete', 'Author can delete his posts.');
-    $perm5->setRuleClass(AuthorRule::class);
-    $perm6->setRuleClass(AuthorRule::class);
-    $authorRole->addPermission($perm5);
-    $authorRole->addPermission($perm6);
+use Domain\Post\Service\AuthorRule;
+
+$perm5 = $rbac->addPermission('post:author_update', 'Author can update his posts.');
+$perm6 = $rbac->addPermission('post:author_delete', 'Author can delete his posts.');
+$perm5->setRuleClass(AuthorRule::class);
+$perm6->setRuleClass(AuthorRule::class);
+$authorRole->addPermission($perm5);
+$authorRole->addPermission($perm6);
+```
 
 ### Check Rights
 
-    <?php
+```php
+<?php
 
-    if($rbac->checkAccess('post:author_delete', ['userId' => $userId, 'post' => $post]) {
-        ... // The user is author of the post and can delete it
-    }
+if($rbac->checkAccess('post:author_delete', ['userId' => $userId, 'post' => $post]) {
+    ... // The user is author of the post and can delete it
+}
+```
     
 ## RBAC Config
 
@@ -300,6 +320,8 @@ The alternative to using a resource is setting up a config to be checked during 
 
 ```php title="./config/rbac.php"
 <?php
+
+use Domain\Post\Service\AuthorRule;
 
 return [
 
@@ -309,6 +331,7 @@ return [
             'permissions' => [
                 'admin:dashboard' => ['description' => 'Access to the dashboard.'],
                 'admin:profile' => ['description' => 'Access to profile edit.'],
+                'admin:edit_post' => ['description' => 'Edit posts.', 'ruleClass' => AuthorRule::class],
             ],
         ],
     ],
@@ -356,7 +379,7 @@ to your route:
 declare(strict_types=1);
 
 return (function(\Qubus\Routing\Psr7Router $router) {
-    $router->get('/admin/dashboard/', 'AdminController@dashboard')->middleware('user.authorization');
+    $router->get('/admin/', 'AdminController@index')->middleware('user.authorization');
 });
 ```
 
@@ -364,57 +387,82 @@ When a user visits the `/admin/dashboard/` route, the middleware will check if t
 logged in, the user will continue on, otherwise, the user will be redirected to your login route via the 
 `redirect_guests_to` setting in `./config/auth.php`.
 
-A different approach would be to check permissions via the controller. You can use the `App\Infrastructure\Services\UserAuth` 
-class as a type-hint in your controllers:
+A different approach would be to check permissions via the controller. You can use the `Codefy\Framework\Helpers\gate` 
+helper or the [Gate Middleware](../../blog/posts/gate-middleware.md):
 
-```php title="./app/Infrastructure/Http/Controllers/AdminController.php"
+```php title="./src/Application/Http/Controller/AdminController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Services\UserAuth;
 use Codefy\Framework\Codefy;
 use Codefy\Framework\Http\BaseController;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Exception\Data\TypeException;
-use Qubus\Http\Factories\HtmlResponseFactory;
-use Qubus\Http\ServerRequest;
-use Qubus\Http\Session\SessionService;
-use Qubus\Routing\Router;
-use Qubus\View\Renderer;
+
+use function Codefy\Framework\Helpers\gate;
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
 
 final class AdminController extends BaseController
 {
-    public function __construct(
-        protected SessionService $sessionService,
-        protected Router $router,
-        protected UserAuth $user,
-        protected Renderer $view
-    ) {
-        parent::__construct($sessionService, $router, $view);
-    }
-
-    public function index(ServerRequest $request): ResponseInterface
+    public function index(): ResponseInterface
     {
-        if (false === $this->user->can(permissionName: 'admin:dashboard', request:  $request)) {
+        if (false === gate(permission: 'admin:dashboard')) {
             Codefy::$PHP->flash->error(
                 message: 'You must be logged in to access the admin area.'
             );
-            return $this->redirect($this->router->url(name: 'admin.login'));
+            return $this->redirect($this->router->url(name: 'auth.login'));
         }
 
-        return HtmlResponseFactory::create(
-            $this->view->render(template: 'framework::backend/index', data: ['title' => 'Dashboard'])
+        return view(
+            template: 'framework::backend/index',
+            data: ['title' => trans('Dashboard')]
         );
     }
 }
 ```
 
-`$this->user->can(permissionName: 'admin:dashboard', request:  $request)` is what's used to check if a logged-in user 
-has a certain permission to continue. Please note that a `ServerRequest` instance is passed into the `can()` method so 
-that `UserAuth` can check for the existence of a session cookie.
+If you use the gate middleware, then your controller becomes cleaner by adding the gate middleware to your route:
+
+```php title="./routes/web/admin.php"
+<?php
+
+declare(strict_types=1);
+
+return (function(\Qubus\Routing\Psr7Router $router) {
+    $router->get('/admin/', 'AdminController@index')->middleware(['gate:admin:dashboard,/login/']);
+});
+```
+
+```php title="./src/Application/Http/Controller/AdminController.php"
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Http\Controller;
+
+use Codefy\Framework\Http\BaseController;
+use Psr\Http\Message\ResponseInterface;
+
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
+
+final class AdminController extends BaseController
+{
+    public function index(): ResponseInterface
+    {
+        return view(
+            template: 'framework::backend/index',
+            data: ['title' => trans('Dashboard')]
+        );
+    }
+}
+```
+
+`gate(permission: 'admin:dashboard')` is what's used to check if a logged-in user 
+has a certain permission to continue.
 
 Here is a list of other authentication middlewares along with their aliases:
 

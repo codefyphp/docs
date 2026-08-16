@@ -13,25 +13,29 @@ composer require qubus/support
 The `Qubus\Support\ArrayHelper` class is a set of helper functions for working with arrays. Instead of instantiating 
 the class, you can use Codefy's global property:
 
-    <?php
-    
-    $helper = Codefy\Framework\Codefy::$PHP->array;
+```php
+<?php
+
+$helper = Codefy\Framework\Codefy::$PHP->array;
+```
 
 ## assocToKeyVal()
 
 Converts a multidimensional associative array into an array of key => values with the provided field names.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        ['type_id' => 'horror', 'book' => 'IT'],
-        ['type_id' => 'sci-fi', 'book' => 'Dune'],
-        ['type_id' => 'fantasy', 'book' => 'The Return of the King'],
-    ];
-    
-    print_r($helper->assocToKeyVal($array, 'type_id', 'book'));
+$array = [
+    ['type_id' => 'horror', 'book' => 'IT'],
+    ['type_id' => 'sci-fi', 'book' => 'Dune'],
+    ['type_id' => 'fantasy', 'book' => 'The Return of the King'],
+];
+
+print_r($helper->assocToKeyVal($array, 'type_id', 'book'));
+```
 
 **Result:** 
 
@@ -50,11 +54,13 @@ Converts a multidimensional associative array into an array of key => values wit
 
 The `average()` method takes all values of an array and returns the average value.
 
-    <?php
+```php
+<?php
 
-    $array = [1, 2, 4, 8];
-    
-    echo $helper->average($array);
+$array = [1, 2, 4, 8];
+
+echo $helper->average($array);
+```
 
 **Result:** `3.75`
 
@@ -64,44 +70,48 @@ The `delete()` method deletes the element of the given array using dot-notation.
 `false` if the key didn't exist. If you pass an array of keys, the return value will be an array with the result of all 
 requested deletes.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $person = [
-        "name" => "Jack",
-        "age" => "21",
-        "location" => [
-            "city" => "Pittsburgh",
-            "state" => "PA",
-            "country" => "US"
-        ]
-    ];
-    
-    print_r($helper->delete($person, 'age'));
-    // deleted $person['name'] from the array, returns true
+$person = [
+    "name" => "Jack",
+    "age" => "21",
+    "location" => [
+        "city" => "Pittsburgh",
+        "state" => "PA",
+        "country" => "US"
+    ]
+];
 
-    print_r($helper->delete($person, 'location.state'));
-    // deleted $person['location']['state'] from the array, returns true
+print_r($helper->delete($person, 'age'));
+// deleted $person['name'] from the array, returns true
 
-    print_r($helper->delete($person, ['name', 'location.nowhere']));
-    // returns ['name' => true, 'location.nowhere' => false]
+print_r($helper->delete($person, 'location.state'));
+// deleted $person['location']['state'] from the array, returns true
+
+print_r($helper->delete($person, ['name', 'location.nowhere']));
+// returns ['name' => true, 'location.nowhere' => false]
+```
 
 ## flatten()
 
 The `flatten()` method flattens a multidimensional array (both associative and indexed) down into a 1 dimensional array.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $indexed = [
-        ["a"],
-        ["b"],
-        ["c"],
-    ];
+$indexed = [
+    ["a"],
+    ["b"],
+    ["c"],
+];
 
-    print_r($helper->flatten($indexed));
+print_r($helper->flatten($indexed));
+```
 
 **Result:**
 ```text
@@ -116,22 +126,24 @@ The `flatten()` method flattens a multidimensional array (both associative and i
 
 The `flattenAssoc()` method flattens a multi-dimensional associative array down into a 1 dimensional associative array.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        [
-            "name" => "Jack",
-            "age"  => 21
-        ],
-        [
-            "name" => "Jill",
-            "age"  => 23
-        ]
-    ];
+$array = [
+    [
+        "name" => "Jack",
+        "age"  => 21
+    ],
+    [
+        "name" => "Jill",
+        "age"  => 23
+    ]
+];
 
-    print_r($helper->flattenAssoc($array));
+print_r($helper->flattenAssoc($array));
+```
 
 **Result:**
 
@@ -149,18 +161,20 @@ The `flattenAssoc()` method flattens a multi-dimensional associative array down 
 The `filterKeys()` method filters a given array to a set of keys. It returns an array that contains only the items 
 whose keys are in the `$keys` array. Can also remove the specified `$keys` from an array.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        "fname" => "Joshua",
-        "lname" => "Parker",
-        "project_name" => "CodefyPHP",
-        "project_type" => "Framework",
-    ];
+$array = [
+    "fname" => "Joshua",
+    "lname" => "Parker",
+    "project_name" => "CodefyPHP",
+    "project_type" => "Framework",
+];
 
-    print_r($helper->filterKeys(array: $array, keys: ['project_name', 'fname']));
+print_r($helper->filterKeys(array: $array, keys: ['project_name', 'fname']));
+```
 
 **Result:**
 
@@ -171,10 +185,12 @@ whose keys are in the `$keys` array. Can also remove the specified `$keys` from 
 ]
 ```
 
-    <?php
+```php
+<?php
 
-    // remove some keys
-    print_r($helper->filterKeys(array: $array, keys: ['fname', 'lname'], remove: true));
+// remove some keys
+print_r($helper->filterKeys(array: $array, keys: ['fname', 'lname'], remove: true));
+```
 
 **Result:**
 
@@ -190,18 +206,20 @@ whose keys are in the `$keys` array. Can also remove the specified `$keys` from 
 The `filterPrefixed()` method filters the array on a prefix. It returns an array where the key starts with the 
 specified prefix.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        "fname" => "Joshua",
-        "lname" => "Parker",
-        "project_name" => "CodefyPHP",
-        "project_type" => "Framework",
-    ];
+$array = [
+    "fname" => "Joshua",
+    "lname" => "Parker",
+    "project_name" => "CodefyPHP",
+    "project_type" => "Framework",
+];
 
-    print_r($helper->filterPrefixed(array: $array, prefix: 'project_'));
+print_r($helper->filterPrefixed(array: $array, prefix: 'project_'));
+```
 
 **Result:**
 
@@ -212,10 +230,12 @@ specified prefix.
 ]
 ```
 
-    <?php
+```php
+<?php
 
-    // keep the prefix
-    print_r($helper->filterPrefixed(array: $array, prefix: 'project_', removePrefix: false));
+// keep the prefix
+print_r($helper->filterPrefixed(array: $array, prefix: 'project_', removePrefix: false));
+```
 
 **Result:**
 
@@ -232,21 +252,23 @@ The `filterRecursive()` method provides a recursive version of PHP's
 [`array_filter()`](https://www.php.net/manual/en/function.array-filter.php) function. Like its counterpart, you can 
 optionally pass a callback function to determine what should be filtered.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        "project_name" => "CodefyPHP",
-        "project_type" => "Framework",
-        'info' => [
-            0 => ['data' => 'a value'],
-            1 => ['data' => ''],
-            2 => ['data' => 0],
-        ],
-    ];
+$array = [
+    "project_name" => "CodefyPHP",
+    "project_type" => "Framework",
+    'info' => [
+        0 => ['data' => 'a value'],
+        1 => ['data' => ''],
+        2 => ['data' => 0],
+    ],
+];
 
-    print_r($helper->filterRecursive(array: $array));
+print_r($helper->filterRecursive(array: $array));
+```
 
 **Result:**
 
@@ -262,9 +284,11 @@ optionally pass a callback function to determine what should be filtered.
 ]
 ```
 
-    <?php
-    
-    print_r($helper->filterRecursive(array: $array, callback: fn($item) => $item !== ''));
+```php
+<?php
+
+print_r($helper->filterRecursive(array: $array, callback: fn($item) => $item !== ''));
+```
 
 **Result:**
 
@@ -291,18 +315,20 @@ optionally pass a callback function to determine what should be filtered.
 The `filterSuffixed` method filters the array on a suffix. It returns an array where the key ends with the specified 
 suffix.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        "name_1" => "Joshua",
-        "surname_1" => "Parker",
-        "name_2" => "Johnnie",
-        "surname_2" => "Lee",
-    ];
+$array = [
+    "name_1" => "Joshua",
+    "surname_1" => "Parker",
+    "name_2" => "Johnnie",
+    "surname_2" => "Lee",
+];
 
-    print_r($helper->filterSuffixed(array: $array, suffix: '_1'));
+print_r($helper->filterSuffixed(array: $array, suffix: '_1'));
+```
 
 **Result:**
 
@@ -313,10 +339,12 @@ suffix.
 ]
 ```
 
-    <?php
-    
-    // keep the suffix
-    print_r($helper->filterSuffixed(array: $array, suffix: '_1', removeSuffix: false));
+```php
+<?php
+
+// keep the suffix
+print_r($helper->filterSuffixed(array: $array, suffix: '_1', removeSuffix: false));
+```
 
 **Result:**
 
@@ -331,56 +359,62 @@ suffix.
 
 The `get()` method returns the element of the given array using dot-notation, or a default if it is not set.
 
-    <?php
+```php
+<?php
 
-    $person = [
-        "name" => "Jack",
-        "age" => "21",
-        "location" => [
-            "city" => "Pittsburgh",
-            "state" => "PA",
-            "country" => "US"
-        ]
-    ];
+$person = [
+    "name" => "Jack",
+    "age" => "21",
+    "location" => [
+        "city" => "Pittsburgh",
+        "state" => "PA",
+        "country" => "US"
+    ]
+];
 
-    echo $helper->get(array: $person, key: 'name', default: 'Unknown name.');
-    // Result: Jack
-    echo $helper->get(array: $person, key: 'job', default: 'Unknown job.');
-    // Result: Unknown Job.
+echo $helper->get(array: $person, key: 'name', default: 'Unknown name.');
+// Result: Jack
+echo $helper->get(array: $person, key: 'job', default: 'Unknown job.');
+// Result: Unknown Job.
 
-    // use dot notation
-    echo $helper->get(array: $person, key: 'location.city', default: 'Unknown city.');
-    // Result: Pittsburgh
+// use dot notation
+echo $helper->get(array: $person, key: 'location.city', default: 'Unknown city.');
+// Result: Pittsburgh
+```
 
 ## inArrayRecursive()
 
 The `inArrayRecursive()` method checks whether a value is in an array recursively.
 
-    <?php
+```php
+<?php
 
-    $array = ['one' => 1, 2, 3, [56], 87];
+$array = ['one' => 1, 2, 3, [56], 87];
 
-    echo $helper->inArrayRecursive(needle: 56, haystack: $array);
-    // Result: true
-    echo $helper->inArrayRecursive(needle: '87', haystack: $array, strict: true);
-    // Result: false
-    echo $helper->inArrayRecursive(needle: 87, haystack: $array, strict: true);
-    // Result: true
+echo $helper->inArrayRecursive(needle: 56, haystack: $array);
+// Result: true
+echo $helper->inArrayRecursive(needle: '87', haystack: $array, strict: true);
+// Result: false
+echo $helper->inArrayRecursive(needle: 87, haystack: $array, strict: true);
+// Result: true
+```
 
 ## insert()
 
 The `insert()` method is mainly an [`array_splice`](https://www.php.net/manual/en/function.array-splice.php) alias with 
 added error checking.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['CodefyPHP', 'Symfony'];
+$array = ['CodefyPHP', 'Symfony'];
 
-    // Add one value starting at position `0`
-    $helper->insert($array, ['Codeigniter'], 0);
-    print_r($array);
+// Add one value starting at position `0`
+$helper->insert($array, ['Codeigniter'], 0);
+print_r($array);
+```
 
 **Result:**
 
@@ -392,11 +426,13 @@ added error checking.
 ]
 ```
 
-    <?php
-    
-    // Add mutiliple values starting at position `1`
-    $helper->insert($array, ['CakePHP', 'Yii2'], 1);
-    print_r($array);
+```php
+<?php
+
+// Add mutiliple values starting at position `1`
+$helper->insert($array, ['CakePHP', 'Yii2'], 1);
+print_r($array);
+```
 
 **Result:**
 
@@ -410,11 +446,13 @@ added error checking.
 ]
 ```
 
-    <?php
-    
-    // Add an array starting at position `0`
-    $helper->insert($array, [ ['Laminas', 'FuelPHP'] ], 0);
-    print_r($array);
+```php
+<?php
+
+// Add an array starting at position `0`
+$helper->insert($array, [ ['Laminas', 'FuelPHP'] ], 0);
+print_r($array);
+```
 
 **Result:**
 
@@ -438,15 +476,17 @@ added error checking.
 
 The `insertAssoc()` method inserts elements into an associative array, at the specified position.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['name' => 'Jack', 'surname' => 'Reacher'];
+$array = ['name' => 'Jack', 'surname' => 'Reacher'];
 
-    // Add one value starting at position `1`
-    $helper->insertAssoc($array, ['middle' => 'P.'], 1);
-    print_r($array);
+// Add one value starting at position `1`
+$helper->insertAssoc($array, ['middle' => 'P.'], 1);
+print_r($array);
+```
 
 **Result:**
 
@@ -465,14 +505,16 @@ The `insertAssoc()` method inserts elements into an associative array, at the sp
 
 The `insertAfterKey()` method adds an element to an array after the key specified.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['CodefyPHP', 'Symfony'];
+$array = ['CodefyPHP', 'Symfony'];
 
-    $helper->insertBeforeKey($array, ['Codeigniter'], 1);
-    print_r($array);
+$helper->insertBeforeKey($array, ['Codeigniter'], 1);
+print_r($array);
+```
 
 **Result:**
 
@@ -491,14 +533,16 @@ The `insertAfterKey()` method adds an element to an array after the key specifie
 
 The `insertAfterValue()` method adds an element to an array after the value specified.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['CodefyPHP', 'Symfony'];
+$array = ['CodefyPHP', 'Symfony'];
 
-    $helper->insertAfterValue($array, ['Codeigniter'], 'CodefyPHP');
-    print_r($array);
+$helper->insertAfterValue($array, ['Codeigniter'], 'CodefyPHP');
+print_r($array);
+```
 
 **Result:**
 
@@ -514,14 +558,16 @@ The `insertAfterValue()` method adds an element to an array after the value spec
 
 The `insertBeforeKey()` method adds an element to an array before the key specified.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['CodefyPHP', 'Symfony'];
+$array = ['CodefyPHP', 'Symfony'];
 
-    $helper->insertBeforeKey($array, ['Codeigniter'], 1);
-    print_r($array);
+$helper->insertBeforeKey($array, ['Codeigniter'], 1);
+print_r($array);
+```
 
 **Result:**
 
@@ -540,14 +586,16 @@ The `insertBeforeKey()` method adds an element to an array before the key specif
 
 The `insertBeforeValue()` method adds an element to an array before the value specified.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['CodefyPHP', 'Symfony'];
+$array = ['CodefyPHP', 'Symfony'];
 
-    $helper->insertBeforeValue($array, ['Codeigniter'], 'CodefyPHP');
-    print_r($array);
+$helper->insertBeforeValue($array, ['Codeigniter'], 'CodefyPHP');
+print_r($array);
+```
 
 **Result:**
 
@@ -566,36 +614,40 @@ The `insertBeforeValue()` method adds an element to an array before the value sp
 
 The `keyExists()` method checks if a dot-notated key exists in an array.
 
-    <?php
+```php
+<?php
 
-    $person = [
-        "name" => "Jack",
-        "age" => "21",
-        "location" => [
-            "city" => "Pittsburgh",
-            "state" => "PA",
-            "country" => "US"
-        ]
-    ];
+$person = [
+    "name" => "Jack",
+    "age" => "21",
+    "location" => [
+        "city" => "Pittsburgh",
+        "state" => "PA",
+        "country" => "US"
+    ]
+];
 
-    echo $helper->keyExists(array: $person, key: 'location.city');
-    // Result: true
+echo $helper->keyExists(array: $person, key: 'location.city');
+// Result: true
 
-    echo $helper->keyExists(array: $person, key: 'location.nowhere');
-    // Result: false
+echo $helper->keyExists(array: $person, key: 'location.nowhere');
+// Result: false
+```
 
 ## keyValToAssoc()
 
 The `keyValToAssoc()` method converts an array of key => values into a multidimensional associative array with the 
 provided field names.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = ['Jack' => 21, 'Jill' => 23];
+$array = ['Jack' => 21, 'Jill' => 23];
 
-    print_r($helper->keyValToAssoc(array: $array, keyField: 'name', valField: 'age'));
+print_r($helper->keyValToAssoc(array: $array, keyField: 'name', valField: 'age'));
+```
 
 **Result:**
 
@@ -726,48 +778,50 @@ print_r($helper->mergeAssoc($arr1, $arr2));
 
 The `multiSort()` method sorts a multi-dimensional array by multiple values.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $collection = [
-        'i5' => [
-            'name' => 'Carl',
-            'age' => 17,
-            'points' => 30,
-            'arr' => [
-                    'key' => 10,
-            ],
+$collection = [
+    'i5' => [
+        'name' => 'Carl',
+        'age' => 17,
+        'points' => 30,
+        'arr' => [
+                'key' => 10,
         ],
-        'i7' => [
-            'name' => 'carl',
-            'age' => 17,
-            'points' => 20,
-            'arr' => [
-                    'key' => 10,
-            ],
+    ],
+    'i7' => [
+        'name' => 'carl',
+        'age' => 17,
+        'points' => 20,
+        'arr' => [
+                'key' => 10,
         ],
-        'i2' => [
-            'name' => 'Bert',
-            'age' => 20,
-            'points' => 30,
-            'arr' => [
-                    'key' => 10,
-            ],
+    ],
+    'i2' => [
+        'name' => 'Bert',
+        'age' => 20,
+        'points' => 30,
+        'arr' => [
+                'key' => 10,
         ],
-    ];
+    ],
+];
 
-    $collection = $helper->multisort(
-        array: $collection,
-        conditions: [
-            'name' => SORT_ASC,
-            'points' => [SORT_ASC, SORT_NUMERIC],
-            'age' => [SORT_ASC, SORT_NUMERIC]
-        ],
-        ignoreCase: true
-    );
+$collection = $helper->multisort(
+    array: $collection,
+    conditions: [
+        'name' => SORT_ASC,
+        'points' => [SORT_ASC, SORT_NUMERIC],
+        'age' => [SORT_ASC, SORT_NUMERIC]
+    ],
+    ignoreCase: true
+);
 
-    print_r($collection);
+print_r($collection);
+```
 
 **Result:**
 
@@ -805,137 +859,149 @@ The `multiSort()` method sorts a multi-dimensional array by multiple values.
 The `nextByKey()` method allows you to fetch the key or the value of the next element of an array, given an existing 
 key value.
 
-    <?php
+```php
+<?php
 
-    $array = [2 => 'A', 4 => '2', 6 => 'C'];
+$array = [2 => 'A', 4 => '2', 6 => 'C'];
 
-    echo $helper->nextByKey(array: $array, key: 1);
-    // returns false, there is no key `1` in the array
+echo $helper->nextByKey(array: $array, key: 1);
+// returns false, there is no key `1` in the array
 
-    echo $helper->nextByKey(array: $array, key: 6);
-    // returns null, there is no next key after `6`
+echo $helper->nextByKey(array: $array, key: 6);
+// returns null, there is no next key after `6`
 
-    echo $helper->nextByKey(array: $array, key: '2', getValue: false, strict: true);
-    // returns false, there is no key '2' in the array, only 2
+echo $helper->nextByKey(array: $array, key: '2', getValue: false, strict: true);
+// returns false, there is no key '2' in the array, only 2
 
-    echo $helper->nextByKey(array: $array, key: 4);
-    // returns 6, it's the key in the array after key `4`
+echo $helper->nextByKey(array: $array, key: 4);
+// returns 6, it's the key in the array after key `4`
 
-    echo $helper->nextByKey(array: $array, key: 4, getValue: true);
-    // returns 'C', it's the value the next key in the array points to
+echo $helper->nextByKey(array: $array, key: 4, getValue: true);
+// returns 'C', it's the value the next key in the array points to
+```
 
 ## nextByValue()
 
 The `nextByValue()` method allows you to fetch the key or the value of the next element of an array, given an existing 
 element value.
 
-    <?php
+```php
+<?php
 
-    $array = [2 => 'A', 4 => '2', 6 => 'C'];
+$array = [2 => 'A', 4 => '2', 6 => 'C'];
 
-    echo $helper->nextByValue(array: $array, value: 'Z');
-    // returns false, there is no value `Z` in the array
+echo $helper->nextByValue(array: $array, value: 'Z');
+// returns false, there is no value `Z` in the array
 
-    echo $helper->nextByValue(array: $array, value: 'C');
-    // returns null, there is no next value after `C`
+echo $helper->nextByValue(array: $array, value: 'C');
+// returns null, there is no next value after `C`
 
-    echo $helper->nextByValue(array: $array, value: 2, getValue: false, strict: true);
-    // returns false, there is no value 2 in the array, only '2'
+echo $helper->nextByValue(array: $array, value: 2, getValue: false, strict: true);
+// returns false, there is no value 2 in the array, only '2'
 
-    echo $helper->nextByValue(array: $array, value: '2');
-    // returns 'C', it's the value the next key in the array points to
+echo $helper->nextByValue(array: $array, value: '2');
+// returns 'C', it's the value the next key in the array points to
 
-    echo $helper->nextByValue(array: $array, value: '2', getValue: false);
-    // returns 6, it's the key of the next array element
+echo $helper->nextByValue(array: $array, value: '2', getValue: false);
+// returns 6, it's the key of the next array element
+```
 
 ## pluck()
 
 The `pluck()` method plucks values from a collection of arrays or objects.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $person = [
-        [
-            'id' => 1,
-            "name" => "Jack",
-            "age" => "21",
-        ],
-        [
-            'id' => 2,
-            'name' => "Jill",
-            "age" => "23",
-        ],
-    ];
+$person = [
+    [
+        'id' => 1,
+        "name" => "Jack",
+        "age" => "21",
+    ],
+    [
+        'id' => 2,
+        'name' => "Jill",
+        "age" => "23",
+    ],
+];
 
-    // Get an array of id's
-    print_r($helper->pluck(array: $person, key: 'id'));
-    // Result: [0 => 1, 1 => 2]
+// Get an array of id's
+print_r($helper->pluck(array: $person, key: 'id'));
+// Result: [0 => 1, 1 => 2]
 
-    // Get an array of names with the id as the index
-    print_r($helper->pluck(array: $person, key: 'name', index: 'id'));
-    // Result: [1 => "Jack", 2 => "Jill"]
+// Get an array of names with the id as the index
+print_r($helper->pluck(array: $person, key: 'name', index: 'id'));
+// Result: [1 => "Jack", 2 => "Jill"]
+```
 
 ## previousByKey()
 
 The `previousByKey()` method allows you to fetch the key or the value of the previous element of an array, 
 given an existing key value.
 
-    <?php
+```php
+<?php
 
-    $array = [2 => 'A', 4 => '2', 6 => 'C'];
+$array = [2 => 'A', 4 => '2', 6 => 'C'];
 
-    echo $helper->previousByKey(array: $array, key: 1);
-    // returns false, there is no key 1 in the array
+echo $helper->previousByKey(array: $array, key: 1);
+// returns false, there is no key 1 in the array
 
-    echo $helper->previousByKey(array: $array, key: 2);
-    // returns null, there is no previous key
+echo $helper->previousByKey(array: $array, key: 2);
+// returns null, there is no previous key
 
-    echo $helper->previousByKey(array: $array, key: '2', getValue: false, strict: true);
-    // returns false, there is no key '2' in the array, only 2
+echo $helper->previousByKey(array: $array, key: '2', getValue: false, strict: true);
+// returns false, there is no key '2' in the array, only 2
 
-    echo $helper->previousByKey(array: $array, key: 4);
-    // returns 2, it's the key in the array before key 4
+echo $helper->previousByKey(array: $array, key: 4);
+// returns 2, it's the key in the array before key 4
 
-    echo $helper->previousByKey(array: $array, key: 4, getValue: true);
-    // returns 'A', it's the value the previous key in the array points to
+echo $helper->previousByKey(array: $array, key: 4, getValue: true);
+// returns 'A', it's the value the previous key in the array points to
+```
 
 ## previousByValue()
 
 The `previousByValue()` method allows you to fetch the key or the value of the previous element of an array, given an 
 existing element value.
 
-    <?php
+```php
+<?php
 
-    $array = [2 => 'A', 4 => '2', 6 => 'C'];
+$array = [2 => 'A', 4 => '2', 6 => 'C'];
 
-    echo $helper->previousByValue(array: $array, value: 'Z');
-    // returns false, there is no value 'Z' in the array
+echo $helper->previousByValue(array: $array, value: 'Z');
+// returns false, there is no value 'Z' in the array
 
-    echo $helper->previousByValue(array: $array, value: 'A');
-    // returns null, there is no previous value
+echo $helper->previousByValue(array: $array, value: 'A');
+// returns null, there is no previous value
 
-    echo $helper->previousByValue(array: $array, value: 2, getValue: false, strict: true);
-    // returns false, there is no value 2 in the array, only '2'
+echo $helper->previousByValue(array: $array, value: 2, getValue: false, strict: true);
+// returns false, there is no value 2 in the array, only '2'
 
-    echo $helper->previousByValue(array: $array, value: '2');
-    // returns 'A', it's the value the previous key in the array points to
+echo $helper->previousByValue(array: $array, value: '2');
+// returns 'A', it's the value the previous key in the array points to
 
-    echo $helper->previousByValue(array: $array, value: '2', getValue: false);
-    // returns 2, it's the key of the previous array element
+echo $helper->previousByValue(array: $array, value: '2', getValue: false);
+// returns 2, it's the key of the previous array element
+```
 
 ## reindex()
 
 The `reindex()` method recursively re-indexes the numeric keys of an array. It will not alter string keys.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [2 => 'A', 'three' => '7', 4 => '2', 6 => 'C'];
+$array = [2 => 'A', 'three' => '7', 4 => '2', 6 => 'C'];
 
-    print_r($helper->reindex(arr: $array));
+print_r($helper->reindex(arr: $array));
+```
 
 **Result:**
 
@@ -952,18 +1018,20 @@ The `reindex()` method recursively re-indexes the numeric keys of an array. It w
 
 The `removePrefixed()` method removes values from an array if they match a given prefix.
 
-    <?php
+```php
+<?php
 
-    use function print_r;
+use function print_r;
 
-    $array = [
-        "fname" => "Joshua",
-        "lname" => "Parker",
-        "project_name" => "CodefyPHP",
-        "project_type" => "Framework",
-    ];
+$array = [
+    "fname" => "Joshua",
+    "lname" => "Parker",
+    "project_name" => "CodefyPHP",
+    "project_type" => "Framework",
+];
 
-    print_r($helper->removePrefixed(array: $array, prefix: 'project'));
+print_r($helper->removePrefixed(array: $array, prefix: 'project'));
+```
 
 **Result:**
 

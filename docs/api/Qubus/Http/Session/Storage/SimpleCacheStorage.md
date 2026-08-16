@@ -1,62 +1,34 @@
-***
-
 # SimpleCacheStorage
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Session\Storage\SimpleCacheStorage`
 * This class implements:
-[`\Qubus\Http\Session\Storage\SessionStorage`](./SessionStorage.md)
-
-
+  [`\Qubus\Http\Session\Storage\SessionStorage`](./SessionStorage.md)
 
 ## Properties
 
-
 ### cache
-
-
 
 ```php
 protected \Psr\SimpleCache\CacheInterface $cache
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Psr\SimpleCache\CacheInterface $cache): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$cache` | **\Psr\SimpleCache\CacheInterface** |  |
-
-
-
-
+| Parameter | Type                                | Description |
+|-----------|-------------------------------------|-------------|
+| `$cache`  | **\Psr\SimpleCache\CacheInterface** |             |
 
 ***
 
@@ -68,27 +40,15 @@ Read raw Session Data from underlying storage.
 public read(string $sessionId): array|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$sessionId` | **string** |  |
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$sessionId` | **string** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../../Psr/SimpleCache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -100,29 +60,17 @@ Write raw Session Data to underlying storage.
 public write(string $sessionId, array $data, int $ttl): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$sessionId` | **string** |  |
-| `$data` | **array** |  |
-| `$ttl` | **int** | time to live (in seconds) |
-
-
-
+| Parameter    | Type       | Description               |
+|--------------|------------|---------------------------|
+| `$sessionId` | **string** |                           |
+| `$data`      | **array**  |                           |
+| `$ttl`       | **int**    | time to live (in seconds) |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../../Psr/SimpleCache/InvalidArgumentException.md)
-
-
 
 ***
 
@@ -134,30 +82,14 @@ Destroy the entire session by forcibly removing raw Session Data from underlying
 public destroy(string $sessionId): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$sessionId` | **string** |  |
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$sessionId` | **string** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../../../Psr/SimpleCache/InvalidArgumentException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -4,98 +4,30 @@ sidebar_title: Installation
 weight: 2
 ---
 
-The easiest way to install CodefyPHP is to use composer by creating a new project using the current stable branch of 
-the [skeleton app starter](https://github.com/codefyphp/skeleton). Make sure to substitute `project-name` for the name of 
-your specific project.
+## Composer Install
 
-    composer create-project codefyphp/skeleton:3.x project-name
-
-By using the command above, you will receive a kind of "rolling release" as new BC changes are pushed out. If you want 
-to be on the safe side, use the following command instead:
+The easiest way to install CodefyPHP is to use the [application template](https://github.com/codefyphp/skeleton) 
+via composer:
 
     composer create-project codefyphp/skeleton project-name
 
-The architecture is pretty simple. The PSR-4 namespace is `app`, and under that namespace you can set the architecture 
-as you see fit. Below is a tree of the starter skeleton app:
+This will install the latest stable version of the CodefyPHP application template in a directory named `project-name`. 
+You can choose a different directory name if you want.
 
-    ├── app
-    │   ├── Application
-    │   │   └── Console
-    │   │       ├── Commands
-    │   │       │   └── GenerateEncryptionKeyCommand.php
-    │   │       └── Kernel.php
-    │   ├── Domain
-    │   │   └── User
-    │   │       ├── Command
-    │   │       │   ├── CreateUserCommandHandler.php
-    │   │       │   ├── CreateUserCommand.php
-    │   │       │   ├── UpdateUserCommandHandler.php
-    │   │       │   └── UpdateUserCommand.php
-    │   │       ├── Error
-    │   │       ├── Event
-    │   │       │   ├── EmailAddressWasChanged.php
-    │   │       │   ├── NameWasChanged.php
-    │   │       │   ├── PasswordWasChanged.php
-    │   │       │   ├── RoleWasChanged.php
-    │   │       │   └── UserWasCreated.php
-    │   │       ├── Query
-    │   │       │   ├── FindUserByIdQueryHandler.php
-    │   │       │   ├── FindUserByIdQuery.php
-    │   │       │   ├── FindUserByTokenQueryHandler.php
-    │   │       │   ├── FindUserByTokenQuery.php
-    │   │       │   ├── FindUserQueryHandler.php
-    │   │       │   └── FindUserQuery.php
-    │   │       ├── Repository
-    │   │       ├── Services
-    │   │       │   └── UserProjection.php
-    │   │       ├── User.php
-    │   │       └── ValueObject
-    │   │           ├── UserId.php
-    │   │           ├── Username.php
-    │   │           └── UserToken.php
-    │   ├── Event
-    │   ├── Infrastructure
-    │   │   ├── Errors
-    │   │   ├── Http
-    │   │   │   ├── Controllers
-    │   │   │   │   ├── AdminController.php
-    │   │   │   │   └── HomeController.php
-    │   │   │   ├── Middleware
-    │   │   │   │   └── ApiMiddleware.php
-    │   │   │   └── Routes
-    │   │   ├── Persistence
-    │   │   │   ├── OrmTransactionalEventStore.php
-    │   │   │   └── Repository
-    │   │   │       └── UserRepository.php
-    │   │   ├── Providers
-    │   │   │   ├── ApiRouteServiceProvider.php
-    │   │   │   ├── AppServiceProvider.php
-    │   │   │   ├── DatabaseServiceProvider.php
-    │   │   │   ├── MiddlewareServiceProvider.php
-    │   │   │   ├── Psr16ServiceProvider.php
-    │   │   │   ├── RbacServiceProvider.php
-    │   │   │   ├── ViewServiceProvider.php
-    │   │   │   └── WebRouteServiceProvider.php
-    │   │   └── Services
-    │   │       ├── DatabaseService.php
-    │   │       ├── DatabaseUserProjection.php
-    │   │       ├── Paginator.php
-    │   │       └── UserAuth.php
-    │   └── Shared
-    │       ├── Http
-    │       ├── Services
-    │       │   └── Server.php
-    │       └── ValueObject
-    │           ├── TransactionUlid.php
-    │           ├── UlidIdentity.php
-    │           └── UuidIdentity.php
+## App Architecture
+
+The architecture is pretty simple:
+
+
     ├── bootstrap
     │   ├── app.php
-    │   └── phpmig.php
+    │   ├── phpmig.php
+    │   └── providers.php
     ├── codex
     ├── composer.json
     ├── config
     │   ├── app.php
+    │   ├── assets.php
     │   ├── auth.php
     │   ├── cache.php
     │   ├── commandbus.php
@@ -111,15 +43,24 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   ├── rbac.php
     │   ├── routes.php
     │   ├── session.php
+    │   ├── stubs.php
     │   ├── throttle.php
     │   └── view.php
     ├── database
-    │   └── migrations
-    │       ├── 20220925064056_CreateUsersTable.php
-    │       ├── 20230901025725_CreateEventStoreTable.php
-    │       ├── 20240918213932_AddTokenField.php
-    │       └── 20240919094937_AddRoleField.php
+    │   ├── codefy.sqlite
+    │   ├── migrations
+    │   │   ├── 20220925064056_CreateUsersTable.php
+    │   │   ├── 20230901025725_CreateEventStoreTable.php
+    │   │   ├── 20240918213932_AddTokenField.php
+    │   │   └── 20240919094937_AddRoleField.php
+    │   └── seeders
+    │       ├── DatabaseSeeder.php
+    │       └── UserSeeder.php
     ├── locale
+    │   ├── codefy.pot
+    │   ├── en
+    │   │   ├── codefy-en.mo
+    │   │   └── codefy-en.po
     ├── phpcs.xml
     ├── phpunit.xml
     ├── public
@@ -131,48 +72,138 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   │   │   ├── bootstrap.min.css.map
     │   │   │   ├── bootstrap.rtl.min.css
     │   │   │   ├── bootstrap.rtl.min.css.map
-    │   │   │   └── cover.css
+    │   │   │   ├── cover.css
+    │   │   │   └── main.css
     │   │   ├── images
-    │   │   │   └── codefyphp-cover.png
+    │   │   │   ├── CodefyPHP-Banner.png
+    │   │   │   ├── CodefyPHP-Banner-Small.png
+    │   │   │   └── mark.png
     │   │   └── js
     │   │       ├── admin.js
+    │   │       ├── app.js
     │   │       ├── bootstrap.bundle.min.js
     │   │       ├── bootstrap.bundle.min.js.map
     │   │       ├── color-modes.js
     │   │       └── modes.js
     │   ├── favicon.png
-    │   ├── frontend
-    │   │   └── assets
-    │   │       ├── css
-    │   │       │   ├── layout.css
-    │   │       │   ├── nucleus.css
-    │   │       │   ├── pure.min.css
-    │   │       │   └── slidebars.min.css
-    │   │       ├── images
-    │   │       │   └── email_campaign_smtp_issue.png
-    │   │       └── js
-    │   │           ├── frontpage-nav.min.js
-    │   │           ├── scrolling.js
-    │   │           └── slidebars.min.js
     │   ├── index.php
+    ├── README.md
     ├── resources
     │   └── views
+    │       ├── app-layout.phtml
     │       ├── backend
     │       │   ├── admin-layout.phtml
     │       │   ├── auth-layout.phtml
     │       │   ├── index.phtml
     │       │   ├── login.phtml
+    │       │   ├── partials
+    │       │   │   ├── x-create-user-modal.phtml
+    │       │   │   └── x-edit-user-modal.phtml
     │       │   ├── profile.phtml
-    │       │   └── register.phtml
+    │       │   ├── register.phtml
+    │       │   └── users.phtml
     │       ├── cache
     │       ├── frontend
     │       ├── home.phtml
-    │       └── layout.phtml
+    │       └── partials
+    │           └── desktop-nav.phtml
     ├── routes
     │   ├── api
     │   │   └── rest.php
     │   └── web
+    │       ├── admin.php
+    │       ├── auth.php
+    │       ├── register.php
     │       └── web.php
+    ├── src
+    │   ├── Application
+    │   │   ├── Console
+    │   │   │   ├── Commands
+    │   │   │   └── Kernel.php
+    │   │   ├── Http
+    │   │   │   ├── Controller
+    │   │   │   │   ├── AdminController.php
+    │   │   │   │   ├── AuthController.php
+    │   │   │   │   ├── HomeController.php
+    │   │   │   │   ├── ProfileController.php
+    │   │   │   │   └── RegisterController.php
+    │   │   │   ├── Middleware
+    │   │   │   └── Route
+    │   │   │       └── TestRoute.php
+    │   │   ├── Provider
+    │   │   │   ├── ApiRouteServiceProvider.php
+    │   │   │   ├── AppServiceProvider.php
+    │   │   │   ├── DatabaseServiceProvider.php
+    │   │   │   ├── MiddlewareServiceProvider.php
+    │   │   │   ├── Psr16ServiceProvider.php
+    │   │   │   ├── RbacServiceProvider.php
+    │   │   │   ├── ViewServiceProvider.php
+    │   │   │   └── WebRouteServiceProvider.php
+    │   │   ├── Service
+    │   │   │   ├── DatabaseService.php
+    │   │   │   └── Paginator.php
+    │   │   └── Shared
+    │   │       └── ValueObject
+    │   │           ├── TransactionUlid.php
+    │   │           ├── UlidIdentity.php
+    │   │           └── UuidIdentity.php
+    │   ├── Domain
+    │   │   └── User
+    │   │       ├── Command
+    │   │       │   ├── CreateUserCommandHandler.php
+    │   │       │   ├── CreateUserCommand.php
+    │   │       │   ├── DeleteUserCommandHandler.php
+    │   │       │   ├── DeleteUserCommand.php
+    │   │       │   ├── UpdateUserCommandHandler.php
+    │   │       │   ├── UpdateUserCommand.php
+    │   │       │   ├── UpdateUserPasswordCommandHandler.php
+    │   │       │   └── UpdateUserPasswordCommand.php
+    │   │       ├── Dto
+    │   │       │   ├── DestroyUserData.php
+    │   │       │   ├── StoreUserData.php
+    │   │       │   ├── UpdateUserData.php
+    │   │       │   └── UpdateUserPassword.php
+    │   │       ├── Enum
+    │   │       │   └── UserRole.php
+    │   │       ├── Event
+    │   │       │   ├── EmailAddressWasChanged.php
+    │   │       │   ├── NameWasChanged.php
+    │   │       │   ├── PasswordWasChanged.php
+    │   │       │   ├── RoleWasChanged.php
+    │   │       │   ├── UserWasCreated.php
+    │   │       │   └── UserWasDeleted.php
+    │   │       ├── Query
+    │   │       │   ├── FindUserByEmailQueryHandler.php
+    │   │       │   ├── FindUserByEmailQuery.php
+    │   │       │   ├── FindUserByIdQueryHandler.php
+    │   │       │   ├── FindUserByIdQuery.php
+    │   │       │   ├── FindUserByTokenQueryHandler.php
+    │   │       │   ├── FindUserByTokenQuery.php
+    │   │       │   ├── FindUsersQueryHandler.php
+    │   │       │   └── FindUsersQuery.php
+    │   │       ├── Repository
+    │   │       │   └── UserAggregateRepository.php
+    │   │       ├── Service
+    │   │       │   ├── UserProjection.php
+    │   │       │   └── UserService.php
+    │   │       ├── User.php
+    │   │       ├── Validator
+    │   │       │   ├── DestroyUserValidator.php
+    │   │       │   ├── StoreUserValidator.php
+    │   │       │   ├── UpdateUserPasswordValidator.php
+    │   │       │   └── UpdateUserValidator.php
+    │   │       └── ValueObject
+    │   │           ├── UserId.php
+    │   │           ├── Username.php
+    │   │           └── UserToken.php
+    │   └── Infrastructure
+    │       ├── Persistence
+    │       │   ├── PdoTransactionalEventStore.php
+    │       │   └── Repository
+    │       │       ├── EventSourcedUserRepository.php
+    │       │       └── PdoAuthUserRespository.php
+    │       └── Projection
+    │           └── ExpressiveDbalUserProjection.php
     ├── storage
     │   ├── app
     │   │   └── public
@@ -183,6 +214,7 @@ as you see fit. Below is a tree of the starter skeleton app:
     │   │   ├── media
     │   │   ├── sessions
     │   │   └── views
+    │   └── logs
     └── tests
     ├── ExampleTest.php
     └── Pest.php
@@ -240,6 +272,11 @@ If you are using an Nginx server for development, you need to set you virtualhos
         }
     }
 
+## Configuration
+
+Once you have a server setup, you will need to perform some initial [configuration](configuration.md) before continuing 
+below.
+
 ## Encryption Key
 
 Before proceeding, you need to generate the encryption key file by running the following command on the terminal:
@@ -249,41 +286,46 @@ Before proceeding, you need to generate the encryption key file by running the f
 **Result:**
 
 ```text
-Generating encryption key . . .
 Generating encryption key file . . .
 .enc.key created.
 ```
 
-Next start your database server, create a database, and then follow these steps:
+Next you can create your database, run migrations, and seed your SQLite database by running the following commands:
+
+`php codex migrate && php codex db:seed`
 
 Once you make the server configuration changes, restart the server. Then, in a browser, visit the url `http://codefy.local` and
-you should see a successful installation.
-
-1. rename `.env.example` to `.env` and change the variables to match your dev environment
-
-2. next, open `config/auth.php` to change the url's to match your install
-
-3. then run the command `php codex migrate` to run the database migrations
-
-4. visit the url http://codefy.local/admin/register/ to register your first account
+you should see a successful installation:
 <h3 align="center">
-    <img src="https://downloads.joshuaparker.blog/images/CodefyPHPRegisterScreen.png" width="660" alt="Register Screen">
+    <img src="https://downloads.joshuaparker.blog/images/codefy-home.png" width="660" alt="Homepage">
 </h3>
 
-then visit http://codefy.local/admin/login/ to log in with the new credentials, and you will be redirected to the backend's dashboard.
+1. Rename `.env.example` to `.env` and change the variables to match your dev environment
+
+2. Next, open `config/auth.php` to change the url's to match your install
+
+3. Then run the commands `php codex migrate && php codex db:seed` to run the database migrations and seed the database. 
+The default password for all accounts is `tUB2sQoPuuX*3pycL0HGYMs2#!`.
+
+4. If you don't seed the database, visit the url http://codefy.local/register/ to register your first account
 <h3 align="center">
-    <img src="https://downloads.joshuaparker.blog/images/CodefyPHPLoginScreen.png" width="660" alt="Login Screen">
+    <img src="https://downloads.joshuaparker.blog/images/codefy-register.png" width="660" alt="Register Screen">
+</h3>
+
+then visit http://codefy.local/login/ to log in with the new credentials, and you will be redirected to the backend's dashboard.
+<h3 align="center">
+    <img src="https://downloads.joshuaparker.blog/images/codefy-login.png" width="660" alt="Login Screen">
 </h3>
 <h3 align="center">
-    <img src="https://downloads.joshuaparker.blog/images/CodefyPHPDashboard.png" width="660" alt="Dashboard">
+    <img src="https://downloads.joshuaparker.blog/images/codefy-dashboard.png" width="660" alt="Dashboard">
 </h3>
 
 the profile page is where you can update your profile.
 <h3 align="center">
-    <img src="https://downloads.joshuaparker.blog/images/CodefyPHPProfileScreen.png" width="660" alt="Profile Screen">
+    <img src="https://downloads.joshuaparker.blog/images/codefy-profile.png" width="660" alt="Profile Screen">
 </h3>
 
-This is a very simple app to get you started. Check out the code in the App directory which makes up the majority of the admin backend, 
+This is a very simple app to get you started. Check out the code in the `src` directory which makes up the majority of the admin backend, 
 event store, and domain functionality.
 
 ## DDEV
@@ -340,17 +382,43 @@ Open the newly created `codex` and add the following to the file and save:
 php codex $@
 ```
 
+### .env Updates Part 1
+
+Update the following lines in your .env file:
+
+    // for ddev, it's usually /var/www/html
+    APP_BASE_PATH=/var/www/html
+
+    // should be formatted like so: https://codefy.ddev.site/
+    APP_BASE_URL=
+
 Restart DDEV to apply changes:
 
     ddev restart
 
 Now you should be able to run terminal commands like so:
 
-    ddev codex migrate:status
+    ddev codex generate:key:file
+
+    ddev codex migrate
+
+    ddev codex db:seed
+
+### .env Updates Part 2
+
+Now update the following lines in your .env file, by running the following command (`ddev codex ddd:uuid`) twice for 
+two different strings:
+
+!!!note
+    Place the strings in single quotes so that the dashes (`-`) don't cause issues.
+    
+    APP_KEY=
+    
+    APP_SALT=
 
 ### .ddev/php/php-cli.ini
 
-If you run into deprecated messages appearing in the terminal when running `codex` commands, create a new `.ddev/php/php-cli.ini` 
+If you run into deprecated messages appearing in the terminal when running `codex` commands, create a new `.ddev/php/php-cli.ini`
 file and add the following contents and then save.
 
 ```shell
@@ -376,3 +444,13 @@ Restart DDEV to apply changes:
 
     ddev restart
 
+## Logging Into the Admin Panel
+
+Once you run the database migrations and seeders, you can log into the admin panel with either of these admin accounts:
+
+
+| Email                        | Password                     |
+|------------------------------|------------------------------|
+| `deanna46@example.org`       | `tUB2sQoPuuX*3pycL0HGYMs2#!` |
+| `boris54@example.com`        | `tUB2sQoPuuX*3pycL0HGYMs2#!` |
+| `webster.cronin@example.net` | `tUB2sQoPuuX*3pycL0HGYMs2#!` |

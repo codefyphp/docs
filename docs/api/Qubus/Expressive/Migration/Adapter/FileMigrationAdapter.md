@@ -1,62 +1,34 @@
-***
-
 # FileMigrationAdapter
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Migration\Adapter\FileMigrationAdapter`
 * This class implements:
-[`\Qubus\Expressive\Migration\Adapter\MigrationAdapter`](./MigrationAdapter.md)
-
-
+  [`\Qubus\Expressive\Migration\Adapter\MigrationAdapter`](./MigrationAdapter.md)
 
 ## Properties
 
-
 ### filename
-
-
 
 ```php
 protected string $filename
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(string $filename): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$filename` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$filename` | **string** |             |
 
 ***
 
@@ -68,17 +40,6 @@ Get all migrated version numbers
 public fetchAll(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### up
@@ -86,30 +47,18 @@ public fetchAll(): array
 Up
 
 ```php
-public up(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public up(\Qubus\Expressive\Migration\Migration $migration): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -118,30 +67,18 @@ public up(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\M
 Down
 
 ```php
-public down(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public down(\Qubus\Expressive\Migration\Migration $migration): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -153,17 +90,6 @@ Is the schema ready?
 public hasSchema(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### createSchema
@@ -171,24 +97,12 @@ public hasSchema(): bool
 Create Schema
 
 ```php
-public createSchema(): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public createSchema(): self
 ```
-
-
-
-
-
-
-
-
-
-
 
 **Throws:**
 
 - [`TypeException`](../../../Exception/Data/TypeException.md)
-
-
 
 ***
 
@@ -200,30 +114,14 @@ Write to file
 protected write(array $versions): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$versions` | **array** |  |
-
-
-
+| Parameter   | Type      | Description |
+|-------------|-----------|-------------|
+| `$versions` | **array** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../Exception/Data/TypeException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

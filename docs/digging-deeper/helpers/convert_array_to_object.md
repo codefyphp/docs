@@ -11,11 +11,13 @@ Takes an array and turns it into an object.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\convert_array_to_object;
-    
-    convert_array_to_object(array $array): object
+use function Qubus\Support\Helpers\convert_array_to_object;
+
+function convert_array_to_object(array $array): object
+```
 
 Parameters
 ----------

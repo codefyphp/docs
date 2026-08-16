@@ -1,100 +1,57 @@
-***
-
 # Kernel
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Http\Kernel`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Codefy\Framework\Contracts\Http\Kernel`](../Contracts/Http/Kernel.md)
+  [`\Codefy\Framework\Contracts\Http\Kernel`](../Contracts/Http/Kernel.md)
 * This class is a **Final class**
-
-
 
 ## Properties
 
-
 ### codefy
-
-
 
 ```php
 public \Codefy\Framework\Application $codefy
 ```
 
-
-
-
-
-
 ***
 
 ### router
-
-
 
 ```php
 public \Qubus\Routing\Router $router
 ```
 
-
-
-
-
-
 ***
 
 ### bootstrappers
 
-
-
 ```php
-protected array $bootstrappers
+protected class-string[]|string[] $bootstrappers
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Codefy\Framework\Application $codefy, \Qubus\Routing\Router $router): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$codefy` | **\Codefy\Framework\Application** |  |
-| `$router` | **\Qubus\Routing\Router** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$codefy` | **\Codefy\Framework\Application** |             |
+| `$router` | **\Qubus\Routing\Router**         |             |
 
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
-
-
 
 ***
 
@@ -106,48 +63,23 @@ Get the CodefyPHP application instance.
 public codefy(): \Codefy\Framework\Application
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### dispatchRouter
-
-
 
 ```php
 protected dispatchRouter(?\Psr\Http\Message\ServerRequestInterface $request = null): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **?\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                          | Description |
+|------------|-----------------------------------------------|-------------|
+| `$request` | **?\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
 - [`Exception`](../../../Exception.md)
-
-
 
 ***
 
@@ -159,27 +91,15 @@ Handle a server request.
 public handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                         | Description |
+|------------|----------------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
 - [`Exception`](../../../Exception.md)
-
-
 
 ***
 
@@ -191,27 +111,15 @@ Kernel boots the application.
 public boot(?\Psr\Http\Message\ServerRequestInterface $request = null): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **?\Psr\Http\Message\ServerRequestInterface** |  |
-
-
-
+| Parameter  | Type                                          | Description |
+|------------|-----------------------------------------------|-------------|
+| `$request` | **?\Psr\Http\Message\ServerRequestInterface** |             |
 
 **Throws:**
 
 - [`Exception`](../../../Exception.md)
-
-
 
 ***
 
@@ -220,48 +128,19 @@ public boot(?\Psr\Http\Message\ServerRequestInterface $request = null): void
 Get the bootstrappers.
 
 ```php
-protected bootstrappers(): string[]
+protected bootstrappers(): class-string[]|string[]
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### registerErrorHandler
 
-
-
 ```php
 protected registerErrorHandler(): \Qubus\Error\Handlers\ErrorHandler
 ```
-
-
-
-
-
-
-
-
-
-
 
 **Throws:**
 
 - [`Exception`](../../../Qubus/Exception/Exception.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

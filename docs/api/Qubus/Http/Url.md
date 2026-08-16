@@ -1,123 +1,68 @@
-***
-
 # Url
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Url`
 * Parent class: [`Uri`](../../Laminas/Diactoros/Uri.md)
 * This class implements:
-[`\Psr\Http\Message\UriInterface`](../../Psr/Http/Message/UriInterface.md), [`\JsonSerializable`](../../JsonSerializable.md)
-
-
+  `UriInterface`,
+  `JsonSerializable`
 
 ## Properties
 
-
 ### originalUrl
-
-
 
 ```php
 public null|string $originalUrl
 ```
 
-
-
-
-
-
 ***
 
 ### scheme
-
-
 
 ```php
 private string $scheme
 ```
 
-
-
-
-
-
 ***
 
 ### username
-
-
 
 ```php
 public ?string $username
 ```
 
-
-
-
-
-
 ***
 
 ### password
-
-
 
 ```php
 private ?string $password
 ```
 
-
-
-
-
-
 ***
 
 ### host
-
-
 
 ```php
 private string $host
 ```
 
-
-
-
-
-
 ***
 
 ### port
-
-
 
 ```php
 private ?int $port
 ```
 
-
-
-
-
-
 ***
 
 ### path
 
-
-
 ```php
 private string $path
 ```
-
-
-
-
-
 
 ***
 
@@ -129,108 +74,60 @@ Original path with no sanitization to ending slash.
 private string|null $originalPath
 ```
 
-
-
-
-
-
 ***
 
 ### params
-
-
 
 ```php
 private array $params
 ```
 
-
-
-
-
-
 ***
 
 ### fragment
-
-
 
 ```php
 private string $fragment
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
 
-
-
 ```php
-public __construct(string $uri = &#039;&#039;): mixed
+public __construct(string $uri = ''): mixed
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$uri` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$uri`    | **string** |             |
 
 **Throws:**
 
 - [`MalformedUrlException`](./Exception/MalformedUrlException.md)
-
-
 
 ***
 
 ### parse
 
-
-
 ```php
 public parse(?string $url = null, bool $originalPath = false): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **?string** |  |
-| `$originalPath` | **bool** |  |
-
-
-
+| Parameter       | Type        | Description |
+|-----------------|-------------|-------------|
+| `$url`          | **?string** |             |
+| `$originalPath` | **bool**    |             |
 
 **Throws:**
 
 - [`MalformedUrlException`](./Exception/MalformedUrlException.md)
-
-
 
 ***
 
@@ -242,17 +139,6 @@ Check if url is using a secure protocol like https.
 public isSecure(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### isRelative
@@ -262,17 +148,6 @@ Checks if url is relative.
 ```php
 public isRelative(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -284,22 +159,11 @@ Set the username of the url
 public withUsername(string $username): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$username` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$username` | **string** |             |
 
 ***
 
@@ -311,22 +175,11 @@ Set the url password
 public withPassword(string $password): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$password` | **string** |  |
-
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$password` | **string** |             |
 
 ***
 
@@ -338,22 +191,11 @@ Set the url path
 public withPath(string $path): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$path` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$path`   | **string** |             |
 
 ***
 
@@ -365,22 +207,11 @@ Merge parameters array
 public mergeParams(array $params): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$params` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$params` | **array** |             |
 
 ***
 
@@ -392,22 +223,11 @@ Set the url params
 public withParams(array $params): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$params` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$params` | **array** |             |
 
 ***
 
@@ -419,22 +239,11 @@ Set raw query-string parameters as string
 public withQueryString(string $queryString): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$queryString` | **string** |  |
-
-
-
-
+| Parameter      | Type       | Description |
+|----------------|------------|-------------|
+| `$queryString` | **string** |             |
 
 ***
 
@@ -446,17 +255,6 @@ Get query-string params as string
 public getQueryString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getFragment
@@ -466,17 +264,6 @@ Get fragment from url (everything after #)
 ```php
 public getFragment(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -490,20 +277,11 @@ public indexOf(string $value): int
 
 Returns -1 on failure.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$value`  | **string** |             |
 
 ***
 
@@ -515,22 +293,11 @@ Check if url contains value.
 public contains(string $value): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$value`  | **string** |             |
 
 ***
 
@@ -542,22 +309,11 @@ Check if url contains parameter/query string.
 public hasParam(string $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
@@ -569,22 +325,11 @@ Removes multiple parameters from the query-string
 public removeParams(int[]|string[] $names): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$names` | **int[]&#124;string[]** |  |
-
-
-
-
+| Parameter | Type                | Description |
+|-----------|---------------------|-------------|
+| `$names`  | **int[]\|string[]** |             |
 
 ***
 
@@ -596,22 +341,11 @@ Removes parameter from the query-string
 public removeParam(string $name): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
@@ -625,21 +359,12 @@ public getParam(string $name, ?string $defaultValue = null): ?string
 
 Returns parameter value or default value.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-| `$defaultValue` | **?string** |  |
-
-
-
-
+| Parameter       | Type        | Description |
+|-----------------|-------------|-------------|
+| `$name`         | **string**  |             |
+| `$defaultValue` | **?string** |             |
 
 ***
 
@@ -651,28 +376,16 @@ UTF-8 aware parse_url() replacement.
 public parseUrl(string $url, int $component = -1): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$url` | **string** |  |
-| `$component` | **int** |  |
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$url`       | **string** |             |
+| `$component` | **int**    |             |
 
 **Throws:**
 
 - [`MalformedUrlException`](./Exception/MalformedUrlException.md)
-
-
 
 ***
 
@@ -684,23 +397,13 @@ Convert array to query-string params.
 public static arrayToParams(array $getParams = [], bool $includeEmpty = true): string
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$getParams` | **array** |  |
-| `$includeEmpty` | **bool** |  |
-
-
-
-
+| Parameter       | Type      | Description |
+|-----------------|-----------|-------------|
+| `$getParams`    | **array** |             |
+| `$includeEmpty` | **bool**  |             |
 
 ***
 
@@ -712,22 +415,11 @@ Returns the relative url
 public getRelativeUrl(bool $includeParams = true): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$includeParams` | **bool** |  |
-
-
-
-
+| Parameter        | Type     | Description |
+|------------------|----------|-------------|
+| `$includeParams` | **bool** |             |
 
 ***
 
@@ -739,22 +431,11 @@ Returns the absolute url
 public getAbsoluteUrl(bool $includeParams = true): string
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$includeParams` | **bool** |  |
-
-
-
-
+| Parameter        | Type     | Description |
+|------------------|----------|-------------|
+| `$includeParams` | **bool** |             |
 
 ***
 
@@ -766,49 +447,21 @@ Specify data which should be serialized to JSON.
 public jsonSerialize(): string
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Data which can be serialized by <b>json_encode</b>,
 which is a value of any type other than a resource.
 
-
-
-
 **See Also:**
 
-* http://php.net/manual/en/jsonserializable.jsonserialize.php - 
+* http://php.net/manual/en/jsonserializable.jsonserialize.php
 
 ***
 
 ### __toString
 
-
-
 ```php
 public __toString(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

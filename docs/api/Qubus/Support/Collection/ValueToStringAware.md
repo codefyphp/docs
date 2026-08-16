@@ -1,25 +1,19 @@
-***
-
 # ValueToStringAware
 
 Borrowed from ramsey/collection.
 
-
+***
 
 * Full name: `\Qubus\Support\Collection\ValueToStringAware`
 
-
-
-
 ## Methods
-
 
 ### toolValueToString
 
 Returns a string representation of the value.
 
 ```php
-protected toolValueToString(mixed $value): string
+protected toolValueToString(mixed $value = null): string
 ```
 
 - null value: `'NULL'`
@@ -32,23 +26,10 @@ protected toolValueToString(mixed $value): string
 - object: `'(className Object)'`
 - anonymous function: same as object
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** | the value to return as a string. |
-
-
-
-
+| Parameter | Type      | Description                      |
+|-----------|-----------|----------------------------------|
+| `$value`  | **mixed** | the value to return as a string. |
 
 ***
-
-***
-> Automatically generated on 2025-10-13
-

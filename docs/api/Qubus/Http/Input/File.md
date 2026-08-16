@@ -1,152 +1,82 @@
-***
-
 # File
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Input\File`
 * This class implements:
-[`\Qubus\Http\Input\Item`](./Item.md)
-
-
+  [`\Qubus\Http\Input\Item`](./Item.md)
 
 ## Properties
 
-
 ### index
-
-
 
 ```php
 public string|int $index
 ```
 
-
-
-
-
-
 ***
 
 ### name
-
-
 
 ```php
 public string $name
 ```
 
-
-
-
-
-
 ***
 
 ### filename
-
-
 
 ```php
 public ?string $filename
 ```
 
-
-
-
-
-
 ***
 
 ### size
-
-
 
 ```php
 public ?int $size
 ```
 
-
-
-
-
-
 ***
 
 ### type
-
-
 
 ```php
 public ?string $type
 ```
 
-
-
-
-
-
 ***
 
 ### errors
-
-
 
 ```php
 public int $errors
 ```
 
-
-
-
-
-
 ***
 
 ### tmpName
-
-
 
 ```php
 public ?string $tmpName
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(string|int $index): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$index` | **string&#124;int** |  |
-
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$index`  | **string\|int** |             |
 
 ***
 
@@ -158,48 +88,24 @@ Create from array
 public static createFromArray(array $values): static
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$values` | **array** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$values` | **array** |             |
 
 **Throws:**
 
 - [`TypeException`](../../Exception/Data/TypeException.md)
 
-
-
 ***
 
 ### getIndex
 
-
-
 ```php
 public getIndex(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -211,43 +117,19 @@ Set input index
 public setIndex(string $index): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$index` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$index`  | **string** |             |
 
 ***
 
 ### getSize
 
-
-
 ```php
 public getSize(): int
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -259,22 +141,11 @@ Set file size
 public setSize(int $size): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$size` | **int** |  |
-
-
-
-
+| Parameter | Type    | Description |
+|-----------|---------|-------------|
+| `$size`   | **int** |             |
 
 ***
 
@@ -286,37 +157,13 @@ Get mime-type of file
 public getMime(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getType
 
-
-
 ```php
 public getType(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -328,22 +175,11 @@ Set type
 public setType(string $type): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$type` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$type`   | **string** |             |
 
 ***
 
@@ -355,17 +191,6 @@ Returns extension without "."
 public getExtension(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### getName
@@ -375,17 +200,6 @@ Get human friendly name
 ```php
 public getName(): ?string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -399,20 +213,11 @@ public setName(string $name): static
 
 Useful for adding validation etc.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
@@ -424,22 +229,11 @@ Set filename
 public setFilename(string $name): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
@@ -451,20 +245,9 @@ Get filename
 public getFilename(): null|string
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 mixed
-
-
-
 
 ***
 
@@ -476,22 +259,11 @@ Move the uploaded temporary file to it's new home
 public move(string $destination): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$destination` | **string** |  |
-
-
-
-
+| Parameter      | Type       | Description |
+|----------------|------------|-------------|
+| `$destination` | **string** |             |
 
 ***
 
@@ -503,17 +275,6 @@ Get file contents
 public getContents(): string
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### hasError
@@ -523,17 +284,6 @@ Return true if an upload error occurred.
 ```php
 public hasError(): bool
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -545,17 +295,6 @@ Get upload-error code.
 public getError(): ?int
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### setError
@@ -566,43 +305,19 @@ Set error
 public setError(?int $error = null): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$error` | **?int** |  |
-
-
-
-
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `$error`  | **?int** |             |
 
 ***
 
 ### getTmpName
 
-
-
 ```php
 public getTmpName(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -614,115 +329,48 @@ Set file temp. name
 public setTmpName(string $name): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$name`   | **string** |             |
 
 ***
 
 ### __toString
 
-
-
 ```php
 public __toString(): string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### getValue
 
-
-
 ```php
 public getValue(): ?string
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
 ### setValue
 
-
-
 ```php
 public setValue(string $value): static
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$value`  | **string** |             |
 
 ***
 
 ### toArray
 
-
-
 ```php
 public toArray(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

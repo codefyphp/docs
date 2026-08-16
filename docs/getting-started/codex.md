@@ -7,40 +7,92 @@ weight: 6
 Codex is the command line interface for CodefyPHP. It provides a few native commands to get you started building your 
 first project. Codex depends on the [symfony/console](https://github.com/symfony/console) library.
 
-Controller
-----------
+## Domain Setup
 
-This command will create a controller class (i.e. UsersController) in `App/Infrastructure/Http/Controllers`:
+If you are using the skeleton template, and you are keeping the same architecture, then you need to create your domain 
+structure before generating classes. For example, if you are working with a `Post` domain, you will need to first run the 
+following command:
 
-    ❯ php codex stub:make Users_controller
+    ❯ php codex ddd:make:domain Post
 
-Repository
-----------
+The command will create the following file and folder structure:
 
-This command will create a repository class (i.e UserViewRepository) in `App/Infrastructure/Persistence/Repository`:
+    src/Domain/Post
+    ├── Command
+    ├── Dto
+    ├── Enum
+    ├── Event
+    ├── Exception
+    ├── Query
+    ├── Repository
+    ├── Service
+    ├── Post.php
+    ├── Validator
+    └── ValueObject
 
-    ❯ php codex stub:make UserView_repository
+Once the `domain` has been created, you can use the following commands to generate your different classes:
 
-Service Provider
-----------------
+    ❯ php codex ddd:make
 
-This command will create a service provider class (i.e. DbalServiceProvider) in `App/Infrastructure/Providers`:
+The `ddd:make` is the command you will use when you want to generate a controller, service provider, validator, middleware, 
+aggregate, and so on. When you run the command, the following options will appear. For our example, we will choose 
+option 8 for `Input Validator` under the `Post` domain:
 
-    ❯ php codex stub:make DbalService_provider
+    Select the type of class to generate:
+    [0 ] Aggregate
+    [1 ] Domain Event
+    [2 ] Command + Handler
+    [3 ] Query + Handler
+    [4 ] Controller
+    [5 ] Middleware
+    [6 ] Service Provider
+    [7 ] Console Command
+    [8 ] Input Validator
+    [9 ] Form Request
+    [10] Aggregate Repository
+    >
 
-Middleware
-----------
+When we chose option 8, the following prompt appears, and then we should choose option 1:
 
-This command will create a middleware class (i.e. CsrfMiddleware) in `App/Infrastructure/Http/Middleware`:
+    Select the namespace to generate the class in:
+    [0] Application\
+    [1] Domain\
+    [2] Database\Seeders\
+    [3] Infrastructure\
+    >
 
-    ❯ php codex stub:make Csrf_middleware
+We are at our next prompt, and we should choose option 8:
 
-Error
------
+    Select subdirectory inside Domain\:
+    [0 ] [root directory]
+    [1 ] Post
+    [2 ] Post/Command
+    [3 ] Post/Event
+    [4 ] Post/Exception
+    [5 ] Post/Query
+    [6 ] Post/Repository
+    [7 ] Post/Service
+    [8 ] Post/Validator
+    [9 ] Post/ValueObject
+    [10] User
+    [11] User/Command
+    [12] User/Dto
+    [13] User/Enum
+    [14] User/Event
+    [15] User/Query
+    [16] User/Repository
+    [17] User/Service
+    [18] User/Validator
+    [19] User/ValueObject
+    >
 
-This command will create an error class (i.e. UserIdNotFoundError) in `App/Infrastructure/Errors`:
+After choosing option 8, we will then be asked to name our Validator. For this example we will chose the name `StorePost`:
 
-    ❯ php codex stub:make UserIdNotFound_error
+    Class name (no namespace): StorePost
+
+After entering the name, click enter, and you should see a similar message:
+
+    Created: /var/www/html/src/Domain/Post/Validator/StorePostValidator.php
 
 Hash A Password
 ---------------
@@ -83,168 +135,166 @@ The `ddd:uuid` command is useful if you need to generate a Uuid string for testi
 
     ❯ php codex ddd:uuid
 
-## Creating Codex Commands
-
-In addition to the commands provided with `Codex`, you may build your own custom commands. Commands are stored in the
-`App/Application/Console/Commands` directory.
-
-### Generating Commands
-
-To generate a new command, you can use the `stub:make` Codex command:
-
-    ❯ php codex stub:make CacheFileDelete_command
-
 ### Registering Commands
 
-CodefyPHP registers and loads commands automatically within the `App/Application/Console/Commands` directory. The best 
+CodefyPHP registers and loads commands automatically within the `src/Application/Console/Commands` directory. The best 
 and recommended place to register your custom console commands is by populating the `commands` property in 
-`App\Application\Console\Kernel`:
+`Application\Console\Kernel`:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console;
-    
-    use Codefy\Framework\Console\ConsoleKernel;
-    use Codefy\Framework\Scheduler\Schedule;
-    
-    class Kernel extends ConsoleKernel
-    {
-        /**
-         * Add your custom console commands here.
-         *
-         * @var array
-         */
-        protected array $commands = [
-            App\Application\Console\Commands\DummyCommand::class,
-        ];
-    
-        //
-    }
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Console;
+
+use Codefy\Framework\Console\ConsoleKernel;
+use Codefy\Framework\Scheduler\Schedule;
+use Symfony\Component\Console\Command\SignalableCommandInterface;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * Add your custom console commands here.
+     *
+     * @var array<class-string<SignalableCommandInterface>|callable>
+     */
+    protected array $commands = [
+        Application\Console\Commands\DummyCommand::class,
+    ];
+
+    //
+}
+```
 
 ### Command Structure
 
 After generating your new command, you need to define the name and description properties:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    
-    class CacheFileDeleteCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+
+class CacheFileDeleteCommand extends ConsoleCommand
+{
+    protected string $name = 'cache:file:delete';
+
+    protected string $description = 'Deletes cache files older than 30 days.';
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
     {
-        protected string $name = 'cache:file:delete';
-    
-        protected string $description = 'Deletes cache files older than 30 days.';
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            // logic for delete
-            return ConsoleCommand::SUCCESS;
-        }
+        // logic for delete
+        return ConsoleCommand::SUCCESS;
     }
+}
+```
 
 ### Exit Codes
 
 The handle method should return an exit code which is an integer. Here are a list of the exit codes you can use:
 
-* `Codefy\Framework\Console\ConsoleCommand::SUCCESS`
-* `Codefy\Framework\Console\ConsoleCommand::FAILURE`
-* `Codefy\Framework\Console\ConsoleCommand::INVALID`
+* `Codefy\Framework\Console\ConsoleCommand::SUCCESS` or (recommended) `self::SUCCESS`
+* `Codefy\Framework\Console\ConsoleCommand::FAILURE` or (recommended) `self::FAILURE`
+* `Codefy\Framework\Console\ConsoleCommand::INVALID` or (recommended) `self::INVALID`
 
 ### Inputs
 
 If you command accepts arguments or options, you can use the `configure()` method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    use Symfony\Component\Console\Input\InputArgument;
-    use Symfony\Component\Console\Input\InputOption;
-    
-    class CacheFileDeleteCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+
+class CacheFileDeleteCommand extends ConsoleCommand
+{
+    protected string $name = 'cache:file:delete';
+
+    protected string $description = 'Deletes cache files older than 30 days.';
+
+    protected function configure(): void
     {
-        protected string $name = 'cache:file:delete';
-    
-        protected string $description = 'Deletes cache files older than 30 days.';
+        parent::configure();
 
-        protected function configure(): void
-        {
-            parent::configure();
-    
-            $this
-                ->addArgument(
-                    name: 'argument',
-                    mode: InputArgument::REQUIRED,
-                    description: 'This argument is required.'
-                )
-                ->addOption(
-                    name: 'force',
-                    shortcut: '-f',
-                    mode: InputOption::VALUE_NONE,
-                    description: 'Do not prompt for confirmation'
-                )
-                ->setHelp(
-                    help: <<<EOT
-                The <info>cache:file:delete</info> command description...
-                <info>php codex cache:file:delete argument</info>
-                EOT
-            );
-        }
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            // logic for delete
-            return ConsoleCommand::SUCCESS;
-        }
+        $this
+            ->addArgument(
+                name: 'argument',
+                mode: InputArgument::REQUIRED,
+                description: 'This argument is required.'
+            )
+            ->addOption(
+                name: 'force',
+                shortcut: '-f',
+                mode: InputOption::VALUE_NONE,
+                description: 'Do not prompt for confirmation'
+            )
+            ->setHelp(
+                help: <<<EOT
+            The <info>cache:file:delete</info> command description...
+            <info>php codex cache:file:delete argument</info>
+            EOT
+        );
     }
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
+    {
+        // logic for delete
+        return ConsoleCommand::SUCCESS;
+    }
+}
+```
 
 ### User Confirmation
 
 If you need to confirm an action before actually executing it, you can use the `confirm()` method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    use Symfony\Component\Console\Input\InputArgument;
-    use Symfony\Component\Console\Input\InputOption;
-    
-    class CacheFileDeleteCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+
+class CacheFileDeleteCommand extends ConsoleCommand
+{
+    protected string $name = 'cache:file:delete';
+
+    protected string $description = 'Deletes cache files older than 30 days.';
+
+    //
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
     {
-        protected string $name = 'cache:file:delete';
-    
-        protected string $description = 'Deletes cache files older than 30 days.';
-
-        //
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            if (! $this->confirm(question: 'Do you want to continue?')) {
-                return ConsoleCommand::SUCCESS;
-            }
+        if (! $this->confirm(question: 'Do you want to continue?')) {
+            return ConsoleCommand::SUCCESS;
         }
     }
+}
+```
 
 !!! note
     In this case, the user will be asked "Do you want to continue?". If the user answers with `y` 
@@ -256,64 +306,68 @@ If you need to confirm an action before actually executing it, you can use the `
 
 You can also ask beyond a simple yes/no question.
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    use Symfony\Component\Console\Input\InputArgument;
-    use Symfony\Component\Console\Input\InputOption;
-    
-    class CummyCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+
+class CummyCommand extends ConsoleCommand
+{
+    //
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
     {
-        //
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            if (! $this->ask(question: 'Please enter your first name.', 'Bobby')) {
-                return ConsoleCommand::SUCCESS;
-            }
+        if (! $this->ask(question: 'Please enter your first name.', 'Bobby')) {
+            return ConsoleCommand::SUCCESS;
         }
     }
+}
+```
 
 #### Single Choice
 
 If you have a predefined list of answers, you can use the `choice()` method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    use Symfony\Component\Console\Input\InputArgument;
-    use Symfony\Component\Console\Input\InputOption;
-    
-    class DummyCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+
+class DummyCommand extends ConsoleCommand
+{
+    //
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
     {
-        //
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            $color = $this->choice(
-                question: 'Please select your favorite color (defaults to red)',
-                choices: ['red', 'blue', 'yellow'],
-                default: 0,
-                message: 'Color %s is invalid.'
-            );
-            
-            $this->terminalComment(string: 'You have just selected: '.$color);
-        }
+        $color = $this->choice(
+            question: 'Please select your favorite color (defaults to red)',
+            choices: ['red', 'blue', 'yellow'],
+            default: 0,
+            message: 'Color %s is invalid.'
+        );
+        
+        $this->terminalComment(string: 'You have just selected: '.$color);
     }
+}
+```
 
 !!! note
     To use custom indices, pass an array with custom numeric keys as the choice values:
@@ -328,34 +382,36 @@ If you have a predefined list of answers, you can use the `choice()` method:
 
 Sometimes, multiple answers can be given. The `multiChoice()` method provides this feature using comma separated values.
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Application\Console\Commands;
+```php
+<?php
 
-    use Codefy\Framework\Console\ConsoleCommand;
-    use Symfony\Component\Console\Input\InputArgument;
-    use Symfony\Component\Console\Input\InputOption;
-    
-    class DummyCommand extends ConsoleCommand
+declare(strict_types=1);
+
+namespace Application\Console\Commands;
+
+use Codefy\Framework\Console\ConsoleCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+
+class DummyCommand extends ConsoleCommand
+{
+    //
+
+    /**
+     * @throws EnvironmentIsBrokenException
+     */
+    public function handle(): int
     {
-        //
-    
-        /**
-         * @throws EnvironmentIsBrokenException
-         */
-        public function handle(): int
-        {
-            $color = $this->multiChoice(
-                question: 'Please select your favorite color (defaults to red and blue)',
-                choices: ['red', 'blue', 'yellow'],
-                default: '0, 1',
-            );
-            
-            $this->terminalComment(string: 'You have just selected: '.$color);
-        }
+        $color = $this->multiChoice(
+            question: 'Please select your favorite color (defaults to red and blue)',
+            choices: ['red', 'blue', 'yellow'],
+            default: '0, 1',
+        );
+        
+        $this->terminalComment(string: 'You have just selected: '.$color);
     }
+}
+```
 
 ### Printing Output
 

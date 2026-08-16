@@ -1,17 +1,10 @@
-***
-
 # InjectionChain
 
-
-
-
+***
 
 * Full name: `\Qubus\Injector\InjectionChain`
 
-
-
 ## Properties
-
 
 ### chain
 
@@ -21,15 +14,9 @@ Store the chain of instantiations.
 private array $chain
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### __construct
 
@@ -39,22 +26,11 @@ Instantiate an InjectionChain object.
 public __construct(array $inProgressMakes = []): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter          | Type      | Description                        |
+|--------------------|-----------|------------------------------------|
 | `$inProgressMakes` | **array** | Optional. Array of instantiations. |
-
-
-
-
 
 ***
 
@@ -66,20 +42,9 @@ Get the chain of instantiations.
 public getChain(): array
 ```
 
-
-
-
-
-
-
-
-
 **Return Value:**
 
 Array of instantiations.
-
-
-
 
 ***
 
@@ -97,33 +62,19 @@ more to the index.
 Provide a negative index to step back from the end of the chain.
 Example: `getByIndex( -2 )` will return the second-to-last element.
 
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$index` | **int** | Element index to retrieve. Negative value to fetch from the end of the chain. |
-
+| Parameter | Type    | Description                                                                   |
+|-----------|---------|-------------------------------------------------------------------------------|
+| `$index`  | **int** | Element index to retrieve. Negative value to fetch from the end of the chain. |
 
 **Return Value:**
 
 Class name of the element at the specified index. False if index not found.
 
-
-
 **Throws:**
-<p>If the index is not a numeric value.</p>
 
+If the index is not a numeric value.
 - [`RuntimeException`](../../RuntimeException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

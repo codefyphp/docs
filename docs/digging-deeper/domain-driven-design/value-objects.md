@@ -5,69 +5,72 @@ value objects to create: `Title` and `Content`. To keep it simple, we will have 
 Title
 -----
 
-    <?php
+```php
+<?php
 
-    use Qubus\Exception\Data\TypeException;
-    use Qubus\ValueObjects\StringLiteral\StringLiteral;
-    
-    final class Title extends StringLiteral
+use Domain\Post\ValueObject\Title;
+use Qubus\Exception\Data\TypeException;
+use Qubus\ValueObjects\StringLiteral\StringLiteral;
+
+final class Title extends StringLiteral
+{
+    /**
+     * @throws TypeException
+     */
+    public static function fromString(string $title): self
     {
-        /**
-         * @throws TypeException
-         */
-        public static function fromString(string $title): self
-        {
-            return new self(value: $title);
-        }
+        return new self(value: $title);
     }
+}
+```
 
 Content
 -------
 
-    <?php
+```php
+<?php
 
-    use Qubus\Exception\Data\TypeException;
-    use Qubus\ValueObjects\StringLiteral\StringLiteral;
-    
-    final class Content extends StringLiteral
+use Domain\Post\ValueObject\Content;
+use Qubus\Exception\Data\TypeException;
+use Qubus\ValueObjects\StringLiteral\StringLiteral;
+
+final class Content extends StringLiteral
+{
+    /**
+     * @throws TypeException
+     */
+    public static function fromString(string $content): self
     {
-        /**
-         * @throws TypeException
-         */
-        public static function fromString(string $content): self
-        {
-            return new self(value: $content);
-        }
+        return new self(value: $content);
     }
+}
+```
 
 `StringLiteral` has other methods to be aware of:
 
-    <?php
+```php
+<?php
 
-    /**
-     * Returns a String object given a PHP native string as parameter.
-     *
-     * @param  string $value
-     * @return StringLiteral|ValueObject
-     */
-    public static function fromNative(): ValueObject;
+/**
+ * Returns a String object given a PHP native string as parameter.
+ *
+ * @param  string $value
+ * @return ValueObject
+ */
+public static function fromNative(): ValueObject;
 
-    /**
-     * Returns the value of the string.
-     */
-    public function toNative(): string;
+/**
+ * Returns the value of the string.
+ */
+public function toNative(): mixed;
 
-    /**
-     * Tells whether two strings are equal by comparing their values
-     *
-     * @param  ValueObject $string
-     */
-    public function equals(ValueObject $stringLiteral): bool;
-
-    /**
-     * Tells whether the String is empty
-     */
-    public function isEmpty(): bool;
+/**
+ * Tells whether two strings are equal by comparing their values
+ *
+ * @param ValueObject $object
+ */
+public function equals(ValueObject $object): bool;
+```
 
 Both `Title` and `Content` inherit the above methods.
 

@@ -1,17 +1,10 @@
-***
-
 # ResourceController
 
-
-
-
+***
 
 * Full name: `\Qubus\Routing\Interfaces\ResourceController`
 
-
-
 ## Methods
-
 
 ### index
 
@@ -20,17 +13,6 @@ Display a listing of the resource.
 ```php
 public index(): mixed
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -42,22 +24,11 @@ Display the specified resource.
 public show(int|string $id): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **int&#124;string** |  |
-
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$id`     | **int\|string** |             |
 
 ***
 
@@ -69,22 +40,11 @@ Store a newly created resource in storage.
 public store(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\RequestInterface** |  |
-
-
-
-
+| Parameter  | Type                                   | Description |
+|------------|----------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\RequestInterface** |             |
 
 ***
 
@@ -96,17 +56,6 @@ Show the form for creating a new resource.
 public create(): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### edit
@@ -117,22 +66,11 @@ Show the form/view for editing the specified resource.
 public edit(int|string $id): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **int&#124;string** |  |
-
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$id`     | **int\|string** |             |
 
 ***
 
@@ -144,22 +82,11 @@ Update the specified resource in storage.
 public update(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$request` | **\Psr\Http\Message\RequestInterface** |  |
-
-
-
-
+| Parameter  | Type                                   | Description |
+|------------|----------------------------------------|-------------|
+| `$request` | **\Psr\Http\Message\RequestInterface** |             |
 
 ***
 
@@ -171,25 +98,10 @@ Remove the specified resource from storage.
 public destroy(int|string $id): \Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$id` | **int&#124;string** |  |
-
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$id`     | **int\|string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

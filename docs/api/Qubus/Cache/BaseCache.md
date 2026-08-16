@@ -1,94 +1,53 @@
-***
-
 # BaseCache
 
-
-
-
+***
 
 * Full name: `\Qubus\Cache\BaseCache`
 * This class implements:
-[`\Psr\SimpleCache\CacheInterface`](../../Psr/SimpleCache/CacheInterface.md), [`\Psr\Cache\CacheItemPoolInterface`](../../Psr/Cache/CacheItemPoolInterface.md)
+  `CacheInterface`,
+  `CacheItemPoolInterface`
 * This class is an **Abstract class**
-
-
 
 ## Properties
 
-
 ### pool
-
-
 
 ```php
 protected \Psr\Cache\CacheItemPoolInterface $pool
 ```
 
-
-
-
-
-
 ***
 
 ### cache
-
-
 
 ```php
 protected \Psr\SimpleCache\CacheInterface $cache
 ```
 
-
-
-
-
-
 ***
 
 ### adapter
-
-
 
 ```php
 protected \Psr\SimpleCache\CacheInterface|\Qubus\Cache\Adapter\CacheAdapter|null $adapter
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(int|null|\DateInterval $ttl = null, ?string $namespace = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$ttl` | **int&#124;null&#124;\DateInterval** |  |
-| `$namespace` | **?string** |  |
-
-
-
-
+| Parameter    | Type                         | Description |
+|--------------|------------------------------|-------------|
+| `$ttl`       | **int\|null\|\DateInterval** |             |
+| `$namespace` | **?string**                  |             |
 
 ***
 
@@ -100,27 +59,16 @@ public __construct(int|null|\DateInterval $ttl = null, ?string $namespace = null
 public get(string $key, mixed $default = null): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type       | Description |
+|------------|------------|-------------|
+| `$key`     | **string** |             |
+| `$default` | **mixed**  |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::get() - 
+* \Psr\SimpleCache\CacheInterface::get()
 
 ***
 
@@ -132,28 +80,17 @@ public get(string $key, mixed $default = null): mixed
 public set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-| `$value` | **mixed** |  |
-| `$ttl` | **null&#124;int&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$key`    | **string**                   |             |
+| `$value`  | **mixed**                    |             |
+| `$ttl`    | **null\|int\|\DateInterval** |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::set() - 
+* \Psr\SimpleCache\CacheInterface::set()
 
 ***
 
@@ -165,26 +102,15 @@ public set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
 public delete(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::delete() - 
+* \Psr\SimpleCache\CacheInterface::delete()
 
 ***
 
@@ -196,20 +122,11 @@ public delete(string $key): bool
 public clear(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::clear() - * \Psr\Cache\CacheInterface::clear() - * \Qubus\Cache\Psr16\Psr16Cache::clear() - 
+* \Psr\SimpleCache\CacheInterface::clear()
+* \Psr\Cache\CacheInterface::clear()
+* \Qubus\Cache\Psr16\Psr16Cache::clear()
 
 ***
 
@@ -221,27 +138,16 @@ public clear(): bool
 public getMultiple(iterable $keys, mixed $default = null): iterable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **iterable** |  |
-| `$default` | **mixed** |  |
-
-
-
-
+| Parameter  | Type         | Description |
+|------------|--------------|-------------|
+| `$keys`    | **iterable** |             |
+| `$default` | **mixed**    |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::getMultiple() - 
+* \Psr\SimpleCache\CacheInterface::getMultiple()
 
 ***
 
@@ -253,27 +159,16 @@ public getMultiple(iterable $keys, mixed $default = null): iterable
 public setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$values` | **iterable** |  |
-| `$ttl` | **null&#124;int&#124;\DateInterval** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$values` | **iterable**                 |             |
+| `$ttl`    | **null\|int\|\DateInterval** |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::setMultiple() - 
+* \Psr\SimpleCache\CacheInterface::setMultiple()
 
 ***
 
@@ -285,26 +180,15 @@ public setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
 public deleteMultiple(iterable $keys): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **iterable** |  |
-
-
-
-
+| Parameter | Type         | Description |
+|-----------|--------------|-------------|
+| `$keys`   | **iterable** |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::deleteMultiple() - 
+* \Psr\SimpleCache\CacheInterface::deleteMultiple()
 
 ***
 
@@ -316,26 +200,15 @@ public deleteMultiple(iterable $keys): bool
 public has(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **See Also:**
 
-* \Psr\SimpleCache\CacheInterface::has() - 
+* \Psr\SimpleCache\CacheInterface::has()
 
 ***
 
@@ -347,26 +220,15 @@ public has(string $key): bool
 public getItem(string $key): \Psr\Cache\CacheItemInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::getItem() - 
+* \Psr\Cache\CacheItemPoolInterface::getItem()
 
 ***
 
@@ -378,26 +240,15 @@ public getItem(string $key): \Psr\Cache\CacheItemInterface
 public getItems(array $keys = []): iterable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::getItems() - 
+* \Psr\Cache\CacheItemPoolInterface::getItems()
 
 ***
 
@@ -409,26 +260,15 @@ public getItems(array $keys = []): iterable
 public hasItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::hasItem() - 
+* \Psr\Cache\CacheItemPoolInterface::hasItem()
 
 ***
 
@@ -440,26 +280,15 @@ public hasItem(string $key): bool
 public deleteItem(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::deleteItem() - 
+* \Psr\Cache\CacheItemPoolInterface::deleteItem()
 
 ***
 
@@ -471,26 +300,15 @@ public deleteItem(string $key): bool
 public deleteItems(array $keys): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** |  |
-
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$keys`   | **array** |             |
 
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::deleteItems() - 
+* \Psr\Cache\CacheItemPoolInterface::deleteItems()
 
 ***
 
@@ -502,31 +320,19 @@ public deleteItems(array $keys): bool
 public save(\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$item`   | **\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`InvalidArgumentException`](../../Psr/Cache/InvalidArgumentException.md)
 
-
-
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::save() - 
+* \Psr\Cache\CacheItemPoolInterface::save()
 
 ***
 
@@ -538,31 +344,19 @@ public save(\Psr\Cache\CacheItemInterface $item): bool
 public saveDeferred(\Psr\Cache\CacheItemInterface $item): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$item` | **\Psr\Cache\CacheItemInterface** |  |
-
-
-
+| Parameter | Type                              | Description |
+|-----------|-----------------------------------|-------------|
+| `$item`   | **\Psr\Cache\CacheItemInterface** |             |
 
 **Throws:**
 
 - [`TypeException`](./TypeException.md)
 
-
-
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::saveDeferred() - 
+* \Psr\Cache\CacheItemPoolInterface::saveDeferred()
 
 ***
 
@@ -574,23 +368,8 @@ public saveDeferred(\Psr\Cache\CacheItemInterface $item): bool
 public commit(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 **See Also:**
 
-* \Psr\Cache\CacheItemPoolInterface::commit() - 
+* \Psr\Cache\CacheItemPoolInterface::commit()
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

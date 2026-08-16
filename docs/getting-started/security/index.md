@@ -8,7 +8,7 @@ Codefy provides built in support for CSRF (Cross-Site Request Forgery). Since ve
 app, CSRF protection is enabled by default.
 
 Codefy uses two middlewares working in tandem to provide CSRF protection. The `CsrfTokenMiddleware` (alias: `csrf.token`) 
-stores CSRF tokens in a session and is validated via a cookie. `CsrfProtectionMiddleware` (alias: `csrf.protection`) 
+creates a CSRF token and is validated via a cookie. `CsrfProtectionMiddleware` (alias: `csrf.protection`) 
 verifies the authenticity of a CSRF token by a request header (default) or when a form is submitted by the user.
 
 The application opens the session on every request. Each session based token is scoped to a specific user, and is only 
@@ -31,98 +31,84 @@ form tag instead. You will need to add the `csrf_field()` function to your form:
 
 ## CSRF Middleware Options
 
-You can set several options in the CsrfTokenMiddleware or in the middleware config found at `config/csrf.php`:
+You can set several options in the middleware config found at `config/csrf.php`:
 
-CsrfTokenMiddleware:
+```php
+<?php
 
-    <?php
+declare(strict_types=1);
 
-    SessionService::$options = [
-        'cookie-name' => 'CSRFSESSID',
-        'cookie-lifetime' => (int) 3600,
-    ];
+use function Codefy\Framework\Helpers\env;
 
-config/csrf.php:
-
-    <?php
-    
-    declare(strict_types=1);
-    
-    use function Codefy\Framework\Helpers\env;
-    
+/*
+|--------------------------------------------------------------------------
+| Define your CSRF options.
+|--------------------------------------------------------------------------
+*/
+return [
     /*
     |--------------------------------------------------------------------------
-    | Define your CSRF options.
+    | Request header.
     |--------------------------------------------------------------------------
     */
-    return [
-        /*
-        |--------------------------------------------------------------------------
-        | Request header.
-        |--------------------------------------------------------------------------
-        */
-        'header' => 'X-CSRF-Token',
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Set to false, if you rather use an html form tag.
-        |--------------------------------------------------------------------------
-        */
-        'request_header' => true,
-    
-        /*
-        |--------------------------------------------------------------------------
-        | HTML form attribute to check for.
-        |--------------------------------------------------------------------------
-        */
-        'csrf_token' => '_token',
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Default length of the CSRF token.
-        |--------------------------------------------------------------------------
-        */
-        'csrf_token_length' => (int) 64,
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Set a long unique string in .env.
-        |--------------------------------------------------------------------------
-        */
-        'salt' => env(key: 'APP_SALT'),
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Status code returned when token is missing or invalid.
-        |--------------------------------------------------------------------------
-        */
-        'error_status_code' => 412,
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Default cookie name.
-        |--------------------------------------------------------------------------
-        */
-        'cookie_name' => 'CSRFSESSID',
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Default hashing algorithm.
-        |--------------------------------------------------------------------------
-        */
-        'hash_algo' => 'sha256',
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Set the number of seconds. If null, it will be set for a day,
-        | else it will be set to the default cookies setting.
-        |--------------------------------------------------------------------------
-        */
-        'lifetime' => 3600,
-    ];
+    'header' => 'X-CSRF-Token',
 
-## CSRF and Session Timeouts
+    /*
+    |--------------------------------------------------------------------------
+    | Set to false, if you rather use an html form tag.
+    |--------------------------------------------------------------------------
+    */
+    'request_header' => true,
 
-The CSRF token is stored in a session. As soon as the session expires, the application will automatically generate a new 
-session with a new token.
+    /*
+    |--------------------------------------------------------------------------
+    | HTML form attribute to check for.
+    |--------------------------------------------------------------------------
+    */
+    'csrf_token' => '_token',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default length of the CSRF token.
+    |--------------------------------------------------------------------------
+    */
+    'csrf_token_length' => (int) 64,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Set a long unique string in .env.
+    |--------------------------------------------------------------------------
+    */
+    'salt' => env(key: 'APP_SALT'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status code returned when token is missing or invalid.
+    |--------------------------------------------------------------------------
+    */
+    'error_status_code' => 412,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cookie name.
+    |--------------------------------------------------------------------------
+    */
+    'cookie_name' => 'CSRFSESSID',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hashing algorithm.
+    |--------------------------------------------------------------------------
+    */
+    'hash_algo' => 'sha256',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Set the number of seconds. If null, it will be set for a day,
+    | else it will be set to the default cookies setting.
+    |--------------------------------------------------------------------------
+    */
+    'lifetime' => 2592000,
+];
+```
 

@@ -1,52 +1,27 @@
-***
-
 # FileLoggerSmtpFactory
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Factory\FileLoggerSmtpFactory`
 * This class implements:
-[`\Codefy\Framework\Contracts\LoggerFactory`](../Contracts/LoggerFactory.md)
-
-
-
+  [`\Codefy\Framework\Contracts\LoggerFactory`](../Contracts/LoggerFactory.md)
 
 ## Methods
 
-
 ### getLogger
-
-
 
 ```php
 public static getLogger(): \Psr\Log\LoggerInterface
 ```
 
-
-
 * This method is **static**.
-
-
-
-
-
-
-
 **Throws:**
 
 - [`ReflectionException`](../../../ReflectionException.md)
 
-- [`TypeException`](../../../Qubus/Exception/Data/TypeException.md)
-
-
-
 ***
 
-
 ## Inherited methods
-
 
 ### emergency
 
@@ -56,30 +31,18 @@ System is unusable.
 public static emergency(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -95,27 +58,17 @@ Example: Entire website down, database unavailable, etc. This should
 trigger the SMS alerts and wake you up.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -130,27 +83,17 @@ public static critical(string|\Stringable $message, array $context = []): void
 Example: Application component unavailable, unexpected exception.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -163,30 +106,18 @@ be logged and monitored.
 public static error(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -202,27 +133,17 @@ Example: Use of deprecated APIs, poor use of an API, undesirable things
 that are not necessarily wrong.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -234,30 +155,18 @@ Normal but significant events.
 public static notice(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -272,27 +181,17 @@ public static info(string|\Stringable $message, array $context = []): void
 Example: User logs in, SQL logs.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
-
-
 
 ***
 
@@ -304,33 +203,17 @@ Detailed debug information.
 public static debug(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../Exception.md)
 - [`ReflectionException`](../../../ReflectionException.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

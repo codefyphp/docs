@@ -14,13 +14,17 @@ CodefyPHP ships with a `user.authorization` middleware, which is a middleware al
 `Codefy\Framework\Http\Middleware\Auth\UserAuthorizationMiddleware`. All you need to do is use the alias to attach 
 the middleware to your route:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    return function (\Qubus\Routing\Psr7Router $router) {
-        $router->get('/admin/dashboard', 'AdminController@dashboard')->middleware('user.authorization');
-    };
+```php
+<?php
+
+declare(strict_types=1);
+
+return function (\Qubus\Routing\Psr7Router $router) {
+    $router
+    ->get('/admin/', 'AdminController@dashboard')
+    ->middleware('user.authorization');
+};
+```
 
 ## Is Authenticated
 
@@ -33,42 +37,32 @@ middleware on your routes and/or controllers.
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $router->get('/admin/dashboard', 'AdminController@dashboard')->middleware('user.authorization');
+    $router
+        ->get('/admin/', 'AdminController@dashboard')
+        ->middleware('user.authorization');
 };
 ```
 
-```php title="./App/Infrastructure/Http/Controllers/AdminController.php"
+```php title="./src/Application/Http/Controller/AdminController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Services\UserAuth;
 use Codefy\Framework\Http\BaseController;
-use Qubus\Http\Factories\HtmlResponseFactory;
-use Qubus\Http\ServerRequest;
-use Qubus\Http\Session\SessionService;
-use Qubus\Routing\Router;
-use Qubus\View\Renderer;
+use Psr\Http\Message\ResponseInterface;
 
-use function Codefy\Framework\Helpers\site_url;
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
 
 final class AdminController extends BaseController
 {
-    public function __construct(
-        protected SessionService $sessionService,
-        protected Router $router,
-        protected UserAuth $user,
-        protected Renderer $view
-    ) {
-        parent::__construct($sessionService, $router, $view);
-    }
-
-    public function dashboard(ServerRequest $request): ResponseInterface
+    public function dashboard(): ResponseInterface
     {
-        return HtmlResponseFactory::create(
-            $this->view->render(template: 'framework::backend/index', data: ['title' => 'Dashboard'])
+        return view(
+            template: 'framework::backend/index',
+            data: ['title' => trans('Dashboard')]
         );
     }
 }
@@ -76,46 +70,37 @@ final class AdminController extends BaseController
 
 ### Retrieve Authenticated User
 
-While handling an incoming request, you may access the authenticated user via the `UserAuth` class's `current()` method:
+While handling an incoming request, you may access the authenticated user via the 
+[`user()`](../../digging-deeper/helpers/user.md) helper:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Http\Controllers;
-    
-    use App\Infrastructure\Services\UserAuth;
-    use Codefy\Framework\Http\BaseController;
-    use Qubus\Http\Factories\HtmlResponseFactory;
-    use Qubus\Http\ServerRequest;
-    use Qubus\Http\Session\SessionService;
-    use Qubus\Routing\Router;
-    use Qubus\View\Renderer;
-    
-    final class AdminController extends BaseController
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Http\Controller;
+
+use Codefy\Framework\Http\BaseController;
+use Psr\Http\Message\ResponseInterface;
+
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\user;
+use function Codefy\Framework\Helpers\view;
+
+final class AdminController extends BaseController
+{
+    public function dashboard(): ResponseInterface
     {
-        public function __construct(
-            protected SessionService $sessionService,
-            protected Router $router,
-            protected UserAuth $user,
-            protected Renderer $view
-        ) {
-            parent::__construct($sessionService, $router, $view);
-        }
-    
-        public function dashboard(ServerRequest $request): ResponseInterface
-        {
-            return HtmlResponseFactory::create(
-                $this->view->render(
-                    template: 'framework::backend/index',
-                    data: [
-                        'title' => 'Dashboard',
-                        'user'  => $this->user->current(),
-                    ]
-                )
-            );
-        }
+        return view(
+            template: 'framework::backend/index',
+            data: [
+                'title' => trans('Dashboard'),
+                'user'  => user(),
+            ]
+        );
     }
+}
+```
 
 ### Redirecting Unauthenticated Users
 
@@ -128,7 +113,7 @@ To use the throttling middleware for rate limiting, check out the [Rate Limiting
 
 ## Remembering Users
 
-The `user.session` middleware automatically looks for a `rememberme` request. If you would like to provider 
+The `user.session` middleware automatically looks for a `rememberme` request. If you would like to provide 
 `remember me` functionality to your application, you need to add an html field to your login form similar to below:
 
 ```html
@@ -150,42 +135,28 @@ requests are not authenticated.
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $router->get('/admin/logout', 'AdminController@logout')->middleware('user.session.expire');
+    $router
+        ->get('/logout/', 'AuthController@logout')
+        ->middleware('user.session.expire');
 };
 ```
 
-```php title="./App/Infrastructure/Http/Controllers/AdminController.php"
+```php title="./src/Application/Http/Controller/AdminController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Services\UserAuth;
 use Codefy\Framework\Http\BaseController;
-use Qubus\Http\Factories\HtmlResponseFactory;
-use Qubus\Http\ServerRequest;
-use Qubus\Http\Session\SessionService;
-use Qubus\Routing\Router;
-use Qubus\View\Renderer;
+use Psr\Http\Message\ResponseInterface;
 
-use function Codefy\Framework\Helpers\site_url;
-
-final class AdminController extends BaseController
+final class AuthController extends BaseController
 {
-    public function __construct(
-        protected SessionService $sessionService,
-        protected Router $router,
-        protected UserAuth $user,
-        protected Renderer $view
-    ) {
-        parent::__construct($sessionService, $router, $view);
-    }
-
     public function logout(): ResponseInterface
     {
         // Redirect users to the login screen on logout.
-        return $this->redirect(url: site_url(path: $this->router->url(name: 'admin.login')));
+        return $this->redirect(url: $this->router->url(name: 'auth.login'));
     }
 }
 ```

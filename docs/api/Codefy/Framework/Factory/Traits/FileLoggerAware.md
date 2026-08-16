@@ -1,18 +1,10 @@
-***
-
 # FileLoggerAware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Factory\Traits\FileLoggerAware`
 
-
-
-
 ## Methods
-
 
 ### emergency
 
@@ -22,33 +14,20 @@ System is unusable.
 public static emergency(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### alert
 
 Action must be taken immediately.
@@ -61,30 +40,19 @@ Example: Entire website down, database unavailable, etc. This should
 trigger the SMS alerts and wake you up.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### critical
 
 Critical conditions.
@@ -96,30 +64,19 @@ public static critical(string|\Stringable $message, array $context = []): void
 Example: Application component unavailable, unexpected exception.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### error
 
 Runtime errors that do not require immediate action but should typically
@@ -129,33 +86,20 @@ be logged and monitored.
 public static error(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### warning
 
 Exceptional occurrences that are not errors.
@@ -168,30 +112,19 @@ Example: Use of deprecated APIs, poor use of an API, undesirable things
 that are not necessarily wrong.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### notice
 
 Normal but significant events.
@@ -200,33 +133,20 @@ Normal but significant events.
 public static notice(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### info
 
 Interesting events.
@@ -238,30 +158,19 @@ public static info(string|\Stringable $message, array $context = []): void
 Example: User logs in, SQL logs.
 
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
 ### debug
 
 Detailed debug information.
@@ -270,33 +179,17 @@ Detailed debug information.
 public static debug(string|\Stringable $message, array $context = []): void
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$message` | **string&#124;\Stringable** |  |
-| `$context` | **array** |  |
-
-
-
+| Parameter  | Type                    | Description |
+|------------|-------------------------|-------------|
+| `$message` | **string\|\Stringable** |             |
+| `$context` | **array**               |             |
 
 **Throws:**
 
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
+- [`Exception`](../../../../Exception.md)
 - [`ReflectionException`](../../../../ReflectionException.md)
 
-
-
 ***
-
-***
-> Automatically generated on 2025-10-13
-

@@ -12,46 +12,48 @@ TDD
 
 Let’s test it out:
 
-    <?php
+```php
+<?php
 
-    use App\Domain\Post\Post;
-    use App\Domain\Post\ValueObject\PostId;
-    use App\Domain\Post\ValueObject\Title;
-    use App\Domain\Post\ValueObject\Content;
-    use Codefy\Domain\EventSourcing\InMemoryEventStore;
-    
-    use function expect;
-    use function it;
-    use function iterator_to_array;
-    
-    it('should retrieve all events from the event store based on aggregate id.', function () {
-        $postId = new PostId(value: '1cf57c2c-5c82-45a0-8a42-f0b725cfc42f');
-    
-        $post = Post::createPost(
-            postId: $postId,
-            title: new Title(value: 'Second Post Title'),
-            content: new Content(value: 'Another short form content.')
-        );
-    
-        $events = $post->getRecordedEvents();
-        $eventStore = new InMemoryEventStore();
-    
-        foreach ($events as $event) {
-            $eventStore->append(event: $event);
-        }
-    
-        $iterator = $eventStore->getAggregateHistoryFor(
-            aggregateId: PostId::fromString(
-                postId: '1cf57c2c-5c82-45a0-8a42-f0b725cfc42f'
-            )
-        );
-        $aggregateHistory = iterator_to_array(iterator: $iterator->getIterator());
-    
-        foreach ($aggregateHistory as $event) {
-            expect(value: $post->title())->toEqual(expected: $event->title());
-            expect(value: $post->aggregateId())->toEqual(expected: $event->aggregateId());
-        }
-    });
+use Codefy\Domain\EventSourcing\InMemoryEventStore;
+use Domain\Post\Post;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
+use Domain\Post\ValueObject\Content;
+
+use function expect;
+use function it;
+use function iterator_to_array;
+
+it('should retrieve all events from the event store based on aggregate id.', function () {
+    $postId = new PostId(value: '1cf57c2c-5c82-45a0-8a42-f0b725cfc42f');
+
+    $post = Post::createPost(
+        postId: $postId,
+        title: new Title(value: 'Second Post Title'),
+        content: new Content(value: 'Another short form content.')
+    );
+
+    $events = $post->getRecordedEvents();
+    $eventStore = new InMemoryEventStore();
+
+    foreach ($events as $event) {
+        $eventStore->append(event: $event);
+    }
+
+    $iterator = $eventStore->getAggregateHistoryFor(
+        aggregateId: PostId::fromString(
+            postId: '1cf57c2c-5c82-45a0-8a42-f0b725cfc42f'
+        )
+    );
+    $aggregateHistory = iterator_to_array(iterator: $iterator->getIterator());
+
+    foreach ($aggregateHistory as $event) {
+        expect(value: $post->title())->toEqual(expected: $event->title());
+        expect(value: $post->aggregateId())->toEqual(expected: $event->aggregateId());
+    }
+});
+```
 
 Github
 ------

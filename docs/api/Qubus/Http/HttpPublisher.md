@@ -1,20 +1,14 @@
-***
-
 # HttpPublisher
 
 StreamPublisher publishes the given response.
 
-
+***
 
 * Full name: `\Qubus\Http\HttpPublisher`
 * This class implements:
-[`\Qubus\Http\Publisher`](./Publisher.md)
-
-
-
+  [`\Qubus\Http\Publisher`](./Publisher.md)
 
 ## Methods
-
 
 ### publish
 
@@ -24,28 +18,16 @@ Publish the content.
 public publish(\Psr\Http\Message\ResponseInterface|\Psr\Http\Message\StreamInterface $content, ?\Laminas\HttpHandlerRunner\Emitter\EmitterInterface $response): bool|\Psr\Http\Message\ResponseInterface
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$content` | **\Psr\Http\Message\ResponseInterface&#124;\Psr\Http\Message\StreamInterface** |  |
-| `$response` | **?\Laminas\HttpHandlerRunner\Emitter\EmitterInterface** |  |
-
-
-
+| Parameter   | Type                                                                       | Description |
+|-------------|----------------------------------------------------------------------------|-------------|
+| `$content`  | **\Psr\Http\Message\ResponseInterface\|\Psr\Http\Message\StreamInterface** |             |
+| `$response` | **?\Laminas\HttpHandlerRunner\Emitter\EmitterInterface**                   |             |
 
 **Throws:**
 
 - [`\LogicException|\Exception`](../../LogicException|/Exception.md)
-
-
 
 ***
 
@@ -57,22 +39,11 @@ Emit the message body.
 private emitStreamBody(\Psr\Http\Message\StreamInterface $body): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$body` | **\Psr\Http\Message\StreamInterface** |  |
-
-
-
-
+| Parameter | Type                                  | Description |
+|-----------|---------------------------------------|-------------|
+| `$body`   | **\Psr\Http\Message\StreamInterface** |             |
 
 ***
 
@@ -84,25 +55,10 @@ Emit the response header.
 private emitResponseHeaders(\Psr\Http\Message\ResponseInterface $response): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$response` | **\Psr\Http\Message\ResponseInterface** |  |
-
-
-
-
+| Parameter   | Type                                    | Description |
+|-------------|-----------------------------------------|-------------|
+| `$response` | **\Psr\Http\Message\ResponseInterface** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

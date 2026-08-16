@@ -1,17 +1,10 @@
-***
-
 # CommandBus
 
-
-
-
+***
 
 * Full name: `\Codefy\CommandBus\CommandBus`
 
-
-
 ## Methods
-
 
 ### execute
 
@@ -21,25 +14,10 @@ Execute a command
 public execute(\Codefy\CommandBus\Command $command): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$command` | **\Codefy\CommandBus\Command** |  |
-
-
-
-
+| Parameter  | Type                           | Description |
+|------------|--------------------------------|-------------|
+| `$command` | **\Codefy\CommandBus\Command** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -22,49 +22,51 @@ throughout the application via the`RouterServiceProvider`. Any place in the appl
 Below is a basic example of setting up a route. The route's first parameter is the uri, and the second parameter is a 
 closure or callback.
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    /**
-    * Step 1: Require autoloader and import a few needed classes.
-    */
+/**
+* Step 1: Require autoloader and import a few needed classes.
+*/
 
-    require('vendor/autoload.php');
-    
-    use Psr\Http\Message\RequestInterface;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ResponseFactoryInterface;
-    use Qubus\Http\Request;
-    use Qubus\Http\Response;
-    use Qubus\Injector\Config\Factory;
-    use Qubus\Injector\Psr11\Container;
-    use Qubus\Routing\Route\RouteCollector;
-    use Qubus\Routing\Router;
-    
-    $container = new Container(Factory::create([
-        Container::STANDARD_ALIASES => [
-            RequestInterface::class => Request::class,
-            ResponseInterface::class => Response::class,
-            ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
-        ]
-    ]));
-    
-    /**
-    * Step 2: Instantiate the Router.
-    */
+require('vendor/autoload.php');
 
-    $router = new Router(new RouteCollector(), $container);
-    //$router->setBasePath('/'); If the router is installed in a directory, then you need to set the base path.
-    
-    /**
-    * Step 3: Include the routes needed
-    */
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Qubus\Http\Request;
+use Qubus\Http\Response;
+use Qubus\Injector\Config\Factory;
+use Qubus\Injector\Psr11\Container;
+use Qubus\Routing\Route\RouteCollector;
+use Qubus\Routing\Router;
 
-    // Prints `Hello world!`.
-    $router->get('/hello-world/', function () {
-        return 'Hello world!';
-    });
+$container = new Container(Factory::create([
+    Container::STANDARD_ALIASES => [
+        RequestInterface::class => Request::class,
+        ResponseInterface::class => Response::class,
+        ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
+    ]
+]));
+
+/**
+* Step 2: Instantiate the Router.
+*/
+
+$router = new Router(new RouteCollector(), $container);
+//$router->setBasePath('/'); If the router is installed in a directory, then you need to set the base path.
+
+/**
+* Step 3: Include the routes needed
+*/
+
+// Prints `Hello world!`.
+$router->get('/hello-world/', function () {
+    return 'Hello world!';
+});
+```
 
 ### Route Closure
 
@@ -72,51 +74,53 @@ In passing a closure as a route handler, you need to pass in two arguments: `Psr
 and `Psr\Http\Message\ResponseInterface`. You can use `Qubus\Http\ServerRequest` and `Qubus\Http\Response` which 
 satisfies both `Psr` contracts:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    /**
-    * Step 1: Require autoloader and import a few needed classes.
-    */
+/**
+* Step 1: Require autoloader and import a few needed classes.
+*/
 
-    require('vendor/autoload.php');
-    
-    use Psr\Http\Message\RequestInterface;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ResponseFactoryInterface;
-    use Qubus\Http\Request;
-    use Qubus\Http\Response;
-    use Qubus\Http\ServerRequest;
-    use Qubus\Injector\Config\Factory;
-    use Qubus\Injector\Psr11\Container;
-    use Qubus\Routing\Route\RouteCollector;
-    use Qubus\Routing\Router;
-    
-    $container = new Container(Factory::create([
-        Container::STANDARD_ALIASES => [
-            RequestInterface::class => Request::class,
-            ResponseInterface::class => Response::class,
-            ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
-        ]
-    ]));
-    
-    /**
-    * Step 2: Instantiate the Router.
-    */
+require('vendor/autoload.php');
 
-    $router = new Router(new RouteCollector(), $container);
-    //$router->setBasePath('/'); If the router is installed in a directory, then you need to set the base path.
-    
-    /**
-    * Step 3: Include the routes needed
-    */
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Qubus\Http\Request;
+use Qubus\Http\Response;
+use Qubus\Http\ServerRequest;
+use Qubus\Injector\Config\Factory;
+use Qubus\Injector\Psr11\Container;
+use Qubus\Routing\Route\RouteCollector;
+use Qubus\Routing\Router;
 
-    // Get hello-world route.
-    $router->get('/hello-world/', function (ServerRequest $serverRequest, Response $response) {
-        $response->getBody()->write('Hello World!');
-        return $response;
-    });
+$container = new Container(Factory::create([
+    Container::STANDARD_ALIASES => [
+        RequestInterface::class => Request::class,
+        ResponseInterface::class => Response::class,
+        ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
+    ]
+]));
+
+/**
+* Step 2: Instantiate the Router.
+*/
+
+$router = new Router(new RouteCollector(), $container);
+//$router->setBasePath('/'); If the router is installed in a directory, then you need to set the base path.
+
+/**
+* Step 3: Include the routes needed
+*/
+
+// Get hello-world route.
+$router->get('/hello-world/', function (ServerRequest $serverRequest, Response $response) {
+    $response->getBody()->write('Hello World!');
+    return $response;
+});
+```
 
 ## Route Setup
 
@@ -132,7 +136,7 @@ File based routing is the default way in which routes are loaded:
 
 declare(strict_types=1);
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
 
 return function (\Qubus\Routing\Psr7Router $router) {
     $router->get('/', 'HomeController@index')->middleware(AddHeaderMiddleware::class);
@@ -146,8 +150,8 @@ Then you can add the route file(s) to the `withRouting` method of the applicatio
 
 declare(strict_types=1);
 
-use App\Infrastructure\Providers\DatabaseServiceProvider;
-use App\Infrastructure\Providers\ViewServiceProvider;
+use Application\Provider\DatabaseServiceProvider;
+use Application\Provider\ViewServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
 use Qubus\Exception\Data\TypeException;
 
@@ -182,16 +186,16 @@ try {
 ### Service Provider Routing
 
 Instead of adding your routes to `routes/web/web.php`, you can instead add them to 
-`App\Infrastructure\Providers\WebRouteServiceProvider` using the boot method:
+`Application\Provider\WebRouteServiceProvider` using the boot method:
 
-```php title="./app/Infrastructure/Providers/WebRouteServiceProvider.php"
+```php title="./src/Application/Provider/WebRouteServiceProvider.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Providers;
+namespace Application\Provider;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
 use Codefy\Framework\Support\CodefyServiceProvider;
 use Qubus\Exception\Data\TypeException;
 use Qubus\Routing\Router;
@@ -224,9 +228,9 @@ Then you can add the service provider to the `withProviders` method of the appli
 
 declare(strict_types=1);
 
-use App\Infrastructure\Providers\DatabaseServiceProvider;
-use App\Infrastructure\Providers\ViewServiceProvider;
-use App\Infrastructure\Providers\WebRouteServiceProvider;
+use Application\Provider\DatabaseServiceProvider;
+use Application\Provider\ViewServiceProvider;
+use Application\Provider\WebRouteServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
 use Qubus\Exception\Data\TypeException;
 
@@ -259,14 +263,14 @@ try {
 
 One last method you can use to add routes is by creating route classes:
 
-```php title="./app/Infrastructure/Http/Routes/WebRoute.php"
+```php title="./src/Application/Http/Route/WebRoute.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Routes;
+namespace Application\Http\Route;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
 use Qubus\Routing\Psr7Router;
 
 readonly class WebRoute
@@ -284,14 +288,14 @@ readonly class WebRoute
 
 Or you can bypass adding a constructor and instead add the Router dependency to the `handle` method:
 
-```php title="./app/Infrastructure/Http/Routes/WebRoute.php"
+```php title="./src/Application/Http/Route/WebRoute.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Routes;
+namespace Application\Http\Route;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
 use Qubus\Routing\Psr7Router;
 
 readonly class WebRoute
@@ -310,9 +314,9 @@ Then you can add the route class to the `withRouting` method of the application:
 
 declare(strict_types=1);
 
-use App\Infrastructure\Http\Routes\WebRoute;
-use App\Infrastructure\Providers\DatabaseServiceProvider;
-use App\Infrastructure\Providers\ViewServiceProvider;
+use Application\Http\Route\WebRoute;
+use Application\Provider\DatabaseServiceProvider;
+use Application\Provider\ViewServiceProvider;
 use Codefy\Framework\Application as CodefyApp;
 use Qubus\Exception\Data\TypeException;
 
@@ -542,30 +546,30 @@ return function (\Qubus\Routing\Psr7Router $router) {
 };
 ```
 
-```php title="./app/Infrastructure/Http/Controllers/PostController.php"
+```php title="./src/Application/Http/Controller/PostController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Http\Factories\HtmlResponseFactory;
 use Qubus\Routing\Interfaces\ResourceController;
+
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
 
 class PostController extends BaseController implements ResourceController
 {
     public function index(): ?ResponseInterface
     {
-        return HtmlResponseFactory::create(
-            $this->view->render(
-                template: 'framework::post/index',
-                data: [
-                    'title' => 'Posts',
-                    'url' => $this->router->url(name: 'posts.index'),
-                ]
-            )
+        return view(
+            template: 'framework::post/index',
+            data: [
+                'title' => trans('Posts'),
+                'url' => $this->router->url(name: 'posts.index'),
+            ]
         );
     }
 
@@ -585,30 +589,30 @@ return function (\Qubus\Routing\Psr7Router $router) {
 };
 ```
 
-```php title="./app/Infrastructure/Http/Controllers/PostController.php"
+```php title="./src/Application/Http/Controller/PostController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
 use Codefy\Framework\Http\BaseController;
 use Psr\Http\Message\ResponseInterface;
-use Qubus\Http\Factories\HtmlResponseFactory;
 use Qubus\Routing\Interfaces\ResourceController;
+
+use function Codefy\Framework\Helpers\trans;
+use function Codefy\Framework\Helpers\view;
 
 class PostController extends BaseController implements ResourceController
 {
-    public function show(string $id): ?ResponseInterface
+    public function show(string $id): ResponseInterface
     {
-        return HtmlResponseFactory::create(
-            $this->view->render(
-                template: 'framework::post/index',
-                data: [
-                    'title' => 'Posts',
-                    'url' => $this->router->url(name: 'posts.show', ['id' => $id]),
-                ]
-            )
+        return view(
+            template: 'framework::post/index',
+            data: [
+                'title' => trans('Posts'),
+                'url' => $this->router->url(name: 'posts.show', ['id' => $id]),
+            ]
         );
     }
 
@@ -685,9 +689,9 @@ At it's simplest, adding Middleware to a route can be done by passing an object 
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $middleware = new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
+    $middleware = new \Application\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
 
-    $router->get('hello-world', '\Mvc\App\MyControllers\HelloWorldController@sayHello')->middleware($middleware);
+    $router->get('hello-world', '\Application\Http\Controller\HelloWorldController@sayHello')->middleware($middleware);
 };
 ```
 
@@ -699,10 +703,10 @@ Multiple middleware can be added by passing more parameters to the `middleware()
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $header = new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
-    $auth = new \App\Infrastructure\Http\Middleware\AuthMiddleware();
+    $header = new \Application\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
+    $auth = new \Application\Http\Middleware\AuthMiddleware();
     
-    $router->get('auth', '\Mvc\App\MyControllers\TestController@testMethod')->middleware($header, $auth);
+    $router->get('auth', '\Application\Http\Controller\TestController@testMethod')->middleware($header, $auth);
 };
 ```
 
@@ -714,10 +718,10 @@ Or alternatively, you can also pass an array of middleware:
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $header = new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
-    $auth = new \App\Infrastructure\Http\Middleware\AuthMiddleware();
+    $header = new \Application\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
+    $auth = new \Application\Http\Middleware\AuthMiddleware();
     
-    $router->get('auth', '\Mvc\App\MyControllers\TestController@testMethod')->middleware([$header, $auth]);
+    $router->get('auth', '\Application\Http\Controller\TestController@testMethod')->middleware([$header, $auth]);
 };
 ```
 
@@ -732,7 +736,7 @@ declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
     $router->setBaseMiddleware([
-        new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key', 'abc'),
+        new \Application\Http\Middleware\AddHeaderMiddleware('X-Key', 'abc'),
     ]);
 };
 ```
@@ -772,7 +776,7 @@ function instead of a string.
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $header = new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
+    $header = new \Application\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
 
     $router->group(['prefix' => 'my-prefix', 'middleware' => $header]), function (\Qubus\Routing\Route\RouteGroup $group) {
         $group->map(['GET'], 'route1', function () {}); // `/my-prefix/route1`
@@ -789,8 +793,8 @@ You can also pass an array of middleware if you need more than one:
 declare(strict_types=1);
 
 return function (\Qubus\Routing\Psr7Router $router) {
-    $header = new \App\Infrastructure\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
-    $auth = new \App\Infrastructure\Http\Middleware\AuthMiddleware();
+    $header = new \Application\Http\Middleware\AddHeaderMiddleware('X-Key1', 'abc');
+    $auth = new \Application\Http\Middleware\AuthMiddleware();
 
     $router->group(['prefix' => 'my-prefix', 'middleware' => [$header, $auth]]), function (\Qubus\Routing\Route\RouteGroup $group) {
         $group->map(['GET'], 'route1', function () {}); // `/my-prefix/route1`
@@ -806,15 +810,15 @@ You can also apply Middleware to Controllers. In order to do this your Controlle
 
 Middleware is added by calling the `middleware()` method in your Controller's `__constructor()`.
 
-```php title="./app/Infrastructure/Http/Controllers/DashboardController.php"
+```php title="./src/Application/Http/Controller/DashboardController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
-use App\Infrastructure\Http\Middleware\AuthMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AuthMiddleware;
 use Codefy\Framework\Http\BaseController;
 use Qubus\Http\Session\SessionService;
 use Qubus\Routing\Router;
@@ -845,15 +849,15 @@ class DashboardController extends BaseController
 By default, all Middlewares added via a Controller will affect all methods on that class. To limit what methods a 
 Middleware should be applied to, you can use `only()` and `except()`:
 
-```php title="./app/Infrastructure/Http/Controllers/DashboardController.php"
+```php title="./src/Application/Http/Controller/DashboardController.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controllers;
+namespace Application\Http\Controller;
 
-use App\Infrastructure\Http\Middleware\AddHeaderMiddleware;
-use App\Infrastructure\Http\Middleware\AuthMiddleware;
+use Application\Http\Middleware\AddHeaderMiddleware;
+use Application\Http\Middleware\AuthMiddleware;
 use Codefy\Framework\Http\BaseController;
 use Qubus\Http\Session\SessionService;
 use Qubus\Routing\Router;
@@ -885,48 +889,50 @@ class DashboardController extends BaseController
 You can dispatch a router by using [Laminas SapiEmitter](https://github.com/laminas/laminas-httphandlerrunner/blob/master/src/Emitter/SapiEmitter.php) in combination with `ServerRequest` or use `ServerRequest` in 
 combination with `HttpPublisher`.
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    /**
-    * Step 4: Dispath the router.
-    */
+/**
+* Step 4: Dispath the router.
+*/
 
-    use Qubus\Http\ServerRequest;
-    use Laminas\HttpHandlerRunner\Emitter\SapiEmitter as EmitResponse;
-    
-    return (new EmitResponse)->emit(
-        $router->match(
-            ServerRequest::fromGlobals(
-                $_SERVER,
-                $_GET,
-                $_POST,
-                $_COOKIE,
-                $_FILES
-            )
+use Qubus\Http\ServerRequest;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter as EmitResponse;
+
+return (new EmitResponse)->emit(
+    $router->match(
+        ServerRequest::fromGlobals(
+            $_SERVER,
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES
         )
-    );
-    
-    /**
-    * Or you can use the HttpPublisher:
-    */
+    )
+);
 
-    use Qubus\Http\ServerRequest;
-    use Qubus\Http\HttpPublisher;
-    
-    return (new HttpPublisher)->publish(
-        $router->match(
-            ServerRequest::fromGlobals(
-                $_SERVER,
-                $_GET,
-                $_POST,
-                $_COOKIE,
-                $_FILES
-            )
-        ),
-        null
-    );
+/**
+* Or you can use the HttpPublisher:
+*/
+
+use Qubus\Http\ServerRequest;
+use Qubus\Http\HttpPublisher;
+
+return (new HttpPublisher)->publish(
+    $router->match(
+        ServerRequest::fromGlobals(
+            $_SERVER,
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES
+        )
+    ),
+    null
+);
+```
 
 !!! note "Important"
     If you are using the [skeleton](https://github.com/codefyphp/skeleton) app, the dispatching of the router 
@@ -939,52 +945,56 @@ This allows you to type hint dependencies in your route closures or Controller m
 
 To make use of a container, simply pass it as a parameter to the Router's constructor:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    use Psr\Http\Message\RequestInterface;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ResponseFactoryInterface;
-    use Qubus\Http\Request;
-    use Qubus\Http\Response;
-    use Qubus\Injector\Config\Factory;
-    use Qubus\Injector\Psr11\Container;
-    use Qubus\Routing\Route\RouteCollector;
-    use Qubus\Routing\Router;
-    
-    $container = new Container(Factory::create([
-        Container::STANDARD_ALIASES => [
-            RequestInterface::class => Request::class,
-            ResponseInterface::class => Response::class,
-            ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
-        ]
-    ]));
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Qubus\Http\Request;
+use Qubus\Http\Response;
+use Qubus\Injector\Config\Factory;
+use Qubus\Injector\Psr11\Container;
+use Qubus\Routing\Route\RouteCollector;
+use Qubus\Routing\Router;
 
-    $router = new Router(new RouteCollector(), $container);
+$container = new Container(Factory::create([
+    Container::STANDARD_ALIASES => [
+        RequestInterface::class => Request::class,
+        ResponseInterface::class => Response::class,
+        ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
+    ]
+]));
+
+$router = new Router(new RouteCollector(), $container);
+```
 
 After which, your route closures and Controller methods will be automatically type hinted:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    $container = new Container(Factory::create([
-        Container::STANDARD_ALIASES => [
-            RequestInterface::class => Request::class,
-            ResponseInterface::class => Response::class,
-            ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
-        ]
+$container = new Container(Factory::create([
+    Container::STANDARD_ALIASES => [
+        RequestInterface::class => Request::class,
+        ResponseInterface::class => Response::class,
+        ResponseFactoryInterface::class => Laminas\Diactoros\ResponseFactory::class
+    ]
 
 
-    $testServiceInstance = new TestService();
-    $container->alias(TestService::class, $testServiceInstance);
-    
-    $router = new Router(new RouteCollector(), $container);
-    
-    $router->get('/my/route', function (TestService $service) {
-        // $service is now the same object as $testServiceInstance
-    });
+$testServiceInstance = new TestService();
+$container->alias(TestService::class, $testServiceInstance);
+
+$router = new Router(new RouteCollector(), $container);
+
+$router->get('/my/route', function (TestService $service) {
+    // $service is now the same object as $testServiceInstance
+});
+```
 
 ## Events
 
@@ -1060,12 +1070,12 @@ Let's go over how to create your very own event handler class.
 Below is a basic example of a custom event-handler called `DatabaseDebugHandler`. The idea of the example below is to 
 log all events to the database when triggered. Hopefully this is enough to give you an idea of how event handlers work.
 
-```php title="./app/Infrastructure/Services/DatabaseDebugHandler.php"
+```php title="./src/Infrastructure/Service/DatabaseDebugHandler.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Services;
+namespace Infrastructure\Service;
 
 use Qubus\Routing\Events\EventHandler;
 use Qubus\Routing\Events\RoutingEventArgument;
@@ -1137,12 +1147,12 @@ To interfere with the router, we create a class that implements the `Qubus\Routi
 This class will be loaded before any other rules in `routes/web/web.php` and allow us to "change" the current route, 
 if any of our criteria are fulfilled (like coming from the url `/router/article/view/1/`).
 
-```php title="./app/Infrastructure/Services/CustomRouterRules.php"
+```php title="./src/Infrastructure/Service/CustomRouterRules.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Services;
+namespace Infrastructure\Service;
 
 use Psr\Http\Message\RequestInterface;
 use Qubus\Routing\Interfaces\BootManager;
@@ -1202,12 +1212,12 @@ something else, it will be wrapped in an instance of `Response` with your return
 If you return an object from your closure that implements the `Responsable` interface, it's `toResponse()` object will 
 be automatically called for you.
 
-```php title="./app/Infrastructure/Services/HelloWorldObject.php"
+```php title="./src/Infrastructure/Service/HelloWorldObject.php"
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Services;
+namespace Infrastructure\Service;
 
 use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\RequestInterface;
@@ -1243,17 +1253,21 @@ If no route matches the request, a `Response` object will be returned with its s
 
 The currently matched `Route` can be retrieved by calling:
 
-    <?php
+```php
+<?php
 
-    $route = $router->currentRoute();
+$route = $router->currentRoute();
+```
 
 If no route matches or `match()` has not been called, `null` will be returned.
 
 You can also access the name of the currently matched `Route` by calling:
 
-    <?php
+```php
+<?php
 
-    $name = $router->currentRouteName();
+$name = $router->currentRouteName();
+```
 
 If no route matches or `match()` has not been called or the matched route has no name, `null` will be returned.
 

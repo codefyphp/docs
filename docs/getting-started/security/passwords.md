@@ -12,16 +12,18 @@ The `Codefy\Framework\Support\Password` class is a wrapper for PHP's native [pas
 By default, Codefy uses `Bcrypt` hashing if `Argon2id` (recommended) is not available. You can specify what algorithm your 
 application should use by overriding the `password.hash.algo` filter:
 
-    <?php
-    
-    use Codefy\Framework\Codefy;
-    
-    use const PASSWORD_ARGON2I;
-    
-    Codefy::$PHP->hook->filter->addFilter(
-        hook: 'password.hash.algo',
-        callback: fn(string $algo) => PASSWORD_ARGON2I
-    );
+```php
+<?php
+
+use Codefy\Framework\Codefy;
+
+use const PASSWORD_ARGON2I;
+
+Codefy::$PHP->hook->filter->addFilter(
+    hook: 'password.hash.algo',
+    callback: fn(string $algo) => PASSWORD_ARGON2I
+);
+```
 
 ## Basic Usage
 
@@ -29,15 +31,17 @@ application should use by overriding the `password.hash.algo` filter:
 
 You can hash a password by calling the static method `hash`:
 
-    <?php
-    
-    use Codefy\Framework\Support\Password;
-    
-    $password = 'd0L5u08VU!UY$proh$$2YE_ri+';
-    
-    $hashedPassword = Password::hash($password);
+```php
+<?php
 
-    echo $hashedPassword;
+use Codefy\Framework\Support\Password;
+
+$password = 'd0L5u08VU!UY$proh$$2YE_ri+';
+
+$hashedPassword = Password::hash($password);
+
+echo $hashedPassword;
+```
 
 The above example will output something similar to:
 
@@ -47,27 +51,31 @@ The above example will output something similar to:
 
 The `verify()` method verifies that the given hash matches the given password.
 
-    <?php
+```php
+<?php
+
+use Codefy\Framework\Support\Password;
     
-    use Codefy\Framework\Support\Password;
-        
-    $password = 'd0L5u08VU!UY$proh$$2YE_ri+';
-    
-    if(Password::verify($password, $hashedPassword)) {
-        // The passwords matched
-    }
+$password = 'd0L5u08VU!UY$proh$$2YE_ri+';
+
+if(Password::verify($password, $hashedPassword)) {
+    // The passwords matched
+}
+```
 
 ### Get Algorithm ID's
 
 The `algos()` static method returns available password hashing algorithm IDs.
 
-    <?php
-    
-    use Codefy\Framework\Support\Password;
+```php
+<?php
 
-    use function dd;
-    
-    dd(Password::algos());
+use Codefy\Framework\Support\Password;
+
+use function dd;
+
+dd(Password::algos());
+```
 
 The above example will output something similar to:
 
@@ -83,17 +91,19 @@ array:3 [▼
 
 The `getInfo()` static method returns information about the given hash.
 
-    <?php
-    
-    use Codefy\Framework\Support\Password;
+```php
+<?php
 
-    use function dd;
-    
-    $password = 'd0L5u08VU!UY$proh$$2YE_ri+';
-    
-    $hashedPassword = Password::hash($password);
+use Codefy\Framework\Support\Password;
 
-    dd(Password::getInfo($hashedPassword));
+use function dd;
+
+$password = 'd0L5u08VU!UY$proh$$2YE_ri+';
+
+$hashedPassword = Password::hash($password);
+
+dd(Password::getInfo($hashedPassword));
+```
 
 The above example will output something similar to:
 
@@ -113,28 +123,30 @@ array:3 [▼
 
 Below is an example of changing the algorithm to `Bcrypt` from `Argon2id`, and then setting the cost.
 
-    <?php
-    
-    use Codefy\Framework\Codefy;
-    use Codefy\Framework\Support\Password;
-    
-    use const PASSWORD_BCRYPT;
-    
-    $password = 'd0L5u08VU!UY$proh$$2YE_ri+';
-    
-    Codefy::$PHP->hook->filter->addFilter(
-        hook: 'password.hash.algo',
-        callback: fn(string $algo) => PASSWORD_BCRYPT
-    );
-    // algo changed from argon2id to bcrypt
+```php
+<?php
 
-    Codefy::$PHP->hook->filter->addFilter(
-        hook: 'password.hash.options',
-        callback: fn(array $options) => ['cost' => 13]
-    );
-    // cost changed from 12 to 13
-    
-    echo Password::hash($password);
+use Codefy\Framework\Codefy;
+use Codefy\Framework\Support\Password;
+
+use const PASSWORD_BCRYPT;
+
+$password = 'd0L5u08VU!UY$proh$$2YE_ri+';
+
+Codefy::$PHP->hook->filter->addFilter(
+    hook: 'password.hash.algo',
+    callback: fn(string $algo) => PASSWORD_BCRYPT
+);
+// algo changed from argon2id to bcrypt
+
+Codefy::$PHP->hook->filter->addFilter(
+    hook: 'password.hash.options',
+    callback: fn(array $options) => ['cost' => 13]
+);
+// cost changed from 12 to 13
+
+echo Password::hash($password);
+```
 
 The above example will output something similar to:
 
@@ -145,15 +157,17 @@ The above example will output something similar to:
 The `needsRehash()` method allows you to determine if the algorithm used has changed since the password was hashed. 
 Some applications choose to perform this check during the application's authentication process:
 
-    <?php
-    
-    use Codefy\Framework\Support\Password;
-    
-    $password = 'd0L5u08VU!UY$proh$$2YE_ri+';
-    
-    if(Password::needsRehash($hashedPassword)) {
-        $hashedPassword = Password::hash($password);
-    }
+```php
+<?php
+
+use Codefy\Framework\Support\Password;
+
+$password = 'd0L5u08VU!UY$proh$$2YE_ri+';
+
+if(Password::needsRehash($hashedPassword)) {
+    $hashedPassword = Password::hash($password);
+}
+```
 
 
 

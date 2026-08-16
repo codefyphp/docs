@@ -1,42 +1,21 @@
-***
-
 # SerializableEntity
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\DataMapper\SerializableEntity`
 * This class implements:
-[`\Stringable`](../../../Stringable.md)
-
-
-
+  `Stringable`
 
 ## Methods
 
-
 ### __toString
 
-
-
 ```php
-public __toString(): mixed
+public __toString(): string
 ```
 
+**Throws:**
 
-
-
-
-
-
-
-
-
-
+- [`JsonException`](../../../JsonException.md)
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

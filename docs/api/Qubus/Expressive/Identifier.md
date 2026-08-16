@@ -1,19 +1,11 @@
-***
-
 # Identifier
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Identifier`
 * Parent class: [`\Qubus\Expressive\Expression`](./Expression.md)
 
-
-
-
 ## Methods
-
 
 ### handle
 
@@ -23,57 +15,31 @@ Handles identifier quoting.
 public handle(mixed $connection): \Qubus\Expressive\Connection
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$connection` | **mixed** |  |
-
+| Parameter     | Type      | Description |
+|---------------|-----------|-------------|
+| `$connection` | **mixed** |             |
 
 **Return Value:**
 
 $connection quoted identifier
 
-
-
-
 ***
-
 
 ## Inherited methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(mixed $value): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** | expression value |
-
-
-
-
+| Parameter | Type      | Description      |
+|-----------|-----------|------------------|
+| `$value`  | **mixed** | expression value |
 
 ***
 
@@ -87,15 +53,6 @@ public value(): string
 
 $sql = $expression->value();
 
-
-
-
-
-
-
-
-
-
 ***
 
 ### __toString
@@ -108,17 +65,4 @@ public __toString(): string
 
 echo $expression;
 
-
-
-
-
-
-
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

@@ -11,11 +11,13 @@ Removes trailing forward slashes and backslashes if they exist.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\remove_trailing_slash;
-    
-    remove_trailing_slash(string $string): string;
+use function Qubus\Support\Helpers\remove_trailing_slash;
+
+function remove_trailing_slash(string $string): string;
+```
 
 Parameters
 ----------

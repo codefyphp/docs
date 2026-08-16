@@ -40,26 +40,40 @@ The example below demonstrates how a command bus design could handle registering
 
 declare(strict_types=1);
 
-namespace App\Domain\Post\Commands;
+namespace Domain\Post\Command;
 
 use Codefy\CommandBus\Command;
-use Codefy\Domain\Aggregate\AggregateRepository;
-use App\Domain\Post;
-use App\Domain\Post\ValueObject\Content;
-use App\Domain\Post\ValueObject\PostId;
-use App\Domain\Post\ValueObject\Title;
+use Domain\Post\ValueObject\Content;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
 
-class CreatePostCommand implements Command
+final class CreatePostCommand implements Command
 {
     public PostId $postId;
     public Title $title;
     public Content $content;
 }
+```
 
-class CreatePostCommandHandler
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Post\Command;
+
+use Codefy\CommandBus\Command;
+use Codefy\Domain\Aggregate\AggregateRepository;
+use Domain\Post\Post;
+use Domain\Post\ValueObject\Content;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
+
+final class CreatePostCommandHandler
 {
-    public function __construct(public readonly AggregateRepository $aggregateRepository)
-    {
+    public function __construct(
+        public readonly AggregateRepository $aggregateRepository
+    ) {
     }
 
     public function handle(CreatePostCommand $command): void
@@ -72,6 +86,16 @@ class CreatePostCommandHandler
         $this->aggregateRepository->save(aggregate: $post);
     }
 }
+```
+
+```php
+<?php
+
+use Codefy\CommandBus\Odin;
+use Domain\Post\Command\CreatePostCommand;
+use Domain\Post\ValueObject\Content;
+use Domain\Post\ValueObject\PostId;
+use Domain\Post\ValueObject\Title;
 
 $odin= new Odin();
 
@@ -86,73 +110,86 @@ $odin->execute(command: $createPostCommand);
 ### Automatic handler resolution
 
 When you pass a `Command` to `Odin::execute()`, Odin will automatically search for the relevant `CommandHandler` and 
-call the `handle()` method:
-
-    <?php
-
-    $odin = new Odin;
-    $odin->execute(command: new CreatePostCommand);
+call the `handle()` method
 
 By default, this will search for a `CommandHandler` with the same name as your `Command`, suffixed with ‘Handler’, in 
 both the current namespace and a nested `Handlers` namespace.
 
-So `App\Commands\CreatePostCommand` will automatically resolve to `App\Commands\CreatePostCommandHandler` or 
-`App\Commands\Handlers\CreatePostCommandHandler` if either class exists.
+So `Domain\Post\Command\CreatePostCommand` will automatically resolve to `Domain\Post\Command\CreatePostCommandHandler` or 
+`Domain\Post\Command\Handlers\CreatePostCommandHandler` if either class exists.
 
 Want to implement your own method of automatically resolving handlers from commands? Implement your own version of the 
 `Codefy\CommandBus\CommandHandlerResolver` interface to modify the automatic resolution behavior.
 
 ### Handlers bound by class name
 
-    <?php
+```php
+<?php
 
-    use Codefy\CommandBus\Odin;
-    use Codefy\CommandBus\NativeCommandHandlerResolver;
-    use Codefy\CommandBus\Busses\SynchronousCommandBus;
-    
-    $resolver = new NativeCommandHandlerResolver();
-    $bus = new SynchronousCommandBus(resolver: $resolver);
-    $odin = new Odin(bus: $bus);
-    
-    $resolver->bindHandler(commandName: 'CreatePostCommand', handler: 'CreatePostCommandHandler');
-    
-    $odin->execute(command: new CreatePostCommand);
+use Codefy\CommandBus\Odin;
+use Codefy\CommandBus\NativeCommandHandlerResolver;
+use Codefy\CommandBus\Busses\SynchronousCommandBus;
+use Domain\Post\Command\CreatePostCommand;
+
+$resolver = new NativeCommandHandlerResolver();
+$bus = new SynchronousCommandBus(resolver: $resolver);
+$odin = new Odin(bus: $bus);
+
+$resolver->bindHandler(
+    commandName: 'CreatePostCommand',
+    handler: 'CreatePostCommandHandler'
+);
+
+$odin->execute(command: new CreatePostCommand);
+```
 
 ### Handlers bound by object
 
 Or, just pass your `CommandHandler` instance:
 
-    <?php
+```php
+<?php
 
-    $resolver->bindHandler(commandName: 'CreatePostCommand', handler: new CreatePostCommandHandler);
-    
-    $odin->execute(command: new CreatePostCommand);
+$resolver->bindHandler(
+    commandName: 'CreatePostCommand',
+    handler: new CreatePostCommandHandler
+);
+
+$odin->execute(command: new CreatePostCommand);
+```
 
 ### Handlers as anonymous functions
 
 Sometimes you might want to quickly write a handler for your `Command` without having to write a new class. With Odin 
 you can do this by passing an anonymous function as your handler:
 
-    <?php
+```php
+<?php
 
-    $resolver->bindHandler(commandName: 'CreatePostCommand', handler: function (Command $command) {
+$resolver->bindHandler(
+    commandName: 'CreatePostCommand',
+    handler: function (Command $command) {
         /* ... */
-    });
-    
-    $odin->execute(command: new CreatePostCommand);
+    }
+);
+
+$odin->execute(command: new CreatePostCommand);
+```
 
 ### Self-handling commands
 
 Alternatively, you may want to simply allow a `Command` object to execute itself. To do this, just ensure your 
 `Command` class also implements `CommandHandler`:
 
-    <?php
+```php
+<?php
 
-    class SelfHandlingCommand implements Command, CommandHandler {
-        public function handle(Command $command) { /* ... */ }
-    }
+class SelfHandlingCommand implements Command, CommandHandler {
+    public function handle(Command $command) { /* ... */ }
+}
 
-    $odin->execute(command: new SelfHandlingCommand);
+$odin->execute(command: new SelfHandlingCommand);
+```
 
 Decorators
 ----------
@@ -162,12 +199,14 @@ Imagine you want to log every command execution. You could do this by adding a c
 
 Registering a decorator:
 
-    <?php
+```php
+<?php
 
-    $odin = new Odin(
-        bus: new SynchronousCommandBus(),
-        decorators: [new LoggingDecorator(logger: $logger)]
-    );
+$odin = new Odin(
+    bus: new SynchronousCommandBus(),
+    decorators: [new LoggingDecorator(logger: $logger)]
+);
+```
 
 Now, whenever `Odin::execute()` is called, the command will be passed to `LoggingDecorator::execute()`, which will 
 perform some logging action, and then pass the command to the relevant `CommandHandler`.
@@ -184,33 +223,40 @@ command execution.
 
 ### Registering multiple decorators:
 
-    <?php
+```php
+<?php
 
-    // Attach decorators when you instantiate
-    $odin = new Odin(bus: new SynchronousCommandBus, decorators: [
-        new LoggingDecorator(logger: $logger),
-        new EventDispatchingDecorator(dispatcher: $eventDispatcher)
-    ]);
-    
-    // Or attach decorators later
-    $odin = new Odin();
-    $odin->pushDecorator(decorator: new LoggingDecorator(logger: $logger));
-    $odin->pushDecorator(decorator: new EventDispatchingDecorator(dispatcher: $eventDispatcher));
-    
-    // Or manually stack decorators
-    $odin = new Odin(
-        bus: new EventDispatchingDecorator(dispatcher: $eventDispatcher,
-            innerCommandBus: new LoggingDecorator(logger: $logger, context: $context, 
-                innerCommandBus: new CommandQueueingDecorator(queuer: $queuer, 
-                    innerCommandBus: new TransactionalCommandLockingDecorator(
-                        innerCommandBus: new CommandQueueingDecorator(queuer: $queuer, 
-                            innerCommandBus: new SynchronousCommandBus()
-                        )
+// Attach decorators when you instantiate
+$odin = new Odin(bus: new SynchronousCommandBus, decorators: [
+    new LoggingDecorator(logger: $logger),
+    new EventDispatchingDecorator(dispatcher: $eventDispatcher)
+]);
+
+// Or attach decorators later
+$odin = new Odin();
+$odin->pushDecorator(
+    decorator: new LoggingDecorator(logger: $logger)
+);
+$odin->pushDecorator(
+    decorator: new EventDispatchingDecorator(dispatcher: $eventDispatcher)
+);
+
+// Or manually stack decorators
+$odin = new Odin(
+    bus: new EventDispatchingDecorator(dispatcher: $eventDispatcher,
+        innerCommandBus: new LoggingDecorator(logger: $logger, context: $context, 
+            innerCommandBus: new CommandQueueingDecorator(queuer: $queuer, 
+                innerCommandBus: new TransactionalCommandLockingDecorator(
+                    innerCommandBus: new CommandQueueingDecorator(
+                        queuer: $queuer, 
+                        innerCommandBus: new SynchronousCommandBus()
                     )
                 )
             )
         )
-    );
+    )
+);
+```
 
 Queued Commands
 ---------------
@@ -222,37 +268,45 @@ where the `CommandQueueingDecorator` comes in to play.
 Firstly, to use the `CommandQueueingDecorator`, you must first implement the `CommandQueuer` interface with your 
 desired queue package:
 
-    <?php
+```php
+<?php
 
-    interface CommandQueuer {
-        /**
-         * Queue a Command for executing
-         *
-         * @param Command $command
-         */
-        public function queue(Command $command);
-    }
+interface CommandQueuer {
+    /**
+     * Queue a Command for executing
+     *
+     * @param Command $command
+     */
+    public function queue(Command $command);
+}
+```
 
 Next, attach the `CommandQueueingDecorator` decorator:
 
-    <?php
+```php
+<?php
 
-    $odin = new Odin();
-    $queuer = CreatePostCommandBusQueuer();
-    $odin->pushDecorator(decorator: new CommandQueueingDecorator(queuer: $queuer));
+$odin = new Odin();
+$queuer = CreatePostCommandBusQueuer();
+$odin->pushDecorator(decorator: new CommandQueueingDecorator(queuer: $queuer));
+```
 
 Then, implement `QueueableCommand` in any command which can be queued:
 
-    <?php
+```php
+<?php
 
-    CreatePostCommand implements Codefy\CommandBus\QueueableCommand {}
+class CreatePostCommand implements Codefy\CommandBus\QueueableCommand {}
+```
 
 Then use Odin as normal:
 
-    <?php
+```php
+<?php
 
-    $command = new CreatePostCommand();
-    $odin->execute(command: $command);
+$command = new CreatePostCommand();
+$odin->execute(command: $command);
+```
 
 If you pass Odin any command which implements `QueueableCommand`, it will be added to the queue. Any commands which do 
 _not_ implement `QueueableCommand` will be executed immediately as normal.
@@ -276,43 +330,47 @@ Data is cached to a `psr/cache` (PSR-6) compatible cache library.
 > argument to the `CachingDecorator`. However, Odin has been tested with the [qubus/cache](../../index.md) 
 > library which is both PSR-6 and PSR-16 compliant.
 
-    <?php
+```php
+<?php
 
-    use Codefy\CommandBus\CommandBus;
-    use Codefy\CommandBus\CacheableCommand;
-    use Codefy\CommandBus\Decorators\CachingDecorator;
+use Codefy\CommandBus\CommandBus;
+use Codefy\CommandBus\CacheableCommand;
+use Codefy\CommandBus\Decorators\CachingDecorator;
+
+$odin = new Odin();
+$odin->pushDecorator(
+    decorator: new CachingDecorator(
+        // Your library of preference implementing PSR-6 CacheItemPoolInterface.
+        cache: $cache,
+        // Time in seconds that values should be cached for. 3600 = 1 hour.
+        expiresAfter: 3600
+    )
+);
+
     
-    $odin = new Odin();
-    $odin->pushDecorator(
-        decorator: new CachingDecorator(
-            cache: $cache, // Your library of preference implementing PSR-6 CacheItemPoolInterface.
-            expiresAfter: 3600 // Time in seconds that values should be cached for. 3600 = 1 hour.
-        )
-    );
-    
-        
-    class FetchUserReportCommand implements CacheableCommand { }
-    
-    class FetchUserReportCommandHandler {
-    	public function handle(FetchUserReportCommand $command) {
-    		return 'foobar';
-    	}
+class FetchUserReportCommand implements CacheableCommand { }
+
+class FetchUserReportCommandHandler {
+    public function handle(FetchUserReportCommand $command) {
+        return 'foobar';
     }
-    
-    // (string) "foo" handle() is called
-    $report = $odin->execute(
-        command: new FetchUserReportCommand()
-    );
-    
-    // (string) "foo" Value taken from cache
-    $report = $odin->execute(
-        command: new FetchUserReportCommand()
-    );
-    
-    // (string) "foo" Value taken from cache
-    $report = $odin->execute(
-        command: new FetchUserReportCommand()
-    );
+}
+
+// (string) "foo" handle() is called
+$report = $odin->execute(
+    command: new FetchUserReportCommand()
+);
+
+// (string) "foo" Value taken from cache
+$report = $odin->execute(
+    command: new FetchUserReportCommand()
+);
+
+// (string) "foo" Value taken from cache
+$report = $odin->execute(
+    command: new FetchUserReportCommand()
+);
+```
 
 Transactional Commands
 ----------------------
@@ -323,41 +381,47 @@ be executed until the first command has completed.
 
 Here’s an example:
 
-    <?php
+```php
+<?php
 
-    use Codefy\CommandBus\CommandBus;
-    use Codefy\CommandBus\Command;
-    use Codefy\CommandBus\Decorators\TransactionalCommandLockingDecorator;
-    
-    class CreatePostCommandHandler
+use Codefy\CommandBus\CommandBus;
+use Codefy\CommandBus\Command;
+use Codefy\CommandBus\Decorators\TransactionalCommandLockingDecorator;
+
+class CreatePostCommandHandler
+{
+    public function __construct(public readonly CommandBus $bus)
     {
-        public function __construct(public readonly CommandBus $bus)
-        {
-        }
-    
-        public function handle(CreatePostCommand $command)
-        {
-            $this->bus->execute(command: ChangeTitle('this-will-never-be-executed'));
-    
-            Post::createPostWithoutTap(
-                postId: $command->postId,
-                title: $command->title,
-                content: $command->content
-            );
-    
-            throw new Exception(message: 'Something unexpected; could not create the post.');
-        }
     }
-    
-    $odin = new Odin();
-    $odin->pushDecorator(decorator: new TransactionalCommandLockingDecorator());
-    
-    $createPostCommand = new CreatePostCommand();
-    $createPostCommand->postId = new PostId();
-    $createPostCommand->title = new Title(value: 'New Post Title');
-    $createPostCommand->content = new Content(value: 'Short form content.');
-    
-    $odin->execute(command: $command);
+
+    public function handle(CreatePostCommand $command)
+    {
+        $this->bus->execute(
+            command: ChangeTitle('this-will-never-be-executed')
+        );
+
+        Post::createPostWithoutTap(
+            postId: $command->postId,
+            title: $command->title,
+            content: $command->content
+        );
+
+        throw new Exception(
+            message: 'Something unexpected; could not create the post.'
+        );
+    }
+}
+
+$odin = new Odin();
+$odin->pushDecorator(decorator: new TransactionalCommandLockingDecorator());
+
+$createPostCommand = new CreatePostCommand();
+$createPostCommand->postId = new PostId();
+$createPostCommand->title = new Title(value: 'New Post Title');
+$createPostCommand->content = new Content(value: 'Short form content.');
+
+$odin->execute(command: $command);
+```
 
 So what’s happening here? When `$odin->execute(new ChangeTitleCommand('`A New Post Title`'))` is called, that command 
 is actually dropped into an in-memory queue, which will not execute until `CreatePostCommandHandler::handle()` has 
@@ -374,49 +438,53 @@ If you want to use your own Dependency Injection Container to control the actual
 class which implements `Codefy\CommandBus\Container` and pass it to the `CommandHandlerResolver` which is consumed by 
 `SynchronousCommandBus`.
 
-    <?php
+```php
+<?php
 
-    use Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver;
-    use Codefy\CommandBus\Odin;
-    use Codefy\CommandBus\Busses\SynchronousCommandBus;
-    use Codefy\CommandBus\Container;
-    
-    class CodefyContainer implements Container {
-        public function make($class) {
-            return new $class();
-        }
+use Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver;
+use Codefy\CommandBus\Odin;
+use Codefy\CommandBus\Busses\SynchronousCommandBus;
+use Codefy\CommandBus\Container;
+
+class CodefyContainer implements Container {
+    public function make($class) {
+        return new $class();
     }
-    
-    $resolver = new NativeCommandHandlerResolver(container: new CodefyContainer);
-    $odin = new Odin(bus: new SynchronousCommandBus(resolver: $resolver));
-    $odin->execute(command: new CreatePostCommand);
+}
+
+$resolver = new NativeCommandHandlerResolver(container: new CodefyContainer);
+$odin = new Odin(bus: new SynchronousCommandBus(resolver: $resolver));
+$odin->execute(command: new CreatePostCommand);
+```
 
 However, if your command has a constructor which requires other instantiation of objects, then the above will not work. 
 Odin provides an implementation of `Container` based on [qubus/injector](../../../getting-started/dependency-injection.md). The 
 easiest way is to use the container factor, and then pass a config into the container:
 
-    <?php
+```php
+<?php
 
-    use Codefy\CommandBus\Busses\SynchronousCommandBus;
-    use Codefy\CommandBus\Container;
-    use Codefy\CommandBus\Containers\InjectorContainer;
-    use Codefy\CommandBus\Odin;
-    use Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver;
-    use Codefy\Factory\ContainerFactory;
-    
-    $config [
-        'container' => [
-            Injector::STANDARD_ALIASES => [
-                Container::class => InjectorContainer::class,
-            ]
+use Codefy\CommandBus\Busses\SynchronousCommandBus;
+use Codefy\CommandBus\Container;
+use Codefy\CommandBus\Containers\InjectorContainer;
+use Codefy\CommandBus\Odin;
+use Codefy\CommandBus\Resolvers\NativeCommandHandlerResolver;
+use Codefy\Factory\ContainerFactory;
+
+$config [
+    'container' => [
+        Injector::STANDARD_ALIASES => [
+            Container::class => InjectorContainer::class,
         ]
-    ];
-    
-    $resolver = new NativeCommandHandlerResolver(
-        container: ContainerFactory::make(config: $config['container'])
-    );
-    $odin = new Odin(bus: new SynchronousCommandBus(resolver: $resolver));
-    $odin->execute(command: new CreatePostCommand);
+    ]
+];
+
+$resolver = new NativeCommandHandlerResolver(
+    container: ContainerFactory::make(config: $config['container'])
+);
+$odin = new Odin(bus: new SynchronousCommandBus(resolver: $resolver));
+$odin->execute(command: new CreatePostCommand);
+```
 
 
 

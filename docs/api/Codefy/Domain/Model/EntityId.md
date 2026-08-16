@@ -1,45 +1,24 @@
-***
-
 # EntityId
 
-
-
-
+***
 
 * Full name: `\Codefy\Domain\Model\EntityId`
-* Parent interfaces: [`ValueObject`](../../../Qubus/ValueObjects/ValueObject.md)
-
+* Parent interfaces:
+  `ValueObject`
 
 ## Methods
 
-
 ### fromString
 
-
-
 ```php
-public static fromString(string $string): mixed
+public static fromString(string $string): \Codefy\Domain\Model\EntityId
 ```
 
-
-
 * This method is **static**.
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$string` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$string` | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

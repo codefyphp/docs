@@ -23,27 +23,31 @@ about speed. The Injector caches any reflections it generates to minimize the po
 
 To start using the injector, simply create a new instance of the `Qubus\Injector\Injector` ("the Injector") class:
 
-    <?php
-    
-    $injector = new Qubus\Injector\Injector(
-        Qubus\Injector\Config\InjectorFactory::create([])
-    );
+```php
+<?php
+
+$injector = new Qubus\Injector\Injector(
+    Qubus\Injector\Config\InjectorFactory::create([])
+);
+```
 
 ### Basic Instantiation
 
 If a class doesn't specify any dependencies in its constructor signature there's little point in using the Injector to
 generate it. However, for the sake of completeness, consider that you can do the following with equivalent results:
 
-    <?php
-    
-    $injector = new Qubus\Injector\Injector(
-        Qubus\Injector\Config\InjectorFactory::create([])
-    );
+```php
+<?php
 
-    $obj1 = new App\MyClass;
-    $obj2 = $injector->make('App\MyClass');
-    
-    var_dump($obj2 instanceof App\MyClass); // true
+$injector = new Qubus\Injector\Injector(
+    Qubus\Injector\Config\InjectorFactory::create([])
+);
+
+$obj1 = new App\MyClass;
+$obj2 = $injector->make(name: App\MyClass::class);
+
+var_dump($obj2 instanceof App\MyClass); // true
+```
 
 #### Concrete Type-hinted Dependencies
 
@@ -51,66 +55,114 @@ If a class only asks for concrete dependencies, you can use the Injector to inje
 injection definitions. For example, in the following scenario you can use the Injector to automatically provision
 `MyClass` with the required `SomeDependency` and `AnotherDependency` class instances:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
+
+class SomeDependency {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class AnotherDependency {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyClass {
+    public \SomeDependency $dep1;
+    public \AnotherDependency $dep2;
     
-    class SomeDependency {}
-    
-    class AnotherDependency {}
-    
-    class MyClass {
-        public $dep1;
-        public $dep2;
-        public function __construct(SomeDependency $dep1, AnotherDependency $dep2) {
-            $this->dep1 = $dep1;
-            $this->dep2 = $dep2;
-        }
+    public function __construct(
+        \SomeDependency $dep1,
+        \AnotherDependency $dep2
+    ) {
+        $this->dep1 = $dep1;
+        $this->dep2 = $dep2;
     }
-    
-    $injector = new Qubus\Injector\Injector(
-        Qubus\Injector\Config\InjectorFactory::create([])
-    );
+}
+```
 
-    $myObj = $injector->make('MyClass');
-    
-    var_dump($myObj->dep1 instanceof SomeDependency); // true
-    var_dump($myObj->dep2 instanceof AnotherDependency); // true
+```php
+<?php
+
+$injector = new Qubus\Injector\Injector(
+    Qubus\Injector\Config\InjectorFactory::create([])
+);
+
+$myObj = $injector->make(name: \MyClass::class);
+
+var_dump($myObj->dep1 instanceof \SomeDependency); // true
+
+var_dump($myObj->dep2 instanceof \AnotherDependency); // true
+```
 
 #### Recursive Dependency Instantiation
 
 One of the Injector's key attributes is that it recursively traverses class dependency trees to instantiate objects.
 This is just a fancy way of saying, "if you instantiate object A which asks for object B, the Injector will instantiate
 any of object B's dependencies so that B can be instantiated and provided to A". This is perhaps best understood with a
-simple example. Consider the following classes in which a `Car` asks for `Engine` and the `Engine` class has concrete
+simple example. Consider the following classes in which a `Car` asks for `V8` and the `V8` class has concrete
 dependencies of its own:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
-    
-    class Car {
-        private $engine;
-        public function __construct(Engine $engine) {
-            $this->engine = $engine;
-        }
-    }
-    
-    class Engine {
-        private $sparkPlug;
-        private $piston;
-        public function __construct(SparkPlug $sparkPlug, Piston $piston) {
-            $this->sparkPlug = $sparkPlug;
-            $this->piston = $piston;
-        }
-    }
-    
-    $injector = new Qubus\Injector\Injector(
-        Qubus\Injector\Config\InjectorFactory::create([])
-    );
+declare(strict_types=1);
 
-    $car = $injector->make('Car');
-    var_dump($car instanceof Car); // true
+interface Engine {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+final class V8 implements \Engine{
+    private \Sparkplug $sparkPlug;
+    private \Piston $piston;
+    
+    public function __construct(\SparkPlug $sparkPlug, \Piston $piston) {
+        $this->sparkPlug = $sparkPlug;
+        $this->piston = $piston;
+    }
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+final class Car {
+    private \V8 $engine;
+    
+    public function __construct(\V8 $engine) {
+        $this->engine = $engine;
+    }
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+$injector = new Qubus\Injector\Injector(
+    Qubus\Injector\Config\InjectorFactory::create([])
+);
+
+$car = $injector->make(name: \Car::class);
+
+var_dump($car instanceof \Car); // true
+```
 
 ## App-Bootstrapping
 
@@ -122,7 +174,7 @@ problem in the form of Service Providers.
 
 ## Service Providers
 
-To make it easier to use the `Injector/Container/ServiceContainer`, the framework can be bootstrapped with
+To make it easier to use the `Qubus\Injector\Container\ServiceContainer`, the framework can be bootstrapped with
 `ServiceProviders`.
 
 Service providers are used to bootstrap your application with the injection of core classes and dependencies.
@@ -144,7 +196,7 @@ You can register service providers via `bootstrap/providers.php`:
 <?php
 
 return [
-    App\Infrastructure\Providers\AppServiceProvider::class,
+    Application\Provider\AppServiceProvider::class,
 ];
 ```
 
@@ -156,7 +208,7 @@ Or you can register service providers via `config/app.php` using the `providers`
 'providers' => Codefy\Framework\Support\CodefyServiceProvider::defaultProviders()->merge([
 
     // Application Service Providers...
-    App\Infrastructure\Providers\AppServiceProvider::class,
+    Application\Provider\AppServiceProvider::class,
     
 ])->toArray(),
 ```
@@ -174,47 +226,52 @@ want to inject.
 Let's look at how to provision a class with non-concrete type-hints in its constructor signature. Consider the
 following code in which a `Car` needs an `Engine` and `Engine` is an interface:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    interface Engine {}
-    
-    class V8 implements Engine {}
-    
-    class Car {
-        private $engine;
-        public function __construct(Engine $engine) {
-            $this->engine = $engine;
-        }
-    }
-
-To instantiate a `Car` in this case, we simply need to define an injection definition for the class ahead of time:
-
-```php title="File: ./app/Infrastructure/Providers/ExampleServiceProvider.php"
+```php
 <?php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Providers;
+final class Car {
+    private \Engine $engine;
+    
+    public function __construct(\Engine $engine) {
+        $this->engine = $engine;
+    }
+}
+```
 
-use Car;
+To instantiate a `Car` in this case, we simply need to define an injection definition for the class ahead of time:
+
+```php title="File: ./src/Infrastructure/Provider/ExampleServiceProvider.php"
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Provider;
+
 use Codefy\Framework\Support\CodefyServiceProvider;
-use V8;
 
 final class ExampleServiceProvider extends CodefyServiceProvider
 {
     public function register(): void
     {
-        $this->codefy->define(Car::class, ['engine' => V8::class]);
+        $this->codefy->define(
+            name: \Car::class,
+            args: [
+                'engine' => \V8::class
+            ]
+        );
     }
 }
 ```
 ```php title="Test Car Instance"
 <?php
 
+use function Codefy\Framework\Helpers\app;
+
 // test it works
-$car = Codefy\Framework\Helpers\app(Car::class);
+$car = app(name: \Car::class);
+
 var_dump($car instanceof Car); // true
 ```
 
@@ -230,38 +287,44 @@ key whose value was the name of the class (`V8`) that we want to inject.
 Custom injection definitions are only necessary on a per-parameter basis. For example, in the following class, we only
 need to define the injectable class for `$arg2` because `$arg1` specifies a concrete class type-hint:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+final class MyClass {
+    private \SomeConcreteClass $arg1;
+    private \SomeInterface $arg2;
     
-    declare(strict_types=1);
-    
-    class MyClass {
-        private $arg1;
-        private $arg2;
-        public function __construct(SomeConcreteClass $arg1, SomeInterface $arg2) {
-            $this->arg1 = $arg1;
-            $this->arg2 = $arg2;
-        }
+    public function __construct(\SomeConcreteClass $arg1, \SomeInterface $arg2) {
+        $this->arg1 = $arg1;
+        $this->arg2 = $arg2;
     }
-    
-    
-    
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Providers;
-    
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    use SomeImplementationClass;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Provider;
+
+use Codefy\Framework\Support\CodefyServiceProvider;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $this->codefy->define(MyClass::class, ['arg2' => SomeImplementationClass::class]);
-        }
+        $this->codefy->define(
+            name: \MyClass::class,
+            args: [
+                'arg2' => \SomeImplementationClass::class
+            ]
+        );
     }
+}
+```
 
 !!! info "Info:" 
     Injecting instances where an abstract class is type-hinted works in exactly the same way as the above examples for 
@@ -271,75 +334,125 @@ need to define the injectable class for `$arg2` because `$arg1` specifies a conc
 
 Injection definitions may also specify a pre-existing instance of the requisite class instead of the string class name:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+interface SomeInterface {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class SomeImplementation implements \SomeInterface {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyClass {
+    private \SomeInterface $dependency;
     
-    declare(strict_types=1);
-    
-    interface SomeInterface {}
-    
-    class SomeImplementation implements SomeInterface {}
-    
-    class MyClass {
-        private $dependency;
-        public function __construct(SomeInterface $dependency) {
-            $this->dependency = $dependency;
-        }
+    public function __construct(\SomeInterface $dependency) {
+        $this->dependency = $dependency;
     }
-    
-    
-    
-    <?php
-    
-    declare(strict_types=1);
-    
-    namespace App\Infrastructure\Providers;
-    
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    use SomeImplementation;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Provider;
+
+use Codefy\Framework\Support\CodefyServiceProvider;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $dependencyInstance = new SomeImplementation;
-            $this->codefy->define(MyClass::class, [':dependency' => $dependencyInstance]);
-        }
+        $dependencyInstance = new \SomeImplementation();
+        $this->codefy->define(
+            name: \MyClass::class,
+            args: [
+                ':dependency' => $dependencyInstance
+            ]
+        );
     }
-    
-    <?php
-    
-    // test it works
-    $myObj = Codefy\Framework\Helpers\app(MyClass::class);
-    var_dump($myObj instanceof MyClass); // true
+}
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// test it works
+$myObj = app(name: \MyClass::class);
+
+var_dump($myObj instanceof \MyClass); // true
+```
 
 !!! info "Info:" 
     Since the `define()` call is passing raw values (as evidenced by the colon `:` usage), you can achieve the same result 
     by omitting the array key(s) and relying on parameter order rather than name. Like so: 
-    `$this->codefy->define(MyClass::class, [$dependencyInstance]);`.
+    `$this->codefy->define(name: MyClass::class, args: [$dependencyInstance]);`.
 
 
 #### Specifying Injection Definitions On the Fly
 
 You may also specify injection definitions at call-time with `Qubus\Injector\Injector::make`. Consider:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+interface SomeInterface {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class SomeImplementationClass implements \SomeInterface {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyClass {
+    private \SomeInterface $dependency;
     
-    declare(strict_types=1);
-    
-    interface SomeInterface {}
-    
-    class SomeImplementationClass implements SomeInterface {}
-    
-    class MyClass {
-        private $dependency;
-        public function __construct(SomeInterface $dependency) {
-            $this->dependency = $dependency;
-        }
+    public function __construct(SomeInterface $dependency) {
+        $this->dependency = $dependency;
     }
-    
-    $myObj = Codefy\Framework\Helpers\app(MyClass::class, ['dependency' => SomeImplementationClass::class]);
-    var_dump($myObj instanceof MyClass); // true
+}
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+$myObj = app(
+    name: \MyClass::class,
+    args: [
+        'dependency' => \SomeImplementationClass::class
+    ]
+);
+
+var_dump($myObj instanceof \MyClass); // true
+```
 
 The above code shows how even though we haven't called the Injector's `define` method, the call-time specification 
 allows us to instantiate `MyClass`.
@@ -355,47 +468,53 @@ should type-hint interfaces whenever possible. But does this mean we have to ass
 class in our application to reap the benefits of abstracted dependencies? Thankfully the answer to this question is, 
 "NO." The Injector accommodates this goal by accepting "aliases". Consider:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+class Car {
+    private $engine;
     
-    declare(strict_types=1);
-    
-    interface Engine {}
-    
-    class V8 implements Engine {}
-    
-    class Car {
-        private $engine;
-        public function __construct(Engine $engine) {
-            $this->engine = $engine;
-        }
+    public function __construct(\Engine $engine) {
+        $this->engine = $engine;
     }
+}
+```
 
+```php
+<?php
 
+declare(strict_types=1);
 
-    <?php
+namespace Application\Provider;
 
-    declare(strict_types=1);
+use Codefy\Framework\Support\CodefyServiceProvider;
 
-    namespace App\Infrastructure\Providers;
-
-    use Car;
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use Engine;
-    use V8;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            // Tell the Injector class to inject an instance of V8 any time
-            // it encounters an Engine type-hint
-            $this->codefy->alias(Engine::class, V8::class);
-        }
+        // Tell the Injector class to inject an instance of V8 any time
+        // it encounters an Engine type-hint
+        $this->codefy->alias(
+            original: \Engine::class,
+            alias: \V8::class
+        );
     }
+}
+```
 
-    // test it works
-    $car = Codefy\Framework\Helpers\app(Car::class);
-    var_dump($car instanceof Car); // true
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// test it works
+$car = app(name: \Car::class);
+
+var_dump($car instanceof \Car); // true
+```
 
 In this example we've demonstrated how to specify an alias class for any occurrence of a particular interface or 
 abstract class type-hint. Once an implementation is assigned, the Injector will use it to provision any parameter 
@@ -418,28 +537,33 @@ If you want the Injector to treat a named-parameter definition as a "raw" value 
 the parameter name in your definition with a colon character `:`. For example, consider the following code in which we 
 tell the Injector to share a `PDO` database connection instance and define its scalar constructor parameters:
 
-    <?php
+```php
+<?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    namespace App\Infrastructure\Providers;
+namespace Application\Provider;
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use PDO;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+use Codefy\Framework\Support\CodefyServiceProvider;
+use PDO;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $this->codefy->share(PDO::class);
+        $this->codefy->share(nameOrInstance: PDO::class);
 
-            $this->codefy->define(PDO::class, [
+        $this->codefy->define(
+            name: PDO::class,
+            args: [
                 ':dsn' => 'mysql:dbname=testdb;host=127.0.0.1',
                 ':username' => 'dbuser',
                 ':password' => 'dbpass'
-            ]);
-        }
+            ]
+        );
     }
+}
+```
 
 The colon character preceding the parameter names tells the Injector that the associated values ARE NOT class names. 
 If the colons had been omitted above, Qubus Injector would attempt to instantiate classes of the names specified in the 
@@ -451,7 +575,7 @@ value directly without attempting to instantiate it.
     As mentioned previously, since the `define()` call is passing raw values, you may opt to assign the values by 
     parameter order rather than name. Since PDO's first three parameters are `$dsn`, `$username`, and `$password`, 
     in that order, you could accomplish the same result by leaving out the array keys, 
-    like so: `$this->codefy->define(PDO::class, ['mysql:dbname=testdb;host=127.0.0.1', 'dbuser', 'dbpass']);`.
+    like so: `$this->codefy->define(name: PDO::class, args: ['mysql:dbname=testdb;host=127.0.0.1', 'dbuser', 'dbpass']);`.
 
 ### Global Parameter Definitions
 
@@ -459,41 +583,52 @@ Sometimes applications may reuse the same value everywhere. However, it can be a
 for this sort of thing everywhere it might be used in the app. Qubus Injector mitigates this problem by exposing the 
 `defineParam()` method. Consider the following example:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyClass {
+    public $myValue;
     
-    declare(strict_types=1);
-    
-    class MyClass {
-        public $myValue;
-        public function __construct($myValue) {
-            $this->myValue = $myValue;
-        }
+    public function __construct($myValue) {
+        $this->myValue = $myValue;
     }
+}
+```
 
+```php
+<?php
 
+declare(strict_types=1);
 
-    <?php
+namespace Application\Provider;
 
-    declare(strict_types=1);
+use Codefy\Framework\Support\CodefyServiceProvider;
 
-    namespace App\Infrastructure\Providers;
-
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $myUniversalValue = 42;
-
-            $this->codefy->defineParam('myValue', $myUniversalValue);
-        }
+        $myUniversalValue = 42;
+        $this->codefy->defineParam(
+            paramName: 'myValue',
+            value: $myUniversalValue
+        );
     }
+}
+```
 
-    // test it works
-    $obj = Codefy\Framework\Helpers\app(MyClass::class);
-    var_dump($obj->myValue === 42); // bool(true)
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// test it works
+$obj = app(name: \MyClass::class);
+
+var_dump($obj->myValue === 42); // bool(true)
+```
 
 Because we specified a global definition for `myValue`, all parameters that are not in some other way defined 
 (as below) that match the specified parameter name are autofilled with the global value. If a parameter matches any of 
@@ -507,7 +642,7 @@ the following criteria the global value is not used:
 
 #### Instance Sharing
 
-One of the more ubiquitous plagues in modern OOP is the Singleton anti-pattern. Coders looking to limit classes to a 
+One of the more ubiquitous plagues in modern OOP is the Singleton antipattern. Coders looking to limit classes to a 
 single instance often fall into the trap of using static Singleton implementations for things like configuration 
 classes and database connections. While it's often necessary to prevent multiple instances of a class, the Singleton 
 method spells death to testability and should generally be avoided. `Qubus\Injector\Injector` makes sharing class 
@@ -517,44 +652,56 @@ Let's consider how a typical problem facing object-oriented web applications is 
 application using the Injector. Here, we want to inject a single database connection instance across multiple layers of 
 an application. We have a controller class that asks for a `DataMapper` that requires a `PDO` database connection instance:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+use PDO;
+
+final class DataMapper {
+    private PDO $pdo;
     
-    declare(strict_types=1);
-    
-    class DataMapper {
-        private $pdo;
-        public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
     }
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+final class MyController {
+    private \DataMapper $mapper;
     
-    class MyController {
-        private $mapper;
-        public function __construct(DataMapper $mapper) {
-            $this->mapper = $mapper;
-        }
+    public function __construct(\DataMapper $mapper) {
+        $this->mapper = $mapper;
     }
+}
+```
 
+```php
+<?php
 
+namespace Application\Provider;
 
-    <?php
+declare(strict_types=1);
 
-    namespace App\Infrastructure\Providers;
-    
-    declare(strict_types=1);
+use Codefy\Framework\Support\CodefyServiceProvider;
+use PDO;
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use PDO;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $db = new PDO('mysql:host=localhost;dbname=mydb', 'user', 'pass');
+        $db = new PDO('mysql:host=localhost;dbname=mydb', 'user', 'pass');
 
-            $this->codefy->share($db);
-        }
+        $this->codefy->share(nameOrInstance: $db);
     }
+}
+```
 
 In the above code, the `DataMapper` instance will be provisioned with the same `PDO` database connection instance we 
 originally shared. This example is contrived and overly simple, but the implication should be clear:
@@ -567,42 +714,53 @@ originally shared. This example is contrived and overly simple, but the implicat
 
 Let's look at a simple proof of concept:
 
-    <?php
-    
-    declare(strict_types=1);
+```php
+<?php
 
-    class Person {
-        public $name = 'John Snow';
-    }
+declare(strict_types=1);
 
+class Person {
+    public string $name = 'John Snow';
+}
+```
 
+```php
+<?php
 
-    <?php
-    
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    namespace App\Infrastructure\Providers;
+namespace Application\Provider;
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use Person;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+use Codefy\Framework\Support\CodefyServiceProvider;
+use Person;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $this->codefy->share(Person::class);
-        }
+        $this->codefy->share(nameOrInstance: Person::class);
     }
+}
+```
 
-    // test it out
-    $person = Codefy\Framework\Helpers\app(Person::class);
-    var_dump($person->name); // John Snow
+```php
+<?php
 
-    $person->name = 'Arya Stark';
+use function Codefy\Framework\Helpers\app;
 
-    $anotherPerson = Codefy\Framework\Helpers\app(Person::class);
-    var_dump($anotherPerson->name); // Arya Stark
-    var_dump($person === $anotherPerson); // bool(true) because it's the same instance!
+// test it out
+$person = app(name: \Person::class);
+
+var_dump($person->name); // John Snow
+
+$person->name = 'Arya Stark';
+
+$anotherPerson = app(name: \Person::class);
+
+var_dump($anotherPerson->name); // Arya Stark
+
+var_dump($person === $anotherPerson); // bool(true) because it's the same instance!
+```
 
 Defining an object as shared will store the provisioned instance in the Injector's shared cache and all future requests 
 to the provider for an injected instance of that class will return the originally created object. Note that in the 
@@ -621,47 +779,60 @@ Often factory classes/methods are used to prepare an object for use after instan
 integrate factories and builders directly into the injection process by specifying callable instantiation delegates on 
 a per-class basis. Let's look at a very basic example to demonstrate the concept of injection delegates:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+class MyComplexClass {
+    public $verification = false;
     
-    declare(strict_types=1);
-    
-    class MyComplexClass {
-        public $verification = false;
-        public function doSomethingAfterInstantiation() {
-            $this->verification = true;
-        }
+    public function doSomethingAfterInstantiation() {
+        $this->verification = true;
     }
+}
+```
 
+```php
+<?php
 
+declare(strict_types=1);
 
-    <?php
-    
-    declare(strict_types=1);
+namespace Application\Provider;
 
-    namespace App\Infrastructure\Providers;
+use Codefy\Framework\Support\CodefyServiceProvider;
+use MyComplexClass;
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyComplexClass;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
 
-            $complexClassFactory = function() {
-                $obj = new MyComplexClass();
-                $obj->doSomethingAfterInstantiation();
-    
-                return $obj;
-            };
+        $complexClassFactory = function() {
+            $obj = new MyComplexClass();
+            $obj->doSomethingAfterInstantiation();
 
-            $this->codefy->delegate(MyComplexClass::class, $complexClassFactory);
-        }
+            return $obj;
+        };
+
+        $this->codefy->delegate(
+            name: MyComplexClass::class,
+            callableOrMethodStr: $complexClassFactory
+        );
     }
+}
+```
 
-    // test it out
-    $obj = Codefy\Framework\Helpers\app(MyComplexClass::class);
-    var_dump($obj->verification); // bool(true)
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// test it out
+$obj = app(name: \MyComplexClass::class);
+
+var_dump($obj->verification); // bool(true)
+```
 
 In the above code we delegate instantiation of the `MyComplexClass` class to a closure, `$complexClassFactory`. 
 Once this delegation is made, the Injector will return the results of the specified closure when asked to instantiate 
@@ -674,42 +845,84 @@ Additionally, you may specify the name of a delegate class that specifies an `__
 automatically provisioned and have its `__invoke` method called at delegation time. Instance methods from uninstantiated 
 classes may also be specified using the `['NonStaticClassName', 'factoryMethod']` construction. For example: visiting:
 
-    <?php
+```php
+<?php
+
+declare(strict_types=1);
+
+class SomeClassWithDelegatedInstantiation {
+    public $value = 0;
+}
+
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class SomeFactoryDependency {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+final class MyFactory {
+    private \SomeFactoryDependency $dependency;
     
-    declare(strict_types=1);
-    
-    class SomeClassWithDelegatedInstantiation {
-        public $value = 0;
+    public function __construct(\SomeFactoryDependency $dep) {
+        $this->dependency = $dep;
     }
     
-    class SomeFactoryDependency {}
-    
-    class MyFactory {
-        private $dependency;
-        function __construct(SomeFactoryDependency $dep) {
-            $this->dependency = $dep;
-        }
-        function __invoke() {
-            $obj = new SomeClassWithDelegatedInstantiation;
-            $obj->value = 1;
-            return $obj;
-        }
-        function factoryMethod() {
-            $obj = new SomeClassWithDelegatedInstantiation;
-            $obj->value = 2;
-            return $obj;
-        }
+    public function __invoke() {
+        $obj = new \SomeClassWithDelegatedInstantiation;
+        $obj->value = 1;
+        return $obj;
     }
     
-    // Works because MyFactory specifies a magic __invoke method
-    Codefy\Framework\Helpers\app()->delegate(SomeClassWithDelegatedInstantiation::class, MyFactory::class);
-    $obj = Codefy\Framework\Helpers\app(SomeClassWithDelegatedInstantiation::class);
-    var_dump($obj->value); // int(1)
-    
-    // This also works
-    Codefy\Framework\Helpers\app()->delegate(SomeClassWithDelegatedInstantiation::class, 'MyFactory::factoryMethod');
-    $obj = Codefy\Framework\Helpers\app(SomeClassWithDelegatedInstantiation::class);
-    var_dump($obj->value); // int(2)
+    public function factoryMethod() {
+        $obj = new \SomeClassWithDelegatedInstantiation;
+        $obj->value = 2;
+        return $obj;
+    }
+}
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// Works because MyFactory specifies a magic __invoke() method.
+
+app()->delegate(
+    name: \SomeClassWithDelegatedInstantiation::class,
+    callableOrMethodStr: \MyFactory::class
+);
+
+$obj = app(name: \SomeClassWithDelegatedInstantiation::class);
+
+var_dump($obj->value); // int(1)
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// This also works
+
+app()->delegate(
+    name: \SomeClassWithDelegatedInstantiation::class,
+    callableOrMethodStr: 'MyFactory::factoryMethod'
+);
+
+$obj = app(name: \SomeClassWithDelegatedInstantiation::class);
+
+var_dump($obj->value); // int(2)
+```
 
 ### Prepares and Setter Injection
 
@@ -717,39 +930,51 @@ Constructor injection is almost always preferable to setter injection. However, 
 post-instantiation mutations. The Injector accommodates these use cases with its `prepare()` method. 
 Users may register any class or interface name for post-instantiation modification. Consider:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    
-    class MyClass {
-        public $myProperty = 0;
-    }
+```php
+<?php
+
+declare(strict_types=1);
 
 
+class MyClass {
+    public $myProperty = 0;
+}
+```
 
-    <?php
-    
-    declare(strict_types=1);
+```php
+<?php
 
-    namespace App\Infrastructure\Providers;
+declare(strict_types=1);
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
+namespace Application\Provider;
+
+use Codefy\Framework\Support\CodefyServiceProvider;
+use MyClass;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
     {
-        public function register(): void
-        {
-            $this->codefy->prepare(MyClass::class, function(int $myObj) {
+        $this->codefy->prepare(
+            name: MyClass::class,
+            callableOrMethodStr: function(int $myObj) {
                 $myObj->myProperty = 42;
-            });
-        }
+            }
+        );
     }
+}
+```
 
-    // test it works
-    $myObj = Codefy\Framework\Helpers\app(MyClass::class);
-    var_dump($myObj->myProperty); // int(42)
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// test it works
+$myObj = app(name: \MyClass::class);
+
+var_dump($myObj->myProperty); // int(42)
+```
 
 While the above example is contrived, the usefulness should be clear.
 
@@ -758,44 +983,78 @@ While the above example is contrived, the usefulness should be clear.
 In addition to provisioning class instances using constructors, the Injector can also recursively instantiate the 
 parameters of any valid PHP callable. The following examples all work:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    $injector = Codefy\Framework\Helpers\app();
-    $injector->execute(function(){});
-    $injector->execute([$objectInstance, 'methodName']);
-    $injector->execute('globalFunctionName');
-    $injector->execute('MyStaticClass::myStaticMethod');
-    $injector->execute(['MyStaticClass', 'myStaticMethod']);
-    $injector->execute(['MyChildStaticClass', 'parent::myStaticMethod']);
-    $injector->execute('ClassThatHasMagicInvoke');
-    $injector->execute($instanceOfClassThatHasMagicInvoke);
-    $injector->execute('MyClass::myInstanceMethod');
+```php
+<?php
+
+declare(strict_types=1);
+
+use function Codefy\Framework\Helpers\app;
+
+$injector = app();
+
+$injector->execute(callableOrMethodStr: function(){});
+$injector->execute(callableOrMethodStr: [$objectInstance, 'methodName']);
+$injector->execute(callableOrMethodStr: 'globalFunctionName');
+$injector->execute(callableOrMethodStr: 'MyStaticClass::myStaticMethod');
+$injector->execute(callableOrMethodStr: ['MyStaticClass', 'myStaticMethod']);
+$injector->execute(callableOrMethodStr: ['MyChildStaticClass', 'parent::myStaticMethod']);
+$injector->execute(callableOrMethodStr: 'ClassThatHasMagicInvoke');
+$injector->execute(callableOrMethodStr: $instanceOfClassThatHasMagicInvoke);
+$injector->execute(callableOrMethodStr: 'MyClass::myInstanceMethod');
+```
 
 Additionally, you can pass in the name of a class for a non-static method and the injector will automatically 
 provision an instance of the class (subject to any definitions or shared instances already stored by the injector) 
 before provisioning and invoking the specified method:
 
-    <?php
-    
-    declare(strict_types=1);
-    
-    class Dependency {}
-    
-    class AnotherDependency {}
-    
-    class Example {
-        function __construct(Dependency $dep){}
-        function myMethod(AnotherDependency $arg1, $arg2) {
-            return $arg2;
-        }
+```php
+<?php
+
+declare(strict_types=1);
+
+class Dependency {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class AnotherDependency {}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+class Example {
+
+    public function __construct(\Dependency $dep) 
+    {
     }
     
-    $injector = Codefy\Framework\Helpers\app();
-    
-    // outputs: int(42)
-    var_dump($injector->execute('Example::myMethod', $args = [':arg2' => 42]));
+    public function myMethod(\AnotherDependency $arg1, $arg2) {
+        return $arg2;
+    }
+}
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+$injector = app();
+
+// outputs: int(42)
+var_dump(
+    $injector->execute(
+        callableOrMethodStr: 'Example::myMethod',
+        args: $args = [':arg2' => 42]
+    )
+);
+```
 
 #### Dependency Resolution
 
@@ -819,87 +1078,124 @@ instance across the entire scope of our application.
 
 Say we have a service class that requires two separate data mappers to persist information to a database:
 
-    <?php
-    
-    declare(strict_types=1);
+```php
+<?php
 
-    use PDO;
-    use RecordNotFoundException;
-    
-    class HouseMapper {
-        private $pdo;
+declare(strict_types=1);
 
-        public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
+use PDO;
+use RecordNotFoundException;
 
-        public function find($houseId) {
-            $query = 'SELECT * FROM houses WHERE houseId = :houseId';
-    
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindValue(':houseId', $houseId);
-    
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Model\\Entities\\House');
-            $stmt->execute();
-            $house = $stmt->fetch(PDO::FETCH_CLASS);
-    
-            if (false === $house) {
-                throw new RecordNotFoundException(
-                    'No houses exist for the specified ID'
-                );
-            }
-    
-            return $house;
-        }
-    
-        // more data mapper methods here ...
-    }
-    
-    class PersonMapper {
-        private $pdo;
-        public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
-        // data mapper methods here
-    }
-    
-    class SomeService {
-        private $houseMapper;
-        private $personMapper;
-        public function __construct(HouseMapper $hm, PersonMapper $pm) {
-            $this->houseMapper = $hm;
-            $this->personMapper = $pm;
-        }
-        public function doSomething() {
-            // do something with the mappers
-        }
+final class HouseMapper {
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
     }
 
-In our wiring/bootstrap code, we simply instantiate the PDO instance once and share it in the context of the Injector:
+    public function find($houseId) {
+        $query = 'SELECT * FROM houses WHERE houseId = :houseId';
 
-    <?php
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':houseId', $houseId);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Model\\Entities\\House');
+        $stmt->execute();
+        $house = $stmt->fetch(PDO::FETCH_CLASS);
+
+        if (false === $house) {
+            throw new RecordNotFoundException(
+                'No houses exist for the specified ID'
+            );
+        }
+
+        return $house;
+    }
+
+    // more data mapper methods here ...
+}
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use PDO;
+
+class PersonMapper {
+    private PDO $pdo;
     
-    declare(strict_types=1);
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
+    }
+    // data mapper methods here
+}
+```
 
-    namespace App\Infrastructure\Providers;
+```php
+<?php
 
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    use PDO;
+declare(strict_types=1);
+
+use HouseMapper;
+use PersonMapper;
+
+class SomeService {
+    private HouseMapper $houseMapper;
+    private PersonMapper $personMapper;
     
-    final class ExampleServiceProvider extends CodefyServiceProvider
+    public function __construct(HouseMapper $hm, PersonMapper $pm) {
+        $this->houseMapper = $hm;
+        $this->personMapper = $pm;
+    }
+    
+    public function doSomething() {
+        // do something with the mappers
+    }
+}
+```
+
+In our wiring/bootstrap code, we simply instantiate the `PDO` instance once and share it in the context of the Injector. 
+The sharing (using the `share()` method) of the `PDO` instance is similar to a singleton - one and the same instance 
+throughout your application.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Provider;
+
+use Codefy\Framework\Support\CodefyServiceProvider;
+use PDO;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    /**
+     * Register and share the PDO instance.
+     * 
+     * @return void
+     */
+    public function register(): void
     {
-        public function register(): void
-        {
-            $pdo = new PDO('sqlite:some_sqlite_file.sqlite');
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            $this->codefy->share($pdo);
-        }
+        $pdo = new PDO('sqlite:some_sqlite_file.sqlite');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $this->codefy->share(nameOrInstance: $pdo);
     }
+}
+```
 
-    // instantiate SomeService with the instantiated PDO instance
-    $service = Codefy\Framework\Helpers\app(SomeService::class);
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// instantiate the class SomeService and the Injector will
+// supply the needed PDO dependency.
+$service = app(name: \SomeService::class);
+```
 
 In the above code, the DIC instantiates our service class. More importantly, the data mapper classes it generates to do 
 so are injected *with the same database connection instance we originally shared*.
@@ -907,30 +1203,46 @@ so are injected *with the same database connection instance we originally shared
 Of course, we don't have to manually instantiate our `PDO` instance. We could just as easily seed the container with a 
 definition for how to create the `PDO` object and let it handle things for us:
 
-    <?php
-    
-    declare(strict_types=1);
+```php
+<?php
 
-    namespace App\Infrastructure\Providers;
-    
-    use Codefy\Framework\Support\CodefyServiceProvider;
-    use MyClass;
-    use PDO;
-    
-    final class ExampleServiceProvider extends CodefyServiceProvider
-    {
-        public function register(): void
-        { 
-            $this->codefy->define(PDO::class, [
+declare(strict_types=1);
+
+namespace Application\Provider;
+
+use Codefy\Framework\Support\CodefyServiceProvider;
+use PDO;
+
+final class ExampleServiceProvider extends CodefyServiceProvider
+{
+    /**
+     * Define the PDO instance and share it.
+     * 
+     * @return void
+     */
+    public function register(): void
+    { 
+        $this->codefy->define(
+            name: PDO::class,
+            args: [
                 ':dsn' => 'sqlite:some_sqlite_file.sqlite'
-            ]);
-    
-            $this->codefy->share(PDO::class);
-        }
+            ]
+        );
+
+        $this->codefy->share(nameOrInstance: PDO::class);
     }
-    
-    // instantiate SomeService with the instantiated PDO instance
-    $service = Codefy\Framework\Helpers\app(SomeService::class);
+}
+```
+
+```php
+<?php
+
+use function Codefy\Framework\Helpers\app;
+
+// instantiate the class SomeService and the Injector will
+// supply the needed PDO dependency.
+$service = app(name: \SomeService::class);
+```
 
 In the above code, the injector will pass the string definition as the $dsn argument in the `PDO::__construct` method 
 and generate the shared `PDO` instance automatically only if one of the classes it instantiates requires a `PDO` instance!
@@ -940,11 +1252,13 @@ and generate the shared `PDO` instance automatically only if one of the classes 
 Codefy includes a PSR-11 compatible container which extends the Injector. You can type-hint the PSR-11 container 
 interface, and it will return an `Injector` instance.
 
-    <?php
-    
-    return function (\Qubus\Routing\Psr7Router $router, Psr\Container\ContainerInterface $container) {
-        $user = $container->get(App\Infrastructure\Services\UserAuth);
-    
-        //
-    };
+```php
+<?php
+
+return function (Psr\Container\ContainerInterface $container) {
+    $db = $container->get(id: \Qubus\Expressive\QueryBuilder::class);
+
+    //
+};
+```
 

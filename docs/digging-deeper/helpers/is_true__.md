@@ -11,11 +11,13 @@ Checks if return is true.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\is_true__;
-    
-    is_true__(mixed $var): bool;
+use function Qubus\Support\Helpers\is_true__;
+
+function is_true__(mixed $var): bool;
+```
 
 Parameters
 ----------

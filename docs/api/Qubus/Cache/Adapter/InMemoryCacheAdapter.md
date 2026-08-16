@@ -1,38 +1,23 @@
-***
-
 # InMemoryCacheAdapter
 
-
-
-
+***
 
 * Full name: `\Qubus\Cache\Adapter\InMemoryCacheAdapter`
 * Parent class: [`\Qubus\Cache\Adapter\Multiple`](./Multiple.md)
 * This class implements:
-[`\Qubus\Cache\Adapter\CacheAdapter`](./CacheAdapter.md)
-
-
+  [`\Qubus\Cache\Adapter\CacheAdapter`](./CacheAdapter.md)
 
 ## Properties
 
-
 ### cache
-
-
 
 ```php
 private array $cache
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### get
 
@@ -42,35 +27,23 @@ Get a value from the cache store.
 public get(string $key): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | Cache key. |
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** | Cache key.  |
 
 **Return Value:**
 
 Cache value corresponding to the key or null if no value was found.
 
-
-
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
 
-
-
 **See Also:**
 
-* \Qubus\Cache\Adapter\CacheAdapter::get() - 
+* \Qubus\Cache\Adapter\CacheAdapter::get()
 
 ***
 
@@ -82,32 +55,21 @@ Sets a value into the cache store.
 public set(string $key, mixed $value, ?int $ttl): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | Cache key. |
-| `$value` | **mixed** | Value to cache. |
-| `$ttl` | **?int** | Expiration time in seconds. Null means indefinite storage time. |
-
+| Parameter | Type       | Description                                                     |
+|-----------|------------|-----------------------------------------------------------------|
+| `$key`    | **string** | Cache key.                                                      |
+| `$value`  | **mixed**  | Value to cache.                                                 |
+| `$ttl`    | **?int**   | Expiration time in seconds. Null means indefinite storage time. |
 
 **Return Value:**
 
 True if the value has been stored successfully. False otherwise.
 
-
-
-
 **See Also:**
 
-* \Qubus\Cache\Adapter\CacheAdapter::set() - 
+* \Qubus\Cache\Adapter\CacheAdapter::set()
 
 ***
 
@@ -119,30 +81,19 @@ Deletes a value from the cache store.
 public delete(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | Cache key. |
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** | Cache key.  |
 
 **Return Value:**
 
 True if the cached value has been successfully deleted. False otherwise.
 
-
-
-
 **See Also:**
 
-* \Qubus\Cache\Adapter\CacheAdapter::delete() - 
+* \Qubus\Cache\Adapter\CacheAdapter::delete()
 
 ***
 
@@ -154,35 +105,23 @@ Checks if a value has been cached.
 public has(string $key): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** | Cache key. |
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** | Cache key.  |
 
 **Return Value:**
 
 True if the cache key corresponds to a value. False otherwise.
 
-
-
 **Throws:**
 
 - [`TypeException`](../TypeException.md)
 
-
-
 **See Also:**
 
-* \Qubus\Cache\Adapter\CacheAdapter::has() - 
+* \Qubus\Cache\Adapter\CacheAdapter::has()
 
 ***
 
@@ -194,59 +133,33 @@ Purge the store of all cache values.
 public purge(?string $pattern): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter  | Type        | Description                                                                |
+|------------|-------------|----------------------------------------------------------------------------|
 | `$pattern` | **?string** | Regex pattern for targeting only certain keys or null to purge everything. |
-
-
-
-
 
 **See Also:**
 
-* \Qubus\Cache\Adapter\CacheAdapter::purge() - 
+* \Qubus\Cache\Adapter\CacheAdapter::purge()
 
 ***
 
 ### convertTtl
 
-
-
 ```php
 private convertTtl(int|\DateInterval|null $ttl): int|\Qubus\Support\DateTime\QubusDateTimeImmutable
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$ttl` | **int&#124;\DateInterval&#124;null** |  |
-
-
-
-
+| Parameter | Type                         | Description |
+|-----------|------------------------------|-------------|
+| `$ttl`    | **int\|\DateInterval\|null** |             |
 
 ***
 
-
 ## Inherited methods
-
 
 ### getMultiple
 
@@ -256,27 +169,16 @@ Get multiple values from the cache store.
 public getMultiple(array $keys): iterable|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** | Array of cache keys. |
-
+| Parameter | Type      | Description          |
+|-----------|-----------|----------------------|
+| `$keys`   | **array** | Array of cache keys. |
 
 **Return Value:**
 
 Sequential array for each cache value corresponding to a key.
 Null will be assigned if value was not found.
-
-
-
 
 ***
 
@@ -288,27 +190,17 @@ Sets multiple values into the cache store.
 public setMultiple(array $values): array|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$values` | **array** | Associative array indexed by the cache key.<br />Cache value can be accessed through &quot;value&quot; key and ttl through &quot;ttl&quot; key. |
-
+| Parameter | Type      | Description                                                                                                            |
+|-----------|-----------|------------------------------------------------------------------------------------------------------------------------|
+| `$values` | **array** | Associative array indexed by the cache key.
+Cache value can be accessed through "value" key and ttl through "ttl" key. |
 
 **Return Value:**
 
 Returns null if all values have been stored successfully or an array representing all
 cache keys that cannot be stored.
-
-
-
 
 ***
 
@@ -320,29 +212,14 @@ Deletes multiple values from the cache store.
 public deleteMultiple(array $keys): array|null
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$keys` | **array** | An array of keys to delete |
-
+| Parameter | Type      | Description                |
+|-----------|-----------|----------------------------|
+| `$keys`   | **array** | An array of keys to delete |
 
 **Return Value:**
 
 A list of all keys that cannot be deleted or null if all keys has been deleted.
 
-
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

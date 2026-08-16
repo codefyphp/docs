@@ -1,83 +1,49 @@
-***
-
 # ExpressionAware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Scheduler\Traits\ExpressionAware`
 
-
-
 ## Properties
 
-
 ### expression
-
-
 
 ```php
 protected \Cron\CronExpression|string $expression
 ```
 
-
-
-
-
-
 ***
-
 ### fieldsPosition
 
 Position of cron fields.
 
 ```php
-protected array&lt;string,int&gt; $fieldsPosition
+protected array<string,int> $fieldsPosition
 ```
-
-
-
-
-
 
 ***
 
 ## Methods
-
 
 ### cron
 
 The Cron expression representing the task's frequency.
 
 ```php
-public cron(string $expression = &#039;* * * * *&#039;): self
+public cron(string $expression = '* * * * *'): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$expression` | **string** |  |
-
-
-
+| Parameter     | Type       | Description |
+|---------------|------------|-------------|
+| `$expression` | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### filtersPass
 
 Determine if the filters pass.
@@ -86,19 +52,7 @@ Determine if the filters pass.
 public filtersPass(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
 ### between
 
 Schedule task to run between start and end time.
@@ -107,26 +61,14 @@ Schedule task to run between start and end time.
 public between(string $startTime, string $endTime): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$startTime` | **string** |  |
-| `$endTime` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$startTime` | **string** |             |
+| `$endTime`   | **string** |             |
 
 ***
-
 ### unlessBetween
 
 Schedule task that doesn't fall between start and end time.
@@ -135,26 +77,14 @@ Schedule task that doesn't fall between start and end time.
 public unlessBetween(string $startTime, string $endTime): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$startTime` | **string** |  |
-| `$endTime` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$startTime` | **string** |             |
+| `$endTime`   | **string** |             |
 
 ***
-
 ### inTimeInterval
 
 Schedule task to run between start and end time.
@@ -163,26 +93,14 @@ Schedule task to run between start and end time.
 private inTimeInterval(string $startTime, string $endTime): \Closure
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$startTime` | **string** |  |
-| `$endTime` | **string** |  |
-
-
-
-
+| Parameter    | Type       | Description |
+|--------------|------------|-------------|
+| `$startTime` | **string** |             |
+| `$endTime`   | **string** |             |
 
 ***
-
 ### hourly
 
 Schedule the task to run hourly.
@@ -191,30 +109,17 @@ Schedule the task to run hourly.
 public hourly(int|string $minute = 1): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$minute` | **int&#124;string** |  |
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$minute` | **int\|string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### daily
 
 Schedule the task to run daily.
@@ -223,30 +128,17 @@ Schedule the task to run daily.
 public daily(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### on
 
 Schedule the task to run on a certain date.
@@ -255,30 +147,17 @@ Schedule the task to run on a certain date.
 public on(string $date): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$date` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$date`   | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### at
 
 Schedule the command at a given time.
@@ -287,30 +166,17 @@ Schedule the command at a given time.
 public at(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### dailyAt
 
 Schedule the task to run daily at a given time (10:00, 19:30, etc).
@@ -319,30 +185,17 @@ Schedule the task to run daily at a given time (10:00, 19:30, etc).
 public dailyAt(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### twiceDaily
 
 Schedule the task to run twice daily.
@@ -351,65 +204,39 @@ Schedule the task to run twice daily.
 public twiceDaily(int $first = 1, int $second = 13): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$first` | **int** | First hour. |
+| Parameter | Type    | Description  |
+|-----------|---------|--------------|
+| `$first`  | **int** | First hour.  |
 | `$second` | **int** | Second hour. |
-
-
-
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### twiceDailyAt
 
 Schedule the task to run twice daily at a given minute.
 
 ```php
-public twiceDailyAt(int $first = 1, int $second = 13, int $minute): self
+public twiceDailyAt(int $first = 1, int $second = 13, int $minute = 0): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$first` | **int** | First hour. |
+| Parameter | Type    | Description  |
+|-----------|---------|--------------|
+| `$first`  | **int** | First hour.  |
 | `$second` | **int** | Second hour. |
-| `$minute` | **int** | Minute. |
-
-
-
+| `$minute` | **int** | Minute.      |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### weekdays
 
 Schedule the task to run only on weekdays.
@@ -418,30 +245,17 @@ Schedule the task to run only on weekdays.
 public weekdays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### weekends
 
 Schedule the task to run only on weekdays.
@@ -450,30 +264,17 @@ Schedule the task to run only on weekdays.
 public weekends(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### mondays
 
 Schedule the task to run only on Mondays.
@@ -482,30 +283,17 @@ Schedule the task to run only on Mondays.
 public mondays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### tuesdays
 
 Schedule the task to run only on Tuesdays.
@@ -514,30 +302,17 @@ Schedule the task to run only on Tuesdays.
 public tuesdays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### wednesdays
 
 Schedule the task to run only on Wednesdays.
@@ -546,30 +321,17 @@ Schedule the task to run only on Wednesdays.
 public wednesdays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### thursdays
 
 Schedule the task to run only on Thursdays.
@@ -578,30 +340,17 @@ Schedule the task to run only on Thursdays.
 public thursdays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### fridays
 
 Schedule the task to run only on Fridays.
@@ -610,30 +359,17 @@ Schedule the task to run only on Fridays.
 public fridays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### saturdays
 
 Schedule the task to run only on Saturdays.
@@ -642,30 +378,17 @@ Schedule the task to run only on Saturdays.
 public saturdays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### sundays
 
 Schedule the task to run only on Sundays.
@@ -674,30 +397,17 @@ Schedule the task to run only on Sundays.
 public sundays(?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### weekly
 
 Schedule the task to run weekly.
@@ -706,57 +416,31 @@ Schedule the task to run weekly.
 public weekly(): self
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### weeklyOn
 
 Schedule the task to run weekly on a given day and time.
 
 ```php
-public weeklyOn(int|string $day, string $time = &#039;0:0&#039;): self
+public weeklyOn(int|string $day, string $time = '0:0'): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$day` | **int&#124;string** |  |
-| `$time` | **string** |  |
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$day`    | **int\|string** |             |
+| `$time`   | **string**      |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### monthly
 
 Schedule the task to run monthly.
@@ -765,89 +449,50 @@ Schedule the task to run monthly.
 public monthly(): self
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### monthlyOn
 
 Schedule the task to run monthly on a given day and time.
 
 ```php
-public monthlyOn(int|string $dayOfMonth, string $time = &#039;0:0&#039;): self
+public monthlyOn(int|string $dayOfMonth, string $time = '0:0'): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$dayOfMonth` | **int&#124;string** |  |
-| `$time` | **string** |  |
-
-
-
+| Parameter     | Type            | Description |
+|---------------|-----------------|-------------|
+| `$dayOfMonth` | **int\|string** |             |
+| `$time`       | **string**      |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### lastDayOfTheMonth
 
 Schedule the task to run monthly on a given day and time.
 
 ```php
-public lastDayOfTheMonth(string $time = &#039;0:0&#039;): self
+public lastDayOfTheMonth(string $time = '0:0'): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **string** |  |
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$time`   | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### quarterly
 
 Schedule the task to run quarterly.
@@ -856,31 +501,18 @@ Schedule the task to run quarterly.
 public quarterly(int|string|array $day = 1, ?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$day` | **int&#124;string&#124;array** |  |
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type                   | Description |
+|-----------|------------------------|-------------|
+| `$day`    | **int\|string\|array** |             |
+| `$time`   | **?string**            |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### yearly
 
 Schedule the task to run yearly.
@@ -889,24 +521,11 @@ Schedule the task to run yearly.
 public yearly(): self
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### yearlyOn
 
 Schedule the task to run yearly.
@@ -915,32 +534,19 @@ Schedule the task to run yearly.
 public yearlyOn(int $month, int $day, ?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$month` | **int** |  |
-| `$day` | **int** |  |
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type        | Description |
+|-----------|-------------|-------------|
+| `$month`  | **int**     |             |
+| `$day`    | **int**     |             |
+| `$time`   | **?string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### days
 
 Set the days of the week the command should run on.
@@ -949,30 +555,17 @@ Set the days of the week the command should run on.
 public days(mixed $days): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$days` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$days`   | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### hour
 
 Set hour for the cron job.
@@ -981,30 +574,17 @@ Set hour for the cron job.
 public hour(mixed $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### minute
 
 Set minute for the cron job.
@@ -1013,30 +593,17 @@ Set minute for the cron job.
 public minute(mixed $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### dayOfMonth
 
 Set day of the month for the cron job.
@@ -1045,30 +612,17 @@ Set day of the month for the cron job.
 public dayOfMonth(mixed $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### month
 
 Set month for the cron job.
@@ -1077,30 +631,17 @@ Set month for the cron job.
 public month(mixed $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### dayOfWeek
 
 Set dah of the week for the cron job.
@@ -1109,30 +650,17 @@ Set dah of the week for the cron job.
 public dayOfWeek(mixed $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$value` | **mixed** |  |
-
-
-
+| Parameter | Type      | Description |
+|-----------|-----------|-------------|
+| `$value`  | **mixed** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### timezone
 
 Set the timezone the date should be evaluated on.
@@ -1141,25 +669,13 @@ Set the timezone the date should be evaluated on.
 public timezone(\DateTimeZone|string $timezone): $this
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$timezone` | **\DateTimeZone&#124;string** |  |
-
-
-
-
+| Parameter   | Type                      | Description |
+|-------------|---------------------------|-------------|
+| `$timezone` | **\DateTimeZone\|string** |             |
 
 ***
-
 ### every
 
 Another way to the frequency of the cron job.
@@ -1168,31 +684,18 @@ Another way to the frequency of the cron job.
 public every(string|null $unit = null, float|int|null $value = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$unit` | **string&#124;null** | (minute, hour, day, month or weekday) |
-| `$value` | **float&#124;int&#124;null** |  |
-
-
-
+| Parameter | Type                 | Description                           |
+|-----------|----------------------|---------------------------------------|
+| `$unit`   | **string\|null**     | (minute, hour, day, month or weekday) |
+| `$value`  | **float\|int\|null** |                                       |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### everyMinute
 
 Schedule task to run every minute of every $minute minutes.
@@ -1201,63 +704,37 @@ Schedule task to run every minute of every $minute minutes.
 public everyMinute(string|int $minute = 1): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$minute` | **string&#124;int** |  |
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$minute` | **string\|int** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### everyHour
 
 Schedule task to run every hour or every $hour hour and $minute minutes.
 
 ```php
-public everyHour(string|int $hour = 1, int $minute): self
+public everyHour(string|int $hour = 1, int $minute = 0): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$hour` | **string&#124;int** |  |
-| `$minute` | **int** |  |
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$hour`   | **string\|int** |             |
+| `$minute` | **int**         |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### expressionPasses
 
 Determine if the Cron expression passes.
@@ -1266,30 +743,17 @@ Determine if the Cron expression passes.
 protected expressionPasses(string|\DateTimeZone|null $timezone = null): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$timezone` | **string&#124;\DateTimeZone&#124;null** |  |
-
-
-
+| Parameter   | Type                            | Description |
+|-------------|---------------------------------|-------------|
+| `$timezone` | **string\|\DateTimeZone\|null** |             |
 
 **Throws:**
 
 - [`Exception`](../../../../Exception.md)
 
-
-
 ***
-
 ### spliceIntoPosition
 
 Splice the given value into the given position of the expression.
@@ -1298,31 +762,18 @@ Splice the given value into the given position of the expression.
 protected spliceIntoPosition(int $position, string $value): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$position` | **int** |  |
-| `$value` | **string** |  |
-
-
-
+| Parameter   | Type       | Description |
+|-------------|------------|-------------|
+| `$position` | **int**    |             |
+| `$value`    | **string** |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### setDayOfWeek
 
 Internal function used by the everyMonday, etc functions.
@@ -1331,31 +782,18 @@ Internal function used by the everyMonday, etc functions.
 protected setDayOfWeek(int|string $day, ?string $time = null): self
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$day` | **int&#124;string** |  |
-| `$time` | **?string** |  |
-
-
-
+| Parameter | Type            | Description |
+|-----------|-----------------|-------------|
+| `$day`    | **int\|string** |             |
+| `$time`   | **?string**     |             |
 
 **Throws:**
 
 - [`TypeException`](../../../../Qubus/Exception/Data/TypeException.md)
 
-
-
 ***
-
 ### parseTime
 
 Parses a time string (like 4:08 pm) into minutes and hours.
@@ -1364,25 +802,10 @@ Parses a time string (like 4:08 pm) into minutes and hours.
 protected parseTime(string $time): array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$time` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$time`   | **string** |             |
 
 ***
-
-***
-> Automatically generated on 2025-10-13
-

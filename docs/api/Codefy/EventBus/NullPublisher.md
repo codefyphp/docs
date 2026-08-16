@@ -1,22 +1,14 @@
-***
-
 # NullPublisher
 
-
-
-
+***
 
 * Full name: `\Codefy\EventBus\NullPublisher`
 * This class is marked as **final** and can't be subclassed
 * This class implements:
-[`\Codefy\EventBus\DomainEventPublisher`](./DomainEventPublisher.md)
+  [`\Codefy\EventBus\DomainEventPublisher`](./DomainEventPublisher.md)
 * This class is a **Final class**
 
-
-
-
 ## Methods
-
 
 ### publish
 
@@ -26,25 +18,10 @@ Publishes a domain event.
 public publish(\Codefy\Domain\EventSourcing\DomainEvent $event): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$event` | **\Codefy\Domain\EventSourcing\DomainEvent** |  |
-
-
-
-
+| Parameter | Type                                         | Description |
+|-----------|----------------------------------------------|-------------|
+| `$event`  | **\Codefy\Domain\EventSourcing\DomainEvent** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

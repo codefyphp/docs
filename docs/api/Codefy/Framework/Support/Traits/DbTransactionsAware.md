@@ -1,17 +1,10 @@
-***
-
 # DbTransactionsAware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Support\Traits\DbTransactionsAware`
 
-
-
 ## Properties
-
 
 ### useTransaction
 
@@ -21,15 +14,9 @@ Determines whether class uses transaction.
 protected bool $useTransaction
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
-
 
 ### withTransaction
 
@@ -39,19 +26,7 @@ Enable transaction in pipeline.
 public withTransaction(): static
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
-
 ### beginTransaction
 
 Begin the transaction if enabled.
@@ -60,24 +35,7 @@ Begin the transaction if enabled.
 protected beginTransaction(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
-
-
 ***
-
 ### commitTransaction
 
 Commit the transaction if enabled.
@@ -86,24 +44,7 @@ Commit the transaction if enabled.
 protected commitTransaction(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
-
-
 ***
-
 ### rollbackTransaction
 
 Rollback the transaction if enabled.
@@ -112,24 +53,4 @@ Rollback the transaction if enabled.
 protected rollbackTransaction(): void
 ```
 
-
-
-
-
-
-
-
-
-
-
-**Throws:**
-
-- [`Exception`](../../../../Qubus/Exception/Exception.md)
-
-
-
 ***
-
-***
-> Automatically generated on 2025-10-13
-

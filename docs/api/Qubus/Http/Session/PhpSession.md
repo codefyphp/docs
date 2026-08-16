@@ -1,17 +1,10 @@
-***
-
 # PhpSession
 
-
-
-
+***
 
 * Full name: `\Qubus\Http\Session\PhpSession`
 
-
-
 ## Methods
-
 
 ### has
 
@@ -21,22 +14,11 @@ Checks if session exists.
 public has(string $name): bool
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Session name. |
-
-
-
-
+| Parameter | Type       | Description   |
+|-----------|------------|---------------|
+| `$name`   | **string** | Session name. |
 
 ***
 
@@ -48,22 +30,11 @@ Retrieve session.
 public get(string $name): string|array
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$name` | **string** | Session name. |
-
-
-
-
+| Parameter | Type       | Description   |
+|-----------|------------|---------------|
+| `$name`   | **string** | Session name. |
 
 ***
 
@@ -75,17 +46,6 @@ Returns all session data.
 public getAll(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ***
 
 ### unsetSession
@@ -96,25 +56,10 @@ Destroy specific session data by key.
 public unsetSession(string $key): void
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$key` | **string** |  |
-
-
-
-
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `$key`    | **string** |             |
 
 ***
-
-
-***
-> Automatically generated on 2025-10-13

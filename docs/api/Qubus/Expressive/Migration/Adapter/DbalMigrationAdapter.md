@@ -1,99 +1,52 @@
-***
-
 # DbalMigrationAdapter
 
-
-
-
+***
 
 * Full name: `\Qubus\Expressive\Migration\Adapter\DbalMigrationAdapter`
 * This class implements:
-[`\Qubus\Expressive\Migration\Adapter\MigrationAdapter`](./MigrationAdapter.md)
-
-
+  [`\Qubus\Expressive\Migration\Adapter\MigrationAdapter`](./MigrationAdapter.md),
+  [`\Qubus\Expressive\Migration\Adapter\ConnectionAwareMigrationAdapter`](./ConnectionAwareMigrationAdapter.md)
 
 ## Properties
 
-
 ### connection
-
-
 
 ```php
 protected \Qubus\Expressive\Connection $connection
 ```
 
-
-
-
-
-
 ***
 
 ### tableName
-
-
 
 ```php
 protected string $tableName
 ```
 
-
-
-
-
-
 ***
 
 ## Methods
 
-
 ### __construct
-
-
 
 ```php
 public __construct(\Qubus\Expressive\Connection $connection, string $tableName): mixed
 ```
 
-
-
-
-
-
-
-
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$connection` | **\Qubus\Expressive\Connection** |  |
-| `$tableName` | **string** |  |
-
-
-
-
+| Parameter     | Type                             | Description |
+|---------------|----------------------------------|-------------|
+| `$connection` | **\Qubus\Expressive\Connection** |             |
+| `$tableName`  | **string**                       |             |
 
 ***
 
 ### connection
 
-
-
 ```php
 public connection(): \Qubus\Expressive\Connection
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ***
 
@@ -105,21 +58,9 @@ Get all migrated version numbers
 public fetchAll(): array
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`Exception`](../../../../Exception.md)
-
-
 
 ***
 
@@ -128,25 +69,14 @@ public fetchAll(): array
 Up
 
 ```php
-public up(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public up(\Qubus\Expressive\Migration\Migration $migration): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 ***
 
@@ -155,25 +85,14 @@ public up(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\M
 Down
 
 ```php
-public down(\Qubus\Expressive\Migration\Migration $migration): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public down(\Qubus\Expressive\Migration\Migration $migration): self
 ```
-
-
-
-
-
-
-
 
 **Parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `$migration` | **\Qubus\Expressive\Migration\Migration** |  |
-
-
-
-
+| Parameter    | Type                                      | Description |
+|--------------|-------------------------------------------|-------------|
+| `$migration` | **\Qubus\Expressive\Migration\Migration** |             |
 
 ***
 
@@ -185,21 +104,9 @@ Is the schema ready?
 public hasSchema(): bool
 ```
 
-
-
-
-
-
-
-
-
-
-
 **Throws:**
 
 - [`Exception`](../../../../Exception.md)
-
-
 
 ***
 
@@ -208,27 +115,11 @@ public hasSchema(): bool
 Create Schema
 
 ```php
-public createSchema(): \Qubus\Expressive\Migration\Adapter\MigrationAdapter
+public createSchema(): self
 ```
-
-
-
-
-
-
-
-
-
-
 
 **Throws:**
 
 - [`Exception`](../../../../Exception.md)
 
-
-
 ***
-
-
-***
-> Automatically generated on 2025-10-13

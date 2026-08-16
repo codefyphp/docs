@@ -1,17 +1,10 @@
-***
-
 # QueueAware
 
-
-
-
+***
 
 * Full name: `\Codefy\Framework\Queue\Traits\QueueAware`
 
-
-
 ## Properties
-
 
 ### name
 
@@ -21,13 +14,7 @@ The name of the queue this instance is working with.
 public string $name
 ```
 
-
-
-
-
-
 ***
-
 ### leaseTime
 
 How long the processing is expected to take in seconds.
@@ -36,13 +23,7 @@ How long the processing is expected to take in seconds.
 public int $leaseTime
 ```
 
-
-
-
-
-
 ***
-
 ### schedule
 
 When should the process run.
@@ -51,13 +32,7 @@ When should the process run.
 public string $schedule
 ```
 
-
-
-
-
-
 ***
-
 ### executions
 
 How many times should a job execute before
@@ -67,16 +42,4 @@ considered dead.
 public int $executions
 ```
 
-
-
-
-
-
 ***
-
-## Methods
-
-
-***
-> Automatically generated on 2025-10-13
-

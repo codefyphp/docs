@@ -11,11 +11,13 @@ Sorts a structured array by `Name` property.
 Usage
 -----
 
-    <?php
+```php
+<?php
 
-    use function Qubus\Support\Helpers\sort_element_callback;
-    
-    sort_element_callback(array $a, array $b): int;
+use function Qubus\Support\Helpers\sort_element_callback;
+
+function sort_element_callback(array $a, array $b): int;
+```
 
 Parameters
 ----------
