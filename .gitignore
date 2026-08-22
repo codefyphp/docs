@@ -4,5 +4,4 @@ gen_pages.py
 docs.zip
 site.zip
 myvenv
-/overrides/
 docs/javascript/matomo.js
