@@ -1,6 +1,8 @@
 ---
 title: t__
 sidebar_title: t__
+summary: Translate a message into the active application locale with an optional Gettext text domain using the Qubus t__ helper.
+keywords: php-translation,gettext,localization-helper
 ---
 
 Description

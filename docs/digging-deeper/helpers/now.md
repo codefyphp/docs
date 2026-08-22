@@ -1,6 +1,8 @@
 ---
 title: now
 sidebar_title: now
+summary: Create a Carbon instance for the current date and time with an optional PHP time zone using the Qubus now helper.
+keywords: carbon-datetime,php-timezone,now-helper
 ---
 
 Description
@@ -45,4 +47,3 @@ $now = now();
 // or with timezone
 $now = now('America/Los_Angeles');
 ```
-

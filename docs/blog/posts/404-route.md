@@ -1,12 +1,14 @@
 ---
 title: How to Create a Catchall 404 Not Found Route
+description: Create a catchall CodefyPHP route that renders a custom HTML 404 page when a URL is missing or an application link is broken.
+summary: Create a catchall CodefyPHP route that renders a custom HTML 404 page when a URL is missing or an application link is broken.
+keywords: codefyphp-routing,custom-404,catchall-route
 date:
   created: 2025-10-22 13:45:00
 links:
   - getting-started/basics/routing.md
-  - getting-started/basics/scaffold-templates.md
+  - getting-started/basics/views/index.md
 authors: [nomadicjosh]
-description: Learn how to create a 404 not found route as a fallback for routes that do not exist.
 ---
 
 # How to Create a Catchall 404 Not Found Route
@@ -105,4 +107,3 @@ following result:
 <h3 align="center">
     <img src="/docs/blog/images/404-not-found.png" width="660" alt="404 Not Found Page">
 </h3>
-

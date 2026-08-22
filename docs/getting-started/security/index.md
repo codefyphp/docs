@@ -1,6 +1,8 @@
 ---
 title: CSRF Protection
 sidebar_title: CSRF Protection
+summary: Protect CodefyPHP forms and requests from CSRF with session-scoped tokens, validation cookies, custom request headers, and configurable middleware.
+keywords: csrf-protection,codefyphp-security,csrf-middleware
 weight: 18
 ---
 
@@ -111,4 +113,3 @@ return [
     'lifetime' => 2592000,
 ];
 ```
-

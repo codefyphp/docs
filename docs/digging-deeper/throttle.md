@@ -1,6 +1,8 @@
 ---
 title: Rate Limiting
 sidebar_title: Rate Limiting
+summary: Protect CodefyPHP routes with configurable rate-limiting middleware that controls request thresholds, time windows, identifiers, and responses.
+keywords: php-rate-limiting,throttle-middleware,api-security
 order: 27
 ---
 

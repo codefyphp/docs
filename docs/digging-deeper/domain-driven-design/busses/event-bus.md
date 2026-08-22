@@ -1,6 +1,8 @@
 ---
 title: Event Bus
 sidebar_title: Event Bus
+summary: Publish CodefyPHP domain events through a PHP event bus, subscribe handlers, update projections, and move asynchronous work into queues.
+keywords: event-bus,domain-events,publish-subscribe
 order: 2
 ---
 
@@ -197,4 +199,3 @@ executing (i.e. inserting data into a database read table).
 
 The `save` method in our `PostRespository` is the same method injected into our `CreatePostCommandHandler`. Codefy 
 ships with an implementation of `EventStore` (memory only): `Codefy\EventBus\InMemoryEventStore`.
-

@@ -1,6 +1,8 @@
 ---
 title: compact_unique_array
 sidebar_title: compact_unique_array
+summary: Remove duplicate and empty values from a PHP array with compact_unique_array and return a clean array of unique entries.
+keywords: unique-array,array-cleanup,php-helper
 ---
 
 Description

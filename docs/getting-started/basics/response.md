@@ -1,6 +1,8 @@
 ---
 title: Response
 sidebar_title: Response
+summary: Create CodefyPHP HTTP responses with PSR-7-compatible response objects and convenient HTML and JSON response implementations.
+keywords: php-http-response,psr-7,json-response
 weight: 8
 ---
 
@@ -65,4 +67,3 @@ $jsonResponse = JsonResponseFactory::create($data, 422, [
     'Content-Type' => [ 'application/problem+json' ],
 ]);
 ```
-

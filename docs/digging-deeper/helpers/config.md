@@ -1,6 +1,8 @@
 ---
 title: config
 sidebar_title: config
+summary: Read and set CodefyPHP configuration values with dot notation, retrieve the ConfigContainer, and supply defaults for missing options.
+keywords: config-helper,codefyphp-configuration,dot-notation
 ---
 
 
@@ -56,4 +58,3 @@ use function Codefy\Framework\Helpers\config;
 
 config(key: ['app' => ['locale' => 'es']]); // set app.locale value to 'es'.
 ```
-

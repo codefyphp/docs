@@ -1,6 +1,8 @@
 ---
 title: Qubus HTTP Component
 sidebar_title: Introduction
+summary: Build standards-based PHP HTTP applications with the Qubus PSR-7, PSR-15, and PSR-17 component for requests, responses, middleware, and secure defaults.
+keywords: php-http,psr-7,psr-15
 weight: 0
 ---
 
@@ -153,4 +155,3 @@ Applications remain responsible for deployment-level trust decisions:
   not place keys in source control.
 - Validate and authorize all request input. Parsing input does not make it safe.
 - Treat uploaded filenames and client MIME types as untrusted metadata.
-

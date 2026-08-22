@@ -1,6 +1,8 @@
 ---
 title: unslash
 sidebar_title: unslash
+summary: Recursively remove backslashes from a PHP string or nested array of strings and return the cleaned value with its structure intact.
+keywords: unslash,string-sanitization,php-helper
 description: Recursively remove backslashes from a string or nested array of strings.
 ---
 

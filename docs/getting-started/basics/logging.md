@@ -1,6 +1,8 @@
 ---
 title: Logging
 sidebar_title: Logging
+summary: Configure CodefyPHP application logging with PSR-3 levels, structured context, file output, and SMTP alerts for important events.
+keywords: php-logging,psr-3,smtp-logging
 weight: 11
 ---
 

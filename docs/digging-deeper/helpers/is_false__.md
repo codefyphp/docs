@@ -1,6 +1,8 @@
 ---
 title: is_false__
 sidebar_title: is_false__
+summary: Test whether a PHP value is strictly false with the is_false__ predicate helper and return a boolean result.
+keywords: is-false,boolean-check,php-helper
 ---
 
 Description

@@ -1,6 +1,8 @@
 ---
 title: esc_attr__
 sidebar_title: esc_attr__
+summary: Translate a string and escape it for safe output inside a quoted HTML attribute with the Qubus esc_attr__ helper.
+keywords: translated-attributes,html-escaping,php-i18n
 ---
 
 Description

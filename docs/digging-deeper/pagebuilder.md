@@ -1,6 +1,8 @@
 ---
 title: Page Builder
 sidebar_title: Page Builder
+summary: Build CodefyPHP websites with the Vihzhuo page builder, including configurable themes, layouts, blocks, assets, pages, and site management tools.
+keywords: php-page-builder,vihzhuo,codefyphp-themes
 order: 100
 ---
 

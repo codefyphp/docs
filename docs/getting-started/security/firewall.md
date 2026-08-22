@@ -1,6 +1,8 @@
 ---
 title: Firewall
 sidebar_title: Firewall
+summary: Protect CodefyPHP applications with PSR-15 firewall middleware that detects, logs, reports, monitors, and blocks common malicious request patterns.
+keywords: codefyphp-firewall,web-application-security,psr-15
 weight: 203
 ---
 

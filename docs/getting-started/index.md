@@ -1,6 +1,8 @@
 ---
 title: Server Requirements
 sidebar_title: Server Requirements
+summary: Review CodefyPHP server requirements, including the supported PHP version, required and optional extensions, cache drivers, and SQL databases.
+keywords: codefyphp-requirements,php-8.4,server-configuration
 weight: 0
 ---
 

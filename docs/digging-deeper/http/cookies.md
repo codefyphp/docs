@@ -1,6 +1,8 @@
 ---
 title: Cookies
 sidebar_title: Cookies
+summary: Read and create secure PSR-7 HTTP cookies with CodefyPHP, including SameSite settings, prefixes, partitioning, encryption, signing, and middleware.
+keywords: php-cookies,psr-7,cookie-security
 weight: 11
 ---
 
@@ -335,4 +337,3 @@ stable across all application instances that must share cookies.
 - Expire cookies with the exact path/domain used when creating them.
 - Encryption provides confidentiality, not authorization. Validate decrypted
   data and enforce server-side permissions.
-

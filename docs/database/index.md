@@ -1,6 +1,8 @@
 ---
 title: Database
 sidebar_title: Database
+summary: Build a PHP data layer with CodefyPHP Expressive connections, fluent queries, migrations, Active Record, and DataMapper support for major SQL databases.
+keywords: codefyphp-database,php-query-builder,database-migrations
 weight: 0
 ---
 

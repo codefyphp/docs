@@ -1,6 +1,8 @@
 ---
 title: Controllers
 sidebar_title: Controllers
+summary: Create basic, resource, and RESTful CodefyPHP controllers, map actions to routes, and attach middleware to controller classes and methods.
+keywords: codefyphp-controllers,restful-controller,php-mvc
 weight: 9
 ---
 
@@ -45,8 +47,7 @@ final class HomeController extends BaseController
 
 !!! note "Return Response"
     As much as it is possible, always return a response (**highly recommended**) in your controllers. In the above 
-    example, the view is passed into the `create()` method of `HtmlResponseFactory`. For a list of other response 
-    factories, check out the [Route Response](routing.md#route-response) section.
+    example, the view is passed into the `create()` method of `HtmlResponseFactory`.
 
 Now, we can define a route to the controller's method `index`. This route example can be defined in the 
 `routes/web/web.php` file:
@@ -262,4 +263,3 @@ class PostController extends BaseController implements ResourceController
 
 This is just a brief introduction to using middleware. Check out the 
 [Middleware](middleware.md) section for more details.
-

@@ -1,6 +1,8 @@
 ---
 title: Native
 sidebar_title: Native
+summary: Render native PHP templates with Qubus View using namespaced loaders, layouts, blocks, globals, registered functions, pipelines, and output escaping.
+keywords: native-php-templates,qubus-view,template-layouts
 weight: 1
 ---
 

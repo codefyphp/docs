@@ -1,6 +1,8 @@
 ---
 title: DataMapper
 sidebar_title: DataMapper
+summary: Map database rows to typed, persistence-independent PHP entities with CodefyPHP Expressive DataMapper attributes, queries, hydration, and writes.
+keywords: php-data-mapper,typed-entities,codefyphp-database
 weight: 3
 ---
 

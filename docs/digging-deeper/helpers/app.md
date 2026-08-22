@@ -1,6 +1,8 @@
 ---
 title: app
 sidebar_title: app
+summary: Access the CodefyPHP service container or resolve a class, interface, or alias with runtime parameters through the app helper.
+keywords: app-helper,dependency-injection,service-container
 ---
 
 
@@ -12,7 +14,7 @@ Returns the `Qubus\Injector\ServiceContainer` or `Psr\Container\ContainerInterfa
 
 !!!warning
     This helper is available for ease of use, but should be used sparingly. It is highly recommended that you use 
-    a [`ServiceProvider`](../../getting-started/dependency-injection.md#service-providers) or dependency injection.
+    a [`ServiceProvider`](../../getting-started/dependency-injection.md#service-provider-contracts) or dependency injection.
 
 Usage
 -----

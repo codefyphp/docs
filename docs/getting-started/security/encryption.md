@@ -1,6 +1,8 @@
 ---
 title: Encryption
 sidebar_title: Encryption
+summary: Encrypt and decrypt sensitive CodefyPHP values with OpenSSL-backed AES encryption, authenticated MAC signatures, and generated application keys.
+keywords: codefyphp-encryption,aes-encryption,authenticated-encryption
 weight: 201
 ---
 
@@ -58,7 +60,6 @@ You may decrypt a value using the `decrypt()` method provided by `Qubus\Http\Enc
     
     $crypt->decrypt(value: $text);
     // result: Hello World!
-
 
 
 

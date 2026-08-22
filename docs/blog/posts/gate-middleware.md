@@ -1,12 +1,14 @@
 ---
 title: How to Create a Gate Middleware - Checking User Permissions
+description: Build reusable CodefyPHP gate middleware that checks route permissions, integrates UserAuth, and redirects unauthorized users.
+summary: Build reusable CodefyPHP gate middleware that checks route permissions, integrates UserAuth, and redirects unauthorized users.
+keywords: gate-middleware,user-permissions,codefyphp-rbac
 date:
   created: 2025-10-18 13:15:00
 links: 
   - getting-started/basics/middleware.md
   - getting-started/basics/rbac.md
 authors: [nomadicjosh]
-description: Tutorial on how to create a gate middleware for checking user permissions via your routes.
 ---
 
 # How to Create a Gate Middleware: Checking User Permissions
@@ -341,4 +343,3 @@ $router->middleware(['auth', 'permission:edit-posts,/no-access']);
 
 If you need further help, or have questions, you can always post questions or seek help on the 
 [forums](https://forum.codefyphp.com/).
-

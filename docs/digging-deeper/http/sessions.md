@@ -1,6 +1,8 @@
 ---
 title: Sessions and flash messages
 sidebar_title: Sessions
+summary: Manage secure PHP sessions and flash messages with native or cache-backed storage, typed values, PSR-7 lifecycles, and session middleware.
+keywords: php-sessions,flash-messages,session-middleware
 weight: 12
 ---
 
@@ -390,4 +392,3 @@ The client session ID is deliberately not copied into an HTTP header.
   consistently.
 - Do not place secrets, large payloads, open resources, or service objects in
   session entities.
-

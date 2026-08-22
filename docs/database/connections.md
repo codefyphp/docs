@@ -1,6 +1,8 @@
 ---
 title: Connections
 sidebar_title: Connections
+summary: Configure PDO database connections for MySQL, PostgreSQL, SQLite, Oracle, and SQL Server with safe queries, transactions, and multiple connections.
+keywords: pdo-connections,php-database,sql-transactions
 weight: 1
 ---
 

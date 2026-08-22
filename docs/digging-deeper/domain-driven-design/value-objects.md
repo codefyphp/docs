@@ -1,3 +1,8 @@
+---
+summary: Create immutable PHP value objects for aggregate data with Qubus StringLiteral, typed constructors, native conversion, and value equality.
+keywords: php-value-objects,domain-driven-design,string-literal
+---
+
 In the previous section, we created our first value object, `PostId`. Before continuing on, we have a couple of other 
 value objects to create: `Title` and `Content`. To keep it simple, we will have them extend a base value object, 
 `Qubus\ValueObjects\StringLiteral\StringLiteral` and add a new `fromString` method.
@@ -73,4 +78,3 @@ public function equals(ValueObject $object): bool;
 ```
 
 Both `Title` and `Content` inherit the above methods.
-

@@ -1,6 +1,8 @@
 ---
 title: Dependency Injection
 sidebar_title: Dependency Injection
+summary: Configure Qubus Injector for PHP autowiring, interface mappings, constructor arguments, factories, shared services, lazy proxies, invocation, and PSR-11.
+keywords: php-dependency-injection,autowiring,psr-11
 weight: 5
 ---
 
@@ -1093,4 +1095,3 @@ The injector resolves object graphs; it does not manage process, request, or
 transaction lifetimes beyond the scope of a particular injector instance.
 Create appropriately scoped injector instances and explicitly configure
 resources that need cleanup.
-

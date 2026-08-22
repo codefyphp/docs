@@ -1,6 +1,8 @@
 ---
 title: esc_js
 sidebar_title: esc_js
+summary: Transport fully constructed inline JavaScript safely through a quoted HTML event attribute with context-aware escaping.
+keywords: javascript-escaping,inline-javascript,php-security
 description: Escaping for inline JavaScript for echoing JavasScript expressions.
 ---
 

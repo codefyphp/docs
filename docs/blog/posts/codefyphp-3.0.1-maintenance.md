@@ -1,9 +1,11 @@
 ---
 title: CodefyPHP 3.0.1 Maintenance Release
+description: Review the CodefyPHP 3.0.1 maintenance fixes for configurable authentication cookies, shared UserAuth services, and conditional logic.
+summary: Review the CodefyPHP 3.0.1 maintenance fixes for configurable authentication cookies, shared UserAuth services, and conditional logic.
+keywords: codefyphp-3.0.1,maintenance-release,bug-fixes
 date:
   created: 2025-10-18 13:10:00
 authors: [nomadicjosh]
-description: CodefyPHP 3.0.1 maintenance release fixes a bug in UserAuth.
 ---
 
 # CodefyPHP 3.0.1 Maintenance Release

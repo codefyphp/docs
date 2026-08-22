@@ -1,6 +1,8 @@
 ---
 title: Error Handling
 sidebar_title: Error Handling
+summary: Configure CodefyPHP error and exception handling with PSR-3 logging, development diagnostics, and production-safe application responses.
+keywords: php-error-handling,psr-3,exception-logging
 weight: 10
 ---
 
@@ -23,4 +25,3 @@ and set `APP_ENV` to `production`.
 
 Codefy uses a PSR-3 implementation of logging that sends your logs to files and inboxes. Check out the 
 [Logging](logging.md) section for logging levels and SMTP logging for mission critical applications.
-

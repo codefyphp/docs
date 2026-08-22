@@ -1,6 +1,8 @@
 ---
 title: Responses, factories, and emitters
 sidebar_title: Responses
+summary: Create, stream, and emit PSR-7 HTTP responses in PHP with specialized factories, PSR-17 support, status helpers, middleware, and publishers.
+keywords: psr-7-response,psr-17,response-emitter
 weight: 8
 ---
 

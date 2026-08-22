@@ -1,3 +1,8 @@
+---
+summary: Append and retrieve CodefyPHP domain events with transactional event stores, aggregate histories, playhead reads, and an in-memory implementation.
+keywords: event-store,event-sourcing,domain-events
+---
+
 A full-blown event store is beyond the scope of this documentation, but Codefy has an `InMemoryEventStore` we can use. 
 It implements the `EventStore` interface that consists of two methods: `append`, `getAggregateHistoryFor`, and 
 `loadFromPlayhead`. We won’t be concerning ourselves with the third method in this documentation.
@@ -59,4 +64,3 @@ Github
 ------
 
 An in-memory implementation of `EventStore` is on [Github](https://github.com/codefyphp/domain-driven-core/blob/3.0.x/Domain/EventSourcing/InMemoryEventStore.php).
-

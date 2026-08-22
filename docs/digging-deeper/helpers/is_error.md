@@ -1,6 +1,8 @@
 ---
 title: is_error
 sidebar_title: is_error
+summary: Check whether a PHP value is a Qubus Error instance and branch safely between successful results and application errors.
+keywords: is-error,error-checking,php-helper
 ---
 
 Description

@@ -1,6 +1,8 @@
 ---
 title: Cookies
 sidebar_title: Cookies
+summary: Install and use the CodefyPHP cookie component to read request cookies and create response cookies with configurable attributes.
+keywords: codefyphp-cookies,http-cookies,php-request
 weight: 13
 ---
 
@@ -233,4 +235,3 @@ header when setting as well as expiring the cookie:
         ->withDomain('.example.com');
     
     CookiesResponse::set($response, $setCookie->expire());
-

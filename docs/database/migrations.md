@@ -1,6 +1,8 @@
 ---
 title: Migrations
 sidebar_title: Migrations
+summary: Generate, run, inspect, and roll back CodefyPHP database migrations from the Codex command line using versioned PHP migration classes.
+keywords: database-migrations,phpmig,codex-cli
 weight: 5
 ---
 

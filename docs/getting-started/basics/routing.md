@@ -1,6 +1,8 @@
 ---
 title: Routing
 sidebar_title: Routing
+summary: Define CodefyPHP routes with HTTP methods, controller or callable handlers, groups, names, parameters, middleware, URL generation, and PSR-7 dispatch.
+keywords: codefyphp-routing,php-router,route-middleware
 weight: 15
 ---
 
@@ -1411,4 +1413,3 @@ Common routing exceptions include:
 - Clear the route cache as part of every deployment that changes routing behavior.
 - Use a full request URI when testing domain or scheme restrictions.
 - Use the concrete `Router` type when code needs registration, caching, events, resources, or inspection APIs not declared by the narrower `Psr7Router` interface.
-

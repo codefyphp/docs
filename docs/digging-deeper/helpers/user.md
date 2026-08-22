@@ -1,6 +1,8 @@
 ---
 title: user
 sidebar_title: user
+summary: Retrieve the currently authenticated CodefyPHP user as an object, boolean, or null with the user convenience helper.
+keywords: authenticated-user,user-helper,codefyphp-auth
 ---
 
 Description

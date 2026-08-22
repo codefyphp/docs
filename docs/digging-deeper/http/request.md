@@ -1,6 +1,8 @@
 ---
 title: Requests and input
 sidebar_title: Requests
+summary: Create and inspect PSR-7 server requests with Qubus HTTP, including URIs, headers, client addresses, authentication, parsed input, files, and negotiation.
+keywords: psr-7-request,http-input,php-request
 weight: 7
 ---
 

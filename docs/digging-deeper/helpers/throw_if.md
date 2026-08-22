@@ -1,6 +1,8 @@
 ---
 title: throw_if
 sidebar_title: throw_if
+summary: Throw a PHP exception, class, or closure result when a condition is true and pass optional parameters to the exception constructor.
+keywords: throw-if,conditional-exception,php-helper
 ---
 
 Description

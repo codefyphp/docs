@@ -1,6 +1,8 @@
 ---
 title: gate
 sidebar_title: gate
+summary: Retrieve the CodefyPHP authorization Gate or check whether the authenticated user has a named permission with optional rule parameters.
+keywords: gate-helper,user-authorization,codefyphp-rbac
 ---
 
 Description

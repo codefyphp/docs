@@ -1,6 +1,8 @@
 ---
 title: esc_html__
 sidebar_title: esc_html__
+summary: Translate a string and escape it for safe plain-text output between HTML tags with the Qubus esc_html__ helper.
+keywords: translated-html,html-escaping,php-i18n
 ---
 
 Description

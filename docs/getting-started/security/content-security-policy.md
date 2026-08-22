@@ -1,6 +1,8 @@
 ---
 title: Content Security Policy
 sidebar_title: Content Security Policy
+summary: Configure CodefyPHP Content Security Policy middleware and defensive HTTP headers to reduce XSS, framing, content-type, and cross-origin risks.
+keywords: content-security-policy,security-headers,xss-protection
 weight: 19
 ---
 
@@ -156,4 +158,3 @@ These options and more can be configured in `config/headers.php`:
 
 Here’s a list of [common HTTP headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields), and the Mozilla
 [recommended settings](https://infosec.mozilla.org/guidelines/web_security.html) for securing web applications.
-

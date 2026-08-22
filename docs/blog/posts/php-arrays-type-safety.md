@@ -1,11 +1,13 @@
 ---
 title: How to Implement Type Safety for PHP Arrays
+description: Add type safety to PHP arrays with DTOs, value objects, and an ArrayList collection that enforces consistent element types and reduces runtime bugs.
+summary: Add type safety to PHP arrays with DTOs, value objects, and an ArrayList collection that enforces consistent element types and reduces runtime bugs.
+keywords: php-type-safety,typed-arrays,arraylist
 date:
   created: 2025-10-28 09:30:00
   updated: 2025-10-29 07:30:00
 authors: [nomadicjosh]
 slug: type-safety-php-arrays
-description: Implement type safety in PHP arrays with a custom ArrayList class. Enforce strict types, reduce bugs, and write cleaner, more reliable code.
 ---
 
 # How to Implement Type Safety for PHP Arrays

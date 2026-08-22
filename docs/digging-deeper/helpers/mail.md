@@ -1,6 +1,8 @@
 ---
 title: mail
 sidebar_title: mail
+summary: Send email from CodefyPHP through SMTP, Qmail, or Sendmail with multiple recipients, custom headers, message content, and attachments.
+keywords: mail-helper,smtp-email,php-mail
 ---
 
 Description

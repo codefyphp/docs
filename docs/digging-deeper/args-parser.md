@@ -1,6 +1,8 @@
 ---
 title: Argument Parser
 sidebar_title: Argument Parser
+summary: Normalize and merge PHP arrays, objects, or strings with CodefyPHP Argument Parser, including recursive deep merges and nested defaults.
+keywords: php-argument-parser,array-merge,object-merge
 order: 34
 ---
 
@@ -97,6 +99,4 @@ arrays, and merges them with defaults.
     'debug' => false,
 ]
 ```
-
-
 

@@ -1,6 +1,8 @@
 ---
 title: is_null__
 sidebar_title: is_null__
+summary: Test whether a defined PHP variable contains null with the is_null__ predicate helper and return a boolean result.
+keywords: is-null,null-check,php-helper
 ---
 
 Description

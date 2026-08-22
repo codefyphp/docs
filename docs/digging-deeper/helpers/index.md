@@ -1,6 +1,8 @@
 ---
 title: Index
 sidebar_title: Index
+summary: Browse the CodefyPHP and Qubus PHP helper reference for requests, configuration, collections, strings, security, translation, mail, queues, and users.
+keywords: codefyphp-helpers,qubus-helpers,php-functions
 weight: 0
 ---
 
@@ -141,7 +143,7 @@ Returns the `Qubus\Injector\ServiceContainer` or `Psr\Container\ContainerInterfa
 
 !!!warning
     This helper is available for ease of use, but should be used sparingly. It is highly recommended that you use
-    a [`ServiceProvider`](../../getting-started/dependency-injection.md#service-providers) and dependency injection.
+    a [`ServiceProvider`](../../getting-started/dependency-injection.md#service-provider-contracts) and dependency injection.
 
 ```php
 <?php
@@ -795,7 +797,6 @@ $user = user();
 echo $user->user_id; // returns the user's ID
 echo $user->email; // returns the user's email
 ```
-
 
 
 

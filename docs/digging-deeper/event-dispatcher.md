@@ -1,6 +1,8 @@
 ---
 title: Events
 sidebar_title: Events
+summary: Dispatch and listen for application events with CodefyPHP using the legacy event API or standards-based PSR-14 events, listeners, and subscribers.
+keywords: php-event-dispatcher,psr-14,codefyphp-events
 order: 22
 ---
 
@@ -139,4 +141,3 @@ At its most basic, usage looks like this:
     $dispatcher = new EventDispatcher($provider);
     
     $dispatcher->dispatch(new SomeEvent());
-

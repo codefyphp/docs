@@ -1,6 +1,8 @@
 ---
 title: ask
 sidebar_title: ask
+summary: Dispatch a CodefyPHP Query object through the query bus with the ask helper and return the result produced by its matching query handler.
+keywords: ask-helper,query-bus,cqrs
 ---
 
 

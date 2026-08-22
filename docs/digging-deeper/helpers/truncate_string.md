@@ -1,6 +1,8 @@
 ---
 title: truncate_string
 sidebar_title: truncate_string
+summary: Shorten plain text or HTML to a character limit, append a custom continuation marker, and optionally preserve markup with truncate_string.
+keywords: truncate-string,text-shortening,php-helper
 ---
 
 Description

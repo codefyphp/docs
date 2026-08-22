@@ -1,6 +1,8 @@
 ---
 title: add_trailing_slash
 sidebar_title: add_trailing_slash
+summary: Normalize a PHP string or path with add_trailing_slash, removing existing terminal separators before appending one forward slash.
+keywords: add-trailing-slash,path-normalization,php-helper
 ---
 
 

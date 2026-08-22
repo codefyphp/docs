@@ -1,6 +1,8 @@
 ---
 title: String Parser
 sidebar_title: String Parser
+summary: Parse query-style strings into structured PHP data with defaults, optional placeholders, array keys, strict validation, and URL-decoded input.
+keywords: php-string-parser,query-string,argument-parsing
 order: 33
 ---
 
@@ -96,5 +98,4 @@ The `StringParser` can handle both normal keys and array style keys `tags[]=php&
         'city' => 'New York',
         'lang' => 'en',
     ]
-
 

@@ -1,3 +1,8 @@
+---
+summary: Model business state changes as CodefyPHP domain events with AggregateChanged, typed payloads, metadata, aggregate identifiers, and event accessors.
+keywords: domain-events,aggregate-changed,event-sourcing
+---
+
 An `event` is something that has happened in the past. A `domain event` is something that has happened and affects the 
 state of the application. To take it a bit further beyond that, here is how Martin Fowler explains a domain event:
 
@@ -266,4 +271,3 @@ it('should expose content.', function () use ($event) {
     expect(value: $event->content())->toEqual(expected: new Content(value: 'Short content for this new post.'));
 });
 ```
-

@@ -1,6 +1,8 @@
 ---
 title: HTTP Client
 sidebar_title: HTTP Client
+summary: Send HTTP requests from CodefyPHP with a configurable PHP client, PSR interfaces, request options, responses, and error handling.
+keywords: php-http-client,psr-http,codefyphp
 order: 24
 ---
 
@@ -80,4 +82,3 @@ Float describing the total timeout of the request in seconds. Use `0` to wait in
     // Timeout if a server does not return a response in 3.14 seconds.
     $client->request('GET', '/delay/5', ['timeout' => 3.14]);
     // PHP Fatal error:  Uncaught exception 'GuzzleHttp\Exception\TransferException'
-

@@ -1,6 +1,8 @@
 ---
 title: site_url
 sidebar_title: site_url
+summary: Generate the CodefyPHP application base URL with an optional relative path and a normalized trailing slash using site_url.
+keywords: site-url,url-generation,codefyphp-helper
 ---
 
 

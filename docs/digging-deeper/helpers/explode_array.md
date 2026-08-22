@@ -1,6 +1,8 @@
 ---
 title: explode_array
 sidebar_title: explode_array
+summary: Split one or many PHP strings with one or multiple delimiters and return the resulting values as an array.
+keywords: explode-array,string-splitting,php-helper
 description: Splits a string using one or more delimiters.
 ---
 

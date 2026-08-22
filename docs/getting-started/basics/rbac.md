@@ -1,6 +1,8 @@
 ---
 title: Role-Based Access Control
 sidebar_title: RBAC
+summary: Implement role-based access control in CodefyPHP with permission and role hierarchies, bindings, persistent storage, rules, and access checks.
+keywords: codefyphp-rbac,role-permissions,access-control
 weight: 14
 ---
 

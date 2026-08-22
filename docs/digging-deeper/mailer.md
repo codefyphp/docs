@@ -1,6 +1,8 @@
 ---
 title: Mail
 sidebar_title: Mail
+summary: Send plain-text and HTML email from CodefyPHP with SMTP, templates, attachments, recipient options, and a concise mailer API.
+keywords: php-mailer,smtp-email,email-templates
 order: 26
 ---
 
@@ -122,4 +124,3 @@ You can send an email using an email template and pass in variables that can be 
 ## Simple Email
 
 If you want to send a simple or quick email, you can utilize the [`mail`](helpers/mail.md) helper.
-

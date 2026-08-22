@@ -1,6 +1,8 @@
 ---
 title: esc_html
 sidebar_title: esc_html
+summary: Escape plain text for safe placement between HTML tags so untrusted markup is displayed as text instead of interpreted by the browser.
+keywords: html-escaping,xss-prevention,php-security
 description: Escapes plain text that will be placed between HTML tags.
 ---
 

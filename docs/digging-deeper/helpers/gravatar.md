@@ -1,6 +1,8 @@
 ---
 title: gravatar
 sidebar_title: gravatar
+summary: Create a Gravatar Image instance from an email address and configure a profile image for display in a CodefyPHP application.
+keywords: gravatar-image,user-avatar,php-helper
 ---
 
 Description

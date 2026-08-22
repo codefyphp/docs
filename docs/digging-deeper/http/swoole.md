@@ -1,6 +1,8 @@
 ---
-title: Swoole bridge
+title: Swoole Bridge
 sidebar_title: Swoole
+summary: Run Qubus PSR-7 and PSR-15 applications on Swoole with request conversion, streamed responses, worker-safe services, and error boundaries.
+keywords: php-swoole,psr-15,swoole-server
 weight: 14
 ---
 

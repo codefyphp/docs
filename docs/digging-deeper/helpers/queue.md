@@ -1,6 +1,8 @@
 ---
 title: queue
 sidebar_title: queue
+summary: Dispatch a CodefyPHP ShouldQueue job immediately or publish it to a background NodeQueue with the queue helper.
+keywords: queue-helper,background-jobs,php-queues
 ---
 
 
