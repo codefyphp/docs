@@ -1,6 +1,8 @@
 ---
 title: Passwords
 sidebar_title: Passwords
+summary: Hash and verify CodefyPHP user passwords securely with Bcrypt or Argon2id, inspect algorithms, tune costs, and rehash outdated credentials.
+keywords: php-password-hashing,argon2id,bcrypt
 weight: 202
 ---
 
@@ -168,7 +170,6 @@ if(Password::needsRehash($hashedPassword)) {
     $hashedPassword = Password::hash($password);
 }
 ```
-
 
 
 

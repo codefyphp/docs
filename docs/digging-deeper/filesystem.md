@@ -1,6 +1,8 @@
 ---
 title: File Storage
 sidebar_title: File Storage
+summary: Manage files in CodefyPHP with Flysystem adapters for local, memory, FTP, SFTP, and Amazon S3 storage, including common filesystem operations.
+keywords: php-file-storage,flysystem,amazon-s3
 order: 23
 ---
 

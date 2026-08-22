@@ -1,6 +1,8 @@
 ---
 title: Collections
 sidebar_title: Collections
+summary: Create and transform PHP collections with fluent methods for filtering, mapping, sorting, grouping, reducing, pagination, and array conversion.
+keywords: php-collections,arraylist,collection-methods
 order: 21
 ---
 
@@ -733,7 +735,5 @@ The `values()` method returns a new collection with the keys reset to consecutiv
   ]
 ]
 ```
-
-
 
 

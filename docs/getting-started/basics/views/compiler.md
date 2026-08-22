@@ -1,6 +1,8 @@
 ---
 title: Compiler
 sidebar_title: Compiler
+summary: Build secure CodefyPHP templates with the Qubus compiler engine, automatic HTML escaping, layouts, directives, expressions, functions, and caching.
+keywords: php-template-engine,template-compiler,html-escaping
 weight: 2
 ---
 

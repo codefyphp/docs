@@ -1,6 +1,8 @@
 ---
 title: abort_unless
 sidebar_title: abort_unless
+summary: Conditionally throw a CodefyPHP HttpException unless a boolean expression is true, with a status code, optional URI, and custom message.
+keywords: abort-unless,http-exception,php-helper
 ---
 
 Description

@@ -1,9 +1,11 @@
 ---
 title: CodefyPHP 3 Is Here
+description: Discover CodefyPHP 3 features for asset management, queued jobs, scheduled tasks, environment encryption, middleware, and search optimization.
+summary: Discover CodefyPHP 3 features for asset management, queued jobs, scheduled tasks, environment encryption, middleware, and search optimization.
+keywords: codefyphp-3,php-framework,release-notes
 date:
   created: 2025-10-15 08:00:00
 authors: [nomadicjosh]
-description: CodefyPHP 3 is the newest release of the PHP web framework for building complex applications.
 ---
 
 # CodefyPHP 3 Is Here

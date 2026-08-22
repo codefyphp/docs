@@ -1,6 +1,8 @@
 ---
 title: strip_tags__
 sidebar_title: strip_tags__
+summary: Remove complete HTML elements and their contents, always strip script and style blocks, and optionally control which tags are removed.
+keywords: strip-html-tags,html-sanitization,php-security
 description: Removes complete HTML elements, including their contents.
 ---
 

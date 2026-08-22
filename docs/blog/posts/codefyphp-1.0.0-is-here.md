@@ -1,5 +1,7 @@
 ---
 title: CodefyPHP v1.0.0 Is Here
+summary: Explore the CodefyPHP 1.0 release and its toolkit for Domain-Driven Design, CQRS, Event Sourcing, routing, persistence, and secure PHP applications.
+keywords: codefyphp-1,domain-driven-design,php-framework
 date:
   created: 2023-10-01 08:00:00
   updated: 2025-10-13

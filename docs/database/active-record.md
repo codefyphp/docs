@@ -1,6 +1,8 @@
 ---
 title: Active Record
 sidebar_title: Active Record
+summary: Use CodefyPHP Expressive Active Record to define PHP models, query rows, create and update records, manage relationships, and serialize results.
+keywords: php-active-record,codefyphp-database,database-models
 weight: 4
 ---
 

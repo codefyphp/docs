@@ -1,6 +1,8 @@
 ---
 title: Arrays
 sidebar_title: Arrays
+summary: Work with PHP arrays using Qubus helpers for filtering, flattening, recursive lookup, sorting, averaging, key conversion, and nested data access.
+keywords: php-array-helpers,array-utilities,qubus-support
 order: 28
 ---
 
@@ -1468,7 +1470,6 @@ and allows you to dedupe arrays that contain objects or closures.
   "val3" => "bye"
 ]
 ```
-
 
 
 

@@ -1,6 +1,8 @@
 ---
 title: Search Engine Optimization
 sidebar_title: Search Engine Optimization
+summary: Improve CodefyPHP search visibility with schema.org structured data, metadata, XML sitemaps, search-engine submission, and indexing controls.
+keywords: codefyphp-seo,structured-data,xml-sitemaps
 order: 32
 ---
 
@@ -210,5 +212,4 @@ $indexer->indexUrls([
     Server::siteUrl('problems-codefy-solve-for-developers'),
 ]);
 ```
-
 

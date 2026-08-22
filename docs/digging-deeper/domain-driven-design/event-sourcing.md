@@ -1,3 +1,8 @@
+---
+summary: Reconstitute PHP aggregates from chronological domain-event streams with CodefyPHP event sourcing, apply methods, and event history tests.
+keywords: event-sourcing,event-stream,php-aggregates
+---
+
 Up to this point, we’ve kept our `Post` aggregate in memory. In the end, we will want to persist it and load it back 
 into memory for later use. Loading an aggregate back into memory involves reconstituting its previously recorded 
 history. This concept is called **Event Sourcing**. The events are the single source of reference that make up the 
@@ -242,4 +247,3 @@ Github
 ------
 
 An advanced version of this `Post` aggregate can be found on [Github](https://github.com/codefyphp/domain-driven-core/blob/3.0.x/tests/Domain/Post.php).
-

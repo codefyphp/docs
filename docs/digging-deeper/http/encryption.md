@@ -1,6 +1,8 @@
 ---
 title: Encryption
 sidebar_title: Encryption
+summary: Encrypt and decrypt CodefyPHP values, cookies, and environment files with narrow cryptography contracts, managed keys, rotation, and failure handling.
+keywords: php-encryption,encrypted-cookies,secret-management
 weight: 13
 ---
 

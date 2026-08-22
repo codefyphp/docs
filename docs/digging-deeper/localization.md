@@ -1,6 +1,8 @@
 ---
 title: Localization
 sidebar_title: Localization
+summary: Localize CodefyPHP applications with translation helpers, locale configuration, Gettext POT catalogs, and translated PO language files.
+keywords: php-localization,gettext,codefyphp-translation
 order: 25
 ---
 
@@ -55,4 +57,3 @@ application into *Spanish*. Rename and move your copy of `codefy.pot` to `./loca
 update from source code if needed, translate the strings, save, and a new `./locale/es/codefy-es.mo` file will get created. 
 Any changes you make to your .po file, the .mo fie will get updated when you save your changes. When you change the locale string 
 in `./config/app.php` from `en` to `es`, you should see your strings translated into *Spanish*.
-

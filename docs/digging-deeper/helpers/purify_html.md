@@ -1,6 +1,8 @@
 ---
 title: purify_html
 sidebar_title: purify_html
+summary: Sanitize untrusted rich-text HTML for safe document-body output by removing executable markup, unsafe attributes, and dangerous URL schemes.
+keywords: html-purifier,xss-prevention,php-security
 description: Accepts untrusted rich-text HTML and returns a safe HTML fragment for an HTML document body.
 ---
 

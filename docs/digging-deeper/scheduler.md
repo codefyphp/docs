@@ -1,6 +1,8 @@
 ---
 title: Task Scheduling
 sidebar_title: Task Scheduling
+summary: Schedule recurring CodefyPHP callbacks and CLI commands, prevent overlapping task runs, and configure lock durations for single-instance jobs.
+keywords: php-task-scheduler,cron-jobs,scheduled-commands
 order: 29
 ---
 
@@ -362,4 +364,3 @@ class Kernel extends ConsoleKernel
     }
 }
 ```
-

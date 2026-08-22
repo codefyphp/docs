@@ -1,6 +1,8 @@
 ---
 title: gravatar_profile
 sidebar_title: gravatar_profile
+summary: Create a Gravatar Profile instance from an email address to retrieve public profile data in a CodefyPHP application.
+keywords: gravatar-profile,user-profile,php-helper
 ---
 
 Description

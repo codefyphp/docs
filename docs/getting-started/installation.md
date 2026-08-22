@@ -1,6 +1,8 @@
 ---
 title: Installation
 sidebar_title: Installation
+summary: Install CodefyPHP with Composer, understand the starter application structure, configure encryption and environment settings, and run locally with DDEV.
+keywords: codefyphp-installation,composer-create-project,ddev
 weight: 2
 ---
 

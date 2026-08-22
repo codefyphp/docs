@@ -1,6 +1,8 @@
 ---
 title: Autoloading
 sidebar_title: Autoloading
+summary: Configure Composer autoloading for CodefyPHP and follow modern PHP conventions for namespaces, class names, properties, methods, functions, and strict types.
+keywords: php-autoloading,composer-psr-4,php-coding-standards
 weight: 3
 ---
 
@@ -49,4 +51,3 @@ the declare statement after the opening php tag:
 
 declare(strict_types=1);
 ```
-

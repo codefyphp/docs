@@ -1,6 +1,8 @@
 ---
 title: Queues
 sidebar_title: Queues
+summary: Run background work in CodefyPHP by creating queueable jobs, publishing them to a queue, and consuming queued tasks with Codex commands.
+keywords: php-job-queues,background-jobs,codex-cli
 order: 40
 ---
 
@@ -188,6 +190,5 @@ class NewEmailSignup extends SimpleQueue
     }
 }
 ```
-
 
 

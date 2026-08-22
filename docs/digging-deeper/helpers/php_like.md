@@ -1,6 +1,8 @@
 ---
 title: php_like
 sidebar_title: php_like
+summary: Match a PHP string against a SQL LIKE-style pattern with percent wildcards and return whether the subject satisfies the search expression.
+keywords: php-like,pattern-matching,string-search
 ---
 
 Description

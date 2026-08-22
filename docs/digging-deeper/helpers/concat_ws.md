@@ -1,6 +1,8 @@
 ---
 title: concat_ws
 sidebar_title: concat_ws
+summary: Join two or more PHP strings with a configurable separator using the concat_ws helper for concise delimiter-based concatenation.
+keywords: concat-ws,string-concatenation,php-helper
 ---
 
 Description

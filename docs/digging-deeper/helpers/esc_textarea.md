@@ -1,6 +1,8 @@
 ---
 title: esc_textarea
 sidebar_title: esc_textarea
+summary: Escape untrusted text for safe placement inside an HTML textarea body while preserving the correct output context.
+keywords: textarea-escaping,xss-prevention,php-security
 ---
 
 Description

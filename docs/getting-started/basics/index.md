@@ -1,6 +1,8 @@
 ---
 title: Request
 sidebar_title: Request
+summary: Access CodefyPHP HTTP request data, including query parameters, form input, uploaded files, server values, headers, methods, and URLs.
+keywords: php-http-request,request-input,codefyphp
 weight: 7
 ---
 
@@ -256,4 +258,3 @@ return $request->getUri()->getAuthority();
 
 return $request->getUri()->getQuery();
 ```
-

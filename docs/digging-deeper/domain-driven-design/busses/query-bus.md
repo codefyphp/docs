@@ -1,6 +1,8 @@
 ---
 title: Query Bus
 sidebar_title: Query Bus
+summary: Build read-side CQRS workflows with the CodefyPHP query bus, typed query messages, dedicated handlers, database lookups, and application services.
+keywords: query-bus,cqrs,php-query-handler
 order: 3
 ---
 
@@ -150,4 +152,3 @@ final class UserController extends BaseController
 In the above example, we call the `UserService` class in our `UserController` to check if the specific user is 
 authenticated. If true, the user will continue on to the dashboard, if false, the user will be redirected to the login 
 page.
-

@@ -1,6 +1,8 @@
 ---
 title: esc_js_value
 sidebar_title: esc_js_value
+summary: Serialize untrusted PHP data into a safe JavaScript expression for inline scripts and event handlers with esc_js_value.
+keywords: javascript-values,xss-prevention,php-security
 description: Secures untrusted data for JavaScript syntax.
 ---
 

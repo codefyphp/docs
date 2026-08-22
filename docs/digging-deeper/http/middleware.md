@@ -1,6 +1,8 @@
 ---
 title: PSR-15 middleware
 sidebar_title: Middleware
+summary: Build PSR-15 middleware pipelines for PHP with delegating and terminating middleware, recommended ordering, and reusable Qubus HTTP components.
+keywords: psr-15,php-middleware,middleware-pipeline
 weight: 9
 ---
 

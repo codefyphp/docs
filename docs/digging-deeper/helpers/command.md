@@ -1,6 +1,8 @@
 ---
 title: command
 sidebar_title: command
+summary: Dispatch a CodefyPHP Command object through the command bus with the command helper and execute its corresponding command handler.
+keywords: command-helper,command-bus,cqrs
 ---
 
 

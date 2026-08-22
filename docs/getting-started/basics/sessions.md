@@ -1,6 +1,8 @@
 ---
 title: Sessions
 sidebar_title: Sessions
+summary: Configure CodefyPHP sessions with native PHP storage, flash messages, typed session entities, HTTP session abstractions, and middleware.
+keywords: codefyphp-sessions,flash-messages,session-middleware
 weight: 12
 ---
 
@@ -291,4 +293,3 @@ authentication (e.g. after successful validation of user-supplied login credenti
 `Codefy\Framework\Http\Middleware\Auth\UserSessionMiddleware` is a PSR-15 compliant middleware for easy integration of the 
 `SessionService` class. This middleware is called during login, and `Codefy\Framework\Http\Middleware\Auth\ExpireUserSessionMiddleware` 
 is called during logout.
-

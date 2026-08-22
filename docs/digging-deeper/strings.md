@@ -1,6 +1,8 @@
 ---
 title: Strings
 sidebar_title: Strings
+summary: Use Qubus PHP string helpers to inspect formats, test prefixes and suffixes, generate random values, increment text, and transform strings.
+keywords: php-string-helpers,string-utilities,qubus-support
 order: 30
 ---
 
@@ -190,7 +192,6 @@ The `truncate()` method allows you to limit characters and provide a continuatio
     
     $string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
     echo $helper->truncate(string: $string, limit: 15, continuation: '...Read More'); // returns Lorem ipsum dol...Read More
-
 
 
 

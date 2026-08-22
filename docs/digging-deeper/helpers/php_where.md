@@ -1,6 +1,8 @@
 ---
 title: php_where
 sidebar_title: php_where
+summary: Evaluate SQL WHERE-style comparisons in PHP with a key, operator, and comparison value using the php_where helper.
+keywords: php-where,conditional-filtering,php-helper
 ---
 
 Description

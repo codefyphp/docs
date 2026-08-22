@@ -1,6 +1,8 @@
 ---
 title: trim__
 sidebar_title: trim__
+summary: Remove every whitespace character from a PHP string or array of strings with the recursive trim__ helper.
+keywords: remove-whitespace,string-cleanup,php-helper
 ---
 
 Description

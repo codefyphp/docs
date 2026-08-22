@@ -1,6 +1,8 @@
 ---
 title: Command Bus
 sidebar_title: Command Bus
+summary: Execute application commands with the CodefyPHP Odin command bus using automatic handler resolution, explicit bindings, decorators, and self-handling commands.
+keywords: command-bus,cqrs,codefyphp-odin
 order: 1
 ---
 
@@ -485,6 +487,5 @@ $resolver = new NativeCommandHandlerResolver(
 $odin = new Odin(bus: new SynchronousCommandBus(resolver: $resolver));
 $odin->execute(command: new CreatePostCommand);
 ```
-
 
 

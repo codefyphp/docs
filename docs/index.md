@@ -1,9 +1,8 @@
 ---
 title: Meet CodefyPHP
-summary: The PHP web framework for complex applications
 sidebar_title: Introduction
 show_datetime: true
-description: CodefyPHP is a PHP web framework built for PHP architects who need a simple, yet robust toolkit for building complex applications.
+summary: CodefyPHP is a PHP web framework built for PHP architects who need a simple, yet robust toolkit for building complex applications.
 keywords: codefyphp,framework,php-framework
 ---
 

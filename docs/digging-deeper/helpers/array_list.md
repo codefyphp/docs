@@ -1,6 +1,8 @@
 ---
 title: array_list
 sidebar_title: array_list
+summary: Create a Qubus ArrayList collection that enforces the expected type of every value for safer, consistent PHP array operations.
+keywords: array-list,typed-collection,php-helper
 ---
 
 Description
@@ -62,4 +64,3 @@ To use the `array_list()` helper beyond the example above, check out [`Collectio
 The `array_list()` helper and the `collect()` helper inherit some of the same methods but may return different results. 
 Another difference is that `collect()` can return a mixture of primitives and data structures, while `array_list()` 
 returns an array of the same specified primitive type.
-

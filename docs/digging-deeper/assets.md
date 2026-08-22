@@ -1,6 +1,8 @@
 ---
 title: Asset Management
 sidebar_title: Asset Management
+summary: Configure CodefyPHP asset collections and pipelines to combine, minify, version, cache, and serve CSS and JavaScript across views and tenants.
+keywords: codefyphp-assets,css-js-pipeline,asset-management
 order: 35
 ---
 
@@ -307,7 +309,6 @@ group will be used.
 $assets->add('foo.js')->js(); // Uses default group
 $assets->group('group1')->add('bar.css')->css(); // Uses the 'group1' group.
 ```
-
 
 
 

@@ -1,6 +1,8 @@
 ---
 title: Validation
 sidebar_title: Validation
+summary: Validate PHP input with pipe or array rules, nested fields, wildcards, aliases, defaults, custom messages, translations, and reusable rule objects.
+keywords: php-validation,input-validation,validation-rules
 order: 99
 ---
 

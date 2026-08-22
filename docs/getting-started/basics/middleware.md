@@ -1,6 +1,8 @@
 ---
 title: Middleware
 sidebar_title: Middleware
+summary: Register CodefyPHP middleware on routes, route groups, controllers, and service providers with aliases, arguments, and reusable base middleware.
+keywords: codefyphp-middleware,route-middleware,psr-15
 weight: 17
 ---
 
@@ -308,4 +310,3 @@ final class WebRouteServiceProvider extends CodefyServiceProvider
 }
 
 ```
-

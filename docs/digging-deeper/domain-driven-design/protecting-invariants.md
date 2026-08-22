@@ -1,3 +1,8 @@
+---
+summary: Protect Domain-Driven Design invariants in CodefyPHP aggregates with value-object checks, domain exceptions, state guards, and focused tests.
+keywords: domain-invariants,php-aggregates,domain-driven-design
+---
+
 An invariant is something that holds true about your domain no matter what. Invariants ensure consistency within the 
 domain.
 
@@ -76,4 +81,3 @@ public function changeTitle(Title $title): void
 ```
 
 Now that our methods have been updated, our tests should now pass.
-

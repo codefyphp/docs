@@ -1,3 +1,8 @@
+---
+summary: Implement a PHP aggregate that records CodefyPHP domain events, exposes event history, tracks its playhead, and clears events after persistence.
+keywords: records-events,php-aggregate,domain-events
+---
+
 Domain events describe what has happened, but they originate from an aggregate or domain model. With our value objects 
 and domain events in place, we are now ready to build out our aggregate.
 
@@ -220,4 +225,3 @@ final class Post implements RecordsEvents
 ```
 
 Now that the Post class is fully defined, our test should run as expected.
-

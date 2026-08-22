@@ -1,6 +1,8 @@
 ---
 title: Stubs
 sidebar_title: Stubs
+summary: Use CodefyPHP starter stubs with Codex to generate consistent PHP controllers, repositories, service providers, middleware, and error classes.
+keywords: codefyphp-stubs,code-generation,codex-cli
 order: 31
 ---
 

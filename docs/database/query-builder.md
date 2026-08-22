@@ -1,6 +1,8 @@
 ---
 title: QueryBuilder
 sidebar_title: QueryBuilder
+summary: Build safe SQL queries with the CodefyPHP Expressive fluent query builder for selects, inserts, updates, deletes, joins, filters, and aggregates.
+keywords: php-query-builder,fluent-sql,codefyphp-database
 weight: 2
 ---
 
@@ -423,4 +425,3 @@ $posts->join(
     tableAlias: 'c'
 );
 ```
-

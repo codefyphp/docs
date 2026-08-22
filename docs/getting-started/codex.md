@@ -1,6 +1,8 @@
 ---
 title: Codex Commands
 sidebar_title: Codex Commands
+summary: Use the CodefyPHP Codex CLI to generate domains and application classes, register console commands, read input, confirm actions, and print output.
+keywords: codex-cli,codefyphp-commands,php-code-generation
 weight: 6
 ---
 
@@ -423,6 +425,5 @@ To send output to the console, you may use the following methods:
 * `terminalQuestion` - Display black text with blue colored background.
 * `terminalError` - Display grey text with red colored background.
 * `terminalNewLine` - Display a blank line.
-
 
 

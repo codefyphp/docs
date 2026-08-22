@@ -1,6 +1,8 @@
 ---
 title: Configuration
 sidebar_title: Configuration
+summary: Configure CodefyPHP applications with config files and typed environment variables for databases, mail, Redis, S3, logging, security, and encrypted secrets.
+keywords: codefyphp-configuration,environment-variables,secret-encryption
 weight: 4
 ---
 
@@ -230,4 +232,3 @@ $timezone = config(key: 'app.timezone', default: 'America/New_York');
 ```
 
 In the above example, `app` is the filename (`./config/app.php`) and `timezone` is the array key.
-

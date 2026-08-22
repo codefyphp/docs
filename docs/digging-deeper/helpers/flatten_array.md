@@ -1,6 +1,8 @@
 ---
 title: flatten_array
 sidebar_title: flatten_array
+summary: Recursively flatten a multidimensional PHP array into a single-level list while retaining every nested value.
+keywords: flatten-array,multidimensional-array,php-helper
 description: Recursively flattens a multidimensional array into one level.
 ---
 

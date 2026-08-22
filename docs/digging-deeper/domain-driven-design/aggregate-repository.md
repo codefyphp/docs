@@ -1,3 +1,8 @@
+---
+summary: Persist and reconstitute event-sourced PHP aggregates with a CodefyPHP AggregateRepository, EventStore, projection, and repository-aware trait.
+keywords: aggregate-repository,event-sourcing,domain-driven-design
+---
+
 Since our domain will have multiple `Post` instances, they will need to be collected into an `AggregateRepository`.
 
 TDD

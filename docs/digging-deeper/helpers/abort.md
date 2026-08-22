@@ -1,6 +1,8 @@
 ---
 title: abort
 sidebar_title: abort
+summary: Use the CodefyPHP abort helper to stop request processing by throwing an HttpException with a status code, redirect URI, message, and previous exception.
+keywords: abort-helper,http-exception,codefyphp
 ---
 
 Description

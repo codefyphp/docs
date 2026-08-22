@@ -1,6 +1,8 @@
 ---
 title: Cache
 sidebar_title: Cache
+summary: Add caching to PHP applications with CodefyPHP adapters for memory, files, Redis, Predis, Memcached, and APCu through PSR-6 and PSR-16 APIs.
+keywords: php-cache,psr-16,redis-cache
 weight: 0
 ---
 

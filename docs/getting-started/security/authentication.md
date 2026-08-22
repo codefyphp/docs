@@ -1,6 +1,8 @@
 ---
 title: Authentication
 sidebar_title: Authentication
+summary: Authenticate CodefyPHP users, protect routes, retrieve the current user, throttle logins, remember sessions, log out, and enforce permissions.
+keywords: codefyphp-authentication,user-login,route-protection
 weight: 200
 ---
 
@@ -175,6 +177,5 @@ should be performed during login:
 Check out the 
 [Password Rehashing](../security/passwords.md#password-rehashing) section under [Passwords](../security/passwords.md) 
 for more details.
-
 
 

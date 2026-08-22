@@ -1,6 +1,8 @@
 ---
 title: NoSQL
 sidebar_title: NoSQL
+summary: Store schemaless PHP data in JSON files with Qubus NoSQL collections, fluent filters, sorting, pagination, CRUD, mapping, and aggregates.
+keywords: php-nosql,document-database,nosql-queries
 order: 41
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Aggregates
 sidebar_title: Aggregates
+summary: Build rich event-sourced PHP aggregates with CodefyPHP using domain events, value objects, invariant protection, state changes, and aggregate roots.
+keywords: php-aggregates,domain-driven-design,event-sourcing
 weight: 0
 ---
 
@@ -152,4 +154,3 @@ final class Post extends EventSourcedAggregate implements AggregateRoot
         
 There is a lot to unpack in the Post aggregate, but as you go through the rest of this section, you will begin to 
 understand its parts as it's broken down and explained.
-

@@ -1,3 +1,8 @@
+---
+summary: Create strongly typed UUID or ULID value objects that implement CodefyPHP AggregateId for explicit, testable aggregate identification.
+keywords: aggregate-id,value-objects,uuid-ulid
+---
+
 It is recommended to be explicit as possible when working with aggregates or domain models. Value Objects are highly 
 recommended when identifying an aggregate or domain model. You can use any type of ID, but using UUIDs is best.
 
@@ -119,4 +124,3 @@ it('should not equal instances of the same type and value.', function () use ($p
     expect(value: $postId)->not()->toEqual(expected: $id);
 });
 ```
-

@@ -1,6 +1,8 @@
 ---
 title: esc_url
 sidebar_title: esc_url
+summary: Validate allowed URL schemes and escape URLs for safe use in quoted HTML attributes, with optional query-parameter encoding.
+keywords: url-escaping,url-validation,php-security
 description: Validates a URL scheme and escapes the URL for a quoted HTML attribute.
 ---
 

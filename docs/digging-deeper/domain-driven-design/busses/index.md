@@ -1,6 +1,8 @@
 ---
 title: Busses
 sidebar_title: Introduction
+summary: Understand CodefyPHP command, event, and query buses and how CQRS messages separate application intent, completed actions, and read operations.
+keywords: cqrs,service-bus,domain-driven-design
 weight: 0
 ---
 

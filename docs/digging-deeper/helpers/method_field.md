@@ -1,6 +1,8 @@
 ---
 title: method_field
 sidebar_title: method_field
+summary: Generate a hidden HTML form input that spoofs PUT, PATCH, DELETE, or another HTTP method for CodefyPHP route handling.
+keywords: method-field,http-method-override,html-forms
 ---
 
 Description
@@ -48,4 +50,3 @@ Result
     <input type="hidden" name="_method" value="PUT" />
 </form>
 ```
-

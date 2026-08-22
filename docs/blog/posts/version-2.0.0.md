@@ -1,10 +1,12 @@
 ---
 title: CodefyPHP v2.0.0 Honoring Mathias Verraes
+description: Explore CodefyPHP 2.0 features, its updated application API and starter project, and the DDD and CQRS ideas inspired by Mathias Verraes.
+summary: Explore CodefyPHP 2.0 features, its updated application API and starter project, and the DDD and CQRS ideas inspired by Mathias Verraes.
+keywords: codefyphp-2,domain-driven-design,release-notes
 date:
   created: 2024-09-05 13:58:00
   updated: 2025-10-13
 authors: [nomadicjosh]
-description: Discover CodefyPHP v2.0.0, inspired by Mathias Verraes&#039; work, enhancing your understanding of DDD. Explore the new features today.
 ---
 
 # CodefyPHP v2.0.0 - Honoring Mathias Verraes

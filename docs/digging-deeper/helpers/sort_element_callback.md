@@ -1,6 +1,8 @@
 ---
 title: sort_element_callback
 sidebar_title: sort_element_callback
+summary: Sort structured PHP arrays by their Name field with a reusable comparison callback that returns standard ordering values.
+keywords: array-sorting,comparison-callback,php-helper
 ---
 
 Description

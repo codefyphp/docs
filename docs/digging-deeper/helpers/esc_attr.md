@@ -1,6 +1,8 @@
 ---
 title: esc_attr
 sidebar_title: esc_attr
+summary: Escape untrusted PHP values for safe insertion into quoted HTML attributes and prevent markup from breaking the attribute context.
+keywords: html-attribute-escaping,xss-prevention,php-security
 description: Escapes an ordinary value for a quoted HTML attribute.
 ---
 
