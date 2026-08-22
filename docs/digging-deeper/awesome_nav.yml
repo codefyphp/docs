@@ -2,3 +2,4 @@ nav:
   - "*"
   - Domain-Driven Design: domain-driven-design
   - Helpers: helpers
+  - HTTP Component: http
