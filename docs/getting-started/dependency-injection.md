@@ -12,80 +12,78 @@ composer require qubus/injector
 
 ## Introduction
 
-The framework uses [Qubus/Injector](https://github.com/QubusPHP/injector) which recursively instantiates class dependencies based on the parameter type-hints
-specified in class constructor signatures. This requires the use of Reflection. You may have heard that
-"reflection is slow". Let's clear something up: anything can be "slow" if you're doing it wrong. Reflection is an order
-of magnitude faster than disk access and several orders of magnitude faster than retrieving information (for example)
-from a remote database. Additionally, each reflection offers the opportunity to cache the results if you're worried
-about speed. The Injector caches any reflections it generates to minimize the potential performance impact.
+Qubus Injector is a standalone dependency-injection container for PHP. It can:
 
-## Basic Usage
+- recursively autowire concrete classes from constructor type declarations;
+- map interfaces and abstract classes to implementations;
+- define constructor arguments, shared instances, factories, lazy proxies, and post-construction preparations;
+- resolve and invoke functions, methods, closures, and invokable objects;
+- load mappings from a configuration object; and
+- operate as a PSR-11 container through its dedicated adapter.
 
-To start using the injector, simply create a new instance of the `Qubus\Injector\Injector` ("the Injector") class:
+The package does not bootstrap an application or discover and run service
+providers. Frameworks may build those policies on top of the contracts included
+in this package.
 
-```php
-<?php
+## Requirements and installation
 
-$injector = new Qubus\Injector\Injector(
-    Qubus\Injector\Config\InjectorFactory::create([])
-);
+The current release requires PHP 8.4 or later.
+
+```shell
+composer require qubus/injector
 ```
 
-### Basic Instantiation
-
-If a class doesn't specify any dependencies in its constructor signature there's little point in using the Injector to
-generate it. However, for the sake of completeness, consider that you can do the following with equivalent results:
-
-```php
-<?php
-
-$injector = new Qubus\Injector\Injector(
-    Qubus\Injector\Config\InjectorFactory::create([])
-);
-
-$obj1 = new App\MyClass;
-$obj2 = $injector->make(name: App\MyClass::class);
-
-var_dump($obj2 instanceof App\MyClass); // true
-```
-
-#### Concrete Type-hinted Dependencies
-
-If a class only asks for concrete dependencies, you can use the Injector to inject them without specifying any
-injection definitions. For example, in the following scenario you can use the Injector to automatically provision
-`MyClass` with the required `SomeDependency` and `AnotherDependency` class instances:
+Create an injector with an `InjectorConfig`. `InjectorFactory` is the
+convenient way to construct one:
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-class SomeDependency {}
+use Qubus\Injector\Config\InjectorFactory;
+use Qubus\Injector\Injector;
+
+$injector = new Injector(InjectorFactory::create());
 ```
+
+Each injector uses a caching reflector by default. Reflection metadata is
+cached for the lifetime of that reflector; the package does not claim that
+reflection is cost-free or that it is always faster than another approach.
+
+## Autowiring concrete classes
+
+A concrete class whose required constructor arguments are concrete class types
+needs no registration:
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-class AnotherDependency {}
-```
+namespace App;
 
-```php
-<?php
+final class SparkPlug
+{
+}
 
-declare(strict_types=1);
+final class Piston
+{
+}
 
-class MyClass {
-    public \SomeDependency $dep1;
-    public \AnotherDependency $dep2;
-    
+final class V8
+{
     public function __construct(
-        \SomeDependency $dep1,
-        \AnotherDependency $dep2
+        public readonly SparkPlug $sparkPlug,
+        public readonly Piston $piston,
     ) {
-        $this->dep1 = $dep1;
-        $this->dep2 = $dep2;
+    }
+}
+
+final class Car
+{
+    public function __construct(public readonly V8 $engine)
+    {
     }
 }
 ```
@@ -93,106 +91,814 @@ class MyClass {
 ```php
 <?php
 
-$injector = new Qubus\Injector\Injector(
-    Qubus\Injector\Config\InjectorFactory::create([])
+use App\Car;
+
+$car = $injector->make(Car::class);
+
+assert($car instanceof Car);
+assert($car->engine instanceof App\V8);
+```
+
+`make()` recursively resolves the dependency tree. Constructors must be
+public. Interfaces, abstract classes, builtin parameters, and ambiguous union
+or intersection types need an explicit mapping or argument value.
+
+## Mapping abstractions with aliases
+
+Use `alias()` when a type declaration should resolve to a particular
+implementation:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+interface Engine
+{
+}
+
+final class V8 implements Engine
+{
+}
+
+final class Car
+{
+    public function __construct(public readonly Engine $engine)
+    {
+    }
+}
+```
+
+```php
+<?php
+
+use App\Car;
+use App\Engine;
+use App\V8;
+
+$injector->alias(Engine::class, V8::class);
+
+$car = $injector->make(Car::class);
+assert($car->engine instanceof V8);
+```
+
+Aliases may form chains. The injector normalizes class names and detects alias
+cycles. A class or interface cannot be both aliased and directly shared in
+conflicting ways.
+
+## Constructor argument definitions
+
+Use `define()` to configure one class. Definition keys normally match
+constructor parameter names:
+
+```php
+<?php
+
+use App\Car;
+use App\V8;
+
+$injector->define(Car::class, [
+    'engine' => V8::class,
+]);
+```
+
+A bare named key means “make this class.” It is suitable for class-string
+values, not scalar values or existing objects.
+
+Definitions support the following forms:
+
+| Form                                   | Meaning                                  | Example                                               |
+|----------------------------------------|------------------------------------------|-------------------------------------------------------|
+| `'name' => ClassName::class`           | Resolve the value with `make()`          | `'engine' => V8::class`                               |
+| `':name' => $value`                    | Inject a raw value                       | `':port' => 2525`                                     |
+| `'+name' => $callable`                 | Invoke an argument provider              | `'+requestId' => $provider`                           |
+| `'@name' => [ClassName::class, $args]` | Make a class with nested definitions     | `'@mailer' => [SmtpMailer::class, [':port' => 2525]]` |
+| `0 => $value`                          | Inject a raw value by parameter position | `0 => 'sqlite::memory:'`                              |
+
+The three named prefixes are also exposed as `Injector::A_RAW`,
+`Injector::A_DELEGATE`, and `Injector::A_DEFINE`.
+
+### Raw scalar, array, and object values
+
+Prefix a named parameter with `:` to prevent the injector from interpreting
+its value as a class name:
+
+```php
+<?php
+
+use PDO;
+
+$injector
+    ->define(PDO::class, [
+        ':dsn' => 'sqlite:/var/app/data.sqlite',
+        ':username' => null,
+        ':password' => null,
+    ])
+    ->share(PDO::class);
+```
+
+Existing objects also need the raw prefix when used in a named definition:
+
+```php
+<?php
+
+$clock = new App\SystemClock();
+
+$injector->define(App\TokenService::class, [
+    ':clock' => $clock,
+]);
+```
+
+Numeric definitions are always positional raw values. Named definitions are
+usually clearer and remain correct if parameters are reordered.
+
+### Argument providers
+
+The `+` prefix registers a callable that supplies one argument. The injector
+passes the requested parameter name and itself to the callable:
+
+```php
+<?php
+
+use Qubus\Injector\Injector;
+
+$injector->define(App\RequestContext::class, [
+    '+requestId' => static function (
+        string $parameter,
+        Injector $injector,
+    ): string {
+        return bin2hex(random_bytes(16));
+    },
+]);
+```
+
+This callable is trusted application code. Its return value is inserted as-is.
+
+### Nested class definitions
+
+Use `@` when one argument needs a one-off class definition:
+
+```php
+<?php
+
+$injector->define(App\NotificationService::class, [
+    '@mailer' => [
+        App\SmtpMailer::class,
+        [
+            ':host' => 'smtp.example.test',
+            ':port' => 2525,
+        ],
+    ],
+]);
+```
+
+The nested argument array follows the same definition rules.
+
+### Call-time definitions
+
+The second argument to `make()` supplies definitions for that call:
+
+```php
+<?php
+
+$service = $injector->make(App\NotificationService::class, [
+    'mailer' => App\NullMailer::class,
+]);
+```
+
+Call-time values replace matching stored values for this construction. They do
+not rewrite the stored definition. If the requested type already has a cached
+shared instance, that instance is returned and call-time definitions cannot
+reconstruct it.
+
+### Global parameter definitions
+
+`defineParam()` supplies a fallback by parameter name:
+
+```php
+<?php
+
+$injector->defineParam('timezone', 'UTC');
+
+$formatter = $injector->make(App\DateFormatter::class);
+```
+
+A class-specific or call-time definition takes precedence. Type-driven
+resolution is attempted before the global value; the global value is used
+before the parameter's declared default.
+
+## Argument resolution order
+
+Stored definitions and call-time definitions are merged first, with call-time
+entries replacing matching stored entries. Constructor parameters are then
+resolved in this order:
+
+1. a positional numeric definition;
+2. a bare named class definition;
+3. a named raw definition (`:`);
+4. a named argument provider (`+`);
+5. a named nested class definition (`@`);
+6. a resolvable declared class type, including its alias, delegate, or share;
+7. a global value registered with `defineParam()`;
+8. the parameter's default value;
+9. `null` for an optional internal parameter when reflection exposes no
+   usable default; otherwise an `InjectionException`.
+
+At the requested-object level, an already-created share is returned first. A
+registered delegate creates the object instead of normal constructor
+provisioning. Preparations run after a new object is created.
+
+## Sharing instances
+
+`share()` provides container-scoped instance reuse.
+
+### Lazy sharing by class name
+
+```php
+<?php
+
+$injector->share(App\EventBus::class);
+
+$first = $injector->make(App\EventBus::class);
+$second = $injector->make(App\EventBus::class);
+
+assert($first === $second);
+```
+
+Passing a class name delays construction until the first request.
+
+### Sharing an existing object
+
+```php
+<?php
+
+$connection = new PDO('sqlite:/var/app/data.sqlite');
+$injector->share($connection);
+
+assert($injector->make(PDO::class) === $connection);
+```
+
+The public API has no `unshare()` or `refresh()` method. Create a new
+injector when a different container scope is required.
+
+To share an implementation behind an interface, alias the interface and share
+the implementation:
+
+```php
+<?php
+
+$injector
+    ->alias(App\Clock::class, App\SystemClock::class)
+    ->share(App\SystemClock::class);
+```
+
+## Delegated construction
+
+`delegate()` replaces normal construction with a factory. Factory parameters
+are themselves resolved by the injector:
+
+```php
+<?php
+
+use App\Clock;
+use App\TokenService;
+
+$injector->delegate(
+    TokenService::class,
+    static fn (Clock $clock): TokenService => new TokenService($clock),
 );
 
-$myObj = $injector->make(name: \MyClass::class);
-
-var_dump($myObj->dep1 instanceof \SomeDependency); // true
-
-var_dump($myObj->dep2 instanceof \AnotherDependency); // true
+$tokens = $injector->make(TokenService::class);
 ```
 
-#### Recursive Dependency Instantiation
+The factory must return an object. Supported executable forms include:
 
-One of the Injector's key attributes is that it recursively traverses class dependency trees to instantiate objects.
-This is just a fancy way of saying, "if you instantiate object A which asks for object B, the Injector will instantiate
-any of object B's dependencies so that B can be instantiated and provided to A". This is perhaps best understood with a
-simple example. Consider the following classes in which a `Car` asks for `V8` and the `V8` class has concrete
-dependencies of its own:
+- a closure or other callable;
+- a function name;
+- an invokable object or invokable class name;
+- `[$object, 'method']`;
+- `[ClassName::class, 'staticMethod']`;
+- `'ClassName::staticMethod'`; and
+- an instance-method class reference, for which the injector first provisions
+  the owning object.
+
+Only public functions and methods can be invoked.
+
+## Preparations and setter injection
+
+`prepare()` runs after an object has been created. Register a class or
+interface name and a callback:
 
 ```php
 <?php
 
-declare(strict_types=1);
+use App\Report;
+use Qubus\Injector\Injector;
 
-interface Engine {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-final class V8 implements \Engine{
-    private \Sparkplug $sparkPlug;
-    private \Piston $piston;
-    
-    public function __construct(\SparkPlug $sparkPlug, \Piston $piston) {
-        $this->sparkPlug = $sparkPlug;
-        $this->piston = $piston;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-final class Car {
-    private \V8 $engine;
-    
-    public function __construct(\V8 $engine) {
-        $this->engine = $engine;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-$injector = new Qubus\Injector\Injector(
-    Qubus\Injector\Config\InjectorFactory::create([])
+$injector->prepare(
+    Report::class,
+    static function (Report $report, Injector $injector): void {
+        $report->setLocale('en_US');
+    },
 );
 
-$car = $injector->make(name: \Car::class);
-
-var_dump($car instanceof \Car); // true
+$report = $injector->make(Report::class);
 ```
 
-## App-Bootstrapping
+Preparation callbacks receive the created object and the injector as their two
+arguments. A callback may mutate the object and return nothing, or return a
+replacement compatible with the registered class or interface. Constructor
+injection is generally preferable when the class design permits it.
 
-DICs should be used to wire together the disparate objects of your application into a cohesive functional unit 
-(generally at the bootstrap or front-controller stage of the application). One such usage provides an elegant solution 
-for one of the thorny problems in object-oriented (OO) web applications: how to instantiate classes in a routed 
-environment where the dependencies are not known ahead of time. The CodefyPHP framework supplies a solution to the 
-problem in the form of Service Providers.
+## Executing callables with injection
 
-## Service Providers
+`execute()` resolves a callable's parameters and returns its result:
 
-To make it easier to use the `Qubus\Injector\Container\ServiceContainer`, the framework can be bootstrapped with
-`ServiceProviders`.
+```php
+<?php
 
-Service providers are used to bootstrap your application with the injection of core classes and dependencies.
+$result = $injector->execute(
+    [App\ReportController::class, 'show'],
+    [
+        ':reportId' => 42,
+    ],
+);
+```
 
-A service provider will have one or two methods: `register()` and/or `boot()`. The register method should only be used
-to define parameters, define new services or extend services.
+The callable may be a closure, function, invokable class or object, static
+method, object method, or public instance method referenced by class. Argument
+definitions use the same key syntax and precedence as constructor definitions.
 
-The boot method is called after all service providers have been registered.
+When an executable will be called repeatedly, build it once:
 
-From here on, all the examples will show how to use Service Providers to inject your dependencies throughout the entire
-application. `Codefy\Framework\Application` is the main part of the framework, and it extends the Injector. In the
-Service Providers, we call `Codefy\Framework\Application` by using `$this->codefy`.
+```php
+<?php
 
-### Registering Service Providers
+$executable = $injector->buildExecutable(
+    [App\ReportController::class, 'show'],
+);
 
-You can register service providers via `bootstrap/providers.php`:
+$first = $executable(41);
+$second = $executable(42);
+```
 
-```php title="./bootstrap/providers.php"
+`buildExecutable()` returns `Qubus\Injector\Executable`. Its public
+inspection methods are:
+
+- `getCallableReflection(): ReflectionFunctionAbstract`;
+- `getInvocationObject()`, which returns the invocation object or `null`;
+  and
+- `isInstanceMethod(): bool`.
+
+Arguments supplied directly to `Executable::__invoke()` are passed to the
+callable as-is; use `execute()` when missing parameters need container
+resolution.
+
+## Lazy proxies
+
+`proxy()` delegates construction through a user-supplied proxy factory. The
+callback receives the resolved class name and a zero-argument initializer
+that constructs the real object:
+
+```php
+<?php
+
+use ProxyManager\Factory\LazyLoadingValueHolderFactory;
+
+$factory = new LazyLoadingValueHolderFactory();
+
+$injector->proxy(
+    App\ExpensiveService::class,
+    static fn (string $class, Closure $initializer): object =>
+        $factory->createProxy(
+            $class,
+            static function (
+                & $wrappedObject,
+                object $proxy,
+                string $method,
+                array $parameters,
+                & $initializer,
+            ) use ($initializer): bool {
+                $wrappedObject = $initializer();
+                $initializer = null;
+
+                return true;
+            },
+        ),
+);
+```
+
+Proxy callbacks and their returned objects are application-controlled. Proxy
+registrations are not included in `inspect()` output.
+
+## Inspecting registrations
+
+`inspect()` returns registered mappings. With no arguments it returns every
+inspectable category:
+
+```php
+<?php
+
+use Qubus\Injector\Injector;
+
+$all = $injector->inspect();
+
+$forClock = $injector->inspect(App\Clock::class);
+
+$aliasesAndShares = $injector->inspect(
+    nameFilter: null,
+    typeFilter: Injector::I_ALIASES | Injector::I_SHARES,
+);
+```
+
+The result is keyed by these constants:
+
+| Constant                | Value | Category                         |
+|-------------------------|------:|----------------------------------|
+| `Injector::I_BINDINGS`  |     1 | Class and parameter definitions  |
+| `Injector::I_DELEGATES` |     2 | Construction delegates           |
+| `Injector::I_PREPARES`  |     4 | Preparations                     |
+| `Injector::I_ALIASES`   |     8 | Aliases                          |
+| `Injector::I_SHARES`    |    16 | Shared class names and instances |
+| `Injector::I_ALL`       |    31 | All inspectable categories       |
+
+The optional filter is normalized like a class name. The optional type filter
+is a bitmask.
+
+## Inspecting the active dependency chain
+
+`getInjectionChain()` returns a `Qubus\Injector\InjectionChain` snapshot.
+This is useful in delegates and diagnostics:
+
+```php
+<?php
+
+$injector->delegate(
+    App\Logger::class,
+    static function () use ($injector): App\Logger {
+        $chain = $injector->getInjectionChain();
+
+        foreach ($chain->getChain() as $consumer) {
+            // Class names are normalized by the injector.
+        }
+
+        return new App\Logger();
+    },
+);
+```
+
+`InjectionChain::getChain()` returns the complete array.
+`getByIndex($index)` returns an entry or `false`; negative indexes count
+backward from the end. Circular construction and alias cycles are rejected
+with an `InjectionException`.
+
+## Configuration-driven registration
+
+`InjectorFactory::create()` accepts a mapping array:
+
+```php
+<?php
+
+use App\Clock;
+use App\Mailer;
+use App\NotificationService;
+use App\SmtpMailer;
+use App\SystemClock;
+use Qubus\Injector\Config\InjectorFactory;
+use Qubus\Injector\Injector;
+
+$config = InjectorFactory::create([
+    'standardAliases' => [
+        Mailer::class => SmtpMailer::class,
+    ],
+    'sharedAliases' => [
+        Clock::class => SystemClock::class,
+    ],
+    'argumentDefinitions' => [
+        SmtpMailer::class => [
+            'host' => 'smtp.example.test',
+            'port' => 2525,
+        ],
+    ],
+    'delegations' => [
+        App\RequestId::class =>
+            static fn (): App\RequestId => App\RequestId::generate(),
+    ],
+    'preparations' => [
+        NotificationService::class =>
+            static function (NotificationService $service): void {
+                $service->enableMetrics();
+            },
+    ],
+]);
+
+$injector = new Injector($config);
+```
+
+`sharedAliases` both creates the alias and marks its resolved implementation
+as shared, so the same mapping does not also need to appear in
+`standardAliases`. The six mapping names are available as
+`Injector::STANDARD_ALIASES`, `SHARED_ALIASES`,
+`ARGUMENT_DEFINITIONS`, `ARGUMENT_PROVIDERS`, `DELEGATIONS`, and
+`PREPARATIONS`.
+
+Configuration `argumentDefinitions` use plain parameter names. Non-callable
+scalar, array, and object values are converted into raw definitions
+automatically. Use `Qubus\Injector\Injection` when a value is a class to
+be made:
+
+```php
+<?php
+
+use App\Mailer;
+use App\NotificationService;
+use App\SmtpMailer;
+use Qubus\Injector\Config\InjectorFactory;
+use Qubus\Injector\Injection;
+
+$config = InjectorFactory::create([
+    'argumentDefinitions' => [
+        NotificationService::class => [
+            'mailer' => new Injection(SmtpMailer::class),
+        ],
+    ],
+]);
+```
+
+### Configuration argument providers
+
+`argumentProviders` can install interface-based lazy proxies for selected
+constructor parameters:
+
+```php
+<?php
+
+use App\Mailer;
+use App\NotificationService;
+use App\SmtpMailer;
+use Qubus\Injector\Config\InjectorFactory;
+
+$config = InjectorFactory::create([
+    'argumentProviders' => [
+        'mailer' => [
+            'interface' => Mailer::class,
+            'mappings' => [
+                NotificationService::class =>
+                    static fn (string $target, string $interface): object =>
+                        new SmtpMailer('smtp.example.test', 2525),
+            ],
+        ],
+    ],
+]);
+```
+
+Each mapping callback receives the target class and configured interface and
+must return an object compatible with that interface. Supply a non-empty
+`interface` for callable mappings. Callable proxy factories belong under
+`argumentProviders`, not `argumentDefinitions`. This feature uses the
+installed ProxyManager implementation.
+
+Additional mappings can be applied later:
+
+```php
+<?php
+
+$injector->registerMappings(InjectorFactory::create([
+    'standardAliases' => [
+        App\Cache::class => App\ArrayCache::class,
+    ],
+]));
+```
+
+Invalid mapping shapes or callbacks result in
+`Qubus\Injector\InvalidMappingsException` or
+`Qubus\Injector\ConfigException`.
+
+## PSR-11 container
+
+The PSR-11 implementation is
+`Qubus\Injector\Psr11\Container`, not
+`Qubus\Injector\Container\ServiceContainer`:
+
+```php
+<?php
+
+use App\Clock;
+use App\SystemClock;
+use Psr\Container\ContainerInterface;
+use Qubus\Injector\Config\InjectorFactory;
+use Qubus\Injector\Psr11\Container;
+
+$container = new Container(InjectorFactory::create());
+$container->alias(Clock::class, SystemClock::class);
+
+$clock = $container->get(Clock::class);
+
+assert($container instanceof ContainerInterface);
+assert($container->has(Clock::class));
+assert($clock instanceof SystemClock);
+```
+
+`has()` can return `true` for an unregistered concrete class when it is
+instantiable through autowiring. `get()` throws:
+
+- `Qubus\Injector\Psr11\NotFoundException` when an identifier is neither
+  registered nor an existing class; and
+- `Qubus\Injector\Psr11\ContainerException` when the entry exists but
+  cannot be constructed.
+
+Both exceptions implement their corresponding PSR-11 interfaces.
+`Qubus\Injector\Psr11\NotFoundException` also extends the legacy
+`Qubus\Exception\Http\Client\NotFoundException`, preserving existing
+catch blocks while adding the PSR-11 contract.
+
+If application code should receive the container through
+`Psr\Container\ContainerInterface`, register that policy explicitly:
+
+```php
+<?php
+
+$container
+    ->alias(Psr\Container\ContainerInterface::class, $container::class)
+    ->share($container);
+```
+
+## Service-provider contracts
+
+The package includes:
+
+- `Qubus\Injector\ServiceProvider\Serviceable`, which declares
+  `register(): void`;
+- `Qubus\Injector\ServiceProvider\Bootable`, which declares boot,
+  callback, and publishing methods; and
+- the abstract
+  `Qubus\Injector\ServiceProvider\BaseServiceProvider`.
+
+`BaseServiceProvider` stores the `ServiceContainer` and supplies no-op
+`register()` and `boot()` methods. It intentionally remains abstract and
+does not choose a boot-callback or publishing policy. A framework-specific base
+class or each concrete provider must implement the other `Bootable` methods.
+
+For example, an application can define its own lifecycle policy:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Provider;
+
+use Closure;
+use Qubus\Injector\ServiceProvider\BaseServiceProvider;
+
+abstract class ApplicationServiceProvider extends BaseServiceProvider
+{
+    /** @var list<Closure> */
+    private array $bootingCallbacks = [];
+
+    /** @var list<Closure> */
+    private array $bootedCallbacks = [];
+
+    /** @var array<string, array<string, string>> */
+    private array $published = [];
+
+    public function booting(Closure $callback): void
+    {
+        $this->bootingCallbacks[] = $callback;
+    }
+
+    public function booted(Closure $callback): void
+    {
+        $this->bootedCallbacks[] = $callback;
+    }
+
+    public function callBootingCallbacks(): void
+    {
+        foreach ($this->bootingCallbacks as $callback) {
+            $this->container->execute($callback);
+        }
+    }
+
+    public function callBootedCallbacks(): void
+    {
+        foreach ($this->bootedCallbacks as $callback) {
+            $this->container->execute($callback);
+        }
+    }
+
+    public function publishes(array $paths, ?string $group = null): void
+    {
+        $group ??= 'default';
+        $this->published[$group] = array_replace(
+            $this->published[$group] ?? [],
+            $paths,
+        );
+    }
+
+    public function pathsToPublish(?string $tag = null): array
+    {
+        if ($tag !== null) {
+            return $this->published[$tag] ?? [];
+        }
+
+        return array_merge(...array_values($this->published ?: [[]]));
+    }
+}
+```
+
+A concrete provider can then register application mappings:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Provider;
+
+use App\Clock;
+use App\SystemClock;
+
+final class CoreServiceProvider extends ApplicationServiceProvider
+{
+    public function register(): void
+    {
+        $this->container
+            ->alias(Clock::class, SystemClock::class)
+            ->share(SystemClock::class);
+    }
+}
+```
+
+The application or framework is responsible for instantiating providers and
+deciding lifecycle order. A typical order is register every provider, run
+booting callbacks, boot every provider, then run booted callbacks. Nothing in
+the injector automatically loads `bootstrap/providers.php` or
+`config/app.php`.
+
+### CodefyPHP service providers
+
+CodefyPHP supplies the framework-specific policy through
+`Codefy\Framework\Support\CodefyServiceProvider`. It extends
+`BaseServiceProvider`, stores the application as `$this->codefy`, manages
+booting and booted callbacks, implements publishing groups, and exposes
+`defaultProviders()` and `publishTags()`.
+
+A CodefyPHP application provider can therefore concentrate on container
+registration and application boot work:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Application\Provider;
+
+use Application\Contract\Clock;
+use Application\Service\ReportService;
+use Application\Support\SystemClock;
+use Codefy\Framework\Support\CodefyServiceProvider;
+
+final class AppServiceProvider extends CodefyServiceProvider
+{
+    public function register(): void
+    {
+        $this->codefy->alias(
+            original: Clock::class,
+            alias: SystemClock::class,
+        );
+
+        $this->codefy->share(nameOrInstance: Clock::class);
+
+        $this->codefy->define(
+            name: ReportService::class,
+            args: [
+                ':timezone' => 'UTC',
+            ],
+        );
+    }
+
+    public function boot(): void
+    {
+        $this->publishes(
+            paths: [
+                __DIR__ . '/../../resources/report.php' => 'config',
+            ],
+            group: 'config',
+        );
+    }
+}
+```
+
+`register()` should define aliases, arguments, delegates, proxies, and
+shares. Code that depends on all providers having been registered belongs in
+`boot()`. CodefyPHP invokes provider booting callbacks, executes `boot()`,
+and then invokes provider booted callbacks.
+
+Application providers can be listed in `bootstrap/providers.php`:
+
+```php
 <?php
 
 return [
@@ -200,1065 +906,191 @@ return [
 ];
 ```
 
-Or you can register service providers via `config/app.php` using the `providers` key:
-
-```php title="./config/app.php"
-<?php
-
-'providers' => Codefy\Framework\Support\CodefyServiceProvider::defaultProviders()->merge([
-
-    // Application Service Providers...
-    Application\Provider\AppServiceProvider::class,
-    
-])->toArray(),
-```
-
-### Injection Definitions
-
-You may have noticed that the previous examples all demonstrated instantiation of classes with explicit, type-hinted,
-concrete constructor parameters. Obviously, many of your classes won't fit this mold. Some classes will type-hint
-interfaces and abstract classes. Some will specify scalar parameters which offer no possibility of type-hinting in PHP.
-Still other parameters will be arrays, etc. In such cases we need to assist the Injector by telling it exactly what we
-want to inject.
-
-#### Defining Class Names for Constructor Parameters
-
-Let's look at how to provision a class with non-concrete type-hints in its constructor signature. Consider the
-following code in which a `Car` needs an `Engine` and `Engine` is an interface:
+They can also be merged with CodefyPHP's defaults in `config/app.php`:
 
 ```php
 <?php
-
-declare(strict_types=1);
-
-final class Car {
-    private \Engine $engine;
-    
-    public function __construct(\Engine $engine) {
-        $this->engine = $engine;
-    }
-}
-```
-
-To instantiate a `Car` in this case, we simply need to define an injection definition for the class ahead of time:
-
-```php title="File: ./src/Infrastructure/Provider/ExampleServiceProvider.php"
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
 
 use Codefy\Framework\Support\CodefyServiceProvider;
 
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $this->codefy->define(
-            name: \Car::class,
-            args: [
-                'engine' => \V8::class
-            ]
-        );
-    }
-}
+return [
+    // Other application settings...
+
+    'providers' => CodefyServiceProvider::defaultProviders()
+        ->merge([
+            Application\Provider\AppServiceProvider::class,
+        ])
+        ->toArray(),
+];
 ```
-```php title="Test Car Instance"
+
+Current CodefyPHP applications combine configured providers with the
+`bootstrap/providers.php` list and de-duplicate the resulting class names.
+The framework's `app()` helper resolves entries through its application
+container:
+
+```php
 <?php
+
+use Application\Service\ReportService;
 
 use function Codefy\Framework\Helpers\app;
 
-// test it works
-$car = app(name: \Car::class);
+$reports = app(name: ReportService::class);
 
-var_dump($car instanceof Car); // true
+assert($reports instanceof ReportService);
 ```
 
+These files, the `app()` helper, and automatic provider lifecycle handling
+belong to CodefyPHP. Applications using Qubus Injector directly should use
+their own provider runner, as shown in the preceding section.
 
-The most important points to notice here are:
+## Reflectors and reflection caches
 
-1. A custom definition is an array whose keys match constructor parameter names
-2. The values in the definition array represent the class names to inject for the specified parameter key
-
-Because the `Car` constructor parameter we needed to define was named `$engine`, our definition specified an `engine`
-key whose value was the name of the class (`V8`) that we want to inject.
-
-Custom injection definitions are only necessary on a per-parameter basis. For example, in the following class, we only
-need to define the injectable class for `$arg2` because `$arg1` specifies a concrete class type-hint:
+The default reflector is
+`Qubus\Injector\Cache\CachingReflector`, backed by
+`Qubus\Injector\Cache\ArrayReflectionCache`. Supply a custom reflector
+when another cache lifetime or reflection strategy is required:
 
 ```php
 <?php
 
-declare(strict_types=1);
+use Qubus\Injector\Cache\ArrayReflectionCache;
+use Qubus\Injector\Cache\CachingReflector;
+use Qubus\Injector\Config\InjectorFactory;
+use Qubus\Injector\Injector;
+use Qubus\Injector\StandardReflector;
 
-final class MyClass {
-    private \SomeConcreteClass $arg1;
-    private \SomeInterface $arg2;
-    
-    public function __construct(\SomeConcreteClass $arg1, \SomeInterface $arg2) {
-        $this->arg1 = $arg1;
-        $this->arg2 = $arg2;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $this->codefy->define(
-            name: \MyClass::class,
-            args: [
-                'arg2' => \SomeImplementationClass::class
-            ]
-        );
-    }
-}
-```
-
-!!! info "Info:" 
-    Injecting instances where an abstract class is type-hinted works in exactly the same way as the above examples for 
-    interface type-hints.
-
-#### Using Existing Instances in Injection Definitions
-
-Injection definitions may also specify a pre-existing instance of the requisite class instead of the string class name:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-interface SomeInterface {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class SomeImplementation implements \SomeInterface {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class MyClass {
-    private \SomeInterface $dependency;
-    
-    public function __construct(\SomeInterface $dependency) {
-        $this->dependency = $dependency;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $dependencyInstance = new \SomeImplementation();
-        $this->codefy->define(
-            name: \MyClass::class,
-            args: [
-                ':dependency' => $dependencyInstance
-            ]
-        );
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it works
-$myObj = app(name: \MyClass::class);
-
-var_dump($myObj instanceof \MyClass); // true
-```
-
-!!! info "Info:" 
-    Since the `define()` call is passing raw values (as evidenced by the colon `:` usage), you can achieve the same result 
-    by omitting the array key(s) and relying on parameter order rather than name. Like so: 
-    `$this->codefy->define(name: MyClass::class, args: [$dependencyInstance]);`.
-
-
-#### Specifying Injection Definitions On the Fly
-
-You may also specify injection definitions at call-time with `Qubus\Injector\Injector::make`. Consider:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-interface SomeInterface {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class SomeImplementationClass implements \SomeInterface {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class MyClass {
-    private \SomeInterface $dependency;
-    
-    public function __construct(SomeInterface $dependency) {
-        $this->dependency = $dependency;
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-$myObj = app(
-    name: \MyClass::class,
-    args: [
-        'dependency' => \SomeImplementationClass::class
-    ]
+$reflector = new CachingReflector(
+    reflector: new StandardReflector(),
+    cache: new ArrayReflectionCache(),
 );
 
-var_dump($myObj instanceof \MyClass); // true
+$injector = new Injector(InjectorFactory::create(), $reflector);
 ```
 
-The above code shows how even though we haven't called the Injector's `define` method, the call-time specification 
-allows us to instantiate `MyClass`.
-
-!!! note "Note:"
-    On-the-fly instantiation definitions will override a pre-defined definition for the specified class, but only in the 
-    context of that particular call to `Qubus\Injector\Injector::make`.
-
-### Type-Hint Aliasing
-
-Programming to interfaces is one of the most useful concepts in object-oriented design (OOD), and well-designed code 
-should type-hint interfaces whenever possible. But does this mean we have to assign injection definitions for every 
-class in our application to reap the benefits of abstracted dependencies? Thankfully the answer to this question is, 
-"NO." The Injector accommodates this goal by accepting "aliases". Consider:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class Car {
-    private $engine;
-    
-    public function __construct(\Engine $engine) {
-        $this->engine = $engine;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        // Tell the Injector class to inject an instance of V8 any time
-        // it encounters an Engine type-hint
-        $this->codefy->alias(
-            original: \Engine::class,
-            alias: \V8::class
-        );
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it works
-$car = app(name: \Car::class);
-
-var_dump($car instanceof \Car); // true
-```
-
-In this example we've demonstrated how to specify an alias class for any occurrence of a particular interface or 
-abstract class type-hint. Once an implementation is assigned, the Injector will use it to provision any parameter 
-with a matching type-hint.
-
-!!! note "Note:"
-    If an injection definition is defined for a parameter covered by an implementation assignment, the definition takes 
-    precedence over the implementation.
-
-### Non-Class Parameters
-
-All the previous examples have demonstrated how the Injector class instantiates parameters based on type-hints, 
-class name definitions and existing instances. But what happens if we want to inject a scalar or other non-object 
-variable into a class? First, let's establish the following behavioral rule:
-
-!!! note "Note:"
-    The Injector assumes all named-parameter definitions are class names by default.
-
-If you want the Injector to treat a named-parameter definition as a "raw" value and not a class name, you must prefix 
-the parameter name in your definition with a colon character `:`. For example, consider the following code in which we 
-tell the Injector to share a `PDO` database connection instance and define its scalar constructor parameters:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use PDO;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $this->codefy->share(nameOrInstance: PDO::class);
-
-        $this->codefy->define(
-            name: PDO::class,
-            args: [
-                ':dsn' => 'mysql:dbname=testdb;host=127.0.0.1',
-                ':username' => 'dbuser',
-                ':password' => 'dbpass'
-            ]
-        );
-    }
-}
-```
-
-The colon character preceding the parameter names tells the Injector that the associated values ARE NOT class names. 
-If the colons had been omitted above, Qubus Injector would attempt to instantiate classes of the names specified in the 
-string and an exception would result. Also, note that we could just as easily specified arrays or integers or any other 
-data type in the above definitions. As long as the parameter name is prefixed with a `:`, Qubus Injector will inject the 
-value directly without attempting to instantiate it.
-
-!!! info "Info:"
-    As mentioned previously, since the `define()` call is passing raw values, you may opt to assign the values by 
-    parameter order rather than name. Since PDO's first three parameters are `$dsn`, `$username`, and `$password`, 
-    in that order, you could accomplish the same result by leaving out the array keys, 
-    like so: `$this->codefy->define(name: PDO::class, args: ['mysql:dbname=testdb;host=127.0.0.1', 'dbuser', 'dbpass']);`.
-
-### Global Parameter Definitions
-
-Sometimes applications may reuse the same value everywhere. However, it can be a hassle to manually specify definitions 
-for this sort of thing everywhere it might be used in the app. Qubus Injector mitigates this problem by exposing the 
-`defineParam()` method. Consider the following example:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class MyClass {
-    public $myValue;
-    
-    public function __construct($myValue) {
-        $this->myValue = $myValue;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $myUniversalValue = 42;
-        $this->codefy->defineParam(
-            paramName: 'myValue',
-            value: $myUniversalValue
-        );
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it works
-$obj = app(name: \MyClass::class);
-
-var_dump($obj->myValue === 42); // bool(true)
-```
-
-Because we specified a global definition for `myValue`, all parameters that are not in some other way defined 
-(as below) that match the specified parameter name are autofilled with the global value. If a parameter matches any of 
-the following criteria the global value is not used:
-
-* A typehint
-* A predefined injection definition
-* A custom call time definition
-
-### Advanced Usage
-
-#### Instance Sharing
-
-One of the more ubiquitous plagues in modern OOP is the Singleton antipattern. Coders looking to limit classes to a 
-single instance often fall into the trap of using static Singleton implementations for things like configuration 
-classes and database connections. While it's often necessary to prevent multiple instances of a class, the Singleton 
-method spells death to testability and should generally be avoided. `Qubus\Injector\Injector` makes sharing class 
-instances across contexts a triviality while allowing maximum testability and API transparency.
-
-Let's consider how a typical problem facing object-oriented web applications is easily solved by wiring together your 
-application using the Injector. Here, we want to inject a single database connection instance across multiple layers of 
-an application. We have a controller class that asks for a `DataMapper` that requires a `PDO` database connection instance:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use PDO;
-
-final class DataMapper {
-    private PDO $pdo;
-    
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-final class MyController {
-    private \DataMapper $mapper;
-    
-    public function __construct(\DataMapper $mapper) {
-        $this->mapper = $mapper;
-    }
-}
-```
-
-```php
-<?php
-
-namespace Application\Provider;
-
-declare(strict_types=1);
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use PDO;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $db = new PDO('mysql:host=localhost;dbname=mydb', 'user', 'pass');
-
-        $this->codefy->share(nameOrInstance: $db);
-    }
-}
-```
-
-In the above code, the `DataMapper` instance will be provisioned with the same `PDO` database connection instance we 
-originally shared. This example is contrived and overly simple, but the implication should be clear:
-
-!!! info "Info:"
-    By sharing an instance of a class, `Qubus\Injector\Injector` will always use that instance when provisioning classes 
-    that type-hint the shared class.
-
-#### A Simpler Example
-
-Let's look at a simple proof of concept:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class Person {
-    public string $name = 'John Snow';
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use Person;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $this->codefy->share(nameOrInstance: Person::class);
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it out
-$person = app(name: \Person::class);
-
-var_dump($person->name); // John Snow
-
-$person->name = 'Arya Stark';
-
-$anotherPerson = app(name: \Person::class);
-
-var_dump($anotherPerson->name); // Arya Stark
-
-var_dump($person === $anotherPerson); // bool(true) because it's the same instance!
-```
-
-Defining an object as shared will store the provisioned instance in the Injector's shared cache and all future requests 
-to the provider for an injected instance of that class will return the originally created object. Note that in the 
-above code, we shared the class name (`Person`) instead of an actual instance. Sharing works with either a class name or 
-an instance of a class. The difference is that when you specify a class name, the Injector will cache the shared 
-instance the first time it is asked to create it.
-
-!!! note "Note:"
-    Once the Injector caches a shared instance, call-time definitions passed to `Qubus\Injector\Injector::make` will have 
-    no effect. Once shared, an instance will always be returned for instantiations of its type until the object is 
-    un-shared or refreshed:
-
-### Instantiation Delegates
-
-Often factory classes/methods are used to prepare an object for use after instantiation. The Injector allows you to 
-integrate factories and builders directly into the injection process by specifying callable instantiation delegates on 
-a per-class basis. Let's look at a very basic example to demonstrate the concept of injection delegates:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class MyComplexClass {
-    public $verification = false;
-    
-    public function doSomethingAfterInstantiation() {
-        $this->verification = true;
-    }
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use MyComplexClass;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-
-        $complexClassFactory = function() {
-            $obj = new MyComplexClass();
-            $obj->doSomethingAfterInstantiation();
-
-            return $obj;
-        };
-
-        $this->codefy->delegate(
-            name: MyComplexClass::class,
-            callableOrMethodStr: $complexClassFactory
-        );
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it out
-$obj = app(name: \MyComplexClass::class);
-
-var_dump($obj->verification); // bool(true)
-```
-
-In the above code we delegate instantiation of the `MyComplexClass` class to a closure, `$complexClassFactory`. 
-Once this delegation is made, the Injector will return the results of the specified closure when asked to instantiate 
-`MyComplexClass`.
-
-#### Available Delegate Types
-
-Any valid PHP callable may be registered as a class instantiation delegate using `Qubus\Injector\Injector::delegate`. 
-Additionally, you may specify the name of a delegate class that specifies an `__invoke` method, and it will be 
-automatically provisioned and have its `__invoke` method called at delegation time. Instance methods from uninstantiated 
-classes may also be specified using the `['NonStaticClassName', 'factoryMethod']` construction. For example: visiting:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class SomeClassWithDelegatedInstantiation {
-    public $value = 0;
-}
-
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class SomeFactoryDependency {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-final class MyFactory {
-    private \SomeFactoryDependency $dependency;
-    
-    public function __construct(\SomeFactoryDependency $dep) {
-        $this->dependency = $dep;
-    }
-    
-    public function __invoke() {
-        $obj = new \SomeClassWithDelegatedInstantiation;
-        $obj->value = 1;
-        return $obj;
-    }
-    
-    public function factoryMethod() {
-        $obj = new \SomeClassWithDelegatedInstantiation;
-        $obj->value = 2;
-        return $obj;
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// Works because MyFactory specifies a magic __invoke() method.
-
-app()->delegate(
-    name: \SomeClassWithDelegatedInstantiation::class,
-    callableOrMethodStr: \MyFactory::class
-);
-
-$obj = app(name: \SomeClassWithDelegatedInstantiation::class);
-
-var_dump($obj->value); // int(1)
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// This also works
-
-app()->delegate(
-    name: \SomeClassWithDelegatedInstantiation::class,
-    callableOrMethodStr: 'MyFactory::factoryMethod'
-);
-
-$obj = app(name: \SomeClassWithDelegatedInstantiation::class);
-
-var_dump($obj->value); // int(2)
-```
-
-### Prepares and Setter Injection
-
-Constructor injection is almost always preferable to setter injection. However, some APIs require additional 
-post-instantiation mutations. The Injector accommodates these use cases with its `prepare()` method. 
-Users may register any class or interface name for post-instantiation modification. Consider:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-
-class MyClass {
-    public $myProperty = 0;
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use MyClass;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    public function register(): void
-    {
-        $this->codefy->prepare(
-            name: MyClass::class,
-            callableOrMethodStr: function(int $myObj) {
-                $myObj->myProperty = 42;
-            }
-        );
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// test it works
-$myObj = app(name: \MyClass::class);
-
-var_dump($myObj->myProperty); // int(42)
-```
-
-While the above example is contrived, the usefulness should be clear.
-
-#### Injecting for Execution
-
-In addition to provisioning class instances using constructors, the Injector can also recursively instantiate the 
-parameters of any valid PHP callable. The following examples all work:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use function Codefy\Framework\Helpers\app;
-
-$injector = app();
-
-$injector->execute(callableOrMethodStr: function(){});
-$injector->execute(callableOrMethodStr: [$objectInstance, 'methodName']);
-$injector->execute(callableOrMethodStr: 'globalFunctionName');
-$injector->execute(callableOrMethodStr: 'MyStaticClass::myStaticMethod');
-$injector->execute(callableOrMethodStr: ['MyStaticClass', 'myStaticMethod']);
-$injector->execute(callableOrMethodStr: ['MyChildStaticClass', 'parent::myStaticMethod']);
-$injector->execute(callableOrMethodStr: 'ClassThatHasMagicInvoke');
-$injector->execute(callableOrMethodStr: $instanceOfClassThatHasMagicInvoke);
-$injector->execute(callableOrMethodStr: 'MyClass::myInstanceMethod');
-```
-
-Additionally, you can pass in the name of a class for a non-static method and the injector will automatically 
-provision an instance of the class (subject to any definitions or shared instances already stored by the injector) 
-before provisioning and invoking the specified method:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class Dependency {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class AnotherDependency {}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-class Example {
-
-    public function __construct(\Dependency $dep) 
-    {
-    }
-    
-    public function myMethod(\AnotherDependency $arg1, $arg2) {
-        return $arg2;
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-$injector = app();
-
-// outputs: int(42)
-var_dump(
-    $injector->execute(
-        callableOrMethodStr: 'Example::myMethod',
-        args: $args = [':arg2' => 42]
-    )
-);
-```
-
-#### Dependency Resolution
-
-The Injector resolves dependencies in the following order:
-
-1. If a shared instance exists for the class in question, the shared instance will always be returned. 
-2. If a delegate callable is assigned for a class, its return result will always be used. 
-3. If a call-time definition is passed to `Qubus\Injector\Injector::make`, that definition will be used. 
-4. If a pre-defined definition exists, it will be used. 
-5. If a dependency is type-hinted, the Injector will recursively instantiate it subject to any implementations or definitions. 
-6. If no type-hint exists and the parameter has a default value, the default value is injected. 
-7. If a global parameter value is defined that value is used. 
-8. Throw an exception because you did something stupid.
-
-### Avoiding Evil Singletons
-
-A common difficulty in web applications is limiting the number of database connection instances. It's wasteful and slow 
-to open up new connections each time we need to talk to a database. Unfortunately, using singletons to limit these 
-instances makes code brittle and hard to test. Let's see how we can use a service provider to inject the same PDO 
-instance across the entire scope of our application.
-
-Say we have a service class that requires two separate data mappers to persist information to a database:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use PDO;
-use RecordNotFoundException;
-
-final class HouseMapper {
-    private PDO $pdo;
-
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
-
-    public function find($houseId) {
-        $query = 'SELECT * FROM houses WHERE houseId = :houseId';
-
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(':houseId', $houseId);
-
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Model\\Entities\\House');
-        $stmt->execute();
-        $house = $stmt->fetch(PDO::FETCH_CLASS);
-
-        if (false === $house) {
-            throw new RecordNotFoundException(
-                'No houses exist for the specified ID'
-            );
-        }
-
-        return $house;
-    }
-
-    // more data mapper methods here ...
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use PDO;
-
-class PersonMapper {
-    private PDO $pdo;
-    
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
-    // data mapper methods here
-}
-```
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use HouseMapper;
-use PersonMapper;
-
-class SomeService {
-    private HouseMapper $houseMapper;
-    private PersonMapper $personMapper;
-    
-    public function __construct(HouseMapper $hm, PersonMapper $pm) {
-        $this->houseMapper = $hm;
-        $this->personMapper = $pm;
-    }
-    
-    public function doSomething() {
-        // do something with the mappers
-    }
-}
-```
-
-In our wiring/bootstrap code, we simply instantiate the `PDO` instance once and share it in the context of the Injector. 
-The sharing (using the `share()` method) of the `PDO` instance is similar to a singleton - one and the same instance 
-throughout your application.
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use PDO;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    /**
-     * Register and share the PDO instance.
-     * 
-     * @return void
-     */
-    public function register(): void
-    {
-        $pdo = new PDO('sqlite:some_sqlite_file.sqlite');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        $this->codefy->share(nameOrInstance: $pdo);
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// instantiate the class SomeService and the Injector will
-// supply the needed PDO dependency.
-$service = app(name: \SomeService::class);
-```
-
-In the above code, the DIC instantiates our service class. More importantly, the data mapper classes it generates to do 
-so are injected *with the same database connection instance we originally shared*.
-
-Of course, we don't have to manually instantiate our `PDO` instance. We could just as easily seed the container with a 
-definition for how to create the `PDO` object and let it handle things for us:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Application\Provider;
-
-use Codefy\Framework\Support\CodefyServiceProvider;
-use PDO;
-
-final class ExampleServiceProvider extends CodefyServiceProvider
-{
-    /**
-     * Define the PDO instance and share it.
-     * 
-     * @return void
-     */
-    public function register(): void
-    { 
-        $this->codefy->define(
-            name: PDO::class,
-            args: [
-                ':dsn' => 'sqlite:some_sqlite_file.sqlite'
-            ]
-        );
-
-        $this->codefy->share(nameOrInstance: PDO::class);
-    }
-}
-```
-
-```php
-<?php
-
-use function Codefy\Framework\Helpers\app;
-
-// instantiate the class SomeService and the Injector will
-// supply the needed PDO dependency.
-$service = app(name: \SomeService::class);
-```
-
-In the above code, the injector will pass the string definition as the $dsn argument in the `PDO::__construct` method 
-and generate the shared `PDO` instance automatically only if one of the classes it instantiates requires a `PDO` instance!
-
-## PSR-11 Container
-
-Codefy includes a PSR-11 compatible container which extends the Injector. You can type-hint the PSR-11 container 
-interface, and it will return an `Injector` instance.
-
-```php
-<?php
-
-return function (Psr\Container\ContainerInterface $container) {
-    $db = $container->get(id: \Qubus\Expressive\QueryBuilder::class);
-
-    //
-};
-```
+`Qubus\Injector\Reflector` defines:
+
+| Method                                                                               | Result                            |
+|--------------------------------------------------------------------------------------|-----------------------------------|
+| `getClass(string\|object $class)`                                                    | A `ReflectionClass`               |
+| `getConstructor(string\|object $class)`                                              | Its `ReflectionMethod`, or `null` |
+| `getConstructorParams(string\|object $class)`                                        | Constructor parameters, or `null` |
+| `getParamTypeHint(ReflectionFunctionAbstract $function, ReflectionParameter $param)` | One class type name, or `null`    |
+| `getFunction(string\|Closure $function)`                                             | A `ReflectionFunction`            |
+| `getMethod(string\|object $class, string $method)`                                   | A `ReflectionMethod`              |
+
+`Qubus\Injector\Cache\ReflectionCache` defines
+`fetch(string $key)` and `store(string $key, $data)`. Their return types
+remain undeclared for compatibility with existing third-party cache
+implementations. Bundled cache implementations return the cached value from
+`fetch()` and return nothing from `store()`. A cache miss is represented
+by `false`; `null` is a cacheable value.
+
+The package also exposes `ApcReflectionCache` and
+`ApcuReflectionCache`. They require the corresponding extension and a
+runtime capable of storing the reflected values. Both use a five-second
+external-cache TTL by default; `setTimeToLive(int $seconds)` changes it to a
+positive value. A failed store throws `ApcStoreException` or
+`ApcuStoreException`. The array cache is the portable default.
+
+The standard reflector resolves one unambiguous non-builtin named class type.
+For a union, it can resolve the type when exactly one member is a non-builtin
+class. It also understands `self`, `static`, and `parent`. Builtins,
+unions with multiple class members, and intersection types require explicit
+definitions.
+
+## Configuration object API
+
+`Qubus\Injector\Config\InjectorConfig` implements `Config` and extends
+`ArrayObject`, providing array access, iteration, and counting. It provides:
+
+| Method                                             | Purpose                                                           |
+|----------------------------------------------------|-------------------------------------------------------------------|
+| `all(): array`                                     | Return all configuration                                          |
+| `get(string $key, $default = null): string\|array` | Read a string or array; string keys support dot notation          |
+| `has(string $key): bool`                           | Check whether a key exists, including a key whose value is `null` |
+| `add($key, $value): InjectorConfig`                | Add or replace a value; a `null` key appends                      |
+| `remove(...$withKeys): InjectorConfig`             | Remove one or more top-level values                               |
+| `merge(...$arrayToMerge): InjectorConfig`          | Recursively merge arrays or traversable values                    |
+| `toArray(): array`                                 | Export the configuration                                          |
+| `toJson(): string`                                 | JSON encode with exception reporting                              |
+| `count(): int`                                     | Count top-level entries                                           |
+
+`InjectorFactory::create($config, $default)` recursively combines defaults
+and supplied configuration and returns an `InjectorConfig`.
+`ArrayAccess` operations support integer offsets and mixed values. The
+minimal `Config` interface deliberately retains its original string-key and
+`string|array` return contract so existing custom implementations remain
+valid.
+
+## Public API quick reference
+
+`Qubus\Injector\ServiceContainer` defines the primary fluent API:
+
+| Method                                                                                           | Result                                            |
+|--------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| `define(string $name, array $args): ServiceContainer`                                            | Store constructor definitions                     |
+| `defineParam(string $paramName, $value): ServiceContainer`                                       | Store a global parameter fallback                 |
+| `alias(string $original, string $alias): ServiceContainer`                                       | Map an abstraction or class name                  |
+| `share(string\|object $nameOrInstance): ServiceContainer`                                        | Register a lazy class share or immediate instance |
+| `prepare(string $name, callable\|string\|array\|object $callableOrMethodStr): ServiceContainer`  | Register post-construction work                   |
+| `delegate(string $name, callable\|string\|array\|object $callableOrMethodStr): ServiceContainer` | Register a construction factory                   |
+| `proxy(string $name, callable\|string\|array\|object $callableOrMethodStr): ServiceContainer`    | Register a lazy proxy factory                     |
+| `make(string $name, array $args = [])`                                                           | Resolve an entry                                  |
+| `execute(callable\|string\|array\|object $callableOrMethodStr, array $args = [])`                | Resolve and invoke a callable                     |
+
+`Qubus\Injector\Injector` is constructed with
+`__construct(Config $config, ?Reflector $reflector = null)` and additionally
+exposes:
+
+| Method                                                                              | Purpose                                    |
+|-------------------------------------------------------------------------------------|--------------------------------------------|
+| `registerMappings(Config $config): void`                                            | Apply configuration mappings               |
+| `inspect(?string $nameFilter = null, ?int $typeFilter = null)`                      | Inspect registrations                      |
+| `buildExecutable(callable\|string\|array\|object $callableOrMethodStr): Executable` | Normalize a callable for direct invocation |
+| `getInjectionChain(): InjectionChain`                                               | Snapshot the active dependency chain       |
+
+The small `Qubus\Injector\Injection` value object accepts an alias in its
+constructor and exposes it through `getAlias(): string`. It is used by
+configuration-driven argument definitions. Cloning an injector preserves
+registrations but resets the active construction chain.
+
+## Errors and safe usage
+
+Provisioning and invocation failures use
+`Qubus\Injector\InjectionException`. Its
+`getDependencyChain()` method exposes the relevant resolution chain.
+`Qubus\Injector\InjectorException` defines numeric codes
+for invalid aliases, shares, executables, constructors, definitions, cycles,
+and factory failures.
+
+| Code constant              | Meaning                                                    |
+|----------------------------|------------------------------------------------------------|
+| `E_NON_EMPTY_STRING_ALIAS` | An alias endpoint is empty                                 |
+| `E_SHARED_CANNOT_ALIAS`    | A populated share cannot be aliased                        |
+| `E_SHARE_ARGUMENT`         | `share()` received neither a class string nor an object    |
+| `E_ALIASED_CANNOT_SHARE`   | An already-aliased name was shared as an instance          |
+| `E_INVOKABLE`              | An executable is invalid                                   |
+| `E_NON_PUBLIC_CONSTRUCTOR` | A constructor is not public                                |
+| `E_NEEDS_DEFINITION`       | An interface or abstract class has no construction mapping |
+| `E_MAKE_FAILURE`           | Reflection could not construct the requested class         |
+| `E_UNDEFINED_PARAM`        | A required parameter cannot be resolved                    |
+| `E_DELEGATE_ARGUMENT`      | A delegate registration is invalid                         |
+| `E_CYCLIC_DEPENDENCY`      | The object graph contains a cycle                          |
+| `E_MAKING_FAILED`          | Construction or a factory returned a non-object            |
+| `E_CYCLIC_ALIAS`           | An alias would create a cycle                              |
+| `E_INVALID_DEFINITION`     | A nested `@` definition is malformed                       |
+
+Each code has a paired `M_...` message constant on the same interface.
+
+Container mappings, class names, and executable names must be treated as
+trusted application configuration. Do not pass unvalidated request data to
+`make()`, `execute()`, `delegate()`, `proxy()`, or configuration
+mappings: these APIs can instantiate classes and invoke public PHP callables.
+
+The injector resolves object graphs; it does not manage process, request, or
+transaction lifetimes beyond the scope of a particular injector instance.
+Create appropriately scoped injector instances and explicitly configure
+resources that need cleanup.
 
